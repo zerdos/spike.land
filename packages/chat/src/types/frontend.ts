@@ -1,19 +1,4 @@
-export interface Env {
-  DATABASE: D1Database;
-  R2_BUCKET: R2Bucket;
-  KV_STORE: KVNamespace;
-  QUEUE: Queue;
-  CHAT_ROOM: DurableObjectNamespace;
-  AI: Ai;
-  ASSETS?: Fetcher;
-  CLERK_SECRET_KEY: string;
-  CLERK_WEBHOOK_SECRET: string;
-  STRIPE_SECRET_KEY: string;
-  STRIPE_WEBHOOK_SECRET: string;
-  STRIPE_PRICE_ID_PRO: string;
-  STRIPE_PRICE_ID_BUSINESS: string;
-  JWT_SECRET: string;
-}
+// Frontend-only types that don't require Cloudflare Workers types
 
 export interface User {
   id: string;
@@ -86,22 +71,6 @@ export interface WebSocketMessage {
   message?: Message;
   userId?: string;
   error?: string;
-}
-
-export interface AIRequest {
-  model: string;
-  messages: Array<{
-    role: "user" | "assistant" | "system";
-    content: string;
-  }>;
-  temperature?: number;
-  max_tokens?: number;
-}
-
-export interface AuthContext {
-  userId: string;
-  clerkId: string;
-  sessionId?: string;
 }
 
 export interface APIResponse<T = unknown> {

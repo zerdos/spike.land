@@ -17,12 +17,12 @@ class ChatAPI {
   ): Promise<T> {
     // Check for mock responses first (used in tests)
     const mockKey = `${options.method || "GET"} ${endpoint}`;
-    if (typeof window !== "undefined" && (window as any).__mockAPIResponses) {
-      const mockResponse = (window as any).__mockAPIResponses[mockKey];
+    if (typeof window !== "undefined" && (window as unknown as { __mockAPIResponses?: Record<string, unknown> }).__mockAPIResponses) {
+      const mockResponse = (window as unknown as { __mockAPIResponses: Record<string, unknown> }).__mockAPIResponses[mockKey];
       if (mockResponse) {
         // Don't delete for GET requests, allow reuse
         if (options.method && options.method !== "GET") {
-          delete (window as any).__mockAPIResponses[mockKey];
+          delete (window as unknown as { __mockAPIResponses: Record<string, unknown> }).__mockAPIResponses[mockKey];
         }
         return Promise.resolve(mockResponse.data || mockResponse);
       }
@@ -173,8 +173,8 @@ class ChatAPI {
         return {
           tier,
           credits: 0, // Would need to get from user profile
-          features: this.getFeaturesByTier(tier.toLowerCase() as any),
-          limit: this.getLimitByTier(tier.toLowerCase() as any),
+          features: this.getFeaturesByTier(tier.toLowerCase() as "free" | "pro" | "enterprise"),
+          limit: this.getLimitByTier(tier.toLowerCase() as "free" | "pro" | "enterprise"),
         };
       } catch {
         // Default values

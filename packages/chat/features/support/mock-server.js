@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const http = require("http");
-const url = require("url");
+import http from "http";
+import { parse as parseUrl } from "url";
 
 const PORT = process.env.MOCK_SERVER_PORT || 3001;
 
@@ -68,7 +68,7 @@ function sendJSON(res, statusCode, data) {
 
 // Request handler
 function handleRequest(req, res) {
-  const parsedUrl = url.parse(req.url, true);
+  const parsedUrl = parseUrl(req.url, true);
   const path = parsedUrl.pathname;
   const method = req.method;
 

@@ -70,7 +70,7 @@ export function useAuth() {
     });
 
     return () => unsubscribe();
-  }, [clerk.loaded]);
+  }, []); // clerk.loaded is not reactive, so no dependencies needed
 
   // Get session token for API calls
   const getSessionToken = useCallback(async () => {

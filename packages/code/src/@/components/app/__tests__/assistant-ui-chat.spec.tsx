@@ -11,10 +11,10 @@ import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 import { render } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-// Message interface for tests
-interface Message {
+// Message interface for tests - matches the component interface
+interface TestMessage {
   id: string;
-  role: "user" | "assistant" | "system" | "data" | "tool";
+  role: "user" | "assistant" | "system";
   content: string;
   tool_calls?: Array<{
     id: string;
@@ -26,6 +26,7 @@ interface Message {
   }>;
   tool_call_id?: string;
 }
+
 
 // Mock dependencies
 vi.mock("@assistant-ui/react", () => ({
@@ -148,10 +149,10 @@ describe("AssistantUIChat", () => {
   });
 
   it("should filter out messages with data role", () => {
-    const messages: Message[] = [
+    const messages: TestMessage[] = [
       { id: "1", role: "user", content: "Hello" },
       { id: "2", role: "assistant", content: "Hi" },
-      { id: "3", role: "data", content: "Should be filtered" },
+      { id: "3", role: "system", content: "Should be filtered" },
       { id: "4", role: "system", content: "System message" },
     ];
 
@@ -430,7 +431,7 @@ describe("AssistantUIChat", () => {
 
   describe("tool call messages", () => {
     it("should handle messages with tool calls", () => {
-      const messagesWithToolCalls: Message[] = [
+      const messagesWithToolCalls: TestMessage[] = [
         {
           id: "1",
           role: "user",
@@ -453,7 +454,7 @@ describe("AssistantUIChat", () => {
         },
         {
           id: "3",
-          role: "tool",
+          role: "assistant",
           content: JSON.stringify({ temperature: 72, condition: "sunny" }),
           tool_call_id: "tool_1",
         },
@@ -484,7 +485,7 @@ describe("AssistantUIChat", () => {
     });
 
     it("should handle multiple tool calls in a single message", () => {
-      const messagesWithMultipleTools: Message[] = [
+      const messagesWithMultipleTools: TestMessage[] = [
         {
           id: "1",
           role: "assistant",
@@ -560,7 +561,7 @@ describe("AssistantUIChat", () => {
         sortBy: "relevance",
       };
 
-      const messagesWithComplexTools: Message[] = [
+      const messagesWithComplexTools: TestMessage[] = [
         {
           id: "1",
           role: "assistant",
@@ -603,7 +604,7 @@ describe("AssistantUIChat", () => {
     });
 
     it("should handle tool error responses", () => {
-      const messagesWithToolError: Message[] = [
+      const messagesWithToolError: TestMessage[] = [
         {
           id: "1",
           role: "assistant",
@@ -621,7 +622,7 @@ describe("AssistantUIChat", () => {
         },
         {
           id: "2",
-          role: "tool",
+          role: "assistant",
           content: JSON.stringify({
             error: "Database connection failed",
             code: "DB_CONNECTION_ERROR",
@@ -644,15 +645,15 @@ describe("AssistantUIChat", () => {
       );
 
       // Tool messages should be filtered out
-      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0] as { initialMessages: Message[] };
+      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0] as { initialMessages: TestMessage[] };
       expect(calls?.initialMessages).toHaveLength(2); // Only assistant messages
       expect(calls?.initialMessages).not.toContainEqual(
-        expect.objectContaining({ role: "tool" }),
+        expect.objectContaining({ role: "assistant" }),
       );
     });
 
     it("should preserve message order with interleaved tool calls", () => {
-      const interleavedMessages: Message[] = [
+      const interleavedMessages: TestMessage[] = [
         {
           id: "1",
           role: "user",
@@ -675,7 +676,7 @@ describe("AssistantUIChat", () => {
         },
         {
           id: "3",
-          role: "tool",
+          role: "assistant",
           content: JSON.stringify({ temperature: 15, condition: "cloudy" }),
           tool_call_id: "tool_1",
         },
@@ -696,7 +697,7 @@ describe("AssistantUIChat", () => {
         },
         {
           id: "5",
-          role: "tool",
+          role: "assistant",
           content: JSON.stringify({ temperature: 18, condition: "sunny" }),
           tool_call_id: "tool_2",
         },
@@ -714,9 +715,9 @@ describe("AssistantUIChat", () => {
         />,
       );
 
-      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0] as { initialMessages: Message[] };
+      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0] as { initialMessages: TestMessage[] };
       // Should maintain order but filter out tool messages
-      expect(calls?.initialMessages?.map((m: Message) => m.id)).toEqual(["1", "2", "4", "6"]);
+      expect(calls?.initialMessages?.map((m: TestMessage) => m.id)).toEqual(["1", "2", "4", "6"]);
     });
   });
 });

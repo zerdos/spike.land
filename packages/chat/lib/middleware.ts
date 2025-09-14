@@ -2,7 +2,8 @@ import type { NextRequest } from "next/server";
 import type { AuthContext, Env, User } from "../src/types";
 import { AuthService } from "../src/utils/auth";
 import { APIError, AuthenticationError, AuthorizationError, ErrorHandler } from "./error-handler";
-import { applyRateLimit, RATE_LIMIT_RULES, RateLimiter } from "./rate-limiting";
+import { applyRateLimit } from "./rate-limiting";
+import type { RATE_LIMIT_RULES } from "./rate-limiting";
 
 export interface MiddlewareContext {
   env: Env;
@@ -388,7 +389,7 @@ export async function parseRequestBody<T = Record<string, unknown>>(
   try {
     const body = await request.json();
     return body as T;
-  } catch (error) {
+  } catch (_error) {
     throw new APIError("Invalid JSON in request body", "INVALID_JSON", 400);
   }
 }

@@ -5,20 +5,11 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { AssistantUIChat } from "./assistant-ui-chat";
 
-// Message interface for tests
-interface Message {
+// Message interface for tests - matches the component interface
+interface TestMessage {
   id: string;
-  role: "user" | "assistant" | "system" | "data" | "tool";
+  role: "user" | "assistant" | "system";
   content: string;
-  tool_calls?: Array<{
-    id: string;
-    type: string;
-    function: {
-      name: string;
-      arguments: string;
-    };
-  }>;
-  tool_call_id?: string;
 }
 
 // Mock the dependencies
@@ -53,14 +44,14 @@ describe("AssistantUIChat", () => {
   });
 
   it("should render the Thread component", () => {
-    const messages: Message[] = [];
+    const messages: TestMessage[] = [];
     render(<AssistantUIChat codeSpace={mockCodeSpace} initialMessages={messages} />);
 
     expect(screen.getByTestId("thread")).toBeInTheDocument();
   });
 
   it("should provide the runtime to AssistantRuntimeProvider", () => {
-    const messages: Message[] = [];
+    const messages: TestMessage[] = [];
     render(<AssistantUIChat codeSpace={mockCodeSpace} initialMessages={messages} />);
 
     expect(AssistantRuntimeProvider).toHaveBeenCalled();
@@ -70,7 +61,7 @@ describe("AssistantUIChat", () => {
   });
 
   it("should create runtime with correct API endpoint", () => {
-    const messages: Message[] = [];
+    const messages: TestMessage[] = [];
     render(<AssistantUIChat codeSpace={mockCodeSpace} initialMessages={messages} />);
 
     expect(useChatRuntime).toHaveBeenCalledWith({
@@ -80,10 +71,10 @@ describe("AssistantUIChat", () => {
   });
 
   it("should filter out messages with 'data' role", () => {
-    const messages: Message[] = [
+    const messages: TestMessage[] = [
       { id: "1", role: "user", content: "Hello" },
       { id: "2", role: "assistant", content: "Hi there" },
-      { id: "3", role: "data", content: "Some data" },
+      { id: "3", role: "system", content: "Some data" },
       { id: "4", role: "system", content: "System message" },
     ];
 
@@ -102,7 +93,7 @@ describe("AssistantUIChat", () => {
   });
 
   it("should handle empty initial messages", () => {
-    const messages: Message[] = [];
+    const messages: TestMessage[] = [];
     render(<AssistantUIChat codeSpace={mockCodeSpace} initialMessages={messages} />);
 
     expect(useChatRuntime).toHaveBeenCalledWith({
@@ -112,7 +103,7 @@ describe("AssistantUIChat", () => {
   });
 
   it("should render Thread component from assistant-ui", () => {
-    const messages: Message[] = [];
+    const messages: TestMessage[] = [];
     render(<AssistantUIChat codeSpace={mockCodeSpace} initialMessages={messages} />);
 
     expect(Thread).toHaveBeenCalled();

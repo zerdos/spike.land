@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { User } from "../../src/types";
+import type { User } from "../src/types";
 import { Footer } from "../components/layout/footer";
 import { Header } from "../components/layout/header";
 

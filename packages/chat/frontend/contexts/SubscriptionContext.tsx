@@ -1,5 +1,6 @@
 import { useUser } from "@clerk/clerk-react";
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
+import type { ReactNode } from "react";
 
 interface SubscriptionStatus {
   tier: "free" | "pro" | "enterprise";
@@ -30,7 +31,7 @@ export function SubscriptionProvider({ children }: SubscriptionProviderProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchSubscription = async () => {
+  const fetchSubscription = useCallback(async () => {
     if (!user) {
       setLoading(false);
       return;
@@ -60,7 +61,7 @@ export function SubscriptionProvider({ children }: SubscriptionProviderProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     if (isLoaded && user) {
@@ -68,7 +69,7 @@ export function SubscriptionProvider({ children }: SubscriptionProviderProps) {
     } else if (isLoaded) {
       setLoading(false);
     }
-  }, [isLoaded, user]);
+  }, [isLoaded, user, fetchSubscription]);
 
   const hasCredits = (required: number = 1): boolean => {
     return (subscription?.credits || 0) >= required;

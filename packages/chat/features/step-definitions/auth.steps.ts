@@ -8,7 +8,7 @@ Given("I am logged in as a {string} user", async function(this: CustomWorld, use
   const validUserTypes = ["free", "pro", "enterprise", "expired"] as const;
   const userTypeKey = `${userType}User` as keyof typeof AuthFixtures.testUsers;
 
-  if (!validUserTypes.includes(userType as any)) {
+  if (!validUserTypes.includes(userType as typeof validUserTypes[number])) {
     throw new Error(
       `Invalid user type: ${userType}. Valid types are: ${validUserTypes.join(", ")}`,
     );

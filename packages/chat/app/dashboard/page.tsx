@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import type { Conversation, User } from "../../../src/types";
+import { useEffect, useState, useCallback } from "react";
+import type { Conversation, User } from "../../src/types";
 import { Header } from "../../components/layout/header";
 import { api } from "../../lib/api";
 
@@ -40,9 +40,9 @@ export function DashboardPage({ user, onAuthRequired }: DashboardPageProps) {
     }
 
     loadDashboardData();
-  }, [user, onAuthRequired, selectedPeriod]);
+  }, [user, onAuthRequired, selectedPeriod, loadDashboardData]);
 
-  const loadDashboardData = async () => {
+  const loadDashboardData = useCallback(async () => {
     setIsLoading(true);
     try {
       // Load conversations
@@ -75,7 +75,7 @@ export function DashboardPage({ user, onAuthRequired }: DashboardPageProps) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [user]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {

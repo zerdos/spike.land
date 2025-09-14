@@ -33,6 +33,23 @@ export default [
       "**/out/**/*",
       "**/.nuxt/**/*",
       "**/.svelte-kit/**/*",
+      "**/public/assets/**/*",
+      "**/public/js/**/*",
+      "packages/chat/public/assets/**/*",
+      "packages/chat/public/js/**/*",
+      // Coverage reports
+      "**/coverage/**/*",
+      // Development containers
+      "devcontainers/**/*",
+      // Temporary files
+      ".tmp/**/*",
+      "temp/**/*",
+      // Storybook build outputs
+      "storybook-static/**/*",
+      // Playwright
+      "test-results/**/*",
+      "playwright-report/**/*",
+      "playwright/.cache/**/*",
     ],
   },
 

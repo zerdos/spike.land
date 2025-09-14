@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Conversation, Message, User } from "../../../src/types";
+import type { Conversation, Message, User } from "../../src/types/frontend";
 import { ChatInterface } from "../../components/ChatInterface";
 import { ConnectionStatus } from "../../components/ConnectionStatus";
 import { ConversationList } from "../../components/ConversationList";
@@ -28,13 +28,16 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
     limit: 10,
   });
 
-  const { isConnected, sendMessage: _sendWebSocketMessage } = useWebSocket({
-    onMessage: (data) => {
-      if (data.type === "message" && currentConversation) {
-        setMessages((prev) => [...prev, data.message]);
-      }
-    },
-  });
+  const { isConnected, lastMessage, sendMessage: _sendWebSocketMessage } = useWebSocket(
+    currentConversation ? `/api/conversations/${currentConversation.id}/ws` : null
+  );
+
+  // Handle incoming WebSocket messages
+  useEffect(() => {
+    if (lastMessage && lastMessage.type === "message" && currentConversation) {
+      setMessages((prev) => [...prev, lastMessage.data as Message]);
+    }
+  }, [lastMessage, currentConversation]);
 
   useEffect(() => {
     // Check authentication
@@ -50,8 +53,10 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
 
   const loadConversations = async () => {
     try {
-      const data = await api.getConversations();
-      setConversations(data);
+      const response = await api.getConversations();
+      if (response.success && response.data) {
+        setConversations(response.data);
+      }
     } catch (error) {
       console.error("Failed to load conversations:", error);
     }
@@ -70,13 +75,15 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
     }
 
     try {
-      const data = await api.getSubscriptionInfo();
-      setSubscription({
-        tier: data.tier || "Free",
-        credits: data.credits || 10,
-        features: data.features || "Basic chat, 10 messages per day",
-        limit: data.limit || 10,
-      });
+      const response = await api.getSubscriptionInfo();
+      if (response.success && response.data) {
+        setSubscription({
+          tier: response.data.tier || "Free",
+          credits: response.data.credits || 10,
+          features: response.data.features || "Basic chat, 10 messages per day",
+          limit: response.data.limit || 10,
+        });
+      }
     } catch (error) {
       console.error("Failed to load subscription info:", error);
     }
@@ -98,13 +105,13 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
     setSidebarOpen(false);
 
     try {
-      const data = await api.createConversation({
+      const response = await api.createConversation({
         title: "New Conversation",
         model: "llama-2-7b",
       });
-      if (data.id) {
-        setCurrentConversation(data);
-        setConversations((prev) => prev.map((c) => (c.id === newConv.id ? data : c)));
+      if (response.success && response.data) {
+        setCurrentConversation(response.data);
+        setConversations((prev) => prev.map((c) => (c.id === newConv.id ? response.data! : c)));
       }
     } catch (error) {
       console.error("Failed to create conversation via API:", error);
@@ -117,9 +124,9 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
     setSidebarOpen(false);
 
     try {
-      const data = await api.getConversation(conv.id);
-      if (data.messages) {
-        setMessages(data.messages);
+      const response = await api.getConversation(conv.id);
+      if (response.success && response.data?.messages) {
+        setMessages(response.data.messages);
       }
     } catch (error) {
       console.error("Failed to load messages:", error);
@@ -165,22 +172,22 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
         content,
       });
 
-      const assistantMessage: Message = {
-        id: response.id || "msg-" + Date.now(),
-        conversation_id: currentConversation.id,
-        role: "assistant",
-        content: response.content || "Hello! How can I help you today?",
-        created_at: new Date().toISOString(),
-      };
+      if (response.success && response.data) {
+        const assistantMessage: Message = {
+          id: response.data.id || "msg-" + Date.now(),
+          conversation_id: currentConversation.id,
+          role: "assistant",
+          content: response.data.content || "Hello! How can I help you today?",
+          created_at: new Date().toISOString(),
+        };
 
-      setMessages((prev) => [...prev, assistantMessage]);
+        setMessages((prev) => [...prev, assistantMessage]);
 
-      if (response.creditsRemaining !== undefined) {
         setSubscription((prev) => ({
           ...prev,
-          credits: response.creditsRemaining,
+          credits: response.data!.creditsRemaining,
         }));
-        localStorage.setItem("user_credits", response.creditsRemaining.toString());
+        localStorage.setItem("user_credits", response.data!.creditsRemaining.toString());
       }
     } catch (error) {
       console.error("Failed to send message:", error);
@@ -197,8 +204,8 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
   const upgradeSubscription = async () => {
     try {
       const response = await api.createCheckoutSession("pro");
-      if (response.url) {
-        window.location.href = response.url;
+      if (response.success && (response.data as { url?: string })?.url) {
+        window.location.href = (response.data as { url: string }).url;
       }
     } catch (error) {
       console.error("Failed to create checkout session:", error);

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface WebSocketMessage {
   type: string;
-  data: any;
+  data: unknown;
 }
 
 export function useWebSocket(url: string | null) {

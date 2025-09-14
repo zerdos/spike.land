@@ -270,7 +270,7 @@ Then("I should see my billing history", async function(this: CustomWorld) {
 Then("I should receive a subscription confirmation email", async function(this: CustomWorld) {
   // In a real test, this would verify email sending
   // For now, we'll just verify the confirmation state is set
-  const emailSent = await this.page.evaluate(() => {
+  const _emailSent = await this.page.evaluate(() => {
     return localStorage.getItem("subscription_email_sent") === "true";
   });
 

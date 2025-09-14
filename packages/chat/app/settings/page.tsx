@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { User } from "../../../src/types";
+import type { User } from "../../src/types";
 import { Header } from "../../components/layout/header";
 import { api as _api } from "../../lib/api";
 

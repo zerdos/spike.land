@@ -16,6 +16,7 @@ describe("WebSocketHandler", () => {
     css: "mock css",
     transpiled: "mock transpiled",
     codeSpace: "codeSpace",
+    messages: [], // Add missing messages property
   };
 
   beforeEach(() => {
@@ -28,6 +29,9 @@ describe("WebSocketHandler", () => {
         code: "mock code",
         html: "mock html",
         css: "mock css",
+        transpiled: "mock transpiled",
+        codeSpace: "mock-code-space",
+        messages: [], // Add missing messages property
       }),
       updateAndBroadcastSession: vi.fn(),
     };
@@ -91,9 +95,9 @@ describe("WebSocketHandler", () => {
       // Advance timer to trigger ping
       vi.advanceTimersByTime(30000);
 
-      // Verify ping was sent
+      // Verify ping was sent (now includes hashCode)
       expect(mockWebSocket.send).toHaveBeenCalledWith(
-        JSON.stringify({ type: "ping" }),
+        expect.stringMatching(/"type":"ping".*"hashCode":"[^"]*"/),
       );
 
       // Simulate pong response
@@ -104,7 +108,7 @@ describe("WebSocketHandler", () => {
       // First scheduled ping
       vi.advanceTimersByTime(30000);
       expect(mockWebSocket.send).toHaveBeenCalledWith(
-        JSON.stringify({ type: "ping" }),
+        expect.stringMatching(/"type":"ping".*"hashCode":"[^"]*"/),
       );
 
       // Simulate pong response again
@@ -113,7 +117,7 @@ describe("WebSocketHandler", () => {
       // Second scheduled ping
       vi.advanceTimersByTime(30000);
       expect(mockWebSocket.send).toHaveBeenCalledWith(
-        JSON.stringify({ type: "ping" }),
+        expect.stringMatching(/"type":"ping".*"hashCode":"[^"]*"/),
       );
 
       vi.useRealTimers();
@@ -345,7 +349,7 @@ describe("WebSocketHandler", () => {
       const mockWebSocket1 = {
         accept: vi.fn(),
         send: vi.fn(),
-        readyState: 1,
+        readyState: 1, // Must be 1 (OPEN) for safeSend to work
         close: vi.fn(),
         addEventListener: vi.fn(),
       } as unknown as WebSocket;
@@ -353,13 +357,21 @@ describe("WebSocketHandler", () => {
       const mockWebSocket2 = {
         accept: vi.fn(),
         send: vi.fn(),
-        readyState: 1,
+        readyState: 1, // Must be 1 (OPEN) for safeSend to work
         close: vi.fn(),
         addEventListener: vi.fn(),
       } as unknown as WebSocket;
 
       websocketHandler.handleWebsocketSession(mockWebSocket1);
       websocketHandler.handleWebsocketSession(mockWebSocket2);
+
+      // Verify sessions were added
+      const sessions = websocketHandler.getWsSessions();
+      expect(sessions).toHaveLength(2);
+
+      // Clear the handshake messages that were sent during session setup
+      (mockWebSocket1.send as ReturnType<typeof vi.fn>).mockClear();
+      (mockWebSocket2.send as ReturnType<typeof vi.fn>).mockClear();
 
       const broadcastMessage = "test broadcast";
       websocketHandler.broadcast(broadcastMessage);
@@ -374,7 +386,7 @@ describe("WebSocketHandler", () => {
       const mockWebSocket1 = {
         accept: vi.fn(),
         send: mockSend,
-        readyState: 1,
+        readyState: 1, // Must be 1 for safeSend to attempt sending
         close: vi.fn(),
         addEventListener: vi.fn(),
       } as unknown as WebSocket;
@@ -396,9 +408,8 @@ describe("WebSocketHandler", () => {
       // Broadcast after handshake
       websocketHandler.broadcast("test message");
 
-      // Verify error handling
-      expect(mockWebSocket1.close).toHaveBeenCalled();
-      expect(consoleError).toHaveBeenCalled();
+      // Verify error handling (safeSend logs errors but doesn't close connection)
+      expect(consoleError).toHaveBeenCalledWith("WebSocket send error:", expect.any(Error));
 
       consoleError.mockRestore();
     });

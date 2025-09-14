@@ -262,10 +262,10 @@ export class StripeFixtures {
     // Mock Stripe.js loading
     await page.addInitScript(() => {
       // Mock Stripe global object
-      (window as typeof window & { Stripe: (publishableKey: string) => unknown }).Stripe = function(publishableKey: string) {
+      (window as typeof window & { Stripe: (_publishableKey: string) => unknown }).Stripe = function(_publishableKey: string) {
         return {
           elements: () => ({
-            create: (type: string, options?: Record<string, unknown>) => ({
+            create: (type: string, _options?: Record<string, unknown>) => ({
               mount: (selector: string) => {
                 const element = document.querySelector(selector);
                 if (element) {
@@ -274,31 +274,31 @@ export class StripeFixtures {
                 }
               },
               unmount: () => {},
-              on: (event: string, handler: (...args: unknown[]) => void) => {},
+              on: (_event: string, _handler: (...args: unknown[]) => void) => {},
               focus: () => {},
               blur: () => {},
             }),
-            getElement: (type: string) => null,
+            getElement: (_type: string) => null,
           }),
-          createPaymentMethod: async (options: Record<string, unknown>) => ({
+          createPaymentMethod: async (_options: Record<string, unknown>) => ({
             paymentMethod: StripeFixtures.paymentMethods.validVisa,
             error: null,
           }),
-          confirmCardPayment: async (clientSecret: string, options?: Record<string, unknown>) => ({
+          confirmCardPayment: async (_clientSecret: string, _options?: Record<string, unknown>) => ({
             paymentIntent: {
               id: "pi_test123",
               status: "succeeded",
             },
             error: null,
           }),
-          confirmPayment: async (options: Record<string, unknown>) => ({
+          confirmPayment: async (_options: Record<string, unknown>) => ({
             paymentIntent: {
               id: "pi_test123",
               status: "succeeded",
             },
             error: null,
           }),
-          retrievePaymentIntent: async (clientSecret: string) => ({
+          retrievePaymentIntent: async (_clientSecret: string) => ({
             paymentIntent: {
               id: "pi_test123",
               status: "succeeded",

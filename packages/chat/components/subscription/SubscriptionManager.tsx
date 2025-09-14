@@ -1,6 +1,6 @@
 import { useUser } from "@clerk/clerk-react";
 import { AlertCircle, CheckCircle, CreditCard } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { getStripe, SUBSCRIPTION_TIERS } from "../../lib/stripe";
 import { PricingCard } from "./PricingCard";
 
@@ -23,9 +23,9 @@ export function SubscriptionManager() {
     if (isLoaded && user) {
       fetchSubscriptionStatus();
     }
-  }, [isLoaded, user]);
+  }, [isLoaded, user, fetchSubscriptionStatus]);
 
-  const fetchSubscriptionStatus = async () => {
+  const fetchSubscriptionStatus = useCallback(async () => {
     try {
       const response = await fetch("/api/subscription/status", {
         headers: {
@@ -49,7 +49,7 @@ export function SubscriptionManager() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
 
   const handleSubscribe = async (tierId: string) => {
     if (!user) return;

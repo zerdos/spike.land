@@ -126,7 +126,7 @@ RUN chmod 755 /usr/local/bin/yarn &&  yarn --version
 ### deno.Dockerfile
 
 USER ${USER}
-RUN (curl -fsSL https://deno.land/x/install/install.sh | sh -s v2.2.1 \
+RUN (curl -fsSL https://deno.land/x/install/install.sh | sh -s v2.2.9 \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${USER_HOME}/.zshrc \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${USER_HOME}/.bashrc \
   && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${USER_HOME}/.bashrc \

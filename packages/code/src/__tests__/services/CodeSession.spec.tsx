@@ -10,8 +10,9 @@ vi.mock("/swVersion.mjs", () => ({
 // Mock dependencies
 vi.mock("@/lib/make-sess", () => ({
   computeSessionHash: vi.fn(() => "mockHash"),
-  sanitizeSession: vi.fn((session: unknown) => {
-    if (!session) {
+  sanitizeSession: vi.fn((session: unknown): ICodeSession => {
+    const typedSession = session as Partial<ICodeSession> | null | undefined;
+    if (!typedSession) {
       return {
         codeSpace: "",
         code: "",
@@ -22,16 +23,16 @@ vi.mock("@/lib/make-sess", () => ({
       };
     }
     return {
-      codeSpace: session.codeSpace || "",
-      code: session.code || "",
-      html: session.html || "",
-      css: session.css || "",
-      transpiled: session.transpiled || "",
-      messages: session.messages || [],
+      codeSpace: typedSession.codeSpace || "",
+      code: typedSession.code || "",
+      html: typedSession.html || "",
+      css: typedSession.css || "",
+      transpiled: typedSession.transpiled || "",
+      messages: typedSession.messages || [],
     };
   }),
-  sessionToJSON: vi.fn((s: unknown) => JSON.stringify(s)),
-  applySessionDelta: vi.fn((s: unknown) => s),
+  sessionToJSON: vi.fn((s: ICodeSession) => JSON.stringify(s)),
+  applySessionDelta: vi.fn((s: ICodeSession) => s),
   generateSessionPatch: vi.fn(() => ({ oldHash: "", hashCode: "", delta: [] })),
 }));
 
@@ -213,12 +214,12 @@ describe("Code", () => {
       ...mockSession,
     }));
     vi.spyOn(cSess["sessionManager"], "updateSession").mockImplementation(
-      (session: unknown) => {
+      (session: Partial<ICodeSession>) => {
         mockSession = { ...mockSession, ...session };
       },
     );
     vi.spyOn(cSess["sessionManager"], "init").mockImplementation(
-      async (session: unknown) => {
+      async (session?: Partial<ICodeSession>) => {
         if (session) {
           mockSession = { ...mockSession, ...session };
         }

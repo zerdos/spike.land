@@ -26,6 +26,8 @@
     "test": "NODE_OPTIONS='--no-warnings' vitest --reporter dot --silent --no-color run",
     "test:e2e": "playwright test tests/*.spec.ts",
     "ci": "yarn install --immutable && yarn lint && yarn types:check && yarn test:ci && yarn test:chat:cucumber",
+    "ci:check": "echo '🔧 Running complete CI checks...' && yarn install --immutable && echo '✅ Dependencies installed' && yarn eslint --max-warnings=200 && echo '✅ ESLint passed' && yarn types:check && echo '✅ TypeScript check passed' && cd packages/code && yarn vitest run && cd .. && echo '✅ Unit tests passed' && cd chat && npx playwright install chromium && yarn test:cucumber && cd ../.. && echo '✅ E2E tests passed' && yarn build:all && echo '✅ Build successful' && echo '🎉 All CI checks passed!'",
+    "ci:quick": "yarn eslint --max-warnings=200 && yarn types:check && yarn test",
     "ci:docker": "docker-compose -f docker-compose.ci.yml up --build --abort-on-container-exit",
     "test:ci": "cd packages/code && yarn vitest run && cd ../chat && npx playwright install chromium && yarn test:cucumber",
     "test:chat:cucumber": "cd packages/chat && yarn test:cucumber",

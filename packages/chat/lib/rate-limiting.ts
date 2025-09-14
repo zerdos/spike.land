@@ -230,7 +230,7 @@ export async function getRateLimitStatus(
   rule: RateLimitRule;
   current: RateLimitResult;
 }> {
-  const rateLimiter = new RateLimiter(env);
+  const _rateLimiter = new RateLimiter(env);
   const rule = RATE_LIMIT_RULES[ruleName];
 
   // This doesn't increment the counter, just checks status

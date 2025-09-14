@@ -10,9 +10,10 @@ export default {
   async fetch(request, env, ctx): Promise<Response> {
     const { searchParams } = new URL(request.url);
     let url = searchParams.get("url");
-    const _top = searchParams.get("top");
-    const _maxRetries = parseInt(searchParams.get("maxRetries") || "3");
-    const _retryInterval = parseInt(searchParams.get("retryInterval") || "1000");
+    // Optional parameters - currently unused but kept for future use
+    // const top = searchParams.get("top");
+    // const maxRetries = parseInt(searchParams.get("maxRetries") || "3");
+    // const retryInterval = parseInt(searchParams.get("retryInterval") || "1000");
 
     if (url) {
       url = new URL(url).toString(); // normalize
@@ -51,11 +52,13 @@ export default {
             fullPage: true,
             quality: 70,
             encoding: "binary",
-          }) as Buffer;
+          }) as unknown as ArrayBuffer;
 
-          ctx.waitUntil(
-            env.BROWSER_KV_SPIKE_LAND.put(url, img, { expirationTtl: 60 }),
-          );
+          if (img) {
+            ctx.waitUntil(
+              env.BROWSER_KV_SPIKE_LAND.put(url, img, { expirationTtl: 60 }),
+            );
+          }
         } catch (error) {
           console.error("Error capturing screenshot:", error);
           return new Response("Error capturing screenshot", { status: 500 });

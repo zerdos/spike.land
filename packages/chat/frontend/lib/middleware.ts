@@ -26,7 +26,7 @@ export const withAuth = async <T>(
 export const checkAuthStatus = (): {
   isSignedIn: boolean;
   isLoaded: boolean;
-  user: any;
+  user: unknown;
 } => {
   return {
     isSignedIn: auth.isSignedIn(),

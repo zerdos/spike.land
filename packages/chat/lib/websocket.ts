@@ -1,4 +1,4 @@
-import type { Message, User, WebSocketMessage } from "../src/types";
+import type { WebSocketMessage } from "../src/types";
 
 export interface WebSocketConnection {
   websocket: WebSocket;

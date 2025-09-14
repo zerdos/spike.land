@@ -260,12 +260,14 @@ export class WebSocketHandler {
 
   broadcast(message: object | string, excludeSession?: WebsocketSession) {
     for (const session of this.wsSessions) {
-      if (session.name !== excludeSession?.name) {
-        this.safeSend(
-          session.webSocket,
-          message,
-        );
+      // Only exclude if we have an exclusion session and it matches
+      if (excludeSession && session === excludeSession) {
+        continue;
       }
+      this.safeSend(
+        session.webSocket,
+        message,
+      );
     }
   }
 }

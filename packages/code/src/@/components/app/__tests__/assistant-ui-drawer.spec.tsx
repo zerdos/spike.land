@@ -113,9 +113,9 @@ describe("AssistantUIDrawer", () => {
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
       const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
-      expect(callArgs.codeSpace).toBe("test-space");
-      expect(callArgs.initialMessages).toEqual(mockMessages);
-      expect(callArgs.initialPrompt).toBeUndefined();
+      expect(callArgs?.codeSpace).toBe("test-space");
+      expect(callArgs?.initialMessages).toEqual(mockMessages);
+      expect(callArgs?.initialPrompt).toBeUndefined();
     });
   });
 
@@ -144,7 +144,7 @@ describe("AssistantUIDrawer", () => {
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
       const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
-      expect(callArgs.initialPrompt).toEqual(mockInitialPrompt);
+      expect(callArgs?.initialPrompt).toEqual(mockInitialPrompt);
     });
   });
 
@@ -165,7 +165,7 @@ describe("AssistantUIDrawer", () => {
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
       const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
-      expect(callArgs.initialMessages).toEqual([]);
+      expect(callArgs?.initialMessages).toEqual([]);
     });
 
     consoleSpy.mockRestore();
@@ -182,7 +182,7 @@ describe("AssistantUIDrawer", () => {
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
       const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
-      expect(callArgs.initialMessages).toEqual([]);
+      expect(callArgs?.initialMessages).toEqual([]);
     });
   });
 
@@ -271,7 +271,7 @@ describe("AssistantUIDrawer", () => {
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
       const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
-      expect(callArgs.initialPrompt).toBeNull();
+      expect(callArgs?.initialPrompt).toBeNull();
     });
   });
 
@@ -286,7 +286,7 @@ describe("AssistantUIDrawer", () => {
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
       const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
-      expect(callArgs.initialPrompt).toBeUndefined();
+      expect(callArgs?.initialPrompt).toBeUndefined();
     });
   });
 
@@ -321,7 +321,7 @@ describe("AssistantUIDrawer", () => {
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalledTimes(1);
       const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
-      expect(callArgs.initialMessages).toEqual(firstMessages);
+      expect(callArgs?.initialMessages).toEqual(firstMessages);
     });
 
     // Close the drawer
@@ -344,7 +344,7 @@ describe("AssistantUIDrawer", () => {
       expect(AssistantUIChat).toHaveBeenCalled();
       const lastCall =
         vi.mocked(AssistantUIChat).mock.calls[vi.mocked(AssistantUIChat).mock.calls.length - 1]?.[0];
-      expect(lastCall.initialMessages).toEqual(secondMessages);
+      expect(lastCall?.initialMessages).toEqual(secondMessages);
     });
   });
 
@@ -438,8 +438,8 @@ describe("AssistantUIDrawer", () => {
       expect(AssistantUIChat).toHaveBeenCalled();
       const allCalls = vi.mocked(AssistantUIChat).mock.calls;
       // Check that the last call has the new messages
-      const lastCall = allCalls[allCalls.length - 1][0];
-      expect(lastCall.initialMessages).toEqual(secondMessages);
+      const lastCall = allCalls[allCalls.length - 1]?.[0];
+      expect(lastCall?.initialMessages).toEqual(secondMessages);
     });
   });
 });

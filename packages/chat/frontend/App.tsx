@@ -24,7 +24,7 @@ export function App() {
     limit: 10,
   });
 
-  const { isConnected, sendMessage: sendWebSocketMessage } = useWebSocket({
+  const { isConnected, sendMessage: _sendWebSocketMessage } = useWebSocket({
     onMessage: (data) => {
       if (data.type === "message" && currentConversation) {
         setMessages((prev) => [...prev, data.message]);
@@ -58,7 +58,7 @@ export function App() {
   }, [user, auth.isSignedIn]);
 
   // Fallback auth check for demo mode
-  const checkAuth = () => {
+  const _checkAuth = () => {
     const authToken = localStorage.getItem("auth_token") || localStorage.getItem("authToken");
     if (authToken && authToken.startsWith("demo-")) {
       const userId = localStorage.getItem("user_id") || "demo-user";

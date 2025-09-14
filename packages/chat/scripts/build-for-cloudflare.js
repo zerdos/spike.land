@@ -7,9 +7,9 @@
 
 import { execSync } from "child_process";
 import { existsSync, readFileSync, writeFileSync } from "fs";
-import { join } from "path";
+// import { join } from "path"; // Unused import
 
-const isDev = process.env.NODE_ENV === "development";
+const _isDev = process.env.NODE_ENV === "development";
 
 console.log("🚀 Building Next.js app for Cloudflare Workers...");
 
@@ -32,7 +32,7 @@ try {
 
   // Step 3: Verify build output
   const buildPath = ".next";
-  const workersPath = ".vercel/output/static";
+  const _workersPath = ".vercel/output/static";
 
   if (existsSync(buildPath)) {
     console.log("✅ Next.js build completed successfully");
