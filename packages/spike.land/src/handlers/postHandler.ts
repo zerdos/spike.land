@@ -292,7 +292,7 @@ export class PostHandler {
   }
 
   private convertMessages(messages: MessageWithParts[]): CoreMessage[] {
-    return messages.map((msg: MessageWithParts) => {
+    return messages.map((msg: MessageWithParts): CoreMessage => {
       if (!this.isValidRole(msg.role)) {
         throw new Error(`Invalid role: ${msg.role}`);
       }
@@ -316,10 +316,10 @@ export class PostHandler {
 
         return {
           role: validRole,
-          content: content.length === 1 && content[0].type === "text"
+          content: content.length === 1 && content[0]?.type === "text"
             ? content[0].text
             : content,
-        };
+        } as CoreMessage;
       }
 
       // Handle messages with 'content' field (standard format)
@@ -327,7 +327,7 @@ export class PostHandler {
         return {
           role: validRole,
           content: msg.content,
-        };
+        } as CoreMessage;
       }
 
       if (Array.isArray(msg.content)) {
@@ -346,14 +346,14 @@ export class PostHandler {
             }
             return { type: "text", text: "[unsupported content]" };
           }),
-        };
+        } as CoreMessage;
       }
 
       // Fallback for unexpected content types
       return {
         role: validRole,
         content: "[invalid content format]",
-      };
+      } as CoreMessage;
     });
   }
 
