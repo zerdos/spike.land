@@ -55,6 +55,7 @@ export class ModelManager implements IModelManager {
           html: "",
           css: "",
           transpiled: "",
+          messages: [],
         });
         await codeInstance.init();
         this.models.set(codeSpace, codeInstance); // codeSpace is now guaranteed to be a string

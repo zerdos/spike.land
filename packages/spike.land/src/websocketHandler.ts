@@ -19,8 +19,6 @@ export class WebSocketHandler {
 
   constructor(code: Code) {
     this.code = code;
-    // Explicitly bind methods
-    this.broadcast = this.broadcast.bind(this);
   }
 
   getWsSessions() {
@@ -44,9 +42,7 @@ export class WebSocketHandler {
   private safeSend(ws: WebSocket, message: string | object) {
     if (ws.readyState === 1) {
       try {
-        ws.send(
-          typeof message === "string" ? message : JSON.stringify(message),
-        );
+        ws.send(typeof message === "string" ? message : JSON.stringify(message));
       } catch (err) {
         console.error("WebSocket send error:", err);
       }
@@ -80,9 +76,7 @@ export class WebSocketHandler {
       // Only check for timeout if we've sent at least one ping
       if (session.lastPingTime) {
         // Check if the last pong is older than our ping timeout
-        if (
-          !session.lastPongTime || (now - session.lastPongTime) > pingTimeout
-        ) {
+        if (!session.lastPongTime || (now - session.lastPongTime) > pingTimeout) {
           // No pong received within timeout period, close the connection
           webSocket.close();
           clearInterval(pingInterval);
@@ -189,9 +183,7 @@ export class WebSocketHandler {
       }
 
       const patchedSession = applySessionDelta(currentSession, data);
-      const { error } = await tryCatch(
-        this.code.updateAndBroadcastSession(patchedSession),
-      );
+      const { error } = await tryCatch(this.code.updateAndBroadcastSession(patchedSession));
       if (error) {
         this.safeSend(session.webSocket, {
           type: "error",
@@ -268,10 +260,14 @@ export class WebSocketHandler {
 
   broadcast(message: object | string, excludeSession?: WebsocketSession) {
     for (const session of this.wsSessions) {
-      // Skip only if excludeSession is provided and matches
-      if (!excludeSession || session !== excludeSession) {
-        this.safeSend(session.webSocket, message);
+      // Only exclude if we have an exclusion session and it matches
+      if (excludeSession && session === excludeSession) {
+        continue;
       }
+      this.safeSend(
+        session.webSocket,
+        message,
+      );
     }
   }
 }

@@ -48,22 +48,22 @@ export function setupUrlMock() {
     } {
       const protocolMatch = url.match(/^([a-z]+):\/\//i);
       const protocol = protocolMatch
-        ? protocolMatch[1].toLowerCase() + ":"
+        ? protocolMatch[1]?.toLowerCase() + ":"
         : "https:";
 
       const withoutProtocol = url.replace(/^[a-z]+:\/\//i, "");
       const [hostPath, hash = ""] = withoutProtocol.split("#");
-      const [hostSearch, search = ""] = hostPath.split("?");
-      const [host, ...pathParts] = hostSearch.split("/");
+      const [hostSearch, search = ""] = hostPath?.split("?") || [hostPath, ""];
+      const [host, ...pathParts] = hostSearch?.split("/") || [""];
 
-      const [hostname, port = ""] = host.split(":");
+      const [hostname, port = ""] = host?.split(":") || ["", ""];
       const pathname = "/" + pathParts.join("/");
 
       return {
         origin: `${protocol}//${host}`,
         protocol,
-        host,
-        hostname,
+        host: host || "",
+        hostname: hostname || "",
         port,
         pathname,
         search: search ? `?${search}` : "",
@@ -88,8 +88,8 @@ export function setupUrlMock() {
       }
     };
 
-    static createObjectURL = (obj: Blob | MediaSource) => {
-      return URL.createObjectURL(obj);
+    static createObjectURL = (obj: Blob | unknown) => {
+      return URL.createObjectURL(obj as Blob);
     };
 
     static parse = (url: string | URL, base?: string | URL) => {

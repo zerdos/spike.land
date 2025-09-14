@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
+import type { Code } from "../chatRoom";
 import { McpServer } from "../mcpServer";
-import { JsonSchemaToZodConverter } from "./jsonSchemaToZod";
+import { JsonSchemaToZodConverter, type JsonSchemaType } from "./jsonSchemaToZod";
 
 describe("JsonSchemaToZodConverter", () => {
   let converter: JsonSchemaToZodConverter;
@@ -8,7 +9,7 @@ describe("JsonSchemaToZodConverter", () => {
 
   beforeEach(() => {
     converter = new JsonSchemaToZodConverter();
-    mcpServer = new McpServer({} as unknown as any);
+    mcpServer = new McpServer({} as unknown as Code);
   });
 
   describe("MCP Tool Schema Conversion", () => {
@@ -410,8 +411,8 @@ describe("JsonSchemaToZodConverter", () => {
     });
 
     it("should handle null/undefined schema", () => {
-      expect(converter.convert(null as any).parse("anything")).toBe("anything");
-      expect(converter.convert(undefined as any).parse(123)).toBe(123);
+      expect(converter.convert(null).parse("anything")).toBe("anything");
+      expect(converter.convert(undefined).parse(123)).toBe(123);
     });
 
     it("should handle unknown types", () => {
@@ -585,7 +586,7 @@ describe("JsonSchemaToZodConverter", () => {
 
       // Converter should handle these without throwing
       for (const schema of malformedSchemas) {
-        expect(() => converter.convert(schema as any)).not.toThrow();
+        expect(() => converter.convert(schema as JsonSchemaType)).not.toThrow();
       }
     });
   });

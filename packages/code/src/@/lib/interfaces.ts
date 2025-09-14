@@ -34,6 +34,7 @@ export interface ICodeSession {
   css: string;
   transpiled: string;
   requiresReRender?: boolean; // Flag to indicate re-render needed
+  messages: Message[]; // Array of messages for chat functionality
 }
 
 export interface ICode {
@@ -41,8 +42,8 @@ export interface ICode {
   getSession: () => Promise<ICodeSession>;
   init: () => Promise<ICodeSession>;
   screenshot: () => Promise<ImageData>;
-  // currentCodeWithExtraModels: () => Promise<string>;
-  // setModelsByCurrentCode: (code: string) => Promise<string>;
+  currentCodeWithExtraModels: () => Promise<string>;
+  setModelsByCurrentCode: (code: string) => Promise<string>;
   setCode(
     rawCode: string,
     skipRunning?: boolean,

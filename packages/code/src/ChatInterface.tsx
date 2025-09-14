@@ -47,10 +47,12 @@ const ChatInterface: React.FC<{
   const [_editInput, _setEditInput] = useState("");
 
   // State to hold initial prompt data
-  const [initialPrompt, setInitialPrompt] = useState<{
-    prompt: string;
-    images: ImageData[];
-  } | null>(null);
+  const [initialPrompt, setInitialPrompt] = useState<
+    {
+      prompt: string;
+      images: ImageData[];
+    } | null
+  >(null);
 
   // Removed unused reset functionality since AssistantUI manages its own state
 
@@ -92,7 +94,7 @@ const ChatInterface: React.FC<{
           } catch (error) {
             console.error("Failed to parse stored prompt data:", error);
             sessionStorage.removeItem(maybeKey);
-            
+
             // Notify user about the corrupted data
             toast({
               title: "Failed to load saved prompt",

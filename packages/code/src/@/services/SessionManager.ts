@@ -122,6 +122,7 @@ export class SessionManager implements ISessionManager {
         css: this.session.css,
         codeSpace: this.session.codeSpace,
         transpiled: this.session.transpiled,
+        messages: this.session.messages,
         sender: this.user,
       };
 

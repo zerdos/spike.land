@@ -39,6 +39,7 @@ describe("make-sess", () => {
     html: "<div>Test</div>",
     css: ".test { color: red; }",
     transpiled: "const test = 'test';",
+    messages: [],
   });
 
   describe("computeSessionHash", () => {

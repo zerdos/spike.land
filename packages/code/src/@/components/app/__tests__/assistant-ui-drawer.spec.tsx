@@ -1,12 +1,25 @@
-import { AssistantUIDrawer } from "@/components/app/assistant-ui-drawer";
 import { AssistantUIChat } from "@/components/app/assistant-ui-chat";
+import { AssistantUIDrawer } from "@/components/app/assistant-ui-drawer";
 import type { ICode, ImageData } from "@/lib/interfaces";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-// Use any type for tests to avoid type conflicts
-type Message = any;
+// Message interface for tests
+interface Message {
+  id: string;
+  role: "user" | "assistant" | "system" | "data" | "tool";
+  content: string;
+  tool_calls?: Array<{
+    id: string;
+    type: string;
+    function: {
+      name: string;
+      arguments: string;
+    };
+  }>;
+  tool_call_id?: string;
+}
 
 // Mock dependencies
 vi.mock("@/components/app/assistant-ui-chat", () => ({
@@ -14,24 +27,24 @@ vi.mock("@/components/app/assistant-ui-chat", () => ({
 }));
 vi.mock("vaul", () => ({
   Drawer: {
-    Root: ({ children, open }: { children: React.ReactNode; open: boolean }) =>
+    Root: ({ children, open }: { children: React.ReactNode; open: boolean; }) =>
       open ? <div data-testid="drawer-root">{children}</div> : null,
-    Trigger: ({ children, onClick }: { children: React.ReactNode; onClick: () => void }) => (
+    Trigger: ({ children, onClick }: { children: React.ReactNode; onClick: () => void; }) => (
       <button onClick={onClick} data-testid="drawer-trigger">
         {children}
       </button>
     ),
-    Portal: ({ children }: { children: React.ReactNode }) => (
+    Portal: ({ children }: { children: React.ReactNode; }) => (
       <div data-testid="drawer-portal">{children}</div>
     ),
     Overlay: () => <div data-testid="drawer-overlay" />,
-    Content: ({ children, className }: { children: React.ReactNode; className?: string }) => (
+    Content: ({ children, className }: { children: React.ReactNode; className?: string; }) => (
       <div data-testid="drawer-content" className={className}>{children}</div>
     ),
-    Title: ({ children }: { children: React.ReactNode }) => (
+    Title: ({ children }: { children: React.ReactNode; }) => (
       <h2 data-testid="drawer-title">{children}</h2>
     ),
-    Description: ({ children }: { children: React.ReactNode }) => (
+    Description: ({ children }: { children: React.ReactNode; }) => (
       <p data-testid="drawer-description">{children}</p>
     ),
   },
@@ -67,7 +80,7 @@ describe("AssistantUIDrawer", () => {
 
   it("should not render when isOpen is false", () => {
     const { container } = render(
-      <AssistantUIDrawer {...getDefaultProps()} isOpen={false} />
+      <AssistantUIDrawer {...getDefaultProps()} isOpen={false} />,
     );
 
     expect(container.querySelector('[data-testid="drawer-root"]')).toBeNull();
@@ -99,10 +112,10 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
-      expect(callArgs.codeSpace).toBe("test-space");
-      expect(callArgs.initialMessages).toEqual(mockMessages);
-      expect(callArgs.initialPrompt).toBeUndefined();
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
+      expect(callArgs?.codeSpace).toBe("test-space");
+      expect(callArgs?.initialMessages).toEqual(mockMessages);
+      expect(callArgs?.initialPrompt).toBeUndefined();
     });
   });
 
@@ -130,8 +143,8 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
-      expect(callArgs.initialPrompt).toEqual(mockInitialPrompt);
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
+      expect(callArgs?.initialPrompt).toEqual(mockInitialPrompt);
     });
   });
 
@@ -144,15 +157,15 @@ describe("AssistantUIDrawer", () => {
     await waitFor(() => {
       expect(consoleSpy).toHaveBeenCalledWith(
         "Failed to load messages:",
-        expect.any(Error)
+        expect.any(Error),
       );
     });
 
     // Should still render with empty messages
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
-      expect(callArgs.initialMessages).toEqual([]);
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
+      expect(callArgs?.initialMessages).toEqual([]);
     });
 
     consoleSpy.mockRestore();
@@ -168,8 +181,8 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
-      expect(callArgs.initialMessages).toEqual([]);
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
+      expect(callArgs?.initialMessages).toEqual([]);
     });
   });
 
@@ -205,10 +218,10 @@ describe("AssistantUIDrawer", () => {
 
     // Find the close button (the second button in the drawer)
     const buttons = screen.getAllByRole("button");
-    const closeButton = buttons.find(button => 
+    const closeButton = buttons.find(button =>
       button.className.includes("p-2 rounded-lg hover:bg-gray-200")
     );
-    
+
     if (closeButton) {
       await userEvent.click(closeButton);
       expect(onCloseMock).toHaveBeenCalled();
@@ -219,7 +232,7 @@ describe("AssistantUIDrawer", () => {
 
   it("should render loading state while messages are being fetched", () => {
     vi.mocked(fetch).mockImplementation(
-      () => new Promise(() => {}) // Never resolves
+      () => new Promise(() => {}), // Never resolves
     );
 
     render(<AssistantUIDrawer {...getDefaultProps()} />);
@@ -257,8 +270,8 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
-      expect(callArgs.initialPrompt).toBeNull();
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
+      expect(callArgs?.initialPrompt).toBeNull();
     });
   });
 
@@ -272,8 +285,8 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
-      expect(callArgs.initialPrompt).toBeUndefined();
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
+      expect(callArgs?.initialPrompt).toBeUndefined();
     });
   });
 
@@ -307,8 +320,8 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalledTimes(1);
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
-      expect(callArgs.initialMessages).toEqual(firstMessages);
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
+      expect(callArgs?.initialMessages).toEqual(firstMessages);
     });
 
     // Close the drawer
@@ -329,8 +342,9 @@ describe("AssistantUIDrawer", () => {
     await waitFor(() => {
       // AssistantUIChat might be called more than once due to React's rendering behavior
       expect(AssistantUIChat).toHaveBeenCalled();
-      const lastCall = (AssistantUIChat as any).mock.calls[(AssistantUIChat as any).mock.calls.length - 1][0];
-      expect(lastCall.initialMessages).toEqual(secondMessages);
+      const lastCall = vi.mocked(AssistantUIChat).mock
+        .calls[vi.mocked(AssistantUIChat).mock.calls.length - 1]?.[0];
+      expect(lastCall?.initialMessages).toEqual(secondMessages);
     });
   });
 
@@ -422,10 +436,10 @@ describe("AssistantUIDrawer", () => {
     await waitFor(() => {
       // AssistantUIChat should be called again due to key change
       expect(AssistantUIChat).toHaveBeenCalled();
-      const allCalls = (AssistantUIChat as any).mock.calls;
+      const allCalls = vi.mocked(AssistantUIChat).mock.calls;
       // Check that the last call has the new messages
-      const lastCall = allCalls[allCalls.length - 1][0];
-      expect(lastCall.initialMessages).toEqual(secondMessages);
+      const lastCall = allCalls[allCalls.length - 1]?.[0];
+      expect(lastCall?.initialMessages).toEqual(secondMessages);
     });
-  })
+  });
 });

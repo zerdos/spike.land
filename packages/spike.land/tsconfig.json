@@ -4,6 +4,8 @@
     "module": "ESNext",
     "lib": ["ES2022", "WebWorker"],
     "moduleResolution": "bundler",
+    "composite": true,
+    "incremental": true,
     "types": [
       "@cloudflare/workers-types/experimental",
       "@cloudflare/vitest-pool-workers"
@@ -32,5 +34,5 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": false
   },
-  "include": ["src/**/*", "tests/**/*", "*.ts"]
+  "include": ["src/**/*", "tests/**/*", "test-mocks/**/*", "*.ts"]
 }

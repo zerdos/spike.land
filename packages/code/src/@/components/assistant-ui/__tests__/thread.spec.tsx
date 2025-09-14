@@ -1,17 +1,99 @@
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import type { ReactNode } from "react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+// Type definitions for mock components and data
+interface MockMessage {
+  role: "user" | "assistant";
+  content: MockMessagePart[];
+  hasConsecutiveTools?: boolean;
+}
+
+interface MockMessagePart {
+  type: "text" | "tool-call";
+  text?: string;
+  toolCallId?: string;
+  toolName?: string;
+  args?: Record<string, unknown>;
+  result?: Record<string, unknown>;
+}
+
+interface ComponentProps {
+  children?: ReactNode;
+  [key: string]: unknown;
+}
+
+interface MessagesProps {
+  components: {
+    UserMessage?: React.ComponentType;
+    AssistantMessage?: React.ComponentType;
+  };
+}
+
+interface MessagePartsProps {
+  components?: {
+    Text?: React.ComponentType<{ text: string; }>;
+    tools?: {
+      Fallback?: React.ComponentType<{
+        toolName?: string;
+        toolCallId?: string;
+        args?: Record<string, unknown>;
+        result?: Record<string, unknown>;
+      }>;
+    };
+    ToolGroup?: React.ComponentType<{ children: ReactNode; }>;
+  };
+}
+
+interface IfProps {
+  children: ReactNode;
+  running?: boolean;
+  empty?: boolean;
+}
+
+interface SuggestionProps extends ComponentProps {
+  prompt?: string;
+}
+
+interface InputProps extends ComponentProps {
+  placeholder?: string;
+}
+
+interface TooltipIconButtonProps extends ComponentProps {
+  tooltip?: string;
+}
+
+interface ToolCallProps {
+  name: string;
+  args?: Record<string, unknown>;
+  result?: Record<string, unknown>;
+  isExecuting?: boolean;
+}
+
+interface ToolCallGroupProps {
+  children: ReactNode;
+}
+
+// Extend window interface to include mock properties
+declare global {
+  interface Window {
+    __mockMessages?: MockMessage[];
+    __mockIsRunning?: boolean;
+    __currentMessage?: MockMessage | null | undefined;
+  }
+}
 
 // Mock assistant-ui components
 vi.mock("@assistant-ui/react", () => ({
   ThreadPrimitive: {
-    Root: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    Viewport: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    Messages: ({ components }: any) => {
+    Root: ({ children, ...props }: ComponentProps) => <div {...props}>{children}</div>,
+    Viewport: ({ children, ...props }: ComponentProps) => <div {...props}>{children}</div>,
+    Messages: ({ components }: MessagesProps) => {
       // Simulate rendering messages based on mock data
-      const mockMessages = (window as any).__mockMessages || [];
+      const mockMessages = window.__mockMessages || [];
       return (
         <div data-testid="messages">
-          {mockMessages.map((msg: any, idx: number) => {
+          {mockMessages.map((msg: MockMessage, idx: number) => {
             if (msg.role === "user" && components.UserMessage) {
               return <components.UserMessage key={idx} />;
             }
@@ -23,54 +105,64 @@ vi.mock("@assistant-ui/react", () => ({
         </div>
       );
     },
-    Empty: ({ children }: any) => {
-      const hasMessages = ((window as any).__mockMessages || []).length > 0;
+    Empty: ({ children }: ComponentProps) => {
+      const hasMessages = (window.__mockMessages || []).length > 0;
       return hasMessages ? null : <div>{children}</div>;
     },
-    If: ({ children, running, empty }: any) => {
+    If: ({ children, running, empty }: IfProps) => {
       if (running !== undefined) {
-        const isRunning = (window as any).__mockIsRunning || false;
+        const isRunning = window.__mockIsRunning || false;
         return running === isRunning ? <div>{children}</div> : null;
       }
       if (empty !== undefined) {
-        const hasMessages = ((window as any).__mockMessages || []).length > 0;
+        const hasMessages = (window.__mockMessages || []).length > 0;
         return empty === !hasMessages ? <div>{children}</div> : null;
       }
       return <div>{children}</div>;
     },
-    ScrollToBottom: ({ children, ...props }: any) => (
+    ScrollToBottom: ({ children, ...props }: ComponentProps) => (
       <button {...props}>{children}</button>
     ),
-    Suggestion: ({ children, prompt, ...props }: any) => (
+    Suggestion: ({ children, prompt, ...props }: SuggestionProps) => (
       <button {...props}>{children || prompt}</button>
     ),
   },
   ComposerPrimitive: {
-    Root: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    Input: (props: any) => <textarea {...props} />,
-    Send: ({ children, ...props }: any) => <button {...props}>{children}</button>,
-    Cancel: ({ children, ...props }: any) => <button {...props}>{children}</button>,
+    Root: ({ children, ...props }: ComponentProps) => <div {...props}>{children}</div>,
+    Input: (props: InputProps) => <textarea {...props} />,
+    Send: ({ children, ...props }: ComponentProps) => <button {...props}>{children}</button>,
+    Cancel: ({ children, ...props }: ComponentProps) => <button {...props}>{children}</button>,
   },
   MessagePrimitive: {
-    Root: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    Parts: ({ components }: any) => {
-      const currentMessage = (window as any).__currentMessage || { content: [] };
+    Root: ({ children, ...props }: ComponentProps) => <div {...props}>{children}</div>,
+    Parts: ({ components }: MessagePartsProps) => {
+      const currentMessage = window.__currentMessage || { content: [], hasConsecutiveTools: false };
       return (
         <div data-testid="message-parts">
-          {currentMessage.content.map((part: any, idx: number) => {
+          {currentMessage.content.map((part: MockMessagePart, idx: number) => {
             if (part.type === "text") {
-              const TextComponent = components?.Text || (({ text }: any) => <span>{text}</span>);
-              return <TextComponent key={idx} text={part.text} />;
+              const TextComponent = components?.Text ||
+                (({ text }: { text: string; }) => <span>{text}</span>);
+              return <TextComponent key={idx} text={part.text || ""} />;
             }
             if (part.type === "tool-call" && components?.tools?.Fallback) {
               const ToolComponent = components.tools.Fallback;
+              const toolProps: {
+                toolName?: string;
+                toolCallId?: string;
+                args?: Record<string, unknown>;
+                result?: Record<string, unknown>;
+              } = {};
+
+              if (part.toolName !== undefined) toolProps.toolName = part.toolName;
+              if (part.toolCallId !== undefined) toolProps.toolCallId = part.toolCallId;
+              if (part.args !== undefined) toolProps.args = part.args;
+              if (part.result !== undefined) toolProps.result = part.result;
+
               return (
                 <ToolComponent
                   key={idx}
-                  toolName={part.toolName}
-                  toolCallId={part.toolCallId}
-                  args={part.args}
-                  result={part.result}
+                  {...toolProps}
                 />
               );
             }
@@ -82,18 +174,18 @@ vi.mock("@assistant-ui/react", () => ({
         </div>
       );
     },
-    If: ({ children }: any) => <div>{children}</div>,
+    If: ({ children }: ComponentProps) => <div>{children}</div>,
   },
   ActionBarPrimitive: {
-    Root: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    Edit: ({ children, ...props }: any) => <button {...props}>{children}</button>,
-    Copy: ({ children, ...props }: any) => <button {...props}>{children}</button>,
-    Reload: ({ children, ...props }: any) => <button {...props}>{children}</button>,
+    Root: ({ children, ...props }: ComponentProps) => <div {...props}>{children}</div>,
+    Edit: ({ children, ...props }: ComponentProps) => <button {...props}>{children}</button>,
+    Copy: ({ children, ...props }: ComponentProps) => <button {...props}>{children}</button>,
+    Reload: ({ children, ...props }: ComponentProps) => <button {...props}>{children}</button>,
   },
   BranchPickerPrimitive: {
-    Root: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    Previous: ({ children, ...props }: any) => <button {...props}>{children}</button>,
-    Next: ({ children, ...props }: any) => <button {...props}>{children}</button>,
+    Root: ({ children, ...props }: ComponentProps) => <div {...props}>{children}</div>,
+    Previous: ({ children, ...props }: ComponentProps) => <button {...props}>{children}</button>,
+    Next: ({ children, ...props }: ComponentProps) => <button {...props}>{children}</button>,
     Number: () => <span>1</span>,
     Count: () => <span>1</span>,
   },
@@ -101,11 +193,11 @@ vi.mock("@assistant-ui/react", () => ({
 
 // Mock child components
 vi.mock("../markdown-text", () => ({
-  MarkdownText: ({ text }: { text: string }) => <span>{text}</span>,
+  MarkdownText: ({ text }: { text: string; }) => <span>{text}</span>,
 }));
 
 vi.mock("../tooltip-icon-button", () => ({
-  TooltipIconButton: ({ children, tooltip, ...props }: any) => (
+  TooltipIconButton: ({ children, tooltip, ...props }: TooltipIconButtonProps) => (
     <button {...props} title={tooltip}>
       {children}
     </button>
@@ -113,7 +205,7 @@ vi.mock("../tooltip-icon-button", () => ({
 }));
 
 vi.mock("../tool-call", () => ({
-  ToolCall: ({ name, args, result, isExecuting }: any) => (
+  ToolCall: ({ name, args, result, isExecuting }: ToolCallProps) => (
     <div data-testid="tool-call">
       <button>{name}</button>
       {args && <div>Parameters</div>}
@@ -121,7 +213,7 @@ vi.mock("../tool-call", () => ({
       {isExecuting && <div>Executing...</div>}
     </div>
   ),
-  ToolCallGroup: ({ children }: any) => (
+  ToolCallGroup: ({ children }: ToolCallGroupProps) => (
     <div data-testid="tool-call-group">
       <div>Tool Calls</div>
       {children}
@@ -135,15 +227,15 @@ import { Thread } from "../thread";
 describe("Thread", () => {
   beforeEach(() => {
     // Reset mock data
-    (window as any).__mockMessages = [];
-    (window as any).__mockIsRunning = false;
-    (window as any).__currentMessage = null;
+    window.__mockMessages = [];
+    window.__mockIsRunning = false;
+    window.__currentMessage = null;
   });
 
   afterEach(() => {
-    delete (window as any).__mockMessages;
-    delete (window as any).__mockIsRunning;
-    delete (window as any).__currentMessage;
+    delete window.__mockMessages;
+    delete window.__mockIsRunning;
+    delete window.__currentMessage;
   });
 
   it("renders thread container correctly", () => {
@@ -166,7 +258,7 @@ describe("Thread", () => {
   describe("with messages containing tool calls", () => {
     it("renders tool calls in messages", () => {
       // Set up mock message with tool call
-      (window as any).__mockMessages = [
+      window.__mockMessages = [
         {
           role: "assistant",
           content: [
@@ -183,7 +275,7 @@ describe("Thread", () => {
       ];
 
       // Mock the current message for MessagePrimitive.Parts
-      (window as any).__currentMessage = (window as any).__mockMessages[0];
+      window.__currentMessage = window.__mockMessages[0];
 
       render(<Thread />);
 
@@ -194,7 +286,7 @@ describe("Thread", () => {
     });
 
     it("expands tool call details when clicked", () => {
-      (window as any).__mockMessages = [
+      window.__mockMessages = [
         {
           role: "assistant",
           content: [
@@ -209,7 +301,7 @@ describe("Thread", () => {
         },
       ];
 
-      (window as any).__currentMessage = (window as any).__mockMessages[0];
+      window.__currentMessage = window.__mockMessages[0];
 
       render(<Thread />);
 
@@ -222,7 +314,7 @@ describe("Thread", () => {
     });
 
     it("renders multiple tool calls", () => {
-      (window as any).__mockMessages = [
+      window.__mockMessages = [
         {
           role: "assistant",
           content: [
@@ -243,7 +335,7 @@ describe("Thread", () => {
         },
       ];
 
-      (window as any).__currentMessage = (window as any).__mockMessages[0];
+      window.__currentMessage = window.__mockMessages[0];
 
       render(<Thread />);
 
@@ -253,7 +345,7 @@ describe("Thread", () => {
     });
 
     it("shows tool group for consecutive tools", () => {
-      (window as any).__mockMessages = [
+      window.__mockMessages = [
         {
           role: "assistant",
           content: [
@@ -268,7 +360,7 @@ describe("Thread", () => {
         },
       ];
 
-      (window as any).__currentMessage = (window as any).__mockMessages[0];
+      window.__currentMessage = window.__mockMessages[0];
 
       render(<Thread />);
 
@@ -285,17 +377,17 @@ describe("Thread", () => {
     });
 
     it("shows send button when not running", () => {
-      (window as any).__mockIsRunning = false;
+      window.__mockIsRunning = false;
       render(<Thread />);
-      
+
       const sendButton = screen.getByTitle("Send");
       expect(sendButton).toBeInTheDocument();
     });
 
     it("shows cancel button when running", () => {
-      (window as any).__mockIsRunning = true;
+      window.__mockIsRunning = true;
       render(<Thread />);
-      
+
       const cancelButton = screen.getByTitle("Cancel");
       expect(cancelButton).toBeInTheDocument();
     });

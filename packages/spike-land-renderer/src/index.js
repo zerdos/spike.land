@@ -5,9 +5,7 @@ export default {
     let url = searchParams.get("url");
     const _top = searchParams.get("top");
     const _maxRetries = parseInt(searchParams.get("maxRetries") || "3");
-    const _retryInterval = parseInt(
-      searchParams.get("retryInterval") || "1000",
-    );
+    const _retryInterval = parseInt(searchParams.get("retryInterval") || "1000");
     if (url) {
       url = new URL(url).toString(); // normalize
       let img = await env.BROWSER_KV_SPIKE_LAND.get(url, {

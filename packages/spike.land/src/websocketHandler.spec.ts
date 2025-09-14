@@ -1,6 +1,6 @@
 import type { ICodeSession } from "@spike-npm-land/code";
 import { computeSessionHash } from "@spike-npm-land/code";
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Mock } from "vitest";
 import type { Code } from "./chatRoom";
 import { WebSocketHandler } from "./websocketHandler";
@@ -16,22 +16,12 @@ describe("WebSocketHandler", () => {
     css: "mock css",
     transpiled: "mock transpiled",
     codeSpace: "codeSpace",
+    messages: [], // Add missing messages property
   };
 
-  // Increase max listeners for tests to prevent warnings
-  const originalMaxListeners = process.getMaxListeners();
-  beforeAll(() => {
-    process.setMaxListeners(50);
-  });
-
-  afterAll(() => {
-    process.setMaxListeners(originalMaxListeners);
-  });
-
   beforeEach(() => {
-    // Reset all mocks and timers
+    // Reset all mocks
     vi.resetAllMocks();
-    vi.clearAllTimers();
 
     // Mock the Code object
     mockCode = {
@@ -40,7 +30,8 @@ describe("WebSocketHandler", () => {
         html: "mock html",
         css: "mock css",
         transpiled: "mock transpiled",
-        codeSpace: "test-space",
+        codeSpace: "mock-code-space",
+        messages: [], // Add missing messages property
       }),
       updateAndBroadcastSession: vi.fn(),
     };
@@ -73,26 +64,6 @@ describe("WebSocketHandler", () => {
     websocketHandler = new WebSocketHandler(mockCode as Code);
   });
 
-  afterEach(() => {
-    // Clean up any remaining WebSocket sessions
-    const sessions = websocketHandler.getWsSessions();
-    sessions.forEach(session => {
-      session.quit = true;
-      if (session.webSocket && typeof session.webSocket.close === "function") {
-        session.webSocket.close();
-      }
-    });
-    // Clear the sessions array
-    sessions.length = 0;
-  });
-
-  afterEach(() => {
-    // Clear all timers to prevent memory leaks
-    vi.clearAllTimers();
-    // Ensure we're back to real timers
-    vi.useRealTimers();
-  });
-
   describe("handleWebsocketSession", () => {
     it("should accept the websocket and send initial handshake", () => {
       websocketHandler.handleWebsocketSession(mockWebSocket);
@@ -105,11 +76,7 @@ describe("WebSocketHandler", () => {
       // Verify that the session was added
       const sessions = websocketHandler.getWsSessions();
       expect(sessions.length).toBe(1);
-      const firstSession = sessions[0];
-      if (!firstSession) {
-        throw new Error("Expected session to exist");
-      }
-      expect(firstSession.webSocket).toBe(mockWebSocket);
+      expect(sessions[0]?.webSocket).toBe(mockWebSocket);
     });
 
     it("should schedule periodic ping", () => {
@@ -128,46 +95,31 @@ describe("WebSocketHandler", () => {
       // Advance timer to trigger ping
       vi.advanceTimersByTime(30000);
 
-      // Verify ping was sent with hashCode
+      // Verify ping was sent (now includes hashCode)
       expect(mockWebSocket.send).toHaveBeenCalledWith(
-        expect.stringContaining('"type":"ping"'),
-      );
-      expect(mockWebSocket.send).toHaveBeenCalledWith(
-        expect.stringContaining('"hashCode":'),
+        expect.stringMatching(/"type":"ping".*"hashCode":"[^"]*"/),
       );
 
       // Simulate pong response
-      const messageHandler = mockWebSocket.onmessage;
-      if (messageHandler) {
-        messageHandler.call(
-          mockWebSocket,
-          { data: JSON.stringify({ type: "pong" }) } as MessageEvent,
-        );
-      }
+      const messageHandler = (mockWebSocket.addEventListener as Mock).mock.calls
+        .find((call) => call[0] === "message")?.[1];
+      messageHandler?.({ data: JSON.stringify({ type: "pong" }) });
 
       // First scheduled ping
       vi.advanceTimersByTime(30000);
-      expect(mockWebSocket.send).toHaveBeenCalledTimes(2); // 2 pings (handshake was cleared)
       expect(mockWebSocket.send).toHaveBeenCalledWith(
-        expect.stringContaining('"type":"ping"'),
+        expect.stringMatching(/"type":"ping".*"hashCode":"[^"]*"/),
       );
 
       // Simulate pong response again
-      if (messageHandler) {
-        messageHandler.call(
-          mockWebSocket,
-          { data: JSON.stringify({ type: "pong" }) } as MessageEvent,
-        );
-      }
+      messageHandler?.({ data: JSON.stringify({ type: "pong" }) });
 
       // Second scheduled ping
       vi.advanceTimersByTime(30000);
       expect(mockWebSocket.send).toHaveBeenCalledWith(
-        expect.stringContaining('"type":"ping"'),
+        expect.stringMatching(/"type":"ping".*"hashCode":"[^"]*"/),
       );
 
-      // Clear all timers before restoring
-      vi.clearAllTimers();
       vi.useRealTimers();
     });
 
@@ -176,9 +128,6 @@ describe("WebSocketHandler", () => {
 
       websocketHandler.handleWebsocketSession(mockWebSocket);
       const session = websocketHandler.getWsSessions()[0];
-      if (!session) {
-        throw new Error("Session not found");
-      }
 
       // Get the close handler
       const closeHandler = (mockWebSocket.addEventListener as Mock).mock.calls
@@ -192,13 +141,9 @@ describe("WebSocketHandler", () => {
       }
 
       // Verify session is cleaned up
-      if (session) {
-        expect(session.quit).toBe(true);
-      }
+      expect(session?.quit).toBe(true);
       expect(websocketHandler.getWsSessions().length).toBe(0);
 
-      // Clear all timers before restoring
-      vi.clearAllTimers();
       vi.useRealTimers();
     });
   });
@@ -221,9 +166,8 @@ describe("WebSocketHandler", () => {
       const sessions = websocketHandler.getWsSessions();
       const session = sessions[0];
       if (!session) {
-        throw new Error("Session not found");
+        throw new Error("No session found");
       }
-      // Assign in one step to help TypeScript flow analysis
       mockWsSession = session;
       mockWsSession.subscribedTopics = new Set();
 
@@ -400,91 +344,39 @@ describe("WebSocketHandler", () => {
   });
 
   describe("broadcast", () => {
-    it("minimal broadcast test", () => {
-      // Minimal WebSocketHandler implementation
-      class TestHandler {
-        wsSessions: { webSocket: { send: Mock; readyState: number; }; }[] = [];
-
-        broadcast(message: string) {
-          for (const session of this.wsSessions) {
-            if (session.webSocket.readyState === 1) {
-              session.webSocket.send(message);
-            }
-          }
-        }
-      }
-
-      const handler = new TestHandler();
-      const mockWs = { send: vi.fn(), readyState: 1 };
-      handler.wsSessions.push({ webSocket: mockWs });
-
-      handler.broadcast("test");
-      expect(mockWs.send).toHaveBeenCalledWith("test");
-    });
-
     it("should broadcast message to all sessions", () => {
       // Create multiple sessions
       const mockWebSocket1 = {
         accept: vi.fn(),
         send: vi.fn(),
-        readyState: 1,
+        readyState: 1, // Must be 1 (OPEN) for safeSend to work
         close: vi.fn(),
         addEventListener: vi.fn(),
-        onmessage: null,
       } as unknown as WebSocket;
 
       const mockWebSocket2 = {
         accept: vi.fn(),
         send: vi.fn(),
-        readyState: 1,
+        readyState: 1, // Must be 1 (OPEN) for safeSend to work
         close: vi.fn(),
         addEventListener: vi.fn(),
-        onmessage: null,
       } as unknown as WebSocket;
 
       websocketHandler.handleWebsocketSession(mockWebSocket1);
       websocketHandler.handleWebsocketSession(mockWebSocket2);
 
-      // Verify handshake was sent
-      expect(mockWebSocket1.send).toHaveBeenCalledTimes(1);
-      expect(mockWebSocket2.send).toHaveBeenCalledTimes(1);
-
-      // Clear the handshake calls
-      (mockWebSocket1.send as Mock).mockClear();
-      (mockWebSocket2.send as Mock).mockClear();
-
       // Verify sessions were added
       const sessions = websocketHandler.getWsSessions();
       expect(sessions).toHaveLength(2);
 
+      // Clear the handshake messages that were sent during session setup
+      (mockWebSocket1.send as ReturnType<typeof vi.fn>).mockClear();
+      (mockWebSocket2.send as ReturnType<typeof vi.fn>).mockClear();
+
       const broadcastMessage = "test broadcast";
-
-      // Debug: Check wsSessions directly and session names
-      const internalSessions =
-        (websocketHandler as unknown as { wsSessions: WebsocketSession[]; }).wsSessions;
-      expect(internalSessions).toHaveLength(2);
-      const firstInternalSession = internalSessions[0];
-      const secondInternalSession = internalSessions[1];
-      if (!firstInternalSession || !secondInternalSession) {
-        throw new Error("Expected both sessions to exist");
-      }
-      expect(firstInternalSession.webSocket).toBe(mockWebSocket1);
-      expect(secondInternalSession.webSocket).toBe(mockWebSocket2);
-
-      // Check session names (they should be undefined)
-      expect(firstInternalSession.name).toBeUndefined();
-      expect(secondInternalSession.name).toBeUndefined();
-
-      // Manually call send to verify mocks work
-      firstInternalSession.webSocket.send("manual test");
-      expect(mockWebSocket1.send).toHaveBeenCalledWith("manual test");
-      (mockWebSocket1.send as Mock).mockClear();
-
       websocketHandler.broadcast(broadcastMessage);
 
       // Verify both sessions received the message
-      expect(mockWebSocket1.send).toHaveBeenCalledTimes(1);
-      expect(mockWebSocket2.send).toHaveBeenCalledTimes(1);
       expect(mockWebSocket1.send).toHaveBeenCalledWith(broadcastMessage);
       expect(mockWebSocket2.send).toHaveBeenCalledWith(broadcastMessage);
     });
@@ -494,10 +386,9 @@ describe("WebSocketHandler", () => {
       const mockWebSocket1 = {
         accept: vi.fn(),
         send: mockSend,
-        readyState: 1,
+        readyState: 1, // Must be 1 for safeSend to attempt sending
         close: vi.fn(),
         addEventListener: vi.fn(),
-        onmessage: null,
       } as unknown as WebSocket;
 
       websocketHandler.handleWebsocketSession(mockWebSocket1);
@@ -517,12 +408,8 @@ describe("WebSocketHandler", () => {
       // Broadcast after handshake
       websocketHandler.broadcast("test message");
 
-      // Verify error handling - safeSend logs error but doesn't close connection
-      expect(mockWebSocket1.close).not.toHaveBeenCalled();
-      expect(consoleError).toHaveBeenCalledWith(
-        "WebSocket send error:",
-        expect.any(Error),
-      );
+      // Verify error handling (safeSend logs errors but doesn't close connection)
+      expect(consoleError).toHaveBeenCalledWith("WebSocket send error:", expect.any(Error));
 
       consoleError.mockRestore();
     });

@@ -29,6 +29,27 @@ export default [
       "**/dist-vite/**/*",
       "**/test-mocks/**/*",
       "**/tests/**/*",
+      "**/.next/**/*",
+      "**/out/**/*",
+      "**/.nuxt/**/*",
+      "**/.svelte-kit/**/*",
+      "**/public/assets/**/*",
+      "**/public/js/**/*",
+      "packages/chat/public/assets/**/*",
+      "packages/chat/public/js/**/*",
+      // Coverage reports
+      "**/coverage/**/*",
+      // Development containers
+      "devcontainers/**/*",
+      // Temporary files
+      ".tmp/**/*",
+      "temp/**/*",
+      // Storybook build outputs
+      "storybook-static/**/*",
+      // Playwright
+      "test-results/**/*",
+      "playwright-report/**/*",
+      "playwright/.cache/**/*",
     ],
   },
 
@@ -110,6 +131,30 @@ export default [
     rules: {
       "@typescript-eslint/no-unused-expressions": "off",
       "no-unused-expressions": "off",
+    },
+  },
+
+  // .cjs specific rules - CommonJS files
+  {
+    files: ["**/*.cjs"],
+    languageOptions: {
+      sourceType: "script", // Use script mode for CommonJS
+      globals: {
+        "process": "readonly",
+        "console": "readonly",
+        "__dirname": "readonly",
+        "__filename": "readonly",
+        "require": "readonly",
+        "module": "readonly",
+        "exports": "readonly",
+      },
+    },
+    rules: {
+      // Allow require() in .cjs files
+      "@typescript-eslint/no-var-requires": "off",
+      "@typescript-eslint/no-require-imports": "off",
+      // Disable import/export rules for CommonJS
+      "@typescript-eslint/consistent-type-imports": "off",
     },
   },
 ];

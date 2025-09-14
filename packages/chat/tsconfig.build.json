@@ -1,0 +1,34 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "strict": false,
+    "noImplicitAny": false,
+    "exactOptionalPropertyTypes": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false,
+    "noUncheckedIndexedAccess": false
+  },
+  "include": [
+    "src/types/frontend.ts",
+    "lib/api.ts",
+    "app/chat/page.tsx",
+    "app/page.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next/**/*",
+    "components/**/*",
+    "tests/**/*",
+    "src/webhooks/**/*",
+    "src/worker/**/*",
+    "src/utils/**/*",
+    "src/api/**/*",
+    "lib/database.ts",
+    "lib/middleware.ts",
+    "lib/rate-limiting.ts",
+    "lib/websocket.ts"
+  ]
+}

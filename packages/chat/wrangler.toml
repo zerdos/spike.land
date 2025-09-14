@@ -1,0 +1,118 @@
+name = "spike-chat"
+main = ".vercel/output/static/_worker.js"
+compatibility_date = "2024-12-30"
+compatibility_flags = ["nodejs_compat"]
+
+# Environment configurations
+[env.production]
+name = "spike-chat-production"
+vars = { NODE_ENV = "production" }
+
+[env.development]
+name = "spike-chat-dev"
+vars = { NODE_ENV = "development" }
+
+[env.preview]
+name = "spike-chat-preview"
+vars = { NODE_ENV = "preview" }
+
+# Database configuration
+[[env.production.d1_databases]]
+binding = "DATABASE"
+database_name = "spike-chat-db-prod"
+database_id = "b4d98ac5-c98b-4177-bdce-199874c47b75"
+
+[[env.development.d1_databases]]
+binding = "DATABASE"
+database_name = "spike-chat-db-dev"
+database_id = "b4d98ac5-c98b-4177-bdce-199874c47b75"
+
+[[env.preview.d1_databases]]
+binding = "DATABASE"
+database_name = "spike-chat-db-preview"
+database_id = "b4d98ac5-c98b-4177-bdce-199874c47b75"
+
+# R2 Storage configuration
+[[env.production.r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "spike-chat-attachments-prod"
+
+[[env.development.r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "spike-chat-attachments-dev"
+
+[[env.preview.r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "spike-chat-attachments-preview"
+
+# KV Storage configuration
+[[env.production.kv_namespaces]]
+binding = "KV_SESSIONS"
+id = "fd3ab87b0de445d4ab1b53c01291bb6a"
+preview_id = "fd3ab87b0de445d4ab1b53c01291bb6a"
+
+[[env.development.kv_namespaces]]
+binding = "KV_SESSIONS"
+id = "fd3ab87b0de445d4ab1b53c01291bb6a"
+preview_id = "fd3ab87b0de445d4ab1b53c01291bb6a"
+
+[[env.preview.kv_namespaces]]
+binding = "KV_SESSIONS"
+id = "fd3ab87b0de445d4ab1b53c01291bb6a"
+preview_id = "fd3ab87b0de445d4ab1b53c01291bb6a"
+
+# Additional KV for caching
+[[env.production.kv_namespaces]]
+binding = "KV_CACHE"
+id = "cache-prod-namespace-id"
+preview_id = "cache-preview-namespace-id"
+
+[[env.development.kv_namespaces]]
+binding = "KV_CACHE"
+id = "cache-dev-namespace-id"
+preview_id = "cache-preview-namespace-id"
+
+# Queue configuration
+[[env.production.queues.producers]]
+queue = "chat-queue-prod"
+binding = "QUEUE"
+
+[[env.development.queues.producers]]
+queue = "chat-queue-dev"
+binding = "QUEUE"
+
+[[env.production.queues.consumers]]
+queue = "chat-queue-prod"
+max_batch_size = 10
+max_batch_timeout = 30
+
+[[env.development.queues.consumers]]
+queue = "chat-queue-dev"
+max_batch_size = 10
+max_batch_timeout = 30
+
+# Durable Objects configuration
+[[durable_objects.bindings]]
+name = "CHAT_ROOM"
+class_name = "ChatRoom"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["ChatRoom"]
+
+# AI binding
+[ai]
+binding = "AI"
+
+# Build configuration for Next.js
+[build]
+command = "npm run build:cloudflare"
+
+# Observability
+[observability]
+enabled = true
+
+# Custom routes for Next.js app
+# [[routes]]
+# pattern = "chat.spike.land/*"
+# zone_id = "your-zone-id"
