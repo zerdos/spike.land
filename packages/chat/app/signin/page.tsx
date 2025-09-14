@@ -96,7 +96,7 @@ export default function SignInPage() {
           </button>
 
           <p className="signup-link">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <a href="/signup">Sign up for free</a>
           </p>
         </div>
