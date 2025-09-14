@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Conversation, Message, User } from "../../src/types/frontend";
 import { ChatInterface } from "../../components/ChatInterface";
 import { ConnectionStatus } from "../../components/ConnectionStatus";
 import { ConversationList } from "../../components/ConversationList";
@@ -9,6 +8,7 @@ import { Header } from "../../components/layout/header";
 import { SubscriptionStatus } from "../../components/SubscriptionStatus";
 import { useWebSocket } from "../../hooks/useWebSocket";
 import { api } from "../../lib/api";
+import type { Conversation, Message, User } from "../../src/types/frontend";
 
 interface ChatPageProps {
   user?: User | null;
@@ -29,7 +29,7 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
   });
 
   const { isConnected, lastMessage, sendMessage: _sendWebSocketMessage } = useWebSocket(
-    currentConversation ? `/api/conversations/${currentConversation.id}/ws` : null
+    currentConversation ? `/api/conversations/${currentConversation.id}/ws` : null,
   );
 
   // Handle incoming WebSocket messages
@@ -204,8 +204,8 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
   const upgradeSubscription = async () => {
     try {
       const response = await api.createCheckoutSession("pro");
-      if (response.success && (response.data as { url?: string })?.url) {
-        window.location.href = (response.data as { url: string }).url;
+      if (response.success && (response.data as { url?: string; })?.url) {
+        window.location.href = (response.data as { url: string; }).url;
       }
     } catch (error) {
       console.error("Failed to create checkout session:", error);

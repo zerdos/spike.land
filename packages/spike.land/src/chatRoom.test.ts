@@ -37,7 +37,9 @@ describe("Code Durable Object", () => {
         return Promise.resolve(JSON.parse(textData || "{}"));
       } catch {
         // For HTML/CSS content, return an error as JSON.parse would
-        return Promise.reject(new SyntaxError(`Unexpected token '${textData[0]}', "${textData}" is not valid JSON`));
+        return Promise.reject(
+          new SyntaxError(`Unexpected token '${textData[0]}', "${textData}" is not valid JSON`),
+        );
       }
     }),
     arrayBuffer: vi.fn().mockResolvedValue(new TextEncoder().encode(textData).buffer),

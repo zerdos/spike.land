@@ -63,7 +63,7 @@ export class CustomWorldImpl extends World implements CustomWorld {
     // Initialize test environment in browser
     await this.page.addInitScript(() => {
       // Set test mode flag
-      (window as unknown as { __TEST_MODE__: boolean }).__TEST_MODE__ = true;
+      (window as unknown as { __TEST_MODE__: boolean; }).__TEST_MODE__ = true;
 
       // Add auth token if needed
       if (process.env.AUTH_TOKEN) {
@@ -72,14 +72,16 @@ export class CustomWorldImpl extends World implements CustomWorld {
 
       // Mock console.error to capture errors during tests
       const originalConsoleError = console.error;
-      (window as unknown as { __TEST_CONSOLE_ERRORS__: unknown[][] }).__TEST_CONSOLE_ERRORS__ = [];
+      (window as unknown as { __TEST_CONSOLE_ERRORS__: unknown[][]; }).__TEST_CONSOLE_ERRORS__ = [];
       console.error = (...args: unknown[]) => {
-        (window as unknown as { __TEST_CONSOLE_ERRORS__: unknown[][] }).__TEST_CONSOLE_ERRORS__.push(args);
+        (window as unknown as { __TEST_CONSOLE_ERRORS__: unknown[][]; }).__TEST_CONSOLE_ERRORS__
+          .push(args);
         originalConsoleError.apply(console, args);
       };
 
       // Set up Next.js test environment
-      (window as unknown as { __NEXT_DATA__: Record<string, unknown> }).__NEXT_DATA__ = (window as unknown as { __NEXT_DATA__: Record<string, unknown> }).__NEXT_DATA__ || {};
+      (window as unknown as { __NEXT_DATA__: Record<string, unknown>; }).__NEXT_DATA__ =
+        (window as unknown as { __NEXT_DATA__: Record<string, unknown>; }).__NEXT_DATA__ || {};
     });
   }
 

@@ -342,8 +342,8 @@ describe("AssistantUIDrawer", () => {
     await waitFor(() => {
       // AssistantUIChat might be called more than once due to React's rendering behavior
       expect(AssistantUIChat).toHaveBeenCalled();
-      const lastCall =
-        vi.mocked(AssistantUIChat).mock.calls[vi.mocked(AssistantUIChat).mock.calls.length - 1]?.[0];
+      const lastCall = vi.mocked(AssistantUIChat).mock
+        .calls[vi.mocked(AssistantUIChat).mock.calls.length - 1]?.[0];
       expect(lastCall?.initialMessages).toEqual(secondMessages);
     });
   });

@@ -17,12 +17,17 @@ class ChatAPI {
   ): Promise<T> {
     // Check for mock responses first (used in tests)
     const mockKey = `${options.method || "GET"} ${endpoint}`;
-    if (typeof window !== "undefined" && (window as unknown as { __mockAPIResponses?: Record<string, unknown> }).__mockAPIResponses) {
-      const mockResponse = (window as unknown as { __mockAPIResponses: Record<string, unknown> }).__mockAPIResponses[mockKey];
+    if (
+      typeof window !== "undefined" &&
+      (window as unknown as { __mockAPIResponses?: Record<string, unknown>; }).__mockAPIResponses
+    ) {
+      const mockResponse = (window as unknown as { __mockAPIResponses: Record<string, unknown>; })
+        .__mockAPIResponses[mockKey];
       if (mockResponse) {
         // Don't delete for GET requests, allow reuse
         if (options.method && options.method !== "GET") {
-          delete (window as unknown as { __mockAPIResponses: Record<string, unknown> }).__mockAPIResponses[mockKey];
+          delete (window as unknown as { __mockAPIResponses: Record<string, unknown>; })
+            .__mockAPIResponses[mockKey];
         }
         return Promise.resolve(mockResponse.data || mockResponse);
       }

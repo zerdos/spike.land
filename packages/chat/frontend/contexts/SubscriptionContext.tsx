@@ -1,5 +1,5 @@
 import { useUser } from "@clerk/clerk-react";
-import { createContext, useContext, useEffect, useState, useCallback } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 
 interface SubscriptionStatus {

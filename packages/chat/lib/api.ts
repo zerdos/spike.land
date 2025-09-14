@@ -48,7 +48,9 @@ export const api = {
     return response.json() as Promise<ConversationResponse>;
   },
 
-  async sendMessage({ conversationId, content }: { conversationId: string; content: string }): Promise<MessageResponse> {
+  async sendMessage(
+    { conversationId, content }: { conversationId: string; content: string; },
+  ): Promise<MessageResponse> {
     const response = await fetch("/api/messages", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -74,7 +76,9 @@ export const api = {
     return response.json() as Promise<SubscriptionResponse>;
   },
 
-  async createConversation({ title, model }: { title: string; model?: string }): Promise<APIResponse<Conversation>> {
+  async createConversation(
+    { title, model }: { title: string; model?: string; },
+  ): Promise<APIResponse<Conversation>> {
     const response = await fetch("/api/conversations", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

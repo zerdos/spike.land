@@ -262,51 +262,55 @@ export class StripeFixtures {
     // Mock Stripe.js loading
     await page.addInitScript(() => {
       // Mock Stripe global object
-      (window as typeof window & { Stripe: (_publishableKey: string) => unknown }).Stripe = function(_publishableKey: string) {
-        return {
-          elements: () => ({
-            create: (type: string, _options?: Record<string, unknown>) => ({
-              mount: (selector: string) => {
-                const element = document.querySelector(selector);
-                if (element) {
-                  element.innerHTML =
-                    `<div data-testid="stripe-${type}">Mock ${type} element</div>`;
-                }
-              },
-              unmount: () => {},
-              on: (_event: string, _handler: (...args: unknown[]) => void) => {},
-              focus: () => {},
-              blur: () => {},
+      (window as typeof window & { Stripe: (_publishableKey: string) => unknown; }).Stripe =
+        function(_publishableKey: string) {
+          return {
+            elements: () => ({
+              create: (type: string, _options?: Record<string, unknown>) => ({
+                mount: (selector: string) => {
+                  const element = document.querySelector(selector);
+                  if (element) {
+                    element.innerHTML =
+                      `<div data-testid="stripe-${type}">Mock ${type} element</div>`;
+                  }
+                },
+                unmount: () => {},
+                on: (_event: string, _handler: (...args: unknown[]) => void) => {},
+                focus: () => {},
+                blur: () => {},
+              }),
+              getElement: (_type: string) => null,
             }),
-            getElement: (_type: string) => null,
-          }),
-          createPaymentMethod: async (_options: Record<string, unknown>) => ({
-            paymentMethod: StripeFixtures.paymentMethods.validVisa,
-            error: null,
-          }),
-          confirmCardPayment: async (_clientSecret: string, _options?: Record<string, unknown>) => ({
-            paymentIntent: {
-              id: "pi_test123",
-              status: "succeeded",
-            },
-            error: null,
-          }),
-          confirmPayment: async (_options: Record<string, unknown>) => ({
-            paymentIntent: {
-              id: "pi_test123",
-              status: "succeeded",
-            },
-            error: null,
-          }),
-          retrievePaymentIntent: async (_clientSecret: string) => ({
-            paymentIntent: {
-              id: "pi_test123",
-              status: "succeeded",
-            },
-            error: null,
-          }),
+            createPaymentMethod: async (_options: Record<string, unknown>) => ({
+              paymentMethod: StripeFixtures.paymentMethods.validVisa,
+              error: null,
+            }),
+            confirmCardPayment: async (
+              _clientSecret: string,
+              _options?: Record<string, unknown>,
+            ) => ({
+              paymentIntent: {
+                id: "pi_test123",
+                status: "succeeded",
+              },
+              error: null,
+            }),
+            confirmPayment: async (_options: Record<string, unknown>) => ({
+              paymentIntent: {
+                id: "pi_test123",
+                status: "succeeded",
+              },
+              error: null,
+            }),
+            retrievePaymentIntent: async (_clientSecret: string) => ({
+              paymentIntent: {
+                id: "pi_test123",
+                status: "succeeded",
+              },
+              error: null,
+            }),
+          };
         };
-      };
     });
 
     // Mock Stripe API endpoints

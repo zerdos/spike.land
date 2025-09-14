@@ -1,6 +1,6 @@
 import { useUser } from "@clerk/clerk-react";
 import { AlertCircle, CheckCircle, CreditCard } from "lucide-react";
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getStripe, SUBSCRIPTION_TIERS } from "../../lib/stripe";
 import { PricingCard } from "./PricingCard";
 

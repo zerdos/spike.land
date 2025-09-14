@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-import type { Conversation, User } from "../../src/types";
+import { useCallback, useEffect, useState } from "react";
 import { Header } from "../../components/layout/header";
 import { api } from "../../lib/api";
+import type { Conversation, User } from "../../src/types";
 
 interface DashboardPageProps {
   user?: User | null;

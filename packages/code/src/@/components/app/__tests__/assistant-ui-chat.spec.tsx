@@ -27,7 +27,6 @@ interface TestMessage {
   tool_call_id?: string;
 }
 
-
 // Mock dependencies
 vi.mock("@assistant-ui/react", () => ({
   AssistantRuntimeProvider: vi.fn(({ children }) => children),
@@ -645,7 +644,9 @@ describe("AssistantUIChat", () => {
       );
 
       // Tool messages should be filtered out
-      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0] as { initialMessages: TestMessage[] };
+      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0] as {
+        initialMessages: TestMessage[];
+      };
       expect(calls?.initialMessages).toHaveLength(2); // Only assistant messages
       expect(calls?.initialMessages).not.toContainEqual(
         expect.objectContaining({ role: "assistant" }),
@@ -715,7 +716,9 @@ describe("AssistantUIChat", () => {
         />,
       );
 
-      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0] as { initialMessages: TestMessage[] };
+      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0] as {
+        initialMessages: TestMessage[];
+      };
       // Should maintain order but filter out tool messages
       expect(calls?.initialMessages?.map((m: TestMessage) => m.id)).toEqual(["1", "2", "4", "6"]);
     });
