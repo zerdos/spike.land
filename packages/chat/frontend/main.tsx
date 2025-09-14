@@ -21,7 +21,7 @@ async function startApp() {
     root.render(
       <StrictMode>
         <App />
-      </StrictMode>
+      </StrictMode>,
     );
   } catch (error) {
     console.error("Failed to initialize app:", error);
@@ -33,7 +33,7 @@ async function startApp() {
       root.render(
         <StrictMode>
           <App />
-        </StrictMode>
+        </StrictMode>,
       );
     }
   }

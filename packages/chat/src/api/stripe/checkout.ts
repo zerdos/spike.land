@@ -1,6 +1,10 @@
-import type { Env, User, APIResponse } from "../../types";
-import { createStripeServer, SUBSCRIPTION_TIERS, getTierById } from "../../lib/stripe";
 import { getAuth } from "@clerk/backend";
+import {
+  createStripeServer,
+  getTierById,
+  SUBSCRIPTION_TIERS as _SUBSCRIPTION_TIERS,
+} from "../../lib/stripe";
+import type { APIResponse, Env, User } from "../../types";
 
 interface CheckoutRequest {
   priceId: string;
@@ -11,7 +15,7 @@ interface CheckoutRequest {
 
 export async function handleCheckoutSession(
   request: Request,
-  env: Env
+  env: Env,
 ): Promise<Response> {
   try {
     // Authenticate user
@@ -28,7 +32,7 @@ export async function handleCheckoutSession(
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
-        }
+        },
       );
     }
 
@@ -48,7 +52,7 @@ export async function handleCheckoutSession(
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
-        }
+        },
       );
     }
 
@@ -66,7 +70,7 @@ export async function handleCheckoutSession(
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
-        }
+        },
       );
     }
 
@@ -74,7 +78,7 @@ export async function handleCheckoutSession(
     let user: User;
     try {
       const userQuery = await env.DATABASE.prepare(
-        "SELECT * FROM users WHERE clerk_id = ?"
+        "SELECT * FROM users WHERE clerk_id = ?",
       ).bind(auth.userId).first();
 
       if (!userQuery) {
@@ -112,7 +116,7 @@ export async function handleCheckoutSession(
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
-        }
+        },
       );
     }
 
@@ -132,7 +136,7 @@ export async function handleCheckoutSession(
 
       // Update user with Stripe customer ID
       await env.DATABASE.prepare(
-        "UPDATE users SET stripe_customer_id = ?, updated_at = ? WHERE id = ?"
+        "UPDATE users SET stripe_customer_id = ?, updated_at = ? WHERE id = ?",
       ).bind(customerId, new Date().toISOString(), user.id).run();
     }
 
@@ -177,7 +181,7 @@ export async function handleCheckoutSession(
           "Access-Control-Allow-Methods": "POST, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type, Authorization",
         },
-      }
+      },
     );
   } catch (error) {
     console.error("Checkout session error:", error);
@@ -192,7 +196,7 @@ export async function handleCheckoutSession(
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
-      }
+      },
     );
   }
 }

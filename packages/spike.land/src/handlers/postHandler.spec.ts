@@ -1,7 +1,7 @@
 import { type AnthropicProvider, createAnthropic } from "@ai-sdk/anthropic";
 import type { R2Bucket } from "@cloudflare/workers-types";
 import type { Message } from "@spike-npm-land/code";
-import { type CoreMessage, streamText, type StreamTextResult, type StepResult } from "ai";
+import { type CoreMessage, type StepResult, streamText, type StreamTextResult } from "ai";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { z } from "zod";
 import type { Code } from "../chatRoom";

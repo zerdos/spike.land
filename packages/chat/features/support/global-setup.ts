@@ -59,7 +59,7 @@ async function globalSetup(config: FullConfig) {
         () => {
           return document.readyState === "complete";
         },
-        { timeout: 10000 }
+        { timeout: 10000 },
       );
 
       console.log("✅ Next.js application is ready for testing");

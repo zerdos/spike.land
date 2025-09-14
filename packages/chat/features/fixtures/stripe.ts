@@ -269,7 +269,8 @@ export class StripeFixtures {
               mount: (selector: string) => {
                 const element = document.querySelector(selector);
                 if (element) {
-                  element.innerHTML = `<div data-testid="stripe-${type}">Mock ${type} element</div>`;
+                  element.innerHTML =
+                    `<div data-testid="stripe-${type}">Mock ${type} element</div>`;
                 }
               },
               unmount: () => {},
@@ -315,7 +316,7 @@ export class StripeFixtures {
 
       if (customerId) {
         const customer = Object.values(StripeFixtures.customers).find(
-          (c) => c.id === customerId
+          (c) => c.id === customerId,
         );
 
         if (customer) {
@@ -408,7 +409,7 @@ export class StripeFixtures {
    */
   static async setupCustomerSubscription(
     page: Page,
-    customerType: keyof typeof StripeFixtures.customers
+    customerType: keyof typeof StripeFixtures.customers,
   ): Promise<void> {
     const customer = StripeFixtures.customers[customerType];
 
@@ -420,11 +421,11 @@ export class StripeFixtures {
         if (customer.subscriptions?.data && customer.subscriptions.data.length > 0) {
           localStorage.setItem(
             "stripe_subscription",
-            JSON.stringify(customer.subscriptions.data[0])
+            JSON.stringify(customer.subscriptions.data[0]),
           );
         }
       },
-      { customer }
+      { customer },
     );
   }
 
@@ -443,17 +444,20 @@ export class StripeFixtures {
                 amount,
               },
             },
-          })
+          }),
         );
       },
-      { amount }
+      { amount },
     );
   }
 
   /**
    * Simulate payment failure
    */
-  static async simulatePaymentFailure(page: Page, errorMessage: string = "Your card was declined."): Promise<void> {
+  static async simulatePaymentFailure(
+    page: Page,
+    errorMessage: string = "Your card was declined.",
+  ): Promise<void> {
     await page.evaluate(
       ({ errorMessage }) => {
         window.dispatchEvent(
@@ -465,10 +469,10 @@ export class StripeFixtures {
                 message: errorMessage,
               },
             },
-          })
+          }),
         );
       },
-      { errorMessage }
+      { errorMessage },
     );
   }
 

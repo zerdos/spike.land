@@ -17,18 +17,18 @@ declare module "@langchain/core/messages" {
     content: string;
     [key: string]: unknown;
   }
-  
+
   export class AIMessage implements BaseMessage {
     content: string;
     role: "assistant";
     constructor(content: string);
   }
-  
+
   export class HumanMessage implements BaseMessage {
     content: string;
     constructor(content: string);
   }
-  
+
   export class SystemMessage implements BaseMessage {
     content: string;
     constructor(content: string);

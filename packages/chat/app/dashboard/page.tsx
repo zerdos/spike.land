@@ -55,7 +55,7 @@ export function DashboardPage({ user, onAuthRequired }: DashboardPageProps) {
       const storedTier = localStorage.getItem("subscription_tier");
 
       // Mock some stats calculation
-      const totalMessages = conversationsData.reduce((acc, conv) => {
+      const totalMessages = conversationsData.reduce((acc, _conv) => {
         // Estimate 5 messages per conversation on average
         return acc + 5;
       }, 0);
@@ -66,9 +66,10 @@ export function DashboardPage({ user, onAuthRequired }: DashboardPageProps) {
         creditsUsed: Math.max(0, 100 - (storedCredits ? parseInt(storedCredits) : 10)),
         creditsRemaining: storedCredits ? parseInt(storedCredits) : 10,
         subscriptionTier: storedTier || "Free",
-        memberSince: user?.created_at ? new Date(user.created_at).toLocaleDateString() : new Date().toLocaleDateString(),
+        memberSince: user?.created_at
+          ? new Date(user.created_at).toLocaleDateString()
+          : new Date().toLocaleDateString(),
       });
-
     } catch (error) {
       console.error("Failed to load dashboard data:", error);
     } finally {
@@ -128,7 +129,7 @@ export function DashboardPage({ user, onAuthRequired }: DashboardPageProps) {
           <header className="dashboard-header">
             <div className="header-content">
               <h1>Dashboard</h1>
-              <p>Welcome back! Here's your AI chat overview.</p>
+              <p>Welcome back! Here&apos;s your AI chat overview.</p>
             </div>
 
             <div className="header-actions">
@@ -152,173 +153,178 @@ export function DashboardPage({ user, onAuthRequired }: DashboardPageProps) {
             </div>
           </header>
 
-          {isLoading ? (
-            <div className="loading-state">
-              <div className="loading-spinner" />
-              <p>Loading dashboard...</p>
-            </div>
-          ) : (
-            <div className="dashboard-content">
-              {/* Stats Cards */}
-              <section className="stats-section">
-                <div className="stats-grid">
-                  <div className="stat-card">
-                    <div className="stat-icon">💬</div>
-                    <div className="stat-content">
-                      <h3>{stats.totalConversations}</h3>
-                      <p>Total Conversations</p>
-                    </div>
-                  </div>
-
-                  <div className="stat-card">
-                    <div className="stat-icon">✉️</div>
-                    <div className="stat-content">
-                      <h3>{stats.totalMessages}</h3>
-                      <p>Messages Sent</p>
-                    </div>
-                  </div>
-
-                  <div className="stat-card">
-                    <div className="stat-icon">⚡</div>
-                    <div className="stat-content">
-                      <h3>{stats.creditsRemaining}</h3>
-                      <p>Credits Remaining</p>
-                    </div>
-                  </div>
-
-                  <div className="stat-card">
-                    <div className="stat-icon">👑</div>
-                    <div className="stat-content">
-                      <h3>{stats.subscriptionTier}</h3>
-                      <p>Subscription Plan</p>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              {/* Usage Section */}
-              <section className="usage-section">
-                <div className="section-header">
-                  <h2>Usage Overview</h2>
-                  <button
-                    className="btn btn-secondary"
-                    onClick={goToPricing}
-                  >
-                    Upgrade Plan
-                  </button>
-                </div>
-
-                <div className="usage-card">
-                  <div className="usage-header">
-                    <h3>Credit Usage</h3>
-                    <span className="usage-text">
-                      {stats.creditsUsed} used • {stats.creditsRemaining} remaining
-                    </span>
-                  </div>
-
-                  <div className="usage-bar">
-                    <div
-                      className="usage-progress"
-                      style={{ width: `${getUsagePercentage()}%` }}
-                    />
-                  </div>
-
-                  <div className="usage-details">
-                    <div className="usage-detail">
-                      <span className="detail-label">Plan</span>
-                      <span className="detail-value">{stats.subscriptionTier}</span>
-                    </div>
-                    <div className="usage-detail">
-                      <span className="detail-label">Member since</span>
-                      <span className="detail-value">{stats.memberSince}</span>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              {/* Recent Conversations */}
-              <section className="conversations-section">
-                <div className="section-header">
-                  <h2>Recent Conversations</h2>
-                  <button
-                    className="btn btn-secondary"
-                    onClick={() => goToChat()}
-                  >
-                    View All
-                  </button>
-                </div>
-
-                <div className="conversations-grid">
-                  {conversations.length > 0 ? (
-                    conversations.map((conversation) => (
-                      <div
-                        key={conversation.id}
-                        className="conversation-card"
-                        onClick={() => goToChat(conversation.id)}
-                      >
-                        <div className="conversation-header">
-                          <h3>{conversation.title}</h3>
-                          <span className="conversation-model">{conversation.model}</span>
-                        </div>
-                        <p className="conversation-date">
-                          {formatDate(conversation.updated_at)}
-                        </p>
+          {isLoading
+            ? (
+              <div className="loading-state">
+                <div className="loading-spinner" />
+                <p>Loading dashboard...</p>
+              </div>
+            )
+            : (
+              <div className="dashboard-content">
+                {/* Stats Cards */}
+                <section className="stats-section">
+                  <div className="stats-grid">
+                    <div className="stat-card">
+                      <div className="stat-icon">💬</div>
+                      <div className="stat-content">
+                        <h3>{stats.totalConversations}</h3>
+                        <p>Total Conversations</p>
                       </div>
-                    ))
-                  ) : (
-                    <div className="empty-conversations">
-                      <div className="empty-icon">💬</div>
-                      <h3>No conversations yet</h3>
-                      <p>Start your first AI chat conversation!</p>
-                      <button
-                        className="btn btn-primary"
-                        onClick={() => goToChat()}
-                      >
-                        Start Chatting
-                      </button>
                     </div>
-                  )}
-                </div>
-              </section>
 
-              {/* Quick Actions */}
-              <section className="actions-section">
-                <h2>Quick Actions</h2>
-                <div className="actions-grid">
-                  <button
-                    className="action-card"
-                    onClick={() => goToChat()}
-                  >
-                    <div className="action-icon">💬</div>
-                    <h3>Start New Chat</h3>
-                    <p>Begin a conversation with AI</p>
-                  </button>
+                    <div className="stat-card">
+                      <div className="stat-icon">✉️</div>
+                      <div className="stat-content">
+                        <h3>{stats.totalMessages}</h3>
+                        <p>Messages Sent</p>
+                      </div>
+                    </div>
 
-                  <button
-                    className="action-card"
-                    onClick={goToPricing}
-                  >
-                    <div className="action-icon">⬆️</div>
-                    <h3>Upgrade Plan</h3>
-                    <p>Get more credits and features</p>
-                  </button>
+                    <div className="stat-card">
+                      <div className="stat-icon">⚡</div>
+                      <div className="stat-content">
+                        <h3>{stats.creditsRemaining}</h3>
+                        <p>Credits Remaining</p>
+                      </div>
+                    </div>
 
-                  <button
-                    className="action-card"
-                    onClick={goToSettings}
-                  >
-                    <div className="action-icon">⚙️</div>
-                    <h3>Settings</h3>
-                    <p>Manage your account preferences</p>
-                  </button>
-                </div>
-              </section>
-            </div>
-          )}
+                    <div className="stat-card">
+                      <div className="stat-icon">👑</div>
+                      <div className="stat-content">
+                        <h3>{stats.subscriptionTier}</h3>
+                        <p>Subscription Plan</p>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                {/* Usage Section */}
+                <section className="usage-section">
+                  <div className="section-header">
+                    <h2>Usage Overview</h2>
+                    <button
+                      className="btn btn-secondary"
+                      onClick={goToPricing}
+                    >
+                      Upgrade Plan
+                    </button>
+                  </div>
+
+                  <div className="usage-card">
+                    <div className="usage-header">
+                      <h3>Credit Usage</h3>
+                      <span className="usage-text">
+                        {stats.creditsUsed} used • {stats.creditsRemaining} remaining
+                      </span>
+                    </div>
+
+                    <div className="usage-bar">
+                      <div
+                        className="usage-progress"
+                        style={{ width: `${getUsagePercentage()}%` }}
+                      />
+                    </div>
+
+                    <div className="usage-details">
+                      <div className="usage-detail">
+                        <span className="detail-label">Plan</span>
+                        <span className="detail-value">{stats.subscriptionTier}</span>
+                      </div>
+                      <div className="usage-detail">
+                        <span className="detail-label">Member since</span>
+                        <span className="detail-value">{stats.memberSince}</span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                {/* Recent Conversations */}
+                <section className="conversations-section">
+                  <div className="section-header">
+                    <h2>Recent Conversations</h2>
+                    <button
+                      className="btn btn-secondary"
+                      onClick={() => goToChat()}
+                    >
+                      View All
+                    </button>
+                  </div>
+
+                  <div className="conversations-grid">
+                    {conversations.length > 0
+                      ? (
+                        conversations.map((conversation) => (
+                          <div
+                            key={conversation.id}
+                            className="conversation-card"
+                            onClick={() => goToChat(conversation.id)}
+                          >
+                            <div className="conversation-header">
+                              <h3>{conversation.title}</h3>
+                              <span className="conversation-model">{conversation.model}</span>
+                            </div>
+                            <p className="conversation-date">
+                              {formatDate(conversation.updated_at)}
+                            </p>
+                          </div>
+                        ))
+                      )
+                      : (
+                        <div className="empty-conversations">
+                          <div className="empty-icon">💬</div>
+                          <h3>No conversations yet</h3>
+                          <p>Start your first AI chat conversation!</p>
+                          <button
+                            className="btn btn-primary"
+                            onClick={() => goToChat()}
+                          >
+                            Start Chatting
+                          </button>
+                        </div>
+                      )}
+                  </div>
+                </section>
+
+                {/* Quick Actions */}
+                <section className="actions-section">
+                  <h2>Quick Actions</h2>
+                  <div className="actions-grid">
+                    <button
+                      className="action-card"
+                      onClick={() => goToChat()}
+                    >
+                      <div className="action-icon">💬</div>
+                      <h3>Start New Chat</h3>
+                      <p>Begin a conversation with AI</p>
+                    </button>
+
+                    <button
+                      className="action-card"
+                      onClick={goToPricing}
+                    >
+                      <div className="action-icon">⬆️</div>
+                      <h3>Upgrade Plan</h3>
+                      <p>Get more credits and features</p>
+                    </button>
+
+                    <button
+                      className="action-card"
+                      onClick={goToSettings}
+                    >
+                      <div className="action-icon">⚙️</div>
+                      <h3>Settings</h3>
+                      <p>Manage your account preferences</p>
+                    </button>
+                  </div>
+                </section>
+              </div>
+            )}
         </div>
       </main>
 
-      <style jsx>{`
+      <style jsx>
+        {`
         .dashboard-page {
           min-height: 100vh;
           background: #f8fafc;
@@ -728,7 +734,8 @@ export function DashboardPage({ user, onAuthRequired }: DashboardPageProps) {
             grid-template-columns: 1fr;
           }
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import type { Page, BrowserContext } from "@playwright/test";
+import type { BrowserContext as _BrowserContext, Page } from "@playwright/test";
 
 export interface TestUser {
   id: string;
@@ -27,7 +27,7 @@ export interface StripeCustomer {
     status: string;
     current_period_end: number;
     items: Array<{
-      price: { id: string; nickname: string };
+      price: { id: string; nickname: string; };
       quantity: number;
     }>;
   };

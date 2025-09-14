@@ -2,7 +2,7 @@ import { Clerk } from "@clerk/clerk-js";
 
 // Initialize Clerk instance
 export const clerk = new Clerk(
-  import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || ""
+  import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || "",
 );
 
 // Clerk initialization function

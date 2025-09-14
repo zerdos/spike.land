@@ -30,6 +30,61 @@
 
 
 
+## Documentation Resources
+
+**IMPORTANT: Always consult official documentation before implementing features**
+
+When working with external libraries, frameworks, or tools, use the Ref MCP server to look up:
+- API signatures and parameters
+- Best practices and recommended patterns
+- Configuration options
+- Example implementations
+- Breaking changes or version-specific features
+
+Priority documentation sources:
+- React 19 - Latest hooks, concurrent features, and component patterns
+- TypeScript - Type utilities, configuration, and advanced patterns
+- Vite - Build configuration, plugins, and optimization
+- Monaco Editor - Editor API, language services, and themes
+- Cloudflare Workers - Runtime APIs, Durable Objects, R2 storage
+- Vitest - Testing patterns, mocks, and assertions
+- MDN for web APIs and JavaScript features
+- Official npm package documentation
+
+## Development Workflow
+
+Before implementing features:
+1. **Check documentation first** - Use the Ref MCP server to verify API usage, especially for:
+   - Methods you haven't used recently
+   - Complex configuration options
+   - Third-party library integrations
+   - Platform-specific APIs
+
+2. **Verify assumptions** - Don't rely on memory for:
+   - Exact method signatures
+   - Parameter ordering
+   - Return types
+   - Available options in configuration objects
+
+3. **Look for best practices** - Check docs for:
+   - Recommended patterns
+   - Performance considerations
+   - Security guidelines
+   - Deprecation warnings
+
+## When to Consult Documentation
+
+Always use Ref MCP when:
+- Using a library method for the first time in this project
+- Implementing error handling for external services
+- Setting up configuration files
+- Working with version-specific features
+- Integrating new dependencies
+- Debugging unexpected behavior
+- Working with Cloudflare Workers APIs (KV, Durable Objects, R2)
+- Configuring Monaco Editor features
+- Setting up WebSocket handlers
+
 ## Project Overview
 
 spike.land is a real-time collaborative code playground built with:
@@ -137,6 +192,52 @@ When completing any development task:
    - Testing patterns and mock strategies
    - Build and deployment processes
    - Troubleshooting guides for common issues
+
+## Library-Specific Documentation Guidelines
+
+### React 19
+- Version: 19.x
+- Check docs for: Concurrent features, Suspense boundaries, Server Components
+- Common pitfalls: useEffect cleanup, StrictMode double-rendering
+- Preferred patterns: Custom hooks for shared logic, component composition
+
+### TypeScript
+- Version: 5.x
+- Check docs for: Utility types, conditional types, mapped types
+- Common pitfalls: Type inference limitations, module resolution
+- Preferred patterns: Strict mode, explicit return types, type-only imports
+
+### Vite
+- Version: 5.x
+- Check docs for: Plugin configuration, build optimization, HMR setup
+- Common pitfalls: ESM compatibility, environment variables
+- Preferred patterns: Use defineConfig, explicit imports
+
+### Monaco Editor
+- Check docs for: Language services, themes, editor options
+- Common pitfalls: Worker setup, language registration
+- Preferred patterns: Lazy loading, custom language definitions
+
+### Cloudflare Workers
+- Check docs for: Durable Objects API, R2 bindings, WebSocket handling
+- Common pitfalls: CPU limits, subrequest limits, global state
+- Preferred patterns: Request context, environment bindings
+
+### Vitest
+- Check docs for: Mock functions, test hooks, coverage configuration
+- Common pitfalls: Timer mocks, module mocks, async testing
+- Preferred patterns: vi.mock at module level, proper cleanup
+
+## Frequently Referenced Documentation
+
+Use Ref MCP to check these common areas:
+- Authentication patterns for Clerk (packages/chat)
+- WebSocket message protocols for real-time collaboration
+- Monaco Editor API for code highlighting and IntelliSense
+- Cloudflare Workers Durable Objects for state management
+- React 19 Suspense and Error Boundaries
+- TypeScript generics and type constraints
+- Vitest mocking strategies for Workers
 
 ## Known Issues & Solutions
 

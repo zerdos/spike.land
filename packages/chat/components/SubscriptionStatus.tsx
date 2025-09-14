@@ -17,11 +17,9 @@ export function SubscriptionStatus({ subscription, onUpgrade }: SubscriptionStat
     <div className="subscription-info">
       <div className="subscription-header">
         <span className="subscription-tier">{subscription.tier}</span>
-        {isFreeTier && (
-          <span className="tier-badge">Free</span>
-        )}
+        {isFreeTier && <span className="tier-badge">Free</span>}
       </div>
-      
+
       <div className="credits-section">
         <div className="credits-label">Credits</div>
         <div className="credits-display">
@@ -29,44 +27,45 @@ export function SubscriptionStatus({ subscription, onUpgrade }: SubscriptionStat
           <span className="credits-separator">/</span>
           <span className="credit-limit">{subscription.limit}</span>
         </div>
-        
+
         <div className="credits-bar">
-          <div 
+          <div
             className="credits-progress"
             style={{ width: `${creditsPercentage}%` }}
           />
         </div>
-        
+
         {isLowCredits && (
           <div className="low-credits-warning">
             Low credits remaining
           </div>
         )}
       </div>
-      
+
       <div className="subscription-features">
         {subscription.features}
       </div>
-      
+
       {isFreeTier && (
-        <button 
+        <button
           className="upgrade-btn"
           onClick={onUpgrade}
         >
           Upgrade to Pro
         </button>
       )}
-      
+
       {subscription.credits === 0 && (
-        <button 
+        <button
           className="buy-credits-btn"
           onClick={onUpgrade}
         >
           Buy Credits
         </button>
       )}
-      
-      <style jsx>{`
+
+      <style jsx>
+        {`
         .subscription-info {
           margin-top: 20px;
           padding: 15px;
@@ -180,7 +179,8 @@ export function SubscriptionStatus({ subscription, onUpgrade }: SubscriptionStat
         .buy-credits-btn {
           background: #ff4444;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 }

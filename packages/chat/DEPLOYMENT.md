@@ -169,6 +169,7 @@ The build script (`scripts/build-for-cloudflare.js`) performs:
 ### Build Output
 
 After building, you'll find:
+
 - `.vercel/output/static/_worker.js` - Main worker file
 - `.vercel/output/static/_compat.js` - Node.js compatibility layer
 - `.vercel/output/static/_manifest.json` - Build metadata
@@ -244,6 +245,7 @@ npm run preview:local
 ### Cloudflare Dashboard
 
 Monitor your deployment:
+
 1. Visit [Cloudflare Dashboard](https://dash.cloudflare.com/)
 2. Go to Workers & Pages
 3. Select your application
@@ -290,6 +292,7 @@ ls -lh .vercel/output/static/_worker.js
 #### 1. Build Failures
 
 **Issue**: `@cloudflare/next-on-pages` build fails
+
 ```bash
 # Solution: Clear cache and rebuild
 rm -rf .next .vercel node_modules/.cache
@@ -298,6 +301,7 @@ npm run build
 ```
 
 **Issue**: Module resolution errors
+
 ```bash
 # Solution: Check next.config.mjs webpack configuration
 # Ensure proper fallbacks are set for Node.js modules
@@ -306,12 +310,14 @@ npm run build
 #### 2. Runtime Errors
 
 **Issue**: Environment variables not available
+
 ```bash
 # Solution: Check wrangler.toml binding configuration
 # Ensure secrets are properly set with wrangler secret put
 ```
 
 **Issue**: Database connection fails
+
 ```bash
 # Solution: Verify D1 database binding and ID
 wrangler d1 info DATABASE --env production
@@ -320,6 +326,7 @@ wrangler d1 info DATABASE --env production
 #### 3. WebSocket Issues
 
 **Issue**: WebSocket connections fail
+
 ```bash
 # Solution: Check Durable Object bindings in wrangler.toml
 # Ensure WebSocket upgrade headers are properly set
@@ -342,7 +349,7 @@ modularizeImports: {
 
 ```javascript
 // Use edge runtime for API routes
-export const runtime = 'edge';
+export const runtime = "edge";
 ```
 
 #### 3. Caching Strategy
@@ -387,10 +394,10 @@ Configure CORS properly in `next.config.mjs`:
 ```javascript
 headers: [
   {
-    key: 'Access-Control-Allow-Origin',
-    value: process.env.CORS_ALLOWED_ORIGINS || 'https://your-domain.com',
+    key: "Access-Control-Allow-Origin",
+    value: process.env.CORS_ALLOWED_ORIGINS || "https://your-domain.com",
   },
-]
+];
 ```
 
 ### 3. Rate Limiting
@@ -401,7 +408,7 @@ Implement rate limiting for API endpoints:
 // Check rate limit in middleware
 const rateLimitResult = await checkRateLimit(env.KV_CACHE, identifier);
 if (rateLimitResult.limited) {
-  return new Response('Rate limited', { status: 429 });
+  return new Response("Rate limited", { status: 429 });
 }
 ```
 
@@ -442,6 +449,7 @@ wrangler rollback --env production
 ### Database Rollback
 
 If database changes need rollback:
+
 ```bash
 # Apply rollback migration
 wrangler d1 execute DATABASE --env production --file=./sql/rollback/001_rollback.sql

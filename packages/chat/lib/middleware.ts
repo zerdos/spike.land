@@ -1,8 +1,8 @@
 import type { NextRequest } from "next/server";
-import type { Env, AuthContext, User } from "../src/types";
+import type { AuthContext, Env, User } from "../src/types";
 import { AuthService } from "../src/utils/auth";
-import { RateLimiter, RATE_LIMIT_RULES, applyRateLimit } from "./rate-limiting";
-import { ErrorHandler, APIError, AuthenticationError, AuthorizationError } from "./error-handler";
+import { APIError, AuthenticationError, AuthorizationError, ErrorHandler } from "./error-handler";
+import { applyRateLimit, RATE_LIMIT_RULES, RateLimiter } from "./rate-limiting";
 
 export interface MiddlewareContext {
   env: Env;
@@ -22,7 +22,7 @@ export interface MiddlewareOptions {
 
 export type MiddlewareHandler = (
   context: MiddlewareContext,
-  next: () => Promise<Response>
+  next: () => Promise<Response>,
 ) => Promise<Response>;
 
 export class MiddlewareManager {
@@ -122,7 +122,7 @@ export class MiddlewareManager {
       const userCredits = user.credits || 0;
       if (user.subscription_tier === "free" && userCredits < minCredits) {
         throw new AuthorizationError(
-          `Insufficient credits. Required: ${minCredits}, Available: ${userCredits}`
+          `Insufficient credits. Required: ${minCredits}, Available: ${userCredits}`,
         );
       }
 
@@ -140,7 +140,11 @@ export class MiddlewareManager {
   } = {}): MiddlewareHandler {
     return async (context, next) => {
       const { request } = context;
-      const { bodyRequired = false, contentType = "application/json", maxBodySize = 10 * 1024 * 1024 } = options;
+      const {
+        bodyRequired = false,
+        contentType = "application/json",
+        maxBodySize = 10 * 1024 * 1024,
+      } = options;
 
       // Check content type for POST/PUT requests
       if (["POST", "PUT", "PATCH"].includes(request.method)) {
@@ -154,7 +158,7 @@ export class MiddlewareManager {
           throw new APIError(
             `Content-Type must be ${contentType}`,
             "INVALID_CONTENT_TYPE",
-            415
+            415,
           );
         }
 
@@ -164,7 +168,7 @@ export class MiddlewareManager {
           throw new APIError(
             `Request body too large. Maximum size: ${maxBodySize} bytes`,
             "REQUEST_TOO_LARGE",
-            413
+            413,
           );
         }
       }
@@ -186,7 +190,8 @@ export class MiddlewareManager {
           headers: {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type, Authorization, X-User-Id, X-Conversation-Id",
+            "Access-Control-Allow-Headers":
+              "Content-Type, Authorization, X-User-Id, X-Conversation-Id",
             "Access-Control-Max-Age": "86400",
           },
         });
@@ -197,7 +202,10 @@ export class MiddlewareManager {
       // Add CORS headers to response
       response.headers.set("Access-Control-Allow-Origin", "*");
       response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-      response.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-User-Id, X-Conversation-Id");
+      response.headers.set(
+        "Access-Control-Allow-Headers",
+        "Content-Type, Authorization, X-User-Id, X-Conversation-Id",
+      );
 
       return response;
     };
@@ -233,7 +241,7 @@ export class MiddlewareManager {
 
         console.log(
           `[${requestId}] ${request.method} ${new URL(request.url).pathname} - ` +
-          `${response.status} (${duration}ms)`
+            `${response.status} (${duration}ms)`,
         );
 
         return response;
@@ -241,8 +249,8 @@ export class MiddlewareManager {
         const duration = Date.now() - startTime;
         console.error(
           `[${requestId}] ${request.method} ${new URL(request.url).pathname} - ` +
-          `Error (${duration}ms):`,
-          error
+            `Error (${duration}ms):`,
+          error,
         );
         throw error;
       }
@@ -286,7 +294,7 @@ export class MiddlewareManager {
 
         try {
           return Promise.resolve(
-            middleware(context, () => dispatch(i + 1))
+            middleware(context, () => dispatch(i + 1)),
           );
         } catch (error) {
           return Promise.reject(error);
@@ -331,7 +339,7 @@ export class MiddlewareManager {
     env: Env,
     request: NextRequest,
     handler: (context: MiddlewareContext) => Promise<Response>,
-    options: MiddlewareOptions = {}
+    options: MiddlewareOptions = {},
   ): Promise<Response> {
     const context: MiddlewareContext = {
       env,
@@ -348,7 +356,7 @@ export class MiddlewareManager {
 // Convenience functions for common middleware patterns
 export function createAPIHandler(
   handler: (context: MiddlewareContext) => Promise<Response>,
-  options: MiddlewareOptions = {}
+  options: MiddlewareOptions = {},
 ) {
   const middlewareManager = new MiddlewareManager(process.env.NODE_ENV === "development");
 
@@ -360,7 +368,7 @@ export function createAPIHandler(
 
 export function createAuthenticatedHandler(
   handler: (context: MiddlewareContext) => Promise<Response>,
-  options: Omit<MiddlewareOptions, "requireAuth"> = {}
+  options: Omit<MiddlewareOptions, "requireAuth"> = {},
 ) {
   return createAPIHandler(handler, { ...options, requireAuth: true });
 }
@@ -368,14 +376,14 @@ export function createAuthenticatedHandler(
 export function createRateLimitedHandler(
   handler: (context: MiddlewareContext) => Promise<Response>,
   rateLimit: keyof typeof RATE_LIMIT_RULES,
-  options: Omit<MiddlewareOptions, "rateLimit"> = {}
+  options: Omit<MiddlewareOptions, "rateLimit"> = {},
 ) {
   return createAPIHandler(handler, { ...options, rateLimit });
 }
 
 // Utility function to extract common request data
 export async function parseRequestBody<T = Record<string, unknown>>(
-  request: NextRequest
+  request: NextRequest,
 ): Promise<T> {
   try {
     const body = await request.json();
@@ -402,7 +410,7 @@ export function getUserAgent(request: NextRequest): string {
 export function hasPermission(
   user: User | undefined,
   resource: string,
-  action: string
+  action: string,
 ): boolean {
   // Basic permission check - can be extended based on requirements
   if (!user) return false;
@@ -441,11 +449,11 @@ export function hasPermission(
 export function requirePermission(
   user: User | undefined,
   resource: string,
-  action: string
+  action: string,
 ): void {
   if (!hasPermission(user, resource, action)) {
     throw new AuthorizationError(
-      `Insufficient permissions for ${action} on ${resource}`
+      `Insufficient permissions for ${action} on ${resource}`,
     );
   }
 }

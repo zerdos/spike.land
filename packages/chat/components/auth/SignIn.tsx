@@ -46,7 +46,7 @@ export function SignIn({ onSuccess, onSignUpClick }: SignInProps) {
 
         <div className="auth-footer">
           <p>
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <button
               className="auth-link"
               onClick={onSignUpClick}

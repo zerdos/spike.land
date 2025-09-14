@@ -55,7 +55,9 @@ export function ChatInterface({
         {messages.map((message) => (
           <div
             key={message.id}
-            className={message.role === "user" ? "message message-user" : "message message-assistant"}
+            className={message.role === "user"
+              ? "message message-user"
+              : "message message-assistant"}
           >
             <div className="message-role">
               {message.role === "user" ? "You" : "Assistant"}

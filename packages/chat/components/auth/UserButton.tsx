@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
-import { auth } from "../../lib/clerk";
 import type { UserResource } from "@clerk/types";
+import { useEffect, useRef, useState } from "react";
+import { auth } from "../../lib/clerk";
 
 interface UserButtonProps {
   user: UserResource;
@@ -32,7 +32,8 @@ export function UserButton({ user, onSignOut }: UserButtonProps) {
     }
   };
 
-  const displayName = user.firstName || user.username || user.emailAddresses[0]?.emailAddress || "User";
+  const displayName = user.firstName || user.username || user.emailAddresses[0]?.emailAddress ||
+    "User";
   const userEmail = user.emailAddresses[0]?.emailAddress;
   const avatarUrl = user.imageUrl;
 
@@ -44,13 +45,13 @@ export function UserButton({ user, onSignOut }: UserButtonProps) {
         aria-expanded={isOpen}
       >
         <div className="user-avatar">
-          {avatarUrl ? (
-            <img src={avatarUrl} alt={displayName} className="avatar-image" />
-          ) : (
-            <div className="avatar-fallback">
-              {displayName.charAt(0).toUpperCase()}
-            </div>
-          )}
+          {avatarUrl
+            ? <img src={avatarUrl} alt={displayName} className="avatar-image" />
+            : (
+              <div className="avatar-fallback">
+                {displayName.charAt(0).toUpperCase()}
+              </div>
+            )}
         </div>
         <div className="user-info">
           <div className="user-name">{displayName}</div>

@@ -13,7 +13,7 @@ export function LandingPage({ onAuth }: LandingPageProps) {
 
   const handleStartChatting = () => {
     setIsLoading(true);
-    
+
     // Mock authentication for demo
     const mockUser: User = {
       id: "demo-user-" + Date.now(),
@@ -21,7 +21,7 @@ export function LandingPage({ onAuth }: LandingPageProps) {
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     };
-    
+
     // Simulate authentication delay
     setTimeout(() => {
       onAuth(mockUser);
@@ -96,25 +96,26 @@ export function LandingPage({ onAuth }: LandingPageProps) {
           </button>
         </div>
       </div>
-      
+
       <div className="features">
         <div className="feature">
           <h3>Intelligent Responses</h3>
           <p>Get thoughtful, context-aware answers to your questions</p>
         </div>
-        
+
         <div className="feature">
           <h3>Real-time Collaboration</h3>
           <p>Share conversations and collaborate with others in real-time</p>
         </div>
-        
+
         <div className="feature">
           <h3>Flexible Pricing</h3>
           <p>Choose from free tier or upgrade for unlimited access</p>
         </div>
       </div>
-      
-      <style jsx>{`
+
+      <style jsx>
+        {`
         .landing-page {
           display: flex;
           flex-direction: column;
@@ -243,7 +244,8 @@ export function LandingPage({ onAuth }: LandingPageProps) {
           color: #666;
           line-height: 1.6;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 }

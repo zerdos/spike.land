@@ -49,7 +49,7 @@ export class IterativeWorkflowManager {
    * Executes workflow with iterative improvements until code is runnable
    */
   async executeWithValidation(
-    workflow: { invoke: (prompt: string, images: unknown[]) => Promise<AgentState> },
+    workflow: { invoke: (prompt: string, images: unknown[]) => Promise<AgentState>; },
     initialPrompt: string,
     images: unknown[],
     codeSession: ICode,

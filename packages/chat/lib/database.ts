@@ -1,11 +1,11 @@
 import type {
-  Env,
-  User,
+  Attachment,
   Conversation,
+  Env,
   Message,
   Subscription,
   Transaction,
-  Attachment
+  User,
 } from "../src/types";
 
 export class DatabaseManager {
@@ -46,7 +46,7 @@ export class DatabaseManager {
         user.credits,
         user.stripe_customer_id || null,
         user.created_at,
-        user.updated_at
+        user.updated_at,
       )
       .run();
 
@@ -77,7 +77,10 @@ export class DatabaseManager {
     return result as User | null;
   }
 
-  async updateUser(id: string, updates: Partial<Omit<User, "id" | "created_at">>): Promise<User | null> {
+  async updateUser(
+    id: string,
+    updates: Partial<Omit<User, "id" | "created_at">>,
+  ): Promise<User | null> {
     const now = new Date().toISOString();
 
     // Build dynamic query based on provided updates
@@ -107,7 +110,9 @@ export class DatabaseManager {
   }
 
   // Conversation operations
-  async createConversation(conversationData: Omit<Conversation, "created_at" | "updated_at">): Promise<Conversation> {
+  async createConversation(
+    conversationData: Omit<Conversation, "created_at" | "updated_at">,
+  ): Promise<Conversation> {
     const now = new Date().toISOString();
 
     const conversation: Conversation = {
@@ -128,7 +133,7 @@ export class DatabaseManager {
         conversation.title || null,
         conversation.model,
         conversation.created_at,
-        conversation.updated_at
+        conversation.updated_at,
       )
       .run();
 
@@ -145,8 +150,13 @@ export class DatabaseManager {
 
   async getConversationsByUserId(
     userId: string,
-    options: { page?: number; limit?: number; sortBy?: "created_at" | "updated_at"; order?: "ASC" | "DESC" } = {}
-  ): Promise<{ conversations: Conversation[]; total: number }> {
+    options: {
+      page?: number;
+      limit?: number;
+      sortBy?: "created_at" | "updated_at";
+      order?: "ASC" | "DESC";
+    } = {},
+  ): Promise<{ conversations: Conversation[]; total: number; }> {
     const { page = 1, limit = 20, sortBy = "updated_at", order = "DESC" } = options;
     const offset = (page - 1) * limit;
 
@@ -163,20 +173,27 @@ export class DatabaseManager {
       .all();
 
     // Get total count
-    const countResult = await this.db.prepare("SELECT COUNT(*) as total FROM conversations WHERE user_id = ?")
+    const countResult = await this.db.prepare(
+      "SELECT COUNT(*) as total FROM conversations WHERE user_id = ?",
+    )
       .bind(userId)
       .first();
 
     return {
       conversations: conversationsResult.results as Conversation[],
-      total: (countResult as { total: number })?.total || 0,
+      total: (countResult as { total: number; })?.total || 0,
     };
   }
 
-  async updateConversation(id: string, updates: Partial<Omit<Conversation, "id" | "user_id" | "created_at">>): Promise<Conversation | null> {
+  async updateConversation(
+    id: string,
+    updates: Partial<Omit<Conversation, "id" | "user_id" | "created_at">>,
+  ): Promise<Conversation | null> {
     const now = new Date().toISOString();
 
-    const fields = Object.keys(updates).filter(key => key !== "id" && key !== "user_id" && key !== "created_at");
+    const fields = Object.keys(updates).filter(key =>
+      key !== "id" && key !== "user_id" && key !== "created_at"
+    );
     if (fields.length === 0) {
       return await this.getConversationById(id);
     }
@@ -235,7 +252,7 @@ export class DatabaseManager {
         message.role,
         message.content,
         message.tokens_used || null,
-        message.created_at
+        message.created_at,
       )
       .run();
 
@@ -252,8 +269,8 @@ export class DatabaseManager {
 
   async getMessagesByConversationId(
     conversationId: string,
-    options: { page?: number; limit?: number; order?: "ASC" | "DESC" } = {}
-  ): Promise<{ messages: Message[]; total: number }> {
+    options: { page?: number; limit?: number; order?: "ASC" | "DESC"; } = {},
+  ): Promise<{ messages: Message[]; total: number; }> {
     const { page = 1, limit = 50, order = "ASC" } = options;
     const offset = (page - 1) * limit;
 
@@ -270,17 +287,22 @@ export class DatabaseManager {
       .all();
 
     // Get total count
-    const countResult = await this.db.prepare("SELECT COUNT(*) as total FROM messages WHERE conversation_id = ?")
+    const countResult = await this.db.prepare(
+      "SELECT COUNT(*) as total FROM messages WHERE conversation_id = ?",
+    )
       .bind(conversationId)
       .first();
 
     return {
       messages: messagesResult.results as Message[],
-      total: (countResult as { total: number })?.total || 0,
+      total: (countResult as { total: number; })?.total || 0,
     };
   }
 
-  async updateMessage(id: string, updates: Partial<Omit<Message, "id" | "conversation_id" | "created_at">>): Promise<Message | null> {
+  async updateMessage(
+    id: string,
+    updates: Partial<Omit<Message, "id" | "conversation_id" | "created_at">>,
+  ): Promise<Message | null> {
     const fields = Object.keys(updates).filter(key =>
       key !== "id" && key !== "conversation_id" && key !== "created_at"
     );
@@ -318,7 +340,9 @@ export class DatabaseManager {
   }
 
   // Subscription operations
-  async createSubscription(subscriptionData: Omit<Subscription, "created_at" | "updated_at">): Promise<Subscription> {
+  async createSubscription(
+    subscriptionData: Omit<Subscription, "created_at" | "updated_at">,
+  ): Promise<Subscription> {
     const now = new Date().toISOString();
 
     const subscription: Subscription = {
@@ -346,7 +370,7 @@ export class DatabaseManager {
         subscription.current_period_end || null,
         subscription.cancel_at_period_end,
         subscription.created_at,
-        subscription.updated_at
+        subscription.updated_at,
       )
       .run();
 
@@ -354,14 +378,19 @@ export class DatabaseManager {
   }
 
   async getSubscriptionByUserId(userId: string): Promise<Subscription | null> {
-    const result = await this.db.prepare("SELECT * FROM subscriptions WHERE user_id = ? ORDER BY created_at DESC LIMIT 1")
+    const result = await this.db.prepare(
+      "SELECT * FROM subscriptions WHERE user_id = ? ORDER BY created_at DESC LIMIT 1",
+    )
       .bind(userId)
       .first();
 
     return result as Subscription | null;
   }
 
-  async updateSubscription(id: string, updates: Partial<Omit<Subscription, "id" | "user_id" | "created_at">>): Promise<Subscription | null> {
+  async updateSubscription(
+    id: string,
+    updates: Partial<Omit<Subscription, "id" | "user_id" | "created_at">>,
+  ): Promise<Subscription | null> {
     const now = new Date().toISOString();
 
     const fields = Object.keys(updates).filter(key =>
@@ -414,7 +443,7 @@ export class DatabaseManager {
         transaction.amount,
         transaction.credits,
         transaction.status,
-        transaction.created_at
+        transaction.created_at,
       )
       .run();
 
@@ -423,7 +452,7 @@ export class DatabaseManager {
 
   async getTransactionsByUserId(userId: string, limit: number = 20): Promise<Transaction[]> {
     const result = await this.db.prepare(
-      "SELECT * FROM transactions WHERE user_id = ? ORDER BY created_at DESC LIMIT ?"
+      "SELECT * FROM transactions WHERE user_id = ? ORDER BY created_at DESC LIMIT ?",
     ).bind(userId, limit).all();
 
     return result.results as Transaction[];
@@ -453,7 +482,7 @@ export class DatabaseManager {
         attachment.content_type || null,
         attachment.size || null,
         attachment.r2_key,
-        attachment.created_at
+        attachment.created_at,
       )
       .run();
 
@@ -476,13 +505,15 @@ export class DatabaseManager {
     creditsRemaining: number;
   }> {
     const [conversationsResult, messagesResult, user] = await Promise.all([
-      this.db.prepare("SELECT COUNT(*) as total FROM conversations WHERE user_id = ?").bind(userId).first(),
-      this.db.prepare("SELECT COUNT(*) as total FROM messages WHERE user_id = ?").bind(userId).first(),
-      this.getUserById(userId)
+      this.db.prepare("SELECT COUNT(*) as total FROM conversations WHERE user_id = ?").bind(userId)
+        .first(),
+      this.db.prepare("SELECT COUNT(*) as total FROM messages WHERE user_id = ?").bind(userId)
+        .first(),
+      this.getUserById(userId),
     ]);
 
-    const totalConversations = (conversationsResult as { total: number })?.total || 0;
-    const totalMessages = (messagesResult as { total: number })?.total || 0;
+    const totalConversations = (conversationsResult as { total: number; })?.total || 0;
+    const totalMessages = (messagesResult as { total: number; })?.total || 0;
     const creditsRemaining = user?.credits || 0;
 
     // Calculate used credits (assuming initial was 10 for free tier)
@@ -507,12 +538,12 @@ export class DatabaseManager {
 
     // Delete old messages first
     const messagesResult = await this.db.prepare(
-      "DELETE FROM messages WHERE created_at < ? AND conversation_id IN (SELECT id FROM conversations WHERE updated_at < ?)"
+      "DELETE FROM messages WHERE created_at < ? AND conversation_id IN (SELECT id FROM conversations WHERE updated_at < ?)",
     ).bind(cutoff, cutoff).run();
 
     // Delete old conversations
     const conversationsResult = await this.db.prepare(
-      "DELETE FROM conversations WHERE updated_at < ?"
+      "DELETE FROM conversations WHERE updated_at < ?",
     ).bind(cutoff).run();
 
     return {
@@ -522,7 +553,7 @@ export class DatabaseManager {
   }
 
   // Health check
-  async healthCheck(): Promise<{ status: "healthy" | "unhealthy"; timestamp: string }> {
+  async healthCheck(): Promise<{ status: "healthy" | "unhealthy"; timestamp: string; }> {
     try {
       await this.db.prepare("SELECT 1").first();
       return {

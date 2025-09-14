@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface HeaderProps {
   isScrolled?: boolean;
-  user?: { id: string; email: string } | null;
+  user?: { id: string; email: string; } | null;
 }
 
 export function Header({ isScrolled = false, user }: HeaderProps) {
@@ -83,63 +83,65 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
 
           {/* User Actions */}
           <div className="user-actions">
-            {currentUser ? (
-              <div className="user-menu">
-                <div className="user-info">
-                  <span className="user-avatar">
-                    {currentUser.email.charAt(0).toUpperCase()}
-                  </span>
-                  <span className="user-email">{currentUser.email}</span>
-                </div>
+            {currentUser
+              ? (
+                <div className="user-menu">
+                  <div className="user-info">
+                    <span className="user-avatar">
+                      {currentUser.email.charAt(0).toUpperCase()}
+                    </span>
+                    <span className="user-email">{currentUser.email}</span>
+                  </div>
 
-                <div className="dropdown">
+                  <div className="dropdown">
+                    <button
+                      className="dropdown-toggle"
+                      onClick={toggleMenu}
+                      aria-label="User menu"
+                      aria-expanded={isMenuOpen}
+                    >
+                      <span className="chevron">▼</span>
+                    </button>
+
+                    {isMenuOpen && (
+                      <div className="dropdown-menu">
+                        <a href="/dashboard" className="dropdown-item">
+                          📊 Dashboard
+                        </a>
+                        <a href="/settings" className="dropdown-item">
+                          ⚙️ Settings
+                        </a>
+                        <a href="/pricing" className="dropdown-item">
+                          💎 Upgrade
+                        </a>
+                        <div className="dropdown-separator" />
+                        <button
+                          onClick={handleLogout}
+                          className="dropdown-item logout"
+                        >
+                          🚪 Sign Out
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )
+              : (
+                <div className="auth-buttons">
                   <button
-                    className="dropdown-toggle"
-                    onClick={toggleMenu}
-                    aria-label="User menu"
-                    aria-expanded={isMenuOpen}
+                    className="btn btn-secondary"
+                    onClick={() => window.location.href = "/"}
                   >
-                    <span className="chevron">▼</span>
+                    Sign In
                   </button>
-
-                  {isMenuOpen && (
-                    <div className="dropdown-menu">
-                      <a href="/dashboard" className="dropdown-item">
-                        📊 Dashboard
-                      </a>
-                      <a href="/settings" className="dropdown-item">
-                        ⚙️ Settings
-                      </a>
-                      <a href="/pricing" className="dropdown-item">
-                        💎 Upgrade
-                      </a>
-                      <div className="dropdown-separator" />
-                      <button
-                        onClick={handleLogout}
-                        className="dropdown-item logout"
-                      >
-                        🚪 Sign Out
-                      </button>
-                    </div>
-                  )}
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => window.location.href = "/chat"}
+                  >
+                    Get Started
+                  </button>
                 </div>
-              </div>
-            ) : (
-              <div className="auth-buttons">
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => window.location.href = "/"}
-                >
-                  Sign In
-                </button>
-                <button
-                  className="btn btn-primary"
-                  onClick={() => window.location.href = "/chat"}
-                >
-                  Get Started
-                </button>
-              </div>
-            )}
+              )}
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -177,55 +179,57 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
               })}
             </ul>
 
-            {currentUser ? (
-              <div className="mobile-user-section">
-                <div className="mobile-user-info">
-                  <span className="user-avatar">
-                    {currentUser.email.charAt(0).toUpperCase()}
-                  </span>
-                  <span className="user-email">{currentUser.email}</span>
-                </div>
+            {currentUser
+              ? (
+                <div className="mobile-user-section">
+                  <div className="mobile-user-info">
+                    <span className="user-avatar">
+                      {currentUser.email.charAt(0).toUpperCase()}
+                    </span>
+                    <span className="user-email">{currentUser.email}</span>
+                  </div>
 
-                <div className="mobile-user-actions">
-                  <a href="/dashboard" className="mobile-action-item">
-                    📊 Dashboard
-                  </a>
-                  <a href="/settings" className="mobile-action-item">
-                    ⚙️ Settings
-                  </a>
-                  <a href="/pricing" className="mobile-action-item">
-                    💎 Upgrade
-                  </a>
+                  <div className="mobile-user-actions">
+                    <a href="/dashboard" className="mobile-action-item">
+                      📊 Dashboard
+                    </a>
+                    <a href="/settings" className="mobile-action-item">
+                      ⚙️ Settings
+                    </a>
+                    <a href="/pricing" className="mobile-action-item">
+                      💎 Upgrade
+                    </a>
+                    <button
+                      onClick={handleLogout}
+                      className="mobile-action-item logout"
+                    >
+                      🚪 Sign Out
+                    </button>
+                  </div>
+                </div>
+              )
+              : (
+                <div className="mobile-auth-section">
                   <button
-                    onClick={handleLogout}
-                    className="mobile-action-item logout"
+                    className="btn btn-secondary mobile-btn"
+                    onClick={() => {
+                      closeMenu();
+                      window.location.href = "/";
+                    }}
                   >
-                    🚪 Sign Out
+                    Sign In
+                  </button>
+                  <button
+                    className="btn btn-primary mobile-btn"
+                    onClick={() => {
+                      closeMenu();
+                      window.location.href = "/chat";
+                    }}
+                  >
+                    Get Started
                   </button>
                 </div>
-              </div>
-            ) : (
-              <div className="mobile-auth-section">
-                <button
-                  className="btn btn-secondary mobile-btn"
-                  onClick={() => {
-                    closeMenu();
-                    window.location.href = "/";
-                  }}
-                >
-                  Sign In
-                </button>
-                <button
-                  className="btn btn-primary mobile-btn"
-                  onClick={() => {
-                    closeMenu();
-                    window.location.href = "/chat";
-                  }}
-                >
-                  Get Started
-                </button>
-              </div>
-            )}
+              )}
           </nav>
         </div>
 
@@ -239,7 +243,8 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
         )}
       </div>
 
-      <style jsx>{`
+      <style jsx>
+        {`
         .header {
           position: fixed;
           top: 0;
@@ -667,7 +672,8 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
             font-size: 17px;
           }
         }
-      `}</style>
+      `}
+      </style>
     </header>
   );
 }

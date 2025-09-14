@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { User } from "../../../src/types";
 import { Header } from "../../components/layout/header";
-import { api } from "../../lib/api";
+import { api as _api } from "../../lib/api";
 
 interface SettingsPageProps {
   user?: User | null;
@@ -219,261 +219,279 @@ export function SettingsPage({ user, onAuthRequired }: SettingsPageProps) {
 
             {/* Content */}
             <div className="settings-content">
-              {isLoading ? (
-                <div className="loading-state">
-                  <div className="loading-spinner" />
-                  <p>Loading settings...</p>
-                </div>
-              ) : (
-                <>
-                  {activeTab === "general" && (
-                    <div className="settings-section">
-                      <h2>General Settings</h2>
-
-                      <div className="setting-group">
-                        <label htmlFor="theme">Theme</label>
-                        <select
-                          id="theme"
-                          value={settings.theme}
-                          onChange={(e) => handleSettingChange("theme", "", e.target.value)}
-                        >
-                          <option value="light">Light</option>
-                          <option value="dark">Dark</option>
-                          <option value="system">System</option>
-                        </select>
-                      </div>
-
-                      <div className="setting-group">
-                        <label htmlFor="language">Language</label>
-                        <select
-                          id="language"
-                          value={settings.language}
-                          onChange={(e) => handleSettingChange("language", "", e.target.value)}
-                        >
-                          {languageOptions.map((option) => (
-                            <option key={option.value} value={option.value}>
-                              {option.label}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === "chat" && (
-                    <div className="settings-section">
-                      <h2>Chat Settings</h2>
-
-                      <div className="setting-group">
-                        <label htmlFor="defaultModel">Default AI Model</label>
-                        <select
-                          id="defaultModel"
-                          value={settings.chat.defaultModel}
-                          onChange={(e) => handleSettingChange("chat", "defaultModel", e.target.value)}
-                        >
-                          {modelOptions.map((option) => (
-                            <option key={option.value} value={option.value}>
-                              {option.label}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <div className="setting-group">
-                        <label htmlFor="temperature">
-                          Temperature: {settings.chat.temperature}
-                        </label>
-                        <input
-                          type="range"
-                          id="temperature"
-                          min="0"
-                          max="2"
-                          step="0.1"
-                          value={settings.chat.temperature}
-                          onChange={(e) => handleSettingChange("chat", "temperature", parseFloat(e.target.value))}
-                        />
-                        <div className="range-labels">
-                          <span>Focused</span>
-                          <span>Creative</span>
-                        </div>
-                      </div>
-
-                      <div className="setting-group">
-                        <label htmlFor="maxTokens">Max Tokens</label>
-                        <input
-                          type="number"
-                          id="maxTokens"
-                          min="100"
-                          max="4096"
-                          value={settings.chat.maxTokens}
-                          onChange={(e) => handleSettingChange("chat", "maxTokens", parseInt(e.target.value))}
-                        />
-                      </div>
-
-                      <div className="setting-group">
-                        <label className="checkbox-label">
-                          <input
-                            type="checkbox"
-                            checked={settings.chat.autoSave}
-                            onChange={(e) => handleSettingChange("chat", "autoSave", e.target.checked)}
-                          />
-                          Auto-save conversations
-                        </label>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === "notifications" && (
-                    <div className="settings-section">
-                      <h2>Notification Settings</h2>
-
-                      <div className="setting-group">
-                        <label className="checkbox-label">
-                          <input
-                            type="checkbox"
-                            checked={settings.notifications.email}
-                            onChange={(e) => handleSettingChange("notifications", "email", e.target.checked)}
-                          />
-                          Email notifications
-                        </label>
-                        <p className="setting-description">
-                          Receive important updates and notifications via email
-                        </p>
-                      </div>
-
-                      <div className="setting-group">
-                        <label className="checkbox-label">
-                          <input
-                            type="checkbox"
-                            checked={settings.notifications.browser}
-                            onChange={(e) => handleSettingChange("notifications", "browser", e.target.checked)}
-                          />
-                          Browser notifications
-                        </label>
-                        <p className="setting-description">
-                          Show desktop notifications for new messages
-                        </p>
-                      </div>
-
-                      <div className="setting-group">
-                        <label className="checkbox-label">
-                          <input
-                            type="checkbox"
-                            checked={settings.notifications.marketing}
-                            onChange={(e) => handleSettingChange("notifications", "marketing", e.target.checked)}
-                          />
-                          Marketing emails
-                        </label>
-                        <p className="setting-description">
-                          Receive updates about new features and special offers
-                        </p>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === "privacy" && (
-                    <div className="settings-section">
-                      <h2>Privacy Settings</h2>
-
-                      <div className="setting-group">
-                        <label className="checkbox-label">
-                          <input
-                            type="checkbox"
-                            checked={settings.privacy.dataCollection}
-                            onChange={(e) => handleSettingChange("privacy", "dataCollection", e.target.checked)}
-                          />
-                          Allow data collection
-                        </label>
-                        <p className="setting-description">
-                          Help improve our service by sharing anonymous usage data
-                        </p>
-                      </div>
-
-                      <div className="setting-group">
-                        <label className="checkbox-label">
-                          <input
-                            type="checkbox"
-                            checked={settings.privacy.analytics}
-                            onChange={(e) => handleSettingChange("privacy", "analytics", e.target.checked)}
-                          />
-                          Analytics and performance
-                        </label>
-                        <p className="setting-description">
-                          Allow us to analyze usage patterns to improve performance
-                        </p>
-                      </div>
-
-                      <div className="setting-group">
-                        <label className="checkbox-label">
-                          <input
-                            type="checkbox"
-                            checked={settings.privacy.shareUsage}
-                            onChange={(e) => handleSettingChange("privacy", "shareUsage", e.target.checked)}
-                          />
-                          Share usage statistics
-                        </label>
-                        <p className="setting-description">
-                          Share anonymous usage statistics with third parties
-                        </p>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === "account" && (
-                    <div className="settings-section">
-                      <h2>Account Management</h2>
-
-                      <div className="account-info">
-                        <div className="info-item">
-                          <label>Email</label>
-                          <span>{user?.email || "demo@example.com"}</span>
-                        </div>
-                        <div className="info-item">
-                          <label>Member since</label>
-                          <span>
-                            {user?.created_at
-                              ? new Date(user.created_at).toLocaleDateString()
-                              : new Date().toLocaleDateString()}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="account-actions">
-                        <button
-                          className="btn btn-secondary"
-                          onClick={exportData}
-                        >
-                          Export My Data
-                        </button>
-
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => setShowDeleteModal(true)}
-                        >
-                          Delete Account
-                        </button>
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="settings-footer">
-                    <button
-                      className="btn btn-primary"
-                      onClick={saveSettings}
-                      disabled={isSaving}
-                    >
-                      {isSaving ? (
-                        <>
-                          <span className="spinner" />
-                          Saving...
-                        </>
-                      ) : (
-                        "Save Changes"
-                      )}
-                    </button>
+              {isLoading
+                ? (
+                  <div className="loading-state">
+                    <div className="loading-spinner" />
+                    <p>Loading settings...</p>
                   </div>
-                </>
-              )}
+                )
+                : (
+                  <>
+                    {activeTab === "general" && (
+                      <div className="settings-section">
+                        <h2>General Settings</h2>
+
+                        <div className="setting-group">
+                          <label htmlFor="theme">Theme</label>
+                          <select
+                            id="theme"
+                            value={settings.theme}
+                            onChange={(e) => handleSettingChange("theme", "", e.target.value)}
+                          >
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                            <option value="system">System</option>
+                          </select>
+                        </div>
+
+                        <div className="setting-group">
+                          <label htmlFor="language">Language</label>
+                          <select
+                            id="language"
+                            value={settings.language}
+                            onChange={(e) => handleSettingChange("language", "", e.target.value)}
+                          >
+                            {languageOptions.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === "chat" && (
+                      <div className="settings-section">
+                        <h2>Chat Settings</h2>
+
+                        <div className="setting-group">
+                          <label htmlFor="defaultModel">Default AI Model</label>
+                          <select
+                            id="defaultModel"
+                            value={settings.chat.defaultModel}
+                            onChange={(e) =>
+                              handleSettingChange("chat", "defaultModel", e.target.value)}
+                          >
+                            {modelOptions.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div className="setting-group">
+                          <label htmlFor="temperature">
+                            Temperature: {settings.chat.temperature}
+                          </label>
+                          <input
+                            type="range"
+                            id="temperature"
+                            min="0"
+                            max="2"
+                            step="0.1"
+                            value={settings.chat.temperature}
+                            onChange={(e) =>
+                              handleSettingChange(
+                                "chat",
+                                "temperature",
+                                parseFloat(e.target.value),
+                              )}
+                          />
+                          <div className="range-labels">
+                            <span>Focused</span>
+                            <span>Creative</span>
+                          </div>
+                        </div>
+
+                        <div className="setting-group">
+                          <label htmlFor="maxTokens">Max Tokens</label>
+                          <input
+                            type="number"
+                            id="maxTokens"
+                            min="100"
+                            max="4096"
+                            value={settings.chat.maxTokens}
+                            onChange={(e) =>
+                              handleSettingChange("chat", "maxTokens", parseInt(e.target.value))}
+                          />
+                        </div>
+
+                        <div className="setting-group">
+                          <label className="checkbox-label">
+                            <input
+                              type="checkbox"
+                              checked={settings.chat.autoSave}
+                              onChange={(e) =>
+                                handleSettingChange("chat", "autoSave", e.target.checked)}
+                            />
+                            Auto-save conversations
+                          </label>
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === "notifications" && (
+                      <div className="settings-section">
+                        <h2>Notification Settings</h2>
+
+                        <div className="setting-group">
+                          <label className="checkbox-label">
+                            <input
+                              type="checkbox"
+                              checked={settings.notifications.email}
+                              onChange={(e) =>
+                                handleSettingChange("notifications", "email", e.target.checked)}
+                            />
+                            Email notifications
+                          </label>
+                          <p className="setting-description">
+                            Receive important updates and notifications via email
+                          </p>
+                        </div>
+
+                        <div className="setting-group">
+                          <label className="checkbox-label">
+                            <input
+                              type="checkbox"
+                              checked={settings.notifications.browser}
+                              onChange={(e) =>
+                                handleSettingChange("notifications", "browser", e.target.checked)}
+                            />
+                            Browser notifications
+                          </label>
+                          <p className="setting-description">
+                            Show desktop notifications for new messages
+                          </p>
+                        </div>
+
+                        <div className="setting-group">
+                          <label className="checkbox-label">
+                            <input
+                              type="checkbox"
+                              checked={settings.notifications.marketing}
+                              onChange={(e) =>
+                                handleSettingChange("notifications", "marketing", e.target.checked)}
+                            />
+                            Marketing emails
+                          </label>
+                          <p className="setting-description">
+                            Receive updates about new features and special offers
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === "privacy" && (
+                      <div className="settings-section">
+                        <h2>Privacy Settings</h2>
+
+                        <div className="setting-group">
+                          <label className="checkbox-label">
+                            <input
+                              type="checkbox"
+                              checked={settings.privacy.dataCollection}
+                              onChange={(e) =>
+                                handleSettingChange("privacy", "dataCollection", e.target.checked)}
+                            />
+                            Allow data collection
+                          </label>
+                          <p className="setting-description">
+                            Help improve our service by sharing anonymous usage data
+                          </p>
+                        </div>
+
+                        <div className="setting-group">
+                          <label className="checkbox-label">
+                            <input
+                              type="checkbox"
+                              checked={settings.privacy.analytics}
+                              onChange={(e) =>
+                                handleSettingChange("privacy", "analytics", e.target.checked)}
+                            />
+                            Analytics and performance
+                          </label>
+                          <p className="setting-description">
+                            Allow us to analyze usage patterns to improve performance
+                          </p>
+                        </div>
+
+                        <div className="setting-group">
+                          <label className="checkbox-label">
+                            <input
+                              type="checkbox"
+                              checked={settings.privacy.shareUsage}
+                              onChange={(e) =>
+                                handleSettingChange("privacy", "shareUsage", e.target.checked)}
+                            />
+                            Share usage statistics
+                          </label>
+                          <p className="setting-description">
+                            Share anonymous usage statistics with third parties
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === "account" && (
+                      <div className="settings-section">
+                        <h2>Account Management</h2>
+
+                        <div className="account-info">
+                          <div className="info-item">
+                            <label>Email</label>
+                            <span>{user?.email || "demo@example.com"}</span>
+                          </div>
+                          <div className="info-item">
+                            <label>Member since</label>
+                            <span>
+                              {user?.created_at
+                                ? new Date(user.created_at).toLocaleDateString()
+                                : new Date().toLocaleDateString()}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="account-actions">
+                          <button
+                            className="btn btn-secondary"
+                            onClick={exportData}
+                          >
+                            Export My Data
+                          </button>
+
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => setShowDeleteModal(true)}
+                          >
+                            Delete Account
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="settings-footer">
+                      <button
+                        className="btn btn-primary"
+                        onClick={saveSettings}
+                        disabled={isSaving}
+                      >
+                        {isSaving
+                          ? (
+                            <>
+                              <span className="spinner" />
+                              Saving...
+                            </>
+                          )
+                          : (
+                            "Save Changes"
+                          )}
+                      </button>
+                    </div>
+                  </>
+                )}
             </div>
           </div>
         </div>
@@ -485,8 +503,8 @@ export function SettingsPage({ user, onAuthRequired }: SettingsPageProps) {
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <h3>Delete Account</h3>
             <p>
-              Are you sure you want to delete your account? This will permanently
-              remove all your conversations and data. This action cannot be undone.
+              Are you sure you want to delete your account? This will permanently remove all your
+              conversations and data. This action cannot be undone.
             </p>
             <div className="modal-actions">
               <button
@@ -506,7 +524,8 @@ export function SettingsPage({ user, onAuthRequired }: SettingsPageProps) {
         </div>
       )}
 
-      <style jsx>{`
+      <style jsx>
+        {`
         .settings-page {
           min-height: 100vh;
           background: #f8fafc;
@@ -895,7 +914,8 @@ export function SettingsPage({ user, onAuthRequired }: SettingsPageProps) {
             flex-direction: column;
           }
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 }

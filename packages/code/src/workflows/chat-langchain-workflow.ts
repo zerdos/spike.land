@@ -17,7 +17,7 @@ import { getEnhancedReplaceInFileTool } from "./tools/enhanced-replace-in-file";
  */
 export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   // Get the global code session
-  const cSess = (globalThis as Record<string, unknown>)['cSess'] as ICode;
+  const cSess = (globalThis as Record<string, unknown>)["cSess"] as ICode;
 
   // Create the Anthropic model
   const anthropic = new ChatAnthropic({
@@ -57,27 +57,37 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   ): Promise<AgentState> => {
     const messageData = message as unknown as Record<string, unknown>;
     if (
-      !messageData['additional_kwargs'] ||
-      typeof messageData['additional_kwargs'] !== "object" ||
-      messageData['additional_kwargs'] === null ||
-      !("tool_responses" in (messageData['additional_kwargs'] as Record<string, unknown>)) ||
-      !Array.isArray((messageData['additional_kwargs'] as Record<string, unknown>)['tool_responses']) ||
-      ((messageData['additional_kwargs'] as Record<string, unknown>)['tool_responses'] as Array<unknown>).length === 0
+      !messageData["additional_kwargs"] ||
+      typeof messageData["additional_kwargs"] !== "object" ||
+      messageData["additional_kwargs"] === null ||
+      !("tool_responses" in (messageData["additional_kwargs"] as Record<string, unknown>)) ||
+      !Array.isArray(
+        (messageData["additional_kwargs"] as Record<string, unknown>)["tool_responses"],
+      ) ||
+      ((messageData["additional_kwargs"] as Record<string, unknown>)["tool_responses"] as Array<
+          unknown
+        >).length === 0
     ) {
       return state;
     }
 
-    const toolResponses = (messageData['additional_kwargs'] as Record<string, unknown>)['tool_responses'] as Array<unknown>;
+    const toolResponses =
+      (messageData["additional_kwargs"] as Record<string, unknown>)["tool_responses"] as Array<
+        unknown
+      >;
     const toolResponse = toolResponses[0];
     // Expect 'enhanced_replace_in_file' which is the name of the tool from getEnhancedReplaceInFileTool
-    if (!toolResponse || typeof toolResponse !== "object" || toolResponse === null ||
-        !("name" in toolResponse) || (toolResponse as Record<string, unknown>)['name'] !== "enhanced_replace_in_file") {
+    if (
+      !toolResponse || typeof toolResponse !== "object" || toolResponse === null ||
+      !("name" in toolResponse) ||
+      (toolResponse as Record<string, unknown>)["name"] !== "enhanced_replace_in_file"
+    ) {
       return state;
     }
 
     try {
       const toolResponseData = toolResponse as Record<string, unknown>;
-      const modification = JSON.parse(toolResponseData['content'] as string) as CodeModification;
+      const modification = JSON.parse(toolResponseData["content"] as string) as CodeModification;
 
       if (typeof modification === "string") {
         return {
@@ -138,7 +148,9 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         ] as BaseMessage[];
 
         // Invoke the model with tools
-        const response = await (modelWithTools as { invoke: (messages: BaseMessage[]) => Promise<AIMessage> }).invoke(messages);
+        const response =
+          await (modelWithTools as { invoke: (messages: BaseMessage[]) => Promise<AIMessage>; })
+            .invoke(messages);
 
         // Process the response
         const newState = await processToolResponse(response);
@@ -146,7 +158,11 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         // Update the state with the new message
         state = {
           ...newState,
-          messages: [...state.messages, new HumanMessage(userInput), response] as typeof state.messages,
+          messages: [
+            ...state.messages,
+            new HumanMessage(userInput),
+            response,
+          ] as typeof state.messages,
         };
 
         return state;

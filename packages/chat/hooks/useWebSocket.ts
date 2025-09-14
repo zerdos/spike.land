@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface WebSocketMessage {
   type: string;
@@ -33,7 +33,7 @@ export function useWebSocket(url: string | null) {
         const message = JSON.parse(event.data);
         setLastMessage(message);
       } catch (error) {
-        console.error('Failed to parse WebSocket message:', error);
+        console.error("Failed to parse WebSocket message:", error);
       }
     };
 
@@ -42,7 +42,7 @@ export function useWebSocket(url: string | null) {
     };
 
     socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
+      console.error("WebSocket error:", error);
       setIsConnected(false);
     };
 
@@ -54,6 +54,6 @@ export function useWebSocket(url: string | null) {
   return {
     isConnected,
     lastMessage,
-    sendMessage
+    sendMessage,
   };
 }

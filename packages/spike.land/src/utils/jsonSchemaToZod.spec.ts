@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { McpServer } from "../mcpServer";
 import type { Code } from "../chatRoom";
+import { McpServer } from "../mcpServer";
 import { JsonSchemaToZodConverter, type JsonSchemaType } from "./jsonSchemaToZod";
 
 describe("JsonSchemaToZodConverter", () => {

@@ -1,7 +1,7 @@
 import {
   messagesPush as _messagesPush,
-  updateSearchReplace as _updateSearchReplace,
   SEARCH_REPLACE_MARKERS as _SEARCH_REPLACE_MARKERS,
+  updateSearchReplace as _updateSearchReplace,
 } from "@/lib/chat-utils";
 import type { ICode } from "@/lib/interfaces";
 import { Message as _Message } from "@/lib/interfaces";
@@ -25,7 +25,7 @@ function createTool<TInput, TOutput>(
     name: string;
     description: string;
     schema: z.ZodSchema<unknown>;
-  }
+  },
 ): Tool<TInput, TOutput> {
   return {
     name: options.name,
@@ -173,11 +173,11 @@ export const getRegexReplaceTool = createTool(
       const result: CodeModification = {
         hash: md5(veryNewCode),
       };
-      
+
       if (returnModifiedCode) {
         result.code = veryNewCode;
       }
-      
+
       return result;
     } catch (error) {
       return createErrorResponse(

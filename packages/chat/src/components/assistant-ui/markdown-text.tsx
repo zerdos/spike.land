@@ -1,9 +1,8 @@
 import { MarkdownTextPrimitive } from "@assistant-ui/react-markdown";
-import { cn } from "../../lib/utils";
 import type { ComponentPropsWithoutRef } from "react";
+import { cn } from "../../lib/utils";
 
-export interface MarkdownTextProps
-  extends ComponentPropsWithoutRef<typeof MarkdownTextPrimitive> {
+export interface MarkdownTextProps extends ComponentPropsWithoutRef<typeof MarkdownTextPrimitive> {
   className?: string;
 }
 
@@ -25,7 +24,7 @@ export function MarkdownText({ className, ...props }: MarkdownTextProps) {
         "prose-table:border prose-table:border-border",
         "prose-th:bg-muted prose-th:font-semibold",
         "prose-td:border prose-td:border-border",
-        className
+        className,
       )}
       {...props}
     />

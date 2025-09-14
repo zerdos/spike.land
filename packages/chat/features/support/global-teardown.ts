@@ -42,7 +42,7 @@ async function globalTeardown(config: FullConfig) {
 
       await fs.writeFile(
         "test-results/test-summary.json",
-        JSON.stringify(testSummary, null, 2)
+        JSON.stringify(testSummary, null, 2),
       );
     }
 

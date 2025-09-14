@@ -143,22 +143,22 @@ vi.mock("@assistant-ui/react", () => ({
             if (part.type === "text") {
               const TextComponent = components?.Text ||
                 (({ text }: { text: string; }) => <span>{text}</span>);
-              return <TextComponent key={idx} text={part.text || ''} />;
+              return <TextComponent key={idx} text={part.text || ""} />;
             }
             if (part.type === "tool-call" && components?.tools?.Fallback) {
               const ToolComponent = components.tools.Fallback;
               const toolProps: {
                 toolName?: string;
-                toolCallId?: string; 
+                toolCallId?: string;
                 args?: Record<string, unknown>;
                 result?: Record<string, unknown>;
               } = {};
-              
+
               if (part.toolName !== undefined) toolProps.toolName = part.toolName;
               if (part.toolCallId !== undefined) toolProps.toolCallId = part.toolCallId;
               if (part.args !== undefined) toolProps.args = part.args;
               if (part.result !== undefined) toolProps.result = part.result;
-              
+
               return (
                 <ToolComponent
                   key={idx}

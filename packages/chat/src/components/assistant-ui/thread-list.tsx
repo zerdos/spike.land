@@ -1,15 +1,8 @@
-import {
-  MessagePlus,
-  Trash2,
-  Edit3,
-  Archive,
-  Star,
-  Clock
-} from "lucide-react";
-import { Button } from "../ui/button";
-import { cn } from "../../lib/utils";
-import { TooltipIconButton } from "./tooltip-icon-button";
+import { Archive, Clock, Edit3, MessagePlus, Star, Trash2 } from "lucide-react";
 import type { FC } from "react";
+import { cn } from "../../lib/utils";
+import { Button } from "../ui/button";
+import { TooltipIconButton } from "./tooltip-icon-button";
 
 export interface Thread {
   id: string;
@@ -80,113 +73,117 @@ export const ThreadList: FC<ThreadListProps> = ({
       </div>
 
       <div className="flex-1 overflow-y-auto">
-        {threads.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full p-4 text-center">
-            <MessagePlus className="h-12 w-12 text-muted-foreground mb-2" />
-            <p className="text-sm text-muted-foreground">No conversations yet</p>
-            <p className="text-xs text-muted-foreground mt-1">
-              Start a new conversation to get started
-            </p>
-          </div>
-        ) : (
-          <div className="divide-y">
-            {threads.map((thread) => (
-              <div
-                key={thread.id}
-                className={cn(
-                  "group relative flex flex-col gap-1 p-4 hover:bg-accent/50 cursor-pointer transition-colors",
-                  thread.id === activeThreadId && "bg-accent",
-                  thread.isPinned && "bg-accent/20"
-                )}
-                onClick={() => onThreadSelect?.(thread.id)}
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      {thread.isPinned && (
-                        <Star className="h-3 w-3 text-yellow-500 fill-yellow-500" />
-                      )}
-                      <h3 className="font-medium text-sm truncate">
-                        {thread.title}
-                      </h3>
-                      {thread.unreadCount && thread.unreadCount > 0 && (
-                        <span className="inline-flex items-center justify-center h-5 min-w-[20px] px-1 text-xs font-medium bg-primary text-primary-foreground rounded-full">
-                          {thread.unreadCount}
-                        </span>
+        {threads.length === 0
+          ? (
+            <div className="flex flex-col items-center justify-center h-full p-4 text-center">
+              <MessagePlus className="h-12 w-12 text-muted-foreground mb-2" />
+              <p className="text-sm text-muted-foreground">No conversations yet</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Start a new conversation to get started
+              </p>
+            </div>
+          )
+          : (
+            <div className="divide-y">
+              {threads.map((thread) => (
+                <div
+                  key={thread.id}
+                  className={cn(
+                    "group relative flex flex-col gap-1 p-4 hover:bg-accent/50 cursor-pointer transition-colors",
+                    thread.id === activeThreadId && "bg-accent",
+                    thread.isPinned && "bg-accent/20",
+                  )}
+                  onClick={() => onThreadSelect?.(thread.id)}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        {thread.isPinned && (
+                          <Star className="h-3 w-3 text-yellow-500 fill-yellow-500" />
+                        )}
+                        <h3 className="font-medium text-sm truncate">
+                          {thread.title}
+                        </h3>
+                        {thread.unreadCount && thread.unreadCount > 0 && (
+                          <span className="inline-flex items-center justify-center h-5 min-w-[20px] px-1 text-xs font-medium bg-primary text-primary-foreground rounded-full">
+                            {thread.unreadCount}
+                          </span>
+                        )}
+                      </div>
+                      {thread.lastMessage && (
+                        <p className="text-xs text-muted-foreground truncate mt-1">
+                          {thread.lastMessage}
+                        </p>
                       )}
                     </div>
-                    {thread.lastMessage && (
-                      <p className="text-xs text-muted-foreground truncate mt-1">
-                        {thread.lastMessage}
-                      </p>
-                    )}
+
+                    <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      {onThreadPin && (
+                        <TooltipIconButton
+                          tooltip={thread.isPinned ? "Unpin" : "Pin"}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onThreadPin(thread.id);
+                          }}
+                          className="h-6 w-6"
+                        >
+                          <Star
+                            className={cn(
+                              "h-3 w-3",
+                              thread.isPinned && "fill-current",
+                            )}
+                          />
+                        </TooltipIconButton>
+                      )}
+                      {onThreadEdit && (
+                        <TooltipIconButton
+                          tooltip="Edit"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onThreadEdit(thread.id);
+                          }}
+                          className="h-6 w-6"
+                        >
+                          <Edit3 className="h-3 w-3" />
+                        </TooltipIconButton>
+                      )}
+                      {onThreadArchive && (
+                        <TooltipIconButton
+                          tooltip="Archive"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onThreadArchive(thread.id);
+                          }}
+                          className="h-6 w-6"
+                        >
+                          <Archive className="h-3 w-3" />
+                        </TooltipIconButton>
+                      )}
+                      {onThreadDelete && (
+                        <TooltipIconButton
+                          tooltip="Delete"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onThreadDelete(thread.id);
+                          }}
+                          className="h-6 w-6 hover:text-destructive"
+                        >
+                          <Trash2 className="h-3 w-3" />
+                        </TooltipIconButton>
+                      )}
+                    </div>
                   </div>
 
-                  <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    {onThreadPin && (
-                      <TooltipIconButton
-                        tooltip={thread.isPinned ? "Unpin" : "Pin"}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onThreadPin(thread.id);
-                        }}
-                        className="h-6 w-6"
-                      >
-                        <Star className={cn(
-                          "h-3 w-3",
-                          thread.isPinned && "fill-current"
-                        )} />
-                      </TooltipIconButton>
-                    )}
-                    {onThreadEdit && (
-                      <TooltipIconButton
-                        tooltip="Edit"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onThreadEdit(thread.id);
-                        }}
-                        className="h-6 w-6"
-                      >
-                        <Edit3 className="h-3 w-3" />
-                      </TooltipIconButton>
-                    )}
-                    {onThreadArchive && (
-                      <TooltipIconButton
-                        tooltip="Archive"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onThreadArchive(thread.id);
-                        }}
-                        className="h-6 w-6"
-                      >
-                        <Archive className="h-3 w-3" />
-                      </TooltipIconButton>
-                    )}
-                    {onThreadDelete && (
-                      <TooltipIconButton
-                        tooltip="Delete"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onThreadDelete(thread.id);
-                        }}
-                        className="h-6 w-6 hover:text-destructive"
-                      >
-                        <Trash2 className="h-3 w-3" />
-                      </TooltipIconButton>
-                    )}
-                  </div>
+                  {thread.timestamp && (
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <Clock className="h-3 w-3" />
+                      <span>{formatTimestamp(thread.timestamp)}</span>
+                    </div>
+                  )}
                 </div>
-
-                {thread.timestamp && (
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Clock className="h-3 w-3" />
-                    <span>{formatTimestamp(thread.timestamp)}</span>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
       </div>
 
       <div className="p-4 border-t">

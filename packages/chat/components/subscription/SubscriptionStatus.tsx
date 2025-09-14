@@ -1,5 +1,5 @@
+import { AlertCircle, ChevronDown, CreditCard, Crown, Settings } from "lucide-react";
 import { useState } from "react";
-import { Crown, CreditCard, AlertCircle, ChevronDown, Settings } from "lucide-react";
 import { useSubscription } from "../../contexts/SubscriptionContext";
 import { SUBSCRIPTION_TIERS } from "../../lib/stripe";
 
@@ -12,9 +12,7 @@ export function SubscriptionStatus({ compact = false }: SubscriptionStatusProps)
   const [isExpanded, setIsExpanded] = useState(false);
 
   if (loading) {
-    return (
-      <div className="animate-pulse bg-gray-200 rounded-lg h-12 w-48"></div>
-    );
+    return <div className="animate-pulse bg-gray-200 rounded-lg h-12 w-48"></div>;
   }
 
   if (!subscription) {
@@ -51,11 +49,13 @@ export function SubscriptionStatus({ compact = false }: SubscriptionStatusProps)
 
   if (compact) {
     return (
-      <div className={`
+      <div
+        className={`
         flex items-center px-3 py-2 rounded-lg text-sm
         ${getTierColor()}
         ${isLowCredits ? "ring-2 ring-orange-300" : ""}
-      `}>
+      `}
+      >
         {getTierIcon() && (
           <div className="mr-2">
             {getTierIcon()}
@@ -77,10 +77,12 @@ export function SubscriptionStatus({ compact = false }: SubscriptionStatusProps)
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className="flex items-center">
-          <div className={`
+          <div
+            className={`
             flex items-center px-3 py-1 rounded-full text-sm font-medium
             ${getTierColor()}
-          `}>
+          `}
+          >
             {getTierIcon() && (
               <div className="mr-2">
                 {getTierIcon()}
@@ -101,9 +103,11 @@ export function SubscriptionStatus({ compact = false }: SubscriptionStatusProps)
           <span className="text-sm text-gray-600 mr-2">
             {subscription.credits.toLocaleString()} left
           </span>
-          <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${
-            isExpanded ? "rotate-180" : ""
-          }`} />
+          <ChevronDown
+            className={`w-4 h-4 text-gray-400 transition-transform ${
+              isExpanded ? "rotate-180" : ""
+            }`}
+          />
         </div>
       </div>
 
@@ -118,11 +122,15 @@ export function SubscriptionStatus({ compact = false }: SubscriptionStatusProps)
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div
                 className={`h-2 rounded-full transition-all duration-300 ${
-                  creditsPercentage > 20 ? "bg-green-500" :
-                  creditsPercentage > 10 ? "bg-yellow-500" : "bg-red-500"
+                  creditsPercentage > 20
+                    ? "bg-green-500"
+                    : creditsPercentage > 10
+                    ? "bg-yellow-500"
+                    : "bg-red-500"
                 }`}
                 style={{ width: `${creditsPercentage}%` }}
-              ></div>
+              >
+              </div>
             </div>
           </div>
 
@@ -130,10 +138,15 @@ export function SubscriptionStatus({ compact = false }: SubscriptionStatusProps)
           <div className="text-xs text-gray-600 space-y-1">
             <div className="flex justify-between">
               <span>Status:</span>
-              <span className={`capitalize font-medium ${
-                subscription.status === "active" ? "text-green-600" :
-                subscription.status === "past_due" ? "text-orange-600" : "text-gray-600"
-              }`}>
+              <span
+                className={`capitalize font-medium ${
+                  subscription.status === "active"
+                    ? "text-green-600"
+                    : subscription.status === "past_due"
+                    ? "text-orange-600"
+                    : "text-gray-600"
+                }`}
+              >
                 {subscription.status}
               </span>
             </div>
@@ -148,26 +161,28 @@ export function SubscriptionStatus({ compact = false }: SubscriptionStatusProps)
 
           {/* Action Buttons */}
           <div className="flex gap-2 pt-2">
-            {subscription.tier === "free" ? (
-              <button
-                onClick={() => window.location.href = "/subscription"}
-                className="flex-1 bg-blue-600 text-white py-2 px-3 rounded-lg text-sm font-medium hover:bg-blue-700 flex items-center justify-center"
-              >
-                <Crown className="w-3 h-3 mr-1" />
-                Upgrade
-              </button>
-            ) : (
-              <button
-                onClick={() => {
-                  // Handle manage subscription
-                  console.log("Manage subscription");
-                }}
-                className="flex-1 bg-gray-100 text-gray-700 py-2 px-3 rounded-lg text-sm font-medium hover:bg-gray-200 flex items-center justify-center"
-              >
-                <Settings className="w-3 h-3 mr-1" />
-                Manage
-              </button>
-            )}
+            {subscription.tier === "free"
+              ? (
+                <button
+                  onClick={() => window.location.href = "/subscription"}
+                  className="flex-1 bg-blue-600 text-white py-2 px-3 rounded-lg text-sm font-medium hover:bg-blue-700 flex items-center justify-center"
+                >
+                  <Crown className="w-3 h-3 mr-1" />
+                  Upgrade
+                </button>
+              )
+              : (
+                <button
+                  onClick={() => {
+                    // Handle manage subscription
+                    console.log("Manage subscription");
+                  }}
+                  className="flex-1 bg-gray-100 text-gray-700 py-2 px-3 rounded-lg text-sm font-medium hover:bg-gray-200 flex items-center justify-center"
+                >
+                  <Settings className="w-3 h-3 mr-1" />
+                  Manage
+                </button>
+              )}
           </div>
         </div>
       )}

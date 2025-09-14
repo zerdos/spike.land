@@ -39,18 +39,21 @@ packages/chat/
 ## 🔧 Configuration Files
 
 ### next.config.mjs
+
 - Edge runtime compatibility
 - Cloudflare Workers optimizations
 - Webpack fallbacks for Node.js modules
 - Image optimization disabled for static export
 
 ### middleware.ts
+
 - Security headers (CSP, XSS protection)
 - CORS handling for API routes
 - Cache headers for static assets
 - Edge runtime configured
 
 ### tsconfig.json
+
 - Next.js optimized TypeScript config
 - App Router and API routes support
 - Cloudflare Workers types included
@@ -81,6 +84,7 @@ yarn test                     # Run tests
 ## 🌐 API Routes
 
 Example API route at `/app/api/hello/route.ts`:
+
 - Edge runtime compatible
 - TypeScript typed
 - Handles GET and POST requests
@@ -89,10 +93,12 @@ Example API route at `/app/api/hello/route.ts`:
 ## 📦 Dependencies Added
 
 ### Production Dependencies
+
 - `next@15` - Next.js framework
 - `@cloudflare/next-on-pages` - Cloudflare Workers adapter
 
 ### Development Dependencies
+
 - `tailwindcss` - CSS framework
 - `postcss` - CSS processing
 - `autoprefixer` - CSS prefixing
@@ -111,17 +117,20 @@ Example API route at `/app/api/hello/route.ts`:
 ## 🔍 Key Features
 
 ### Edge Runtime Compatibility
+
 - All routes use `experimental-edge` runtime
 - Node.js modules properly fallback configured
 - WebAssembly and streaming support
 
 ### Security & Performance
+
 - CSP headers configured
 - CORS handling for API routes
 - Image optimization disabled for static export
 - Tree-shaking and code splitting
 
 ### Development Experience
+
 - Hot module replacement
 - TypeScript strict mode
 - ESLint and Prettier integration
@@ -130,11 +139,13 @@ Example API route at `/app/api/hello/route.ts`:
 ## 🐛 Common Issues
 
 ### Runtime Warnings
+
 - Edge runtime is experimental - warnings expected
 - Middleware requires `experimental-edge` runtime
 - Static export disables some Next.js features
 
 ### TypeScript Errors
+
 - Existing codebase may have unrelated TypeScript errors
 - Focus on new Next.js files for validation
 

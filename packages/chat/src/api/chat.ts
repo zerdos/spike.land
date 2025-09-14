@@ -1,8 +1,8 @@
 import { nanoid } from "nanoid";
-import type { Env, APIResponse, Message, AuthContext, User } from "../types";
-import { AuthService } from "../utils/auth";
-import { AIService, type AIServiceResponse } from "../utils/ai";
 import { DatabaseManager } from "../../lib/database";
+import type { APIResponse, AuthContext, Env, Message, User as _User } from "../types";
+import { AIService, type AIServiceResponse } from "../utils/ai";
+import { AuthService } from "../utils/auth";
 
 export interface ChatRequest {
   message: string;
@@ -35,8 +35,8 @@ export class ChatAPI {
     try {
       // Rate limiting check
       const clientIP = request.headers.get("cf-connecting-ip") ||
-                      request.headers.get("x-forwarded-for") ||
-                      "unknown";
+        request.headers.get("x-forwarded-for") ||
+        "unknown";
       const rateLimitKey = `chat_rate_limit:${clientIP}`;
 
       const rateLimitCheck = await this.env.KV_STORE.get(rateLimitKey);
@@ -45,13 +45,13 @@ export class ChatAPI {
         if (requests >= 60) { // 60 requests per minute
           return this.errorResponse(
             "Rate limit exceeded. Please try again later.",
-            429
+            429,
           );
         }
         await this.env.KV_STORE.put(
           rateLimitKey,
           (requests + 1).toString(),
-          { expirationTtl: 60 }
+          { expirationTtl: 60 },
         );
       } else {
         await this.env.KV_STORE.put(rateLimitKey, "1", { expirationTtl: 60 });
@@ -85,7 +85,7 @@ export class ChatAPI {
       if (user.subscription_tier === "free" && (user.credits || 0) <= 0) {
         return this.errorResponse(
           "Insufficient credits. Please upgrade your subscription or purchase more credits.",
-          402
+          402,
         );
       }
 
@@ -110,12 +110,12 @@ export class ChatAPI {
 
       // Get conversation history
       const { messages: conversationHistory } = await this.db.getMessagesByConversationId(
-        conversationId
+        conversationId,
       );
 
       // Add user message to conversation
       const userMessageId = nanoid();
-      const userMessage = await this.db.createMessage({
+      const _userMessage = await this.db.createMessage({
         id: userMessageId,
         conversation_id: conversationId,
         user_id: authContext.userId,
@@ -143,7 +143,7 @@ export class ChatAPI {
       if (!aiResponse.success || !aiResponse.response) {
         return this.errorResponse(
           aiResponse.error || "Failed to generate AI response",
-          500
+          500,
         );
       }
 
@@ -174,10 +174,12 @@ export class ChatAPI {
 
         const roomId = this.env.CHAT_ROOM.idFromName(conversationId);
         const room = this.env.CHAT_ROOM.get(roomId);
-        await room.fetch(new Request("https://chat/broadcast", {
-          method: "POST",
-          body: JSON.stringify(wsMessage),
-        }));
+        await room.fetch(
+          new Request("https://chat/broadcast", {
+            method: "POST",
+            body: JSON.stringify(wsMessage),
+          }),
+        );
       } catch (wsError) {
         console.error("WebSocket broadcast error:", wsError);
         // Don't fail the request if WebSocket broadcast fails
@@ -190,7 +192,6 @@ export class ChatAPI {
       };
 
       return this.successResponse(response);
-
     } catch (error) {
       console.error("Chat API error:", error);
       return this.errorResponse("Internal server error", 500);

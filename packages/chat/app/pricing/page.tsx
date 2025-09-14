@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Header } from "../../components/layout/header";
 import { Footer } from "../../components/layout/footer";
+import { Header } from "../../components/layout/header";
 import { api } from "../../lib/api";
 
 interface PricingTier {
@@ -138,8 +138,7 @@ export function PricingPage() {
           <section className="pricing-hero">
             <h1>Choose Your Plan</h1>
             <p>
-              Select the perfect plan for your AI chat needs.
-              Start free and upgrade anytime.
+              Select the perfect plan for your AI chat needs. Start free and upgrade anytime.
             </p>
 
             {/* Billing Toggle */}
@@ -169,9 +168,7 @@ export function PricingPage() {
                   key={tier.id}
                   className={`pricing-card ${tier.highlighted ? "highlighted" : ""}`}
                 >
-                  {tier.popular && (
-                    <div className="popular-badge">Most Popular</div>
-                  )}
+                  {tier.popular && <div className="popular-badge">Most Popular</div>}
 
                   <div className="card-header">
                     <h3>{tier.name}</h3>
@@ -205,18 +202,22 @@ export function PricingPage() {
 
                   <div className="card-footer">
                     <button
-                      className={`btn ${tier.highlighted ? "btn-primary" : "btn-secondary"} pricing-btn`}
+                      className={`btn ${
+                        tier.highlighted ? "btn-primary" : "btn-secondary"
+                      } pricing-btn`}
                       onClick={() => handleSubscribe(tier.id)}
                       disabled={isLoading === tier.id}
                     >
-                      {isLoading === tier.id ? (
-                        <>
-                          <span className="spinner" />
-                          Loading...
-                        </>
-                      ) : (
-                        tier.buttonText
-                      )}
+                      {isLoading === tier.id
+                        ? (
+                          <>
+                            <span className="spinner" />
+                            Loading...
+                          </>
+                        )
+                        : (
+                          tier.buttonText
+                        )}
                     </button>
                   </div>
                 </div>
@@ -231,50 +232,48 @@ export function PricingPage() {
               <div className="faq-item">
                 <h3>What are credits?</h3>
                 <p>
-                  Credits are used for each message you send to the AI.
-                  Different models may consume different amounts of credits
-                  based on their complexity and capabilities.
+                  Credits are used for each message you send to the AI. Different models may consume
+                  different amounts of credits based on their complexity and capabilities.
                 </p>
               </div>
 
               <div className="faq-item">
                 <h3>Can I change my plan anytime?</h3>
                 <p>
-                  Yes! You can upgrade or downgrade your plan at any time.
-                  Changes will be prorated and reflected in your next billing cycle.
+                  Yes! You can upgrade or downgrade your plan at any time. Changes will be prorated
+                  and reflected in your next billing cycle.
                 </p>
               </div>
 
               <div className="faq-item">
                 <h3>Is there a free trial?</h3>
                 <p>
-                  All paid plans come with a 7-day free trial.
-                  You can cancel anytime during the trial period without being charged.
+                  All paid plans come with a 7-day free trial. You can cancel anytime during the
+                  trial period without being charged.
                 </p>
               </div>
 
               <div className="faq-item">
                 <h3>What AI models are available?</h3>
                 <p>
-                  We offer various models including GPT-4, Claude, Llama, and more.
-                  Higher tier plans get access to more advanced and specialized models.
+                  We offer various models including GPT-4, Claude, Llama, and more. Higher tier
+                  plans get access to more advanced and specialized models.
                 </p>
               </div>
 
               <div className="faq-item">
                 <h3>Do unused credits roll over?</h3>
                 <p>
-                  Pro plan credits expire monthly, but Enterprise plan credits
-                  can roll over for up to 3 months. Free tier credits reset daily.
+                  Pro plan credits expire monthly, but Enterprise plan credits can roll over for up
+                  to 3 months. Free tier credits reset daily.
                 </p>
               </div>
 
               <div className="faq-item">
                 <h3>Is my data secure?</h3>
                 <p>
-                  Yes! All conversations are encrypted in transit and at rest.
-                  We never share your data with third parties and you can delete
-                  your data at any time.
+                  Yes! All conversations are encrypted in transit and at rest. We never share your
+                  data with third parties and you can delete your data at any time.
                 </p>
               </div>
             </div>
@@ -306,7 +305,8 @@ export function PricingPage() {
 
       <Footer />
 
-      <style jsx>{`
+      <style jsx>
+        {`
         .pricing-page {
           min-height: 100vh;
           background: #f8fafc;
@@ -718,7 +718,8 @@ export function PricingPage() {
             max-width: 300px;
           }
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 }

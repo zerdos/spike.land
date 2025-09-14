@@ -50,7 +50,7 @@ class Telemetry {
     this.events.push(event);
 
     // Log to console in development
-    if (process.env['NODE_ENV'] === 'development') {
+    if (process.env["NODE_ENV"] === "development") {
       console.debug(`[Telemetry] ${name}`, data);
     }
 

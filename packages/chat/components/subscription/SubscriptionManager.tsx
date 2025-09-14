@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import { PricingCard } from "./PricingCard";
-import { SUBSCRIPTION_TIERS, getStripe } from "../../lib/stripe";
 import { useUser } from "@clerk/clerk-react";
-import { CreditCard, AlertCircle, CheckCircle } from "lucide-react";
+import { AlertCircle, CheckCircle, CreditCard } from "lucide-react";
+import { useEffect, useState } from "react";
+import { getStripe, SUBSCRIPTION_TIERS } from "../../lib/stripe";
+import { PricingCard } from "./PricingCard";
 
 interface SubscriptionStatus {
   tier: "free" | "pro" | "enterprise";
@@ -178,11 +178,9 @@ export function SubscriptionManager() {
           <div className="mb-8">
             <div className="bg-white rounded-lg shadow-sm p-6 max-w-md mx-auto">
               <div className="flex items-center mb-4">
-                {subscription.status === "active" ? (
-                  <CheckCircle className="w-6 h-6 text-green-500 mr-3" />
-                ) : (
-                  <AlertCircle className="w-6 h-6 text-yellow-500 mr-3" />
-                )}
+                {subscription.status === "active"
+                  ? <CheckCircle className="w-6 h-6 text-green-500 mr-3" />
+                  : <AlertCircle className="w-6 h-6 text-yellow-500 mr-3" />}
                 <div>
                   <h3 className="font-semibold text-gray-900">
                     Current Plan: {subscription.tier.toUpperCase()}
@@ -235,8 +233,8 @@ export function SubscriptionManager() {
                 How do credits work?
               </h3>
               <p className="text-gray-600">
-                Credits are consumed based on the length and complexity of your messages.
-                Typically, a standard message uses 1-2 credits. Your credits reset monthly.
+                Credits are consumed based on the length and complexity of your messages. Typically,
+                a standard message uses 1-2 credits. Your credits reset monthly.
               </p>
             </div>
 
@@ -245,8 +243,8 @@ export function SubscriptionManager() {
                 Can I change or cancel my plan?
               </h3>
               <p className="text-gray-600">
-                Yes, you can upgrade, downgrade, or cancel your subscription at any time.
-                Changes take effect at the next billing cycle.
+                Yes, you can upgrade, downgrade, or cancel your subscription at any time. Changes
+                take effect at the next billing cycle.
               </p>
             </div>
 
@@ -255,8 +253,8 @@ export function SubscriptionManager() {
                 What happens if I run out of credits?
               </h3>
               <p className="text-gray-600">
-                If you exhaust your monthly credits, you can upgrade your plan or wait
-                until your next billing cycle for credits to reset.
+                If you exhaust your monthly credits, you can upgrade your plan or wait until your
+                next billing cycle for credits to reset.
               </p>
             </div>
           </div>

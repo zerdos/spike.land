@@ -1,76 +1,76 @@
 import {
-  Thread as ThreadPrimitive,
-  ThreadWelcome,
-  ThreadMessages,
-  ThreadEmpty,
-  ThreadScrollToBottom,
-  ThreadViewport,
-  ThreadSuggestion,
-  Composer,
-  ComposerInput,
-  ComposerSend,
-  ComposerAttachment,
-  ComposerCancel,
-  MessageInProgress,
-  MessageRoot,
+  ActionBarCopy,
+  ActionBarEdit,
+  ActionBarReload,
+  ActionBarRoot,
+  ActionBarSpeak,
+  ActionBarStopSpeaking,
+  AssistantActionBar,
+  AssistantMessage,
+  AssistantMessageContent,
   BranchPicker,
   BranchPickerCount,
   BranchPickerNext,
-  BranchPickerPrevious,
   BranchPickerNumber,
+  BranchPickerPrevious,
   BranchPickerRoot,
-  ActionBarRoot,
-  ActionBarCopy,
-  ActionBarReload,
-  ActionBarEdit,
-  ActionBarSpeak,
-  ActionBarStopSpeaking,
-  EditComposerRoot,
-  EditComposerInput,
-  EditComposerFooter,
+  Composer,
+  ComposerAttachment,
+  ComposerCancel,
+  ComposerInput,
+  ComposerSend,
+  ContentPartDisplay,
+  ContentPartImage,
+  ContentPartInProgress,
+  ContentPartText,
   EditComposerCancel,
+  EditComposerFooter,
+  EditComposerInput,
+  EditComposerRoot,
   EditComposerSend,
+  MessageInProgress,
+  MessageRoot,
+  type MessageStatus,
+  Thread as ThreadPrimitive,
+  type ThreadConfig,
+  ThreadConfigProvider,
+  ThreadEmpty,
+  ThreadMessages,
+  type ThreadRuntimeCore,
+  ThreadScrollToBottom,
+  ThreadSuggestion,
+  ThreadViewport,
+  ThreadWelcome,
+  UserActionBar,
   UserMessage,
   UserMessageContent,
-  UserActionBar,
-  AssistantMessage,
-  AssistantMessageContent,
-  AssistantActionBar,
-  ContentPartText,
-  ContentPartImage,
-  ContentPartDisplay,
-  ContentPartInProgress,
-  ThreadConfigProvider,
-  type ThreadConfig,
-  type ThreadRuntimeCore,
-  type MessageStatus,
 } from "@assistant-ui/react";
 import {
-  Send,
-  Paperclip,
-  X,
-  Copy,
-  RefreshCw,
-  Edit3,
-  Volume2,
-  VolumeX,
-  ChevronLeft,
-  ChevronRight,
+  AlertCircle,
   ArrowDown,
   Bot,
-  User,
-  Loader2,
   CheckCircle,
-  AlertCircle,
-  Sparkles,
+  ChevronLeft,
+  ChevronRight,
+  Copy,
+  Edit3,
+  Loader2,
   MessageSquare,
+  Paperclip,
+  RefreshCw,
+  Send,
+  Sparkles,
+  User,
+  Volume2,
+  VolumeX,
+  X,
 } from "lucide-react";
-import { Button } from "../ui/button";
-import { TooltipIconButton } from "./tooltip-icon-button";
-import { MarkdownText } from "./markdown-text";
-import { cn } from "../../lib/utils";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
+import { cn } from "../../lib/utils";
+import { Button } from "../ui/button";
+import { MarkdownText } from "./markdown-text";
+import { TooltipIconButton } from "./tooltip-icon-button";
 
 export interface ThreadProps {
   runtime?: ThreadRuntimeCore;
@@ -94,7 +94,7 @@ const formatTime = (date: Date) => {
   });
 };
 
-const MessageStatus: FC<{ status?: MessageStatus }> = ({ status }) => {
+const MessageStatus: FC<{ status?: MessageStatus; }> = ({ status }) => {
   if (!status) return null;
 
   const icons = {
@@ -124,8 +124,7 @@ export const Thread: FC<ThreadProps> = ({
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const target = e.target as HTMLDivElement;
-    const isBottom =
-      target.scrollHeight - target.scrollTop - target.clientHeight < 50;
+    const isBottom = target.scrollHeight - target.scrollTop - target.clientHeight < 50;
     setIsAtBottom(isBottom);
   };
 

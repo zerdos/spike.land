@@ -28,7 +28,7 @@ export function useWebSocket({
     if (!enabled) return;
 
     const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    const wsUrl = conversationId 
+    const wsUrl = conversationId
       ? `${protocol}//${window.location.host}/ws/${conversationId}`
       : `${protocol}//${window.location.host}/ws`;
 
@@ -39,7 +39,7 @@ export function useWebSocket({
       setIsConnected(true);
       reconnectAttemptsRef.current = 0;
       onConnect?.();
-      
+
       if (userId && conversationId) {
         ws.send(JSON.stringify({
           type: "presence",
@@ -77,7 +77,7 @@ export function useWebSocket({
             console.error("WebSocket error:", message.error);
             break;
         }
-        
+
         onMessage?.(message);
       } catch (error) {
         console.error("Failed to parse WebSocket message:", error);
@@ -92,12 +92,12 @@ export function useWebSocket({
     ws.onclose = () => {
       setIsConnected(false);
       onDisconnect?.();
-      
+
       // Attempt to reconnect with exponential backoff
       if (enabled && reconnectAttemptsRef.current < 5) {
         const delay = Math.min(1000 * Math.pow(2, reconnectAttemptsRef.current), 10000);
         reconnectAttemptsRef.current++;
-        
+
         reconnectTimeoutRef.current = setTimeout(() => {
           connect();
         }, delay);

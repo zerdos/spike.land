@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import type { Conversation, Message, User } from "../src/types";
+import { UserButton } from "./components/auth/UserButton";
 import { ChatInterface } from "./components/ChatInterface";
+import { ConnectionStatus } from "./components/ConnectionStatus";
 import { ConversationList } from "./components/ConversationList";
 import { LandingPage } from "./components/LandingPage";
 import { SubscriptionStatus } from "./components/SubscriptionStatus";
-import { ConnectionStatus } from "./components/ConnectionStatus";
-import { UserButton } from "./components/auth/UserButton";
-import { useWebSocket } from "./hooks/useWebSocket";
 import { useAuth } from "./hooks/useAuth";
+import { useWebSocket } from "./hooks/useWebSocket";
 import { api } from "./lib/api";
 
 export function App() {
@@ -89,7 +89,7 @@ export function App() {
   const loadSubscriptionInfo = async () => {
     const storedTier = localStorage.getItem("subscription_tier");
     const storedCredits = localStorage.getItem("user_credits");
-    
+
     if (storedTier || storedCredits) {
       setSubscription((prev) => ({
         ...prev,
@@ -132,9 +132,7 @@ export function App() {
       });
       if (data.id) {
         setCurrentConversation(data);
-        setConversations((prev) =>
-          prev.map((c) => (c.id === newConv.id ? data : c))
-        );
+        setConversations((prev) => prev.map((c) => (c.id === newConv.id ? data : c)));
       }
     } catch (error) {
       console.error("Failed to create conversation via API:", error);
@@ -144,7 +142,7 @@ export function App() {
   const selectConversation = async (conv: Conversation) => {
     setCurrentConversation(conv);
     setMessages([]);
-    
+
     try {
       const data = await api.getConversation(conv.id);
       if (data.messages) {
@@ -203,7 +201,7 @@ export function App() {
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
-      
+
       // Update credits
       if (response.creditsRemaining !== undefined) {
         setSubscription((prev) => ({
@@ -258,9 +256,7 @@ export function App() {
           <button className="new-chat-btn" onClick={createNewConversation}>
             New Chat
           </button>
-          {auth.user && (
-            <UserButton user={auth.user} onSignOut={auth.signOut} />
-          )}
+          {auth.user && <UserButton user={auth.user} onSignOut={auth.signOut} />}
           <SubscriptionStatus
             subscription={subscription}
             onUpgrade={upgradeSubscription}
@@ -274,25 +270,27 @@ export function App() {
           onDelete={deleteConversation}
         />
       </div>
-      
+
       <div className="chat-container">
-        {currentConversation ? (
-          <ChatInterface
-            conversation={currentConversation}
-            messages={messages}
-            onSendMessage={sendMessage}
-            onRegenerateMessage={regenerateMessage}
-            isLoading={isLoading}
-          />
-        ) : (
-          <div className="auth-container">
-            <h1>Welcome to AI Chat Assistant</h1>
-            <p>Select a conversation or create a new one to start chatting</p>
-            <button className="auth-btn" onClick={createNewConversation}>
-              Start New Chat
-            </button>
-          </div>
-        )}
+        {currentConversation
+          ? (
+            <ChatInterface
+              conversation={currentConversation}
+              messages={messages}
+              onSendMessage={sendMessage}
+              onRegenerateMessage={regenerateMessage}
+              isLoading={isLoading}
+            />
+          )
+          : (
+            <div className="auth-container">
+              <h1>Welcome to AI Chat Assistant</h1>
+              <p>Select a conversation or create a new one to start chatting</p>
+              <button className="auth-btn" onClick={createNewConversation}>
+                Start New Chat
+              </button>
+            </div>
+          )}
       </div>
     </div>
   );

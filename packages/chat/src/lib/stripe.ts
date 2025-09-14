@@ -1,8 +1,8 @@
-import Stripe from "stripe";
 import { loadStripe, type Stripe as StripeClient } from "@stripe/stripe-js";
+import Stripe from "stripe";
 
 // Server-side Stripe client for Cloudflare Workers
-export function createStripeServer(env: { STRIPE_SECRET_KEY: string }): Stripe {
+export function createStripeServer(env: { STRIPE_SECRET_KEY: string; }): Stripe {
   return new Stripe(env.STRIPE_SECRET_KEY, {
     apiVersion: "2024-12-18.acacia",
     // Cloudflare Workers compatible configuration
@@ -106,7 +106,7 @@ export function formatPrice(cents: number): string {
 }
 
 // Check if user has sufficient credits
-export function hasCredits(user: { credits?: number }, required: number = 1): boolean {
+export function hasCredits(user: { credits?: number; }, required: number = 1): boolean {
   return (user.credits || 0) >= required;
 }
 

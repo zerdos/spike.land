@@ -5,10 +5,11 @@ This directory contains the assistant-ui components for building AI chat interfa
 ## Components
 
 ### Thread
+
 The main chat interface component that displays messages and handles user input.
 
 ```tsx
-import { Thread } from './components/assistant-ui/thread';
+import { Thread } from "./components/assistant-ui/thread";
 
 <Thread
   placeholder="Type a message..."
@@ -16,45 +17,48 @@ import { Thread } from './components/assistant-ui/thread';
   welcomeMessage="Welcome! How can I help?"
   showTimestamps
   allowAttachments
-/>
+/>;
 ```
 
 ### ThreadList
+
 Displays a list of conversation threads with actions like pin, archive, and delete.
 
 ```tsx
-import { ThreadList } from './components/assistant-ui/thread-list';
+import { ThreadList } from "./components/assistant-ui/thread-list";
 
 <ThreadList
   threads={threads}
   activeThreadId={activeId}
   onThreadSelect={handleSelect}
   onThreadDelete={handleDelete}
-/>
+/>;
 ```
 
 ### MarkdownText
+
 Renders markdown content with syntax highlighting and proper formatting.
 
 ```tsx
-import { MarkdownText } from './components/assistant-ui/markdown-text';
+import { MarkdownText } from "./components/assistant-ui/markdown-text";
 
 <MarkdownText className="prose">
   {markdownContent}
-</MarkdownText>
+</MarkdownText>;
 ```
 
 ### ChatInterface
+
 Complete chat interface with sidebar and thread management.
 
 ```tsx
-import { ChatInterface } from './components/assistant-ui/chat-interface';
+import { ChatInterface } from "./components/assistant-ui/chat-interface";
 
 <ChatInterface
   showSidebar
   collapsible
   defaultSidebarSize={25}
-/>
+/>;
 ```
 
 ## Usage with AI SDK
@@ -99,7 +103,7 @@ const threadConfig = {
   },
 };
 
-<Thread config={threadConfig} />
+<Thread config={threadConfig} />;
 ```
 
 ## Styling
@@ -119,7 +123,7 @@ The components support dark mode through Tailwind CSS classes:
 ```tsx
 <div className="dark">
   <Thread className="dark:bg-gray-900" />
-</div>
+</div>;
 ```
 
 ### Custom Theme

@@ -11,8 +11,8 @@ export default defineConfig({
     : [["html", { outputFolder: "test-results/playwright-report" }], ["line"]],
 
   // Global test setup and teardown
-  globalSetup: require.resolve('./features/support/global-setup.ts'),
-  globalTeardown: require.resolve('./features/support/global-teardown.ts'),
+  globalSetup: require.resolve("./features/support/global-setup.ts"),
+  globalTeardown: require.resolve("./features/support/global-teardown.ts"),
 
   use: {
     // Use Next.js development server URL

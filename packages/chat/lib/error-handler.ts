@@ -19,7 +19,7 @@ export class APIError extends Error {
     message: string,
     code: string = "INTERNAL_ERROR",
     statusCode: number = 500,
-    details?: Record<string, unknown>
+    details?: Record<string, unknown>,
   ) {
     super(message);
     this.name = "APIError";
@@ -74,7 +74,11 @@ export class DatabaseError extends APIError {
 }
 
 export class ExternalServiceError extends APIError {
-  constructor(service: string, message: string = "External service error", details?: Record<string, unknown>) {
+  constructor(
+    service: string,
+    message: string = "External service error",
+    details?: Record<string, unknown>,
+  ) {
     super(`${service}: ${message}`, "EXTERNAL_SERVICE_ERROR", 502, {
       service,
       ...details,
@@ -180,7 +184,7 @@ export class ErrorHandler {
   success<T = unknown>(
     data?: T,
     message?: string,
-    statusCode: number = 200
+    statusCode: number = 200,
   ): Response {
     const response: APIResponse<T> = {
       success: true,
@@ -209,7 +213,7 @@ export class ErrorHandler {
       hasNext: boolean;
       hasPrev: boolean;
     },
-    message?: string
+    message?: string,
   ): Response {
     const response = {
       success: true,
@@ -235,7 +239,7 @@ export class ErrorHandler {
    */
   validateRequiredFields(
     body: Record<string, unknown>,
-    requiredFields: string[]
+    requiredFields: string[],
   ): void {
     const missingFields = requiredFields.filter(field => {
       const value = body[field];
@@ -245,7 +249,7 @@ export class ErrorHandler {
     if (missingFields.length > 0) {
       throw new ValidationError(
         `Missing required fields: ${missingFields.join(", ")}`,
-        { missingFields, providedFields: Object.keys(body) }
+        { missingFields, providedFields: Object.keys(body) },
       );
     }
   }
@@ -255,7 +259,7 @@ export class ErrorHandler {
    */
   validateFieldTypes(
     body: Record<string, unknown>,
-    fieldTypes: Record<string, string>
+    fieldTypes: Record<string, string>,
   ): void {
     const typeErrors: string[] = [];
 
@@ -272,7 +276,7 @@ export class ErrorHandler {
     if (typeErrors.length > 0) {
       throw new ValidationError(
         `Type validation failed: ${typeErrors.join(", ")}`,
-        { typeErrors }
+        { typeErrors },
       );
     }
   }
@@ -282,7 +286,7 @@ export class ErrorHandler {
    */
   validateStringConstraints(
     body: Record<string, unknown>,
-    constraints: Record<string, { minLength?: number; maxLength?: number; pattern?: RegExp }>
+    constraints: Record<string, { minLength?: number; maxLength?: number; pattern?: RegExp; }>,
   ): void {
     const constraintErrors: string[] = [];
 
@@ -295,7 +299,9 @@ export class ErrorHandler {
       }
 
       if (constraint.maxLength && value.length > constraint.maxLength) {
-        constraintErrors.push(`${field} must be no more than ${constraint.maxLength} characters long`);
+        constraintErrors.push(
+          `${field} must be no more than ${constraint.maxLength} characters long`,
+        );
       }
 
       if (constraint.pattern && !constraint.pattern.test(value)) {
@@ -306,7 +312,7 @@ export class ErrorHandler {
     if (constraintErrors.length > 0) {
       throw new ValidationError(
         `Constraint validation failed: ${constraintErrors.join(", ")}`,
-        { constraintErrors }
+        { constraintErrors },
       );
     }
   }
@@ -333,7 +339,11 @@ export function throwIfUnauthorized(condition: boolean, message?: string): void 
   }
 }
 
-export function throwIfInvalidInput(condition: boolean, message?: string, details?: Record<string, unknown>): void {
+export function throwIfInvalidInput(
+  condition: boolean,
+  message?: string,
+  details?: Record<string, unknown>,
+): void {
   if (!condition) {
     throw new ValidationError(message || "Invalid input", details);
   }
@@ -348,7 +358,7 @@ export function catchDatabaseError<T>(operation: () => Promise<T>): Promise<T> {
 
 export function catchExternalServiceError<T>(
   service: string,
-  operation: () => Promise<T>
+  operation: () => Promise<T>,
 ): Promise<T> {
   return operation().catch(error => {
     console.error(`External service error (${service}):`, error);

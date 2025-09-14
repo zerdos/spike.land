@@ -6,9 +6,9 @@ const nextConfig = {
   // Optimize images for static export
   images: {
     domains: [
-      'images.clerk.dev',
-      'avatars.githubusercontent.com',
-      'lh3.googleusercontent.com',
+      "images.clerk.dev",
+      "avatars.githubusercontent.com",
+      "lh3.googleusercontent.com",
     ],
     unoptimized: true, // Required for static export
   },
@@ -48,7 +48,7 @@ const nextConfig = {
 
   // Configure ESLint
   eslint: {
-    dirs: ['app', 'components', 'lib', 'src'],
+    dirs: ["app", "components", "lib", "src"],
     ignoreDuringBuilds: false,
   },
 
@@ -60,18 +60,18 @@ const nextConfig = {
   // Compiler options
   compiler: {
     // Remove console logs in production
-    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error'] } : false,
+    removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error"] } : false,
   },
 
   // Configure modularize imports for tree shaking
   modularizeImports: {
-    'lucide-react': {
-      transform: 'lucide-react/dist/esm/icons/{{kebabCase member}}',
+    "lucide-react": {
+      transform: "lucide-react/dist/esm/icons/{{kebabCase member}}",
     },
   },
 
   // Development configuration
-  ...(process.env.NODE_ENV === 'development' && {
+  ...(process.env.NODE_ENV === "development" && {
     // Enable source maps in development
     productionBrowserSourceMaps: false,
     // Disable static optimization for development
@@ -79,7 +79,7 @@ const nextConfig = {
   }),
 
   // Production optimizations
-  ...(process.env.NODE_ENV === 'production' && {
+  ...(process.env.NODE_ENV === "production" && {
     // Optimize production builds
     productionBrowserSourceMaps: false,
   }),

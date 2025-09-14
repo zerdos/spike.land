@@ -1,12 +1,7 @@
 import * as React from "react";
-import { Button, type ButtonProps } from "../ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/tooltip";
 import { cn } from "../../lib/utils";
+import { Button, type ButtonProps } from "../ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 
 export interface TooltipIconButtonProps extends ButtonProps {
   tooltip?: string;

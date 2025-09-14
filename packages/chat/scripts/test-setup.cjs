@@ -6,7 +6,7 @@
  */
 
 const fs = require("fs").promises;
-const path = require("path");
+const _path = require("path");
 
 async function setupTestEnvironment() {
   console.log("🔧 Setting up test environment...");
@@ -33,7 +33,7 @@ async function setupTestEnvironment() {
     try {
       await fs.access(envTestPath);
       console.log("✅ Test environment file exists");
-    } catch (error) {
+    } catch (_error) {
       console.warn("⚠️ .env.test file not found - using default settings");
     }
 
@@ -43,7 +43,7 @@ async function setupTestEnvironment() {
       try {
         await fs.unlink(dbFile);
         console.log(`🗑️ Cleaned up existing database: ${dbFile}`);
-      } catch (error) {
+      } catch (_error) {
         // File might not exist, which is fine
       }
     }
@@ -61,7 +61,7 @@ async function setupTestEnvironment() {
     ];
 
     const missingDeps = requiredDevDeps.filter(
-      (dep) => !packageJson.devDependencies || !packageJson.devDependencies[dep]
+      (dep) => !packageJson.devDependencies || !packageJson.devDependencies[dep],
     );
 
     if (missingDeps.length > 0) {
@@ -76,7 +76,7 @@ async function setupTestEnvironment() {
     try {
       await fs.access(mockServerPath);
       console.log("✅ Mock server script found");
-    } catch (error) {
+    } catch (_error) {
       console.warn("⚠️ Mock server script not found at:", mockServerPath);
     }
 
@@ -90,7 +90,7 @@ async function setupTestEnvironment() {
         console.log(`✅ Next.js configuration found: ${configPath}`);
         nextConfigFound = true;
         break;
-      } catch (error) {
+      } catch (_error) {
         // Try next config file
       }
     }

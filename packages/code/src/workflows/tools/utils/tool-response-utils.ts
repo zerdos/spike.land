@@ -22,14 +22,17 @@ export const extractToolResponseMetadata = (
   // Check if there are tool responses in the additional_kwargs
   const responseData = response as unknown as Record<string, unknown>;
   if (
-    responseData['additional_kwargs'] &&
-    typeof responseData['additional_kwargs'] === "object" &&
-    responseData['additional_kwargs'] !== null &&
-    "tool_responses" in (responseData['additional_kwargs'] as Record<string, unknown>) &&
-    Array.isArray((responseData['additional_kwargs'] as Record<string, unknown>)['tool_responses'])
+    responseData["additional_kwargs"] &&
+    typeof responseData["additional_kwargs"] === "object" &&
+    responseData["additional_kwargs"] !== null &&
+    "tool_responses" in (responseData["additional_kwargs"] as Record<string, unknown>) &&
+    Array.isArray((responseData["additional_kwargs"] as Record<string, unknown>)["tool_responses"])
   ) {
     // Look for hash in tool responses
-    const toolResponses = (responseData['additional_kwargs'] as Record<string, unknown>)['tool_responses'] as Array<unknown>;
+    const toolResponses =
+      (responseData["additional_kwargs"] as Record<string, unknown>)["tool_responses"] as Array<
+        unknown
+      >;
     for (const toolResponse of toolResponses) {
       if (
         typeof toolResponse === "object" &&
@@ -59,27 +62,27 @@ export const extractToolResponseMetadata = (
         }
 
         // Extract metadata from content
-        if ("hash" in content && typeof content['hash'] === "string") {
-          metadata.hash = content['hash'];
+        if ("hash" in content && typeof content["hash"] === "string") {
+          metadata.hash = content["hash"];
         }
 
         if (
           "modifiedCodeHash" in content &&
-          typeof content['modifiedCodeHash'] === "string"
+          typeof content["modifiedCodeHash"] === "string"
         ) {
-          metadata.modifiedCodeHash = content['modifiedCodeHash'];
+          metadata.modifiedCodeHash = content["modifiedCodeHash"];
         }
 
         if (
-          "error" in content && typeof content['error'] === "string" &&
-          content['error'].includes("failed to compile")
+          "error" in content && typeof content["error"] === "string" &&
+          content["error"].includes("failed to compile")
         ) {
-          metadata.compilationError = content['error'];
+          metadata.compilationError = content["error"];
         }
 
         // Check if code was returned in the response
         metadata.codeWasReturned = "code" in content &&
-          content['code'] !== undefined;
+          content["code"] !== undefined;
 
         break;
       }
@@ -99,18 +102,18 @@ export const updateToolCallsWithCodeFlag = (
   return toolCalls.map((toolCall) => {
     // Handle both code_modification and replace_in_file tools
     if (
-      (toolCall['name'] === "code_modification" ||
-        toolCall['name'] === "replace_in_file") &&
-      toolCall['args']
+      (toolCall["name"] === "code_modification" ||
+        toolCall["name"] === "replace_in_file") &&
+      toolCall["args"]
     ) {
       try {
-        const args = typeof toolCall['args'] === "string"
-          ? JSON.parse(toolCall['args'])
-          : toolCall['args'];
+        const args = typeof toolCall["args"] === "string"
+          ? JSON.parse(toolCall["args"])
+          : toolCall["args"];
 
         // Log the tool call for debugging
-        console.warn(`Updating tool call for ${toolCall['name']}:`, {
-          toolName: toolCall['name'],
+        console.warn(`Updating tool call for ${toolCall["name"]}:`, {
+          toolName: toolCall["name"],
           originalArgs: JSON.stringify(args).substring(0, 100) + "...",
           returnModifiedCode,
         });
@@ -124,7 +127,7 @@ export const updateToolCallsWithCodeFlag = (
         };
       } catch (e) {
         console.warn(
-          `Failed to update tool call args for ${toolCall['name']}:`,
+          `Failed to update tool call args for ${toolCall["name"]}:`,
           e,
         );
         return toolCall;

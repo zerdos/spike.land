@@ -29,15 +29,15 @@ export function ConnectionStatus({ isConnected }: ConnectionStatusProps) {
           {isConnected ? "Connected" : showReconnecting ? "Reconnecting..." : "Disconnected"}
         </span>
       </div>
-      
+
       {showReconnecting && (
         <div className="reconnect-info">
           Attempt {reconnectAttempts + 1} of 3
         </div>
       )}
-      
+
       {!isConnected && reconnectAttempts >= 3 && (
-        <button 
+        <button
           className="reconnect-btn"
           onClick={() => {
             setReconnectAttempts(0);
@@ -48,8 +48,9 @@ export function ConnectionStatus({ isConnected }: ConnectionStatusProps) {
           Reconnect
         </button>
       )}
-      
-      <style jsx>{`
+
+      <style jsx>
+        {`
         .connection-status {
           margin-top: 15px;
           padding: 10px;
@@ -128,7 +129,8 @@ export function ConnectionStatus({ isConnected }: ConnectionStatusProps) {
             box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
           }
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 }

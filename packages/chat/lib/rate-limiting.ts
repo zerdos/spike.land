@@ -47,7 +47,7 @@ export class RateLimiter {
         await this.kv.put(
           rateLimitKey,
           JSON.stringify(windowData),
-          { expirationTtl: rule.window }
+          { expirationTtl: rule.window },
         );
 
         return {
@@ -71,7 +71,7 @@ export class RateLimiter {
         await this.kv.put(
           rateLimitKey,
           JSON.stringify(newWindowData),
-          { expirationTtl: rule.window }
+          { expirationTtl: rule.window },
         );
 
         return {
@@ -101,7 +101,7 @@ export class RateLimiter {
       await this.kv.put(
         rateLimitKey,
         JSON.stringify(updatedWindowData),
-        { expirationTtl: rule.window - windowAge }
+        { expirationTtl: rule.window - windowAge },
       );
 
       return {
@@ -110,7 +110,6 @@ export class RateLimiter {
         resetTime: windowData.windowStart + rule.window,
         totalRequests: updatedWindowData.count,
       };
-
     } catch (error) {
       console.error("Rate limiting error:", error);
       // On error, allow the request (fail open)
@@ -180,7 +179,7 @@ export async function applyRateLimit(
   env: Env,
   request: Request,
   ruleName: keyof typeof RATE_LIMIT_RULES,
-  identifier?: string
+  identifier?: string,
 ): Promise<Response | null> {
   const rateLimiter = new RateLimiter(env);
 
@@ -213,7 +212,7 @@ export async function applyRateLimit(
           "Retry-After": (result.resetTime - Math.floor(Date.now() / 1000)).toString(),
           ...headers,
         },
-      }
+      },
     );
   }
 
@@ -226,7 +225,7 @@ export async function applyRateLimit(
 export async function getRateLimitStatus(
   env: Env,
   ruleName: keyof typeof RATE_LIMIT_RULES,
-  identifier: string
+  identifier: string,
 ): Promise<{
   rule: RateLimitRule;
   current: RateLimitResult;
@@ -283,7 +282,7 @@ export async function getRateLimitStatus(
 export function createRateLimitResponse(
   result: RateLimitResult,
   rule: RateLimitRule,
-  message?: string
+  message?: string,
 ): Response {
   const rateLimiter = new (class {
     createRateLimitHeaders = RateLimiter.prototype.createRateLimitHeaders;
@@ -309,7 +308,7 @@ export function createRateLimitResponse(
         "Retry-After": (result.resetTime - Math.floor(Date.now() / 1000)).toString(),
         ...headers,
       },
-    }
+    },
   );
 }
 

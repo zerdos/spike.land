@@ -15,7 +15,10 @@ export const createMockCodeSession = (initialCode = "// Test code"): ICode => {
   let messages: Message[] = [];
 
   // Create the mock session object with extended properties
-  const mockSession: ICode & { addMessage?: (message: Message) => boolean; removeMessages?: () => boolean; } = {
+  const mockSession: ICode & {
+    addMessage?: (message: Message) => boolean;
+    removeMessages?: () => boolean;
+  } = {
     getCode: vi.fn().mockImplementation(() => Promise.resolve(code)),
     setCode: vi.fn().mockImplementation((newCode: string) => {
       code = newCode;

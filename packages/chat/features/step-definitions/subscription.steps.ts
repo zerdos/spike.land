@@ -1,8 +1,8 @@
 import { Given, Then, When } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
-import type { CustomWorld } from "../support/world.js";
-import { StripeFixtures } from "../fixtures/stripe.js";
 import { AuthFixtures } from "../fixtures/auth.js";
+import { StripeFixtures } from "../fixtures/stripe.js";
+import type { CustomWorld } from "../support/world.js";
 
 // Type definitions for window object extensions used in tests
 interface WindowWithSubscription extends Window {
@@ -175,20 +175,23 @@ Given("I have an expired Stripe subscription", async function(this: CustomWorld)
   await StripeFixtures.mockStripeAPI(this.page);
 });
 
-When("I initiate a subscription upgrade to {string}", async function(this: CustomWorld, tier: string) {
-  const planButton = this.page.locator(`[data-testid="upgrade-to-${tier.toLowerCase()}"]`);
-  await expect(planButton).toBeVisible({ timeout: 10000 });
-  await planButton.click();
-});
+When(
+  "I initiate a subscription upgrade to {string}",
+  async function(this: CustomWorld, tier: string) {
+    const planButton = this.page.locator(`[data-testid="upgrade-to-${tier.toLowerCase()}"]`);
+    await expect(planButton).toBeVisible({ timeout: 10000 });
+    await planButton.click();
+  },
+);
 
 When("I complete the Stripe payment successfully", async function(this: CustomWorld) {
   // Wait for Stripe checkout to load
   await this.page.waitForSelector('[data-testid="stripe-card"]', { timeout: 10000 });
 
   // Fill in payment details
-  await this.page.fill('[data-testid="card-number"]', '4242424242424242');
-  await this.page.fill('[data-testid="card-expiry"]', '12/25');
-  await this.page.fill('[data-testid="card-cvc"]', '123');
+  await this.page.fill('[data-testid="card-number"]', "4242424242424242");
+  await this.page.fill('[data-testid="card-expiry"]', "12/25");
+  await this.page.fill('[data-testid="card-cvc"]', "123");
 
   // Submit payment
   await this.page.click('[data-testid="submit-payment"]');
@@ -220,12 +223,16 @@ When("I cancel my Stripe subscription", async function(this: CustomWorld) {
 });
 
 Then("I should see the Stripe checkout form", async function(this: CustomWorld) {
-  await expect(this.page.locator('[data-testid="stripe-checkout"]')).toBeVisible({ timeout: 15000 });
+  await expect(this.page.locator('[data-testid="stripe-checkout"]')).toBeVisible({
+    timeout: 15000,
+  });
   await expect(this.page.locator('[data-testid="stripe-card"]')).toBeVisible();
 });
 
 Then("I should see a payment success message", async function(this: CustomWorld) {
-  await expect(this.page.locator('[data-testid="payment-success"]')).toBeVisible({ timeout: 10000 });
+  await expect(this.page.locator('[data-testid="payment-success"]')).toBeVisible({
+    timeout: 10000,
+  });
 });
 
 Then("I should see a payment error message", async function(this: CustomWorld) {
@@ -242,13 +249,18 @@ Then("I should have access to {string} features", async function(this: CustomWor
   await expect(features).toBeVisible({ timeout: 5000 });
 });
 
-Then("I should not have access to {string} features", async function(this: CustomWorld, tier: string) {
-  const features = this.page.locator(`[data-testid="${tier.toLowerCase()}-features"]`);
-  await expect(features).not.toBeVisible();
-});
+Then(
+  "I should not have access to {string} features",
+  async function(this: CustomWorld, tier: string) {
+    const features = this.page.locator(`[data-testid="${tier.toLowerCase()}-features"]`);
+    await expect(features).not.toBeVisible();
+  },
+);
 
 Then("I should see my billing history", async function(this: CustomWorld) {
-  await expect(this.page.locator('[data-testid="billing-history"]')).toBeVisible({ timeout: 10000 });
+  await expect(this.page.locator('[data-testid="billing-history"]')).toBeVisible({
+    timeout: 10000,
+  });
 
   // Verify at least one billing entry is shown
   const billingEntries = this.page.locator('[data-testid="billing-entry"]');

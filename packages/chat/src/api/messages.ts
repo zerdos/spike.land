@@ -1,8 +1,8 @@
 import { nanoid } from "nanoid";
+import { calculateCredits } from "../lib/stripe";
 import type { APIResponse, Env, Message } from "../types";
 import { AIService } from "../utils/ai";
 import { AuthService } from "../utils/auth";
-import { calculateCredits } from "../lib/stripe";
 
 export class MessagesAPI {
   private env: Env;

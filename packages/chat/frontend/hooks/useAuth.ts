@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
-import { clerk, auth, initializeClerk } from "../lib/clerk";
 import type { UserResource } from "@clerk/types";
+import { useCallback, useEffect, useState } from "react";
+import { auth, clerk, initializeClerk } from "../lib/clerk";
 
 interface AuthState {
   user: UserResource | null;

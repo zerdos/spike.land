@@ -1,4 +1,4 @@
-import type { WebSocketMessage, Message, User } from "../src/types";
+import type { Message, User, WebSocketMessage } from "../src/types";
 
 export interface WebSocketConnection {
   websocket: WebSocket;
@@ -33,7 +33,7 @@ export class WebSocketManager {
     connectionId: string,
     websocket: WebSocket,
     userId: string,
-    conversationId: string
+    conversationId: string,
   ): void {
     const connection: WebSocketConnection = {
       websocket,
@@ -75,7 +75,9 @@ export class WebSocketManager {
       conversationId,
     }, connectionId);
 
-    console.log(`WebSocket connection added: ${connectionId} for user ${userId} in conversation ${conversationId}`);
+    console.log(
+      `WebSocket connection added: ${connectionId} for user ${userId} in conversation ${conversationId}`,
+    );
   }
 
   /**
@@ -161,7 +163,7 @@ export class WebSocketManager {
         userId: connection.userId,
         conversationId: connection.conversationId,
       },
-      this.getConnectionId(connection)
+      this.getConnectionId(connection),
     );
   }
 
@@ -190,7 +192,7 @@ export class WebSocketManager {
     this.broadcastToConversation(
       connection.conversationId,
       message,
-      this.getConnectionId(connection)
+      this.getConnectionId(connection),
     );
   }
 
@@ -257,7 +259,7 @@ export class WebSocketManager {
   broadcastToConversation(
     conversationId: string,
     message: WebSocketMessage,
-    excludeConnectionId?: string
+    excludeConnectionId?: string,
   ): void {
     const connectionsToNotify = Array.from(this.connections.entries())
       .filter(([connectionId, connection]) =>
@@ -269,7 +271,9 @@ export class WebSocketManager {
       this.sendToConnection(connectionId, message);
     });
 
-    console.log(`Broadcasted message to ${connectionsToNotify.length} connections in conversation ${conversationId}`);
+    console.log(
+      `Broadcasted message to ${connectionsToNotify.length} connections in conversation ${conversationId}`,
+    );
   }
 
   /**
@@ -330,7 +334,7 @@ export class WebSocketManager {
     typingUsers: number;
   } {
     const activeConversations = new Set(
-      Array.from(this.connections.values()).map(conn => conn.conversationId)
+      Array.from(this.connections.values()).map(conn => conn.conversationId),
     ).size;
 
     const typingUsers = Array.from(this.typing.values())
@@ -446,7 +450,7 @@ export function validateWebSocketMessage(data: unknown): WebSocketMessage | null
 
 export function createWebSocketMessage(
   type: WebSocketMessage["type"],
-  options: Partial<Omit<WebSocketMessage, "type">> = {}
+  options: Partial<Omit<WebSocketMessage, "type">> = {},
 ): WebSocketMessage {
   return {
     type,

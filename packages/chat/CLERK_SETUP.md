@@ -179,6 +179,7 @@ DEBUG_CLERK_AUTH=true
 ## Support
 
 For Clerk-specific issues, check:
+
 - [Clerk Documentation](https://clerk.com/docs)
 - [Clerk Community](https://clerk.com/community)
 - [Clerk Support](https://clerk.com/support)

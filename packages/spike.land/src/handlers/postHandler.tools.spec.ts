@@ -31,7 +31,7 @@ describe("PostHandler - Tool Schema Validation", () => {
       warnings: [],
       usage: {},
       experimental_providerMetadata: undefined,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as unknown as StreamTextResult<any, any>;
 
     // Default mock for streamText
@@ -154,7 +154,7 @@ describe("PostHandler - Tool Schema Validation", () => {
         expect(tool).toHaveProperty("description");
         expect(tool).toHaveProperty("parameters");
         expect(tool).toHaveProperty("execute");
-        expect(typeof (tool as { execute: unknown }).execute).toBe("function");
+        expect(typeof (tool as { execute: unknown; }).execute).toBe("function");
       });
     });
 
@@ -311,7 +311,8 @@ describe("PostHandler - Tool Schema Validation", () => {
 
       // Mock executeTool to return a response
       const mockExecuteTool = vi.fn().mockResolvedValue({ success: true });
-      (mockCode.getMcpServer() as unknown as { executeTool: typeof mockExecuteTool }).executeTool = mockExecuteTool;
+      (mockCode.getMcpServer() as unknown as { executeTool: typeof mockExecuteTool; }).executeTool =
+        mockExecuteTool;
 
       const request = new Request("https://test.spike.land/api/post", {
         method: "POST",
@@ -378,7 +379,7 @@ describe("PostHandler - Tool Schema Validation", () => {
       tools.push({
         name: "invalid_tool",
         description: "Tool without schema",
-        inputSchema: undefined as unknown as McpTool['inputSchema'],
+        inputSchema: undefined as unknown as McpTool["inputSchema"],
       });
 
       vi.mocked(streamText).mockResolvedValue(mockStreamResponse);

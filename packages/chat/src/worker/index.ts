@@ -1,10 +1,17 @@
+import { ChatAPI } from "../api/chat";
 import { ConversationsAPI } from "../api/conversations";
 import { MessagesAPI } from "../api/messages";
-import { ChatAPI } from "../api/chat";
-import { WebSocketAPI } from "../api/websocket";
-import { handleCheckoutSession, handleOptions as handleCheckoutOptions } from "../api/stripe/checkout";
+import {
+  handleCheckoutSession,
+  handleOptions as handleCheckoutOptions,
+} from "../api/stripe/checkout";
 import { handleStripeWebhook } from "../api/stripe/webhook";
-import { handleSubscriptionStatus, handleCreatePortalSession, handleOptions as handleSubscriptionOptions } from "../api/subscription";
+import {
+  handleCreatePortalSession,
+  handleOptions as handleSubscriptionOptions,
+  handleSubscriptionStatus,
+} from "../api/subscription";
+import { WebSocketAPI } from "../api/websocket";
 import type { Env } from "../types";
 import { AuthService } from "../utils/auth";
 import { handleClerkWebhook } from "../webhooks/clerk";
@@ -315,35 +322,35 @@ export default {
       Welcome to the AI Chat Assistant API powered by Cloudflare Workers and AI.
       This service provides intelligent conversational AI capabilities with real-time messaging support.
     </p>
-    
+
     <div class="api-section">
       <h2>Available API Endpoints:</h2>
-      
+
       <div class="endpoint">
         <span class="method method-get">GET</span>
         /api/conversations
       </div>
-      
+
       <div class="endpoint">
         <span class="method method-post">POST</span>
         /api/conversations
       </div>
-      
+
       <div class="endpoint">
         <span class="method method-get">GET</span>
         /api/conversations/:id
       </div>
-      
+
       <div class="endpoint">
         <span class="method method-delete">DELETE</span>
         /api/conversations/:id
       </div>
-      
+
       <div class="endpoint">
         <span class="method method-post">POST</span>
         /api/messages
       </div>
-      
+
       <div class="endpoint">
         <span class="method method-get">GET</span>
         /api/messages/:conversationId

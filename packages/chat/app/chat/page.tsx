@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import type { Conversation, Message, User } from "../../../src/types";
 import { ChatInterface } from "../../components/ChatInterface";
-import { ConversationList } from "../../components/ConversationList";
-import { SubscriptionStatus } from "../../components/SubscriptionStatus";
 import { ConnectionStatus } from "../../components/ConnectionStatus";
+import { ConversationList } from "../../components/ConversationList";
 import { Header } from "../../components/layout/header";
+import { SubscriptionStatus } from "../../components/SubscriptionStatus";
 import { useWebSocket } from "../../hooks/useWebSocket";
 import { api } from "../../lib/api";
 
@@ -28,7 +28,7 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
     limit: 10,
   });
 
-  const { isConnected, sendMessage: sendWebSocketMessage } = useWebSocket({
+  const { isConnected, sendMessage: _sendWebSocketMessage } = useWebSocket({
     onMessage: (data) => {
       if (data.type === "message" && currentConversation) {
         setMessages((prev) => [...prev, data.message]);
@@ -104,9 +104,7 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
       });
       if (data.id) {
         setCurrentConversation(data);
-        setConversations((prev) =>
-          prev.map((c) => (c.id === newConv.id ? data : c))
-        );
+        setConversations((prev) => prev.map((c) => (c.id === newConv.id ? data : c)));
       }
     } catch (error) {
       console.error("Failed to create conversation via API:", error);
@@ -234,7 +232,7 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
       <Header />
 
       <div className="chat-layout">
-        <div className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}>
+        <div className={`sidebar ${sidebarOpen ? "sidebar-open" : ""}`}>
           <div className="sidebar-header">
             <button
               className="btn btn-primary new-chat-btn"
@@ -272,29 +270,33 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
             <span className="hamburger"></span>
           </button>
 
-          {currentConversation ? (
-            <ChatInterface
-              conversation={currentConversation}
-              messages={messages}
-              onSendMessage={sendMessage}
-              onRegenerateMessage={regenerateMessage}
-              isLoading={isLoading}
-            />
-          ) : (
-            <div className="empty-state">
-              <div className="empty-content">
-                <div className="empty-icon">💬</div>
-                <h2>Welcome to AI Chat</h2>
-                <p>Select a conversation from the sidebar or create a new one to start chatting</p>
-                <button
-                  className="btn btn-primary"
-                  onClick={createNewConversation}
-                >
-                  Start New Conversation
-                </button>
+          {currentConversation
+            ? (
+              <ChatInterface
+                conversation={currentConversation}
+                messages={messages}
+                onSendMessage={sendMessage}
+                onRegenerateMessage={regenerateMessage}
+                isLoading={isLoading}
+              />
+            )
+            : (
+              <div className="empty-state">
+                <div className="empty-content">
+                  <div className="empty-icon">💬</div>
+                  <h2>Welcome to AI Chat</h2>
+                  <p>
+                    Select a conversation from the sidebar or create a new one to start chatting
+                  </p>
+                  <button
+                    className="btn btn-primary"
+                    onClick={createNewConversation}
+                  >
+                    Start New Conversation
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
       </div>
 
@@ -306,7 +308,8 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
         />
       )}
 
-      <style jsx>{`
+      <style jsx>
+        {`
         .chat-page {
           min-height: 100vh;
           background: #f8fafc;
@@ -544,7 +547,8 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
             padding: 14px;
           }
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 }

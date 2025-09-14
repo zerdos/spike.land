@@ -68,7 +68,7 @@ vi.mock("@/services/SessionManager", () => {
   };
 });
 
-// Mock ModelManager  
+// Mock ModelManager
 vi.mock("@/services/ModelManager", () => {
   return {
     ModelManager: class MockModelManager {
@@ -85,18 +85,22 @@ vi.mock("@/services/CodeProcessor", () => {
   return {
     CodeProcessor: class MockCodeProcessor {
       constructor(_codeSpace: string) {}
-      process = vi.fn(() => Promise.resolve({
-        code: "",
-        html: "",
-        css: "",
-        transpiled: "",
-      }));
-      reRenderFromTranspiled = vi.fn(() => Promise.resolve({
-        code: "",
-        html: "",
-        css: "",
-        transpiled: "",
-      }));
+      process = vi.fn(() =>
+        Promise.resolve({
+          code: "",
+          html: "",
+          css: "",
+          transpiled: "",
+        })
+      );
+      reRenderFromTranspiled = vi.fn(() =>
+        Promise.resolve({
+          code: "",
+          html: "",
+          css: "",
+          transpiled: "",
+        })
+      );
     },
   };
 });

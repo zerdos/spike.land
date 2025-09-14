@@ -47,8 +47,8 @@ export function Footer() {
               <span className="logo-text">AI Chat</span>
             </div>
             <p className="brand-description">
-              Empowering conversations with advanced AI technology.
-              Experience the future of intelligent chat today.
+              Empowering conversations with advanced AI technology. Experience the future of
+              intelligent chat today.
             </p>
             <div className="social-links">
               {socialLinks.map((social) => (
@@ -125,12 +125,15 @@ export function Footer() {
           <div className="newsletter-section">
             <h3>Stay Updated</h3>
             <p>Get the latest updates and features delivered to your inbox.</p>
-            <form className="newsletter-form" onSubmit={(e) => {
-              e.preventDefault();
-              const email = (e.target as HTMLFormElement).email.value;
-              console.log("Newsletter signup:", email);
-              alert("Thanks for subscribing! We'll keep you updated.");
-            }}>
+            <form
+              className="newsletter-form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const email = (e.target as HTMLFormElement).email.value;
+                console.log("Newsletter signup:", email);
+                alert("Thanks for subscribing! We'll keep you updated.");
+              }}
+            >
               <div className="input-group">
                 <input
                   type="email"
@@ -167,7 +170,8 @@ export function Footer() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style jsx>
+        {`
         .footer {
           background: #1a202c;
           color: #e2e8f0;
@@ -489,7 +493,8 @@ export function Footer() {
             height: 36px;
           }
         }
-      `}</style>
+      `}
+      </style>
     </footer>
   );
 }

@@ -6,7 +6,7 @@
  */
 
 const fs = require("fs").promises;
-const path = require("path");
+const _path = require("path");
 
 async function teardownTestEnvironment() {
   console.log("🧹 Running test environment teardown...");
@@ -18,7 +18,7 @@ async function teardownTestEnvironment() {
       try {
         await fs.unlink(dbFile);
         console.log(`🗑️ Removed test database: ${dbFile}`);
-      } catch (error) {
+      } catch (_error) {
         // File might not exist, which is fine
       }
     }
@@ -44,11 +44,11 @@ async function teardownTestEnvironment() {
               await fs.unlink(file);
             }
             console.log(`🗑️ Removed: ${file}`);
-          } catch (error) {
+          } catch (_error) {
             // Ignore errors for individual file cleanup
           }
         }
-      } catch (error) {
+      } catch (_error) {
         // Glob might not be available or pattern might not match anything
       }
     }
@@ -69,7 +69,7 @@ async function teardownTestEnvironment() {
 
         await fs.writeFile(
           "test-results/test-summary.json",
-          JSON.stringify(testSummary, null, 2)
+          JSON.stringify(testSummary, null, 2),
         );
 
         console.log("✅ Test results archived");
@@ -92,7 +92,7 @@ async function teardownTestEnvironment() {
             console.log(`🔌 Cleaned up processes on port ${port}`);
           }
         });
-      } catch (error) {
+      } catch (_error) {
         // Ignore errors - processes might not exist
       }
     }

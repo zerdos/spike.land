@@ -13,7 +13,7 @@ export const requireAuth = async (): Promise<boolean> => {
 
 // Wrapper for protected API calls
 export const withAuth = async <T>(
-  apiCall: () => Promise<T>
+  apiCall: () => Promise<T>,
 ): Promise<T> => {
   const isAuthenticated = await requireAuth();
   if (!isAuthenticated) {

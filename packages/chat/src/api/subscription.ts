@@ -1,6 +1,6 @@
-import type { Env, User, APIResponse } from "../types";
 import { getAuth } from "@clerk/backend";
 import { createStripeServer } from "../lib/stripe";
+import type { APIResponse, Env, User } from "../types";
 
 interface SubscriptionStatusResponse {
   tier: "free" | "pro" | "enterprise";
@@ -12,7 +12,7 @@ interface SubscriptionStatusResponse {
 
 export async function handleSubscriptionStatus(
   request: Request,
-  env: Env
+  env: Env,
 ): Promise<Response> {
   try {
     // Authenticate user
@@ -29,13 +29,13 @@ export async function handleSubscriptionStatus(
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
-        }
+        },
       );
     }
 
     // Get user from database
     const user = await env.DATABASE.prepare(
-      "SELECT * FROM users WHERE clerk_id = ?"
+      "SELECT * FROM users WHERE clerk_id = ?",
     ).bind(auth.userId).first() as User;
 
     if (!user) {
@@ -50,7 +50,7 @@ export async function handleSubscriptionStatus(
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
-        }
+        },
       );
     }
 
@@ -63,7 +63,7 @@ export async function handleSubscriptionStatus(
 
     if (user.subscription_tier !== "free") {
       const subscription = await env.DATABASE.prepare(
-        "SELECT * FROM subscriptions WHERE user_id = ? AND status != 'canceled' ORDER BY created_at DESC LIMIT 1"
+        "SELECT * FROM subscriptions WHERE user_id = ? AND status != 'canceled' ORDER BY created_at DESC LIMIT 1",
       ).bind(user.id).first();
 
       if (subscription) {
@@ -90,7 +90,7 @@ export async function handleSubscriptionStatus(
           "Access-Control-Allow-Methods": "GET, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type, Authorization",
         },
-      }
+      },
     );
   } catch (error) {
     console.error("Subscription status error:", error);
@@ -105,14 +105,14 @@ export async function handleSubscriptionStatus(
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
-      }
+      },
     );
   }
 }
 
 export async function handleCreatePortalSession(
   request: Request,
-  env: Env
+  env: Env,
 ): Promise<Response> {
   try {
     // Authenticate user
@@ -129,7 +129,7 @@ export async function handleCreatePortalSession(
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
-        }
+        },
       );
     }
 
@@ -148,13 +148,13 @@ export async function handleCreatePortalSession(
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
-        }
+        },
       );
     }
 
     // Get user from database
     const user = await env.DATABASE.prepare(
-      "SELECT * FROM users WHERE clerk_id = ?"
+      "SELECT * FROM users WHERE clerk_id = ?",
     ).bind(auth.userId).first() as User;
 
     if (!user || !user.stripe_customer_id) {
@@ -169,7 +169,7 @@ export async function handleCreatePortalSession(
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
-        }
+        },
       );
     }
 
@@ -196,7 +196,7 @@ export async function handleCreatePortalSession(
           "Access-Control-Allow-Methods": "POST, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type, Authorization",
         },
-      }
+      },
     );
   } catch (error) {
     console.error("Portal session error:", error);
@@ -211,7 +211,7 @@ export async function handleCreatePortalSession(
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
-      }
+      },
     );
   }
 }

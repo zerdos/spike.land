@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
-import { CheckCircle, ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function SubscriptionSuccessPage() {
   const router = useRouter();
@@ -26,8 +26,8 @@ export default function SubscriptionSuccessPage() {
         </h1>
 
         <p className="text-gray-600 mb-8">
-          Welcome to your new subscription plan. Your credits have been updated
-          and you can now enjoy all the premium features.
+          Welcome to your new subscription plan. Your credits have been updated and you can now
+          enjoy all the premium features.
         </p>
 
         <div className="space-y-4">

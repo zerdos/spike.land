@@ -16,8 +16,8 @@ export default function SubscriptionCancelPage() {
         </h1>
 
         <p className="text-gray-600 mb-8">
-          Your subscription setup was cancelled. No charges have been made to your account.
-          You can try again anytime or continue with your current plan.
+          Your subscription setup was cancelled. No charges have been made to your account. You can
+          try again anytime or continue with your current plan.
         </p>
 
         <div className="space-y-4">

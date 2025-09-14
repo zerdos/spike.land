@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Thread } from "./thread";
-import { ThreadList, type Thread as ThreadType } from "./thread-list";
 import { cn } from "../../lib/utils";
+import { Thread } from "./thread";
+import { type Thread as ThreadType, ThreadList } from "./thread-list";
 // import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { Menu } from "lucide-react";
 import { TooltipIconButton } from "./tooltip-icon-button";
@@ -19,9 +19,9 @@ export interface ChatInterfaceProps {
 export function ChatInterface({
   className,
   showSidebar = true,
-  defaultSidebarSize = 25,
-  minSidebarSize = 20,
-  maxSidebarSize = 40,
+  defaultSidebarSize: _defaultSidebarSize = 25,
+  minSidebarSize: _minSidebarSize = 20,
+  maxSidebarSize: _maxSidebarSize = 40,
   collapsible = true,
 }: ChatInterfaceProps) {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -76,9 +76,7 @@ export function ChatInterface({
   };
 
   const handleThreadPin = (threadId: string) => {
-    setThreads(threads.map(t =>
-      t.id === threadId ? { ...t, isPinned: !t.isPinned } : t
-    ));
+    setThreads(threads.map(t => t.id === threadId ? { ...t, isPinned: !t.isPinned } : t));
   };
 
   const suggestions = [
@@ -118,14 +116,18 @@ export function ChatInterface({
         </div>
       )}
 
-      <div className={cn(
-        "flex h-full w-full transition-all duration-300",
-        isSidebarCollapsed && "pl-12"
-      )}>
-        <div className={cn(
-          "border-r transition-all duration-300",
-          isSidebarCollapsed ? "w-0 overflow-hidden" : "w-80"
-        )}>
+      <div
+        className={cn(
+          "flex h-full w-full transition-all duration-300",
+          isSidebarCollapsed && "pl-12",
+        )}
+      >
+        <div
+          className={cn(
+            "border-r transition-all duration-300",
+            isSidebarCollapsed ? "w-0 overflow-hidden" : "w-80",
+          )}
+        >
           <ThreadList
             threads={threads}
             activeThreadId={activeThreadId}

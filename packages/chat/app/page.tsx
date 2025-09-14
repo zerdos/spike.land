@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { User } from "../../src/types";
-import { Header } from "../components/layout/header";
 import { Footer } from "../components/layout/footer";
+import { Header } from "../components/layout/header";
 
 interface LandingPageProps {
   onAuth?: (user: User) => void;
@@ -67,14 +67,16 @@ export function LandingPage({ onAuth }: LandingPageProps = {}) {
                 disabled={isLoading}
                 aria-label="Start a new chat session"
               >
-                {isLoading ? (
-                  <>
-                    <span className="spinner" />
-                    Loading...
-                  </>
-                ) : (
-                  "Start Chatting"
-                )}
+                {isLoading
+                  ? (
+                    <>
+                      <span className="spinner" />
+                      Loading...
+                    </>
+                  )
+                  : (
+                    "Start Chatting"
+                  )}
               </button>
 
               <button
@@ -94,7 +96,7 @@ export function LandingPage({ onAuth }: LandingPageProps = {}) {
                 How can AI help me today?
               </div>
               <div className="chat-bubble assistant">
-                I'm here to help with coding, writing, analysis, and more!
+                I&apos;m here to help with coding, writing, analysis, and more!
               </div>
             </div>
           </div>
@@ -163,7 +165,8 @@ export function LandingPage({ onAuth }: LandingPageProps = {}) {
 
       <Footer />
 
-      <style jsx>{`
+      <style jsx>
+        {`
         .landing-page {
           min-height: 100vh;
           background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -425,7 +428,8 @@ export function LandingPage({ onAuth }: LandingPageProps = {}) {
             font-size: 2rem;
           }
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 }

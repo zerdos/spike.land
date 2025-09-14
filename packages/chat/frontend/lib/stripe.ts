@@ -83,7 +83,7 @@ export function formatPrice(cents: number): string {
 }
 
 // Check if user has sufficient credits
-export function hasCredits(user: { credits?: number }, required: number = 1): boolean {
+export function hasCredits(user: { credits?: number; }, required: number = 1): boolean {
   return (user.credits || 0) >= required;
 }
 

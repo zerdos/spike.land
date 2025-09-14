@@ -1,10 +1,10 @@
-import type { Env, APIResponse } from "../../types";
-import { createStripeServer, WEBHOOK_EVENTS, getTierByPriceId } from "../../lib/stripe";
 import type Stripe from "stripe";
+import { createStripeServer, getTierByPriceId, WEBHOOK_EVENTS } from "../../lib/stripe";
+import type { APIResponse, Env } from "../../types";
 
 export async function handleStripeWebhook(
   request: Request,
-  env: Env
+  env: Env,
 ): Promise<Response> {
   try {
     const signature = request.headers.get("stripe-signature");
@@ -17,7 +17,7 @@ export async function handleStripeWebhook(
         {
           status: 400,
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
     }
 
@@ -30,7 +30,7 @@ export async function handleStripeWebhook(
       event = stripe.webhooks.constructEvent(
         body,
         signature,
-        env.STRIPE_WEBHOOK_SECRET
+        env.STRIPE_WEBHOOK_SECRET,
       );
     } catch (error) {
       console.error("Webhook signature verification failed:", error);
@@ -42,7 +42,7 @@ export async function handleStripeWebhook(
         {
           status: 400,
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
     }
 
@@ -86,7 +86,7 @@ export async function handleStripeWebhook(
       {
         status: 200,
         headers: { "Content-Type": "application/json" },
-      }
+      },
     );
   } catch (error) {
     console.error("Webhook processing error:", error);
@@ -98,14 +98,14 @@ export async function handleStripeWebhook(
       {
         status: 500,
         headers: { "Content-Type": "application/json" },
-      }
+      },
     );
   }
 }
 
 async function handleCheckoutCompleted(
   session: Stripe.Checkout.Session,
-  env: Env
+  env: Env,
 ): Promise<void> {
   console.log("Processing checkout completed:", session.id);
 
@@ -141,7 +141,7 @@ async function handleCheckoutCompleted(
       now,
       now,
       now,
-      now
+      now,
     ).run();
 
     // Update user subscription tier and reset credits
@@ -160,7 +160,7 @@ async function handleCheckoutCompleted(
 
 async function handleSubscriptionCreated(
   subscription: Stripe.Subscription,
-  env: Env
+  _env: Env,
 ): Promise<void> {
   console.log("Processing subscription created:", subscription.id);
   // The subscription should already be created in handleCheckoutCompleted
@@ -169,7 +169,7 @@ async function handleSubscriptionCreated(
 
 async function handleSubscriptionUpdated(
   subscription: Stripe.Subscription,
-  env: Env
+  env: Env,
 ): Promise<void> {
   console.log("Processing subscription updated:", subscription.id);
 
@@ -191,13 +191,13 @@ async function handleSubscriptionUpdated(
       new Date(subscription.current_period_end * 1000).toISOString(),
       subscription.cancel_at_period_end,
       now,
-      subscription.id
+      subscription.id,
     ).run();
 
     // If subscription is canceled or past due, update user tier
     if (subscription.status === "canceled" || subscription.status === "past_due") {
       const subRecord = await env.DATABASE.prepare(
-        "SELECT user_id FROM subscriptions WHERE stripe_subscription_id = ?"
+        "SELECT user_id FROM subscriptions WHERE stripe_subscription_id = ?",
       ).bind(subscription.id).first();
 
       if (subRecord) {
@@ -217,7 +217,7 @@ async function handleSubscriptionUpdated(
 
 async function handleSubscriptionDeleted(
   subscription: Stripe.Subscription,
-  env: Env
+  env: Env,
 ): Promise<void> {
   console.log("Processing subscription deleted:", subscription.id);
 
@@ -233,7 +233,7 @@ async function handleSubscriptionDeleted(
 
     // Downgrade user to free tier
     const subRecord = await env.DATABASE.prepare(
-      "SELECT user_id FROM subscriptions WHERE stripe_subscription_id = ?"
+      "SELECT user_id FROM subscriptions WHERE stripe_subscription_id = ?",
     ).bind(subscription.id).first();
 
     if (subRecord) {
@@ -252,7 +252,7 @@ async function handleSubscriptionDeleted(
 
 async function handlePaymentSucceeded(
   invoice: Stripe.Invoice,
-  env: Env
+  env: Env,
 ): Promise<void> {
   console.log("Processing payment succeeded:", invoice.id);
 
@@ -264,13 +264,13 @@ async function handlePaymentSucceeded(
   try {
     // Reset credits for the new billing period
     const subRecord = await env.DATABASE.prepare(
-      "SELECT user_id, status FROM subscriptions WHERE stripe_subscription_id = ?"
+      "SELECT user_id, status FROM subscriptions WHERE stripe_subscription_id = ?",
     ).bind(subscriptionId).first();
 
     if (subRecord && subRecord.status === "active") {
       // Get user's current tier to determine credit amount
       const userRecord = await env.DATABASE.prepare(
-        "SELECT subscription_tier FROM users WHERE id = ?"
+        "SELECT subscription_tier FROM users WHERE id = ?",
       ).bind(subRecord.user_id).first();
 
       if (userRecord) {
@@ -296,7 +296,7 @@ async function handlePaymentSucceeded(
 
 async function handlePaymentFailed(
   invoice: Stripe.Invoice,
-  env: Env
+  env: Env,
 ): Promise<void> {
   console.log("Processing payment failed:", invoice.id);
 

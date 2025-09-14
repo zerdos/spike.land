@@ -1,8 +1,8 @@
+import { Check, Crown, Sparkles } from "lucide-react";
 import { useState } from "react";
-import { Check, Sparkles, Crown } from "lucide-react";
 import type { SubscriptionTier } from "../../lib/stripe";
 import { formatPrice } from "../../lib/stripe";
-import { getStripe } from "../../lib/stripe";
+import { getStripe as _getStripe } from "../../lib/stripe";
 
 interface PricingCardProps {
   tier: SubscriptionTier;
@@ -15,7 +15,7 @@ export function PricingCard({
   tier,
   currentTier,
   onSubscribe,
-  isLoading = false
+  isLoading = false,
 }: PricingCardProps) {
   const [loading, setLoading] = useState(false);
   const isCurrentTier = currentTier === tier.id;
@@ -65,11 +65,13 @@ export function PricingCard({
   };
 
   return (
-    <div className={`
+    <div
+      className={`
       relative bg-white rounded-2xl shadow-lg p-8 transition-all duration-300
       ${tier.popular ? "ring-2 ring-blue-500 scale-105" : ""}
       ${isCurrentTier ? "ring-2 ring-green-500" : ""}
-    `}>
+    `}
+    >
       {tier.popular && (
         <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
           <span className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-medium">
@@ -100,9 +102,7 @@ export function PricingCard({
           <span className="text-4xl font-bold text-gray-900">
             {formatPrice(tier.price)}
           </span>
-          {!isFreeTier && (
-            <span className="text-gray-500 ml-1">/month</span>
-          )}
+          {!isFreeTier && <span className="text-gray-500 ml-1">/month</span>}
         </div>
 
         <p className="text-gray-600">
@@ -128,14 +128,17 @@ export function PricingCard({
           ${(loading || isLoading) ? "opacity-50 cursor-not-allowed" : ""}
         `}
       >
-        {loading || isLoading ? (
-          <div className="flex items-center justify-center">
-            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-current mr-2"></div>
-            Processing...
-          </div>
-        ) : (
-          getButtonText()
-        )}
+        {loading || isLoading
+          ? (
+            <div className="flex items-center justify-center">
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-current mr-2">
+              </div>
+              Processing...
+            </div>
+          )
+          : (
+            getButtonText()
+          )}
       </button>
 
       {tier.id === "enterprise" && (

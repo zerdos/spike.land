@@ -6,9 +6,9 @@
 import { useChat } from "@ai-sdk/react";
 import { AssistantRuntimeProvider } from "@assistant-ui/react";
 import { useVercelUseChatRuntime } from "@assistant-ui/react-ai-sdk";
-import { Thread } from "../components/assistant-ui/thread";
-import { ChatInterface } from "../components/assistant-ui/chat-interface";
 import type { FC } from "react";
+import { ChatInterface } from "../components/assistant-ui/chat-interface";
+import { Thread } from "../components/assistant-ui/thread";
 
 /**
  * Basic example using Thread component with useChat from AI SDK
