@@ -391,8 +391,7 @@ export class PostHandler {
       }, {} as Record<string, any>);
 
       // Check if we should disable tools due to AI SDK compatibility issues
-      // Temporarily forcing tools to be disabled for testing
-      const disableTools = true; // this.env.DISABLE_AI_TOOLS === "true";
+      const disableTools = this.env.DISABLE_AI_TOOLS === "true";
 
       if (disableTools) {
         console.warn(

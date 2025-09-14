@@ -177,6 +177,8 @@ describe("PostHandler", () => {
       );
       mockStreamResponse = {
         toDataStreamResponse: mockToDataStreamResponse,
+        toUIMessageStreamResponse: mockToDataStreamResponse,
+        toTextStreamResponse: mockToDataStreamResponse,
         warnings: [],
         usage: {},
         sources: [],
@@ -237,6 +239,12 @@ describe("PostHandler", () => {
       });
 
       const response = await postHandler.handle(mockRequest, mockUrl);
+
+      // Debug the response if it's not 200
+      if (response.status !== 200) {
+        const errorBody = await response.text();
+        console.error("Response error:", response.status, errorBody);
+      }
 
       expect(response.status).toBe(200);
       expect(mockStorageService.saveRequestBody).toHaveBeenCalledWith(

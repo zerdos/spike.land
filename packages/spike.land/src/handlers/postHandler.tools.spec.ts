@@ -284,9 +284,11 @@ describe("PostHandler - Tool Schema Validation", () => {
       await postHandler.handle(request, new URL("https://test.spike.land"));
 
       // Ensure tools don't have a 'custom' wrapper
-      if (capturedTools!) {
+      if (capturedTools) {
         Object.entries(capturedTools).forEach(([_, tool]: [string, unknown]) => {
-          expect(tool).not.toHaveProperty("custom");
+          if (tool && typeof tool === "object") {
+            expect(tool).not.toHaveProperty("custom");
+          }
         });
       }
     });
