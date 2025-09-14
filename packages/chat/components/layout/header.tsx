@@ -132,13 +132,13 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
                 <div className="auth-buttons">
                   <button
                     className="btn btn-secondary"
-                    onClick={() => window.location.href = "/"}
+                    onClick={() => window.location.href = "/signin"}
                   >
                     Sign In
                   </button>
                   <button
                     className="btn btn-primary"
-                    onClick={() => window.location.href = "/chat"}
+                    onClick={() => window.location.href = "/signup"}
                   >
                     Get Started
                   </button>
@@ -216,7 +216,7 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
                     className="btn btn-secondary mobile-btn"
                     onClick={() => {
                       closeMenu();
-                      window.location.href = "/";
+                      window.location.href = "/signin";
                     }}
                   >
                     Sign In
@@ -225,7 +225,7 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
                     className="btn btn-primary mobile-btn"
                     onClick={() => {
                       closeMenu();
-                      window.location.href = "/chat";
+                      window.location.href = "/signup";
                     }}
                   >
                     Get Started
