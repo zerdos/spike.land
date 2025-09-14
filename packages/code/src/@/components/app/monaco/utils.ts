@@ -1,5 +1,5 @@
 import { wait } from "@/lib/wait";
-import { editor, languages, Uri, version as monacoVersion } from "@/workers/monaco-editor.worker";
+import { editor, languages, Uri } from "@/workers/monaco-editor.worker";
 import { modelCache, originToUse } from "./config";
 import type { ExtraLib } from "./types";
 
@@ -108,16 +108,14 @@ export function getImports(code: string): string[] {
  * Load CSS for Monaco editor
  * @param version The Monaco editor version (defaults to the imported version)
  */
-export async function loadMonacoCss(
-  version: string = monacoVersion,
-): Promise<void> {
+export async function loadMonacoCss(): Promise<void> {
   const link = document.createElement("link");
   const promiseIsResolved = new Promise<void>((resolve) => {
     link.onload = () => resolve();
   });
 
   link.rel = "stylesheet";
-  link.href = `${originToUse}/monaco-editor@${version}/min/vs/editor/editor.main.css`;
+  link.href = `${originToUse}/start.css`;
   document.head.appendChild(link);
 
   await promiseIsResolved;
