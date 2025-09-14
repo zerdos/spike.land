@@ -36,9 +36,8 @@
     { "path": "./devcontainers/devcontainer-generator/tsconfig.json" },
     { "path": "./packages/code/tsconfig.json" },
     { "path": "./packages/spike.land/tsconfig.json" },
-    { "path": "./packages/chat/tsconfig.json" },
     { "path": "./packages/spike-land-renderer/tsconfig.json" }
   ],
-  "exclude": ["dts", "node_modules", "dist"],
+  "exclude": ["dts", "node_modules", "dist", "packages/chat"],
   "include": ["eslint.config.js"]
 }
