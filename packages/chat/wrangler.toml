@@ -5,16 +5,37 @@ compatibility_flags = ["nodejs_compat"]
 
 # Environment configurations
 [env.production]
-name = "spike-chat-production"
-vars = { NODE_ENV = "production" }
+name = "spike-chat-nextjs"
+vars = { NODE_ENV = "production", NEXT_RUNTIME = "edge" }
+
+# [[env.production.durable_objects.bindings]]
+# name = "CHAT_ROOM"
+# class_name = "ChatRoom"
+
+[env.production.ai]
+binding = "AI"
 
 [env.development]
 name = "spike-chat-dev"
 vars = { NODE_ENV = "development" }
 
+[[env.development.durable_objects.bindings]]
+name = "CHAT_ROOM"
+class_name = "ChatRoom"
+
+[env.development.ai]
+binding = "AI"
+
 [env.preview]
 name = "spike-chat-preview"
 vars = { NODE_ENV = "preview" }
+
+[[env.preview.durable_objects.bindings]]
+name = "CHAT_ROOM"
+class_name = "ChatRoom"
+
+[env.preview.ai]
+binding = "AI"
 
 # Database configuration
 [[env.production.d1_databases]]
@@ -62,10 +83,10 @@ id = "fd3ab87b0de445d4ab1b53c01291bb6a"
 preview_id = "fd3ab87b0de445d4ab1b53c01291bb6a"
 
 # Additional KV for caching
-[[env.production.kv_namespaces]]
-binding = "KV_CACHE"
-id = "cache-prod-namespace-id"
-preview_id = "cache-preview-namespace-id"
+# [[env.production.kv_namespaces]]
+# binding = "KV_CACHE"
+# id = "cache-prod-namespace-id"
+# preview_id = "cache-preview-namespace-id"
 
 [[env.development.kv_namespaces]]
 binding = "KV_CACHE"
@@ -81,28 +102,8 @@ binding = "QUEUE"
 queue = "chat-queue-dev"
 binding = "QUEUE"
 
-[[env.production.queues.consumers]]
-queue = "chat-queue-prod"
-max_batch_size = 10
-max_batch_timeout = 30
 
-[[env.development.queues.consumers]]
-queue = "chat-queue-dev"
-max_batch_size = 10
-max_batch_timeout = 30
 
-# Durable Objects configuration
-[[durable_objects.bindings]]
-name = "CHAT_ROOM"
-class_name = "ChatRoom"
-
-[[migrations]]
-tag = "v1"
-new_classes = ["ChatRoom"]
-
-# AI binding
-[ai]
-binding = "AI"
 
 # Build configuration for Next.js
 [build]
@@ -113,6 +114,6 @@ command = "npm run build:cloudflare"
 enabled = true
 
 # Custom routes for Next.js app
-# [[routes]]
-# pattern = "chat.spike.land/*"
-# zone_id = "your-zone-id"
+[[routes]]
+pattern = "chat.spike.land/*"
+zone_name = "spike.land"

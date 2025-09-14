@@ -19,7 +19,7 @@ export interface ConnectionInfo {
 export class WebSocketManager {
   private connections: Map<string, WebSocketConnection> = new Map();
   private typing: Map<string, Set<string>> = new Map(); // conversationId -> Set of userIds
-  private heartbeatInterval: number | null = null;
+  private heartbeatInterval: ReturnType<typeof setInterval> | null = null;
 
   constructor() {
     // Start heartbeat check every 30 seconds

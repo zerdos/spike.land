@@ -20,6 +20,7 @@ build/
 routeTree.gen.ts
 *.worker.js
 *.worker.js.map
+.vercel/
 
 # Package-specific build outputs
 packages/*/dist/
@@ -28,6 +29,7 @@ packages/*/build/
 packages/*/.next/
 packages/*/.nuxt/
 packages/*/.output/
+packages/*/.open-next/
 packages/*/worker/
 packages/*/.cache/
 packages/*/.parcel-cache/

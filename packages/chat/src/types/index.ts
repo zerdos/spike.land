@@ -81,9 +81,9 @@ export interface Attachment {
 }
 
 export interface WebSocketMessage {
-  type: "message" | "typing" | "presence" | "error";
+  type: "message" | "typing" | "presence" | "error" | "heartbeat";
   conversationId?: string;
-  message?: Message;
+  message?: Message | string;
   userId?: string;
   error?: string;
 }

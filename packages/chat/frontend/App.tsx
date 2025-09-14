@@ -4,7 +4,7 @@ import { UserButton } from "./components/auth/UserButton";
 import { ChatInterface } from "./components/ChatInterface";
 import { ConnectionStatus } from "./components/ConnectionStatus";
 import { ConversationList } from "./components/ConversationList";
-import { LandingPage } from "./components/LandingPage";
+import { LandingPage } from "../components/LandingPage";
 import { SubscriptionStatus } from "./components/SubscriptionStatus";
 import { useAuth } from "./hooks/useAuth";
 import { useWebSocket } from "./hooks/useWebSocket";

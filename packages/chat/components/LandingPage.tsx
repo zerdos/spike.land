@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { User } from "../../src/types";
+import type { User } from "../src/types";
 import { SignIn } from "./auth/SignIn";
 import { SignUp } from "./auth/SignUp";
 

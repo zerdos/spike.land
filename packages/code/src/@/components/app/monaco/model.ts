@@ -1,6 +1,6 @@
 import { md5 } from "@/lib/md5";
 import { wait } from "@/lib/wait";
-import { editor, languages, Uri, version as monacoVersion } from "@/workers/monaco-editor.worker";
+import { editor, languages, Uri } from "@/workers/monaco-editor.worker";
 import { getEditorOptions } from "./config";
 import { originToUse } from "./config";
 import { configureJsxSupport, registerFormattingProvider, registerLanguages } from "./language";
@@ -37,7 +37,6 @@ export async function startMonaco(
   prettierToThrow: (
     options: { code: string; toThrow: boolean; },
   ) => Promise<string>,
-  version: string = monacoVersion,
 ): Promise<EditorModel> {
   // If we already have a model for this codeSpace, check if it's still valid
   if (modelStore[codeSpace]) {
@@ -74,7 +73,6 @@ export async function startMonaco(
     },
     ata,
     prettierToThrow,
-    version,
   );
 
   return modelStore[codeSpace];
@@ -100,7 +98,6 @@ async function createEditorModel(
   prettierToThrow: (
     options: { code: string; toThrow: boolean; },
   ) => Promise<string>,
-  version: string = monacoVersion,
 ): Promise<EditorModel> {
   // Initialize languages and compiler options
   registerLanguages();
@@ -129,7 +126,7 @@ async function createEditorModel(
   registerFormattingProvider(prettierToThrow);
 
   // Load Monaco CSS
-  await loadMonacoCss(version);
+  await loadMonacoCss();
 
   // Create editor with responsive options
   const editorOptions = getEditorOptions();

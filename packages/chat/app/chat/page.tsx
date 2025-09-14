@@ -41,7 +41,7 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
 
   useEffect(() => {
     // Check authentication
-    const authToken = localStorage.getItem("auth_token");
+    const authToken = typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
     if (!authToken && !user) {
       onAuthRequired?.();
       return;
@@ -63,8 +63,8 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
   };
 
   const loadSubscriptionInfo = async () => {
-    const storedTier = localStorage.getItem("subscription_tier");
-    const storedCredits = localStorage.getItem("user_credits");
+    const storedTier = typeof window !== "undefined" ? localStorage.getItem("subscription_tier") : null;
+    const storedCredits = typeof window !== "undefined" ? localStorage.getItem("user_credits") : null;
 
     if (storedTier || storedCredits) {
       setSubscription((prev) => ({
@@ -187,7 +187,9 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
           ...prev,
           credits: response.data!.creditsRemaining,
         }));
-        localStorage.setItem("user_credits", response.data!.creditsRemaining.toString());
+        if (typeof window !== "undefined") {
+          localStorage.setItem("user_credits", response.data!.creditsRemaining.toString());
+        }
       }
     } catch (error) {
       console.error("Failed to send message:", error);
@@ -217,7 +219,7 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
     setSidebarOpen(!sidebarOpen);
   };
 
-  if (!user && !localStorage.getItem("auth_token")) {
+  if (!user && (typeof window === "undefined" || !localStorage.getItem("auth_token"))) {
     return (
       <div className="auth-required">
         <div className="auth-content">
