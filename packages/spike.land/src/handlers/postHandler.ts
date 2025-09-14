@@ -129,7 +129,7 @@ export class PostHandler {
       }
 
       const codeSpace = this.code.getSession().codeSpace;
-      const messages = this.convertMessages(body.messages);
+      const messages = this.convertMessages(body.messages as any[]);
 
       await this.storageService.saveRequestBody(codeSpace, body);
 
@@ -209,8 +209,12 @@ export class PostHandler {
         return `Message at index ${i} must have a valid role (${VALID_ROLES.join(", ")})`;
       }
 
-      if (!typedMsg.content) {
-        return `Message at index ${i} must have content`;
+      // Support both 'content' and 'parts' fields
+      const hasContent = typedMsg.content !== undefined;
+      const hasParts = typedMsg.parts !== undefined;
+
+      if (!hasContent && !hasParts) {
+        return `Message at index ${i} must have either 'content' or 'parts'`;
       }
 
       // Check message size
@@ -219,18 +223,34 @@ export class PostHandler {
         return `Message at index ${i} exceeds maximum size limit`;
       }
 
-      // Validate content structure
-      if (
-        typeof typedMsg.content !== "string" && !Array.isArray(typedMsg.content)
-      ) {
-        return `Message at index ${i} content must be a string or array`;
+      // Validate content structure if present
+      if (hasContent) {
+        if (
+          typeof typedMsg.content !== "string" && !Array.isArray(typedMsg.content)
+        ) {
+          return `Message at index ${i} content must be a string or array`;
+        }
+
+        if (Array.isArray(typedMsg.content)) {
+          for (let j = 0; j < typedMsg.content.length; j++) {
+            const part = typedMsg.content[j];
+            if (!part || typeof part !== "object" || !("type" in part)) {
+              return `Message at index ${i}, content part ${j} must have a type`;
+            }
+          }
+        }
       }
 
-      if (Array.isArray(typedMsg.content)) {
-        for (let j = 0; j < typedMsg.content.length; j++) {
-          const part = typedMsg.content[j];
+      // Validate parts structure if present
+      if (hasParts) {
+        if (!Array.isArray(typedMsg.parts)) {
+          return `Message at index ${i} parts must be an array`;
+        }
+
+        for (let j = 0; j < typedMsg.parts.length; j++) {
+          const part = typedMsg.parts[j];
           if (!part || typeof part !== "object" || !("type" in part)) {
-            return `Message at index ${i}, content part ${j} must have a type`;
+            return `Message at index ${i}, part ${j} must have a type`;
           }
         }
       }
@@ -252,14 +272,38 @@ export class PostHandler {
     );
   }
 
-  private convertMessages(messages: Message[]): CoreMessage[] {
-    return messages.map((msg: Message) => {
+  private convertMessages(messages: any[]): CoreMessage[] {
+    return messages.map((msg: any) => {
       if (!this.isValidRole(msg.role)) {
         throw new Error(`Invalid role: ${msg.role}`);
       }
 
       const validRole = msg.role as ValidRole;
 
+      // Handle messages with 'parts' field (frontend format)
+      if (msg.parts && Array.isArray(msg.parts)) {
+        const content = msg.parts.map((part: any) => {
+          if (part.type === "text") {
+            return { type: "text" as const, text: part.text || "" };
+          }
+          if (part.type === "image" || part.type === "image_url") {
+            const url = part.image_url?.url || part.url || part.image;
+            if (url) {
+              return { type: "image" as const, image: url };
+            }
+          }
+          return { type: "text" as const, text: "[unsupported content]" };
+        });
+
+        return {
+          role: validRole,
+          content: content.length === 1 && content[0].type === "text"
+            ? content[0].text
+            : content,
+        };
+      }
+
+      // Handle messages with 'content' field (standard format)
       if (typeof msg.content === "string") {
         return {
           role: validRole,

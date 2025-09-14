@@ -20,6 +20,7 @@ build/
 routeTree.gen.ts
 *.worker.js
 *.worker.js.map
+.vercel/
 
 # Package-specific build outputs
 packages/*/dist/
