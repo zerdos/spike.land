@@ -5,8 +5,21 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-// Use any type for tests to avoid type conflicts
-type Message = any;
+// Message interface for tests
+interface Message {
+  id: string;
+  role: "user" | "assistant" | "system" | "data" | "tool";
+  content: string;
+  tool_calls?: Array<{
+    id: string;
+    type: string;
+    function: {
+      name: string;
+      arguments: string;
+    };
+  }>;
+  tool_call_id?: string;
+}
 
 // Mock dependencies
 vi.mock("@/components/app/assistant-ui-chat", () => ({
@@ -99,7 +112,7 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
       expect(callArgs.codeSpace).toBe("test-space");
       expect(callArgs.initialMessages).toEqual(mockMessages);
       expect(callArgs.initialPrompt).toBeUndefined();
@@ -130,7 +143,7 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
       expect(callArgs.initialPrompt).toEqual(mockInitialPrompt);
     });
   });
@@ -151,7 +164,7 @@ describe("AssistantUIDrawer", () => {
     // Should still render with empty messages
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
       expect(callArgs.initialMessages).toEqual([]);
     });
 
@@ -168,7 +181,7 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
       expect(callArgs.initialMessages).toEqual([]);
     });
   });
@@ -257,7 +270,7 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
       expect(callArgs.initialPrompt).toBeNull();
     });
   });
@@ -272,7 +285,7 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
       expect(callArgs.initialPrompt).toBeUndefined();
     });
   });
@@ -307,7 +320,7 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalledTimes(1);
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0];
       expect(callArgs.initialMessages).toEqual(firstMessages);
     });
 
@@ -330,7 +343,7 @@ describe("AssistantUIDrawer", () => {
       // AssistantUIChat might be called more than once due to React's rendering behavior
       expect(AssistantUIChat).toHaveBeenCalled();
       const lastCall =
-        (AssistantUIChat as any).mock.calls[(AssistantUIChat as any).mock.calls.length - 1][0];
+        vi.mocked(AssistantUIChat).mock.calls[vi.mocked(AssistantUIChat).mock.calls.length - 1]?.[0];
       expect(lastCall.initialMessages).toEqual(secondMessages);
     });
   });
@@ -423,7 +436,7 @@ describe("AssistantUIDrawer", () => {
     await waitFor(() => {
       // AssistantUIChat should be called again due to key change
       expect(AssistantUIChat).toHaveBeenCalled();
-      const allCalls = (AssistantUIChat as any).mock.calls;
+      const allCalls = vi.mocked(AssistantUIChat).mock.calls;
       // Check that the last call has the new messages
       const lastCall = allCalls[allCalls.length - 1][0];
       expect(lastCall.initialMessages).toEqual(secondMessages);

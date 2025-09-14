@@ -19,11 +19,17 @@ interface AssistantUIDrawerProps {
     | undefined;
 }
 
+interface Message {
+  role: "user" | "assistant" | "system";
+  content: string;
+  id?: string;
+}
+
 export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
   ({ isOpen, onClose, isDarkMode, cSess: _cSess, initialPrompt }) => {
     const codeSpace = _cSess.getCodeSpace();
     const [messagesLoaded, setMessagesLoaded] = useState(false);
-    const [savedMessages, setSavedMessages] = useState<any[]>([]);
+    const [savedMessages, setSavedMessages] = useState<Message[]>([]);
 
     // Load existing messages when drawer opens
     useEffect(() => {

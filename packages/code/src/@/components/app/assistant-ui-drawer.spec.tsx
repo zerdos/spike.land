@@ -4,8 +4,21 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { AssistantUIDrawer } from "./assistant-ui-drawer";
 
-// Use any type for tests to avoid type conflicts
-type Message = any;
+// Message interface for tests
+interface Message {
+  id: string;
+  role: "user" | "assistant" | "system" | "data" | "tool";
+  content: string;
+  tool_calls?: Array<{
+    id: string;
+    type: string;
+    function: {
+      name: string;
+      arguments: string;
+    };
+  }>;
+  tool_call_id?: string;
+}
 
 // Mock fetch
 global.fetch = vi.fn();

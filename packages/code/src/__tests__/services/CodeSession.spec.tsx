@@ -10,7 +10,7 @@ vi.mock("/swVersion.mjs", () => ({
 // Mock dependencies
 vi.mock("@/lib/make-sess", () => ({
   computeSessionHash: vi.fn(() => "mockHash"),
-  sanitizeSession: vi.fn((session: any) => {
+  sanitizeSession: vi.fn((session: unknown) => {
     if (!session) {
       return {
         codeSpace: "",
@@ -30,8 +30,8 @@ vi.mock("@/lib/make-sess", () => ({
       messages: session.messages || [],
     };
   }),
-  sessionToJSON: vi.fn((s: any) => JSON.stringify(s)),
-  applySessionDelta: vi.fn((s: any) => s),
+  sessionToJSON: vi.fn((s: unknown) => JSON.stringify(s)),
+  applySessionDelta: vi.fn((s: unknown) => s),
   generateSessionPatch: vi.fn(() => ({ oldHash: "", hashCode: "", delta: [] })),
 }));
 
@@ -59,7 +59,7 @@ vi.mock("@/services/SessionManager", () => {
   return {
     SessionManager: class MockSessionManager {
       constructor(_codeSpace: string) {}
-      init = vi.fn((session: any) => Promise.resolve(session || {}));
+      init = vi.fn((session: unknown) => Promise.resolve(session || {}));
       getSession = vi.fn(() => ({}));
       updateSession = vi.fn();
       subscribe = vi.fn(() => () => {});
@@ -72,7 +72,7 @@ vi.mock("@/services/SessionManager", () => {
 vi.mock("@/services/ModelManager", () => {
   return {
     ModelManager: class MockModelManager {
-      constructor(_codeSpace: string, _code: any) {}
+      constructor(_codeSpace: string, _code: unknown) {}
       updateModelsByCode = vi.fn(() => Promise.resolve(""));
       getCurrentCodeWithExtraModels = vi.fn(() => Promise.resolve(""));
       release = vi.fn(() => Promise.resolve());
@@ -213,12 +213,12 @@ describe("Code", () => {
       ...mockSession,
     }));
     vi.spyOn(cSess["sessionManager"], "updateSession").mockImplementation(
-      (session) => {
+      (session: unknown) => {
         mockSession = { ...mockSession, ...session };
       },
     );
     vi.spyOn(cSess["sessionManager"], "init").mockImplementation(
-      async (session) => {
+      async (session: unknown) => {
         if (session) {
           mockSession = { ...mockSession, ...session };
         }

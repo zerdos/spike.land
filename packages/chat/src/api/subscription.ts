@@ -70,7 +70,7 @@ export async function handleSubscriptionStatus(
         subscriptionStatus = {
           tier: user.subscription_tier as "pro" | "enterprise",
           credits: user.credits || 0,
-          status: subscription.status as any,
+          status: subscription.status as "active" | "canceled" | "past_due" | "trialing",
           currentPeriodEnd: subscription.current_period_end,
           cancelAtPeriodEnd: subscription.cancel_at_period_end,
         };

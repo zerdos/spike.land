@@ -5,8 +5,21 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { AssistantUIChat } from "./assistant-ui-chat";
 
-// Use any type for tests to avoid type conflicts
-type Message = any;
+// Message interface for tests
+interface Message {
+  id: string;
+  role: "user" | "assistant" | "system" | "data" | "tool";
+  content: string;
+  tool_calls?: Array<{
+    id: string;
+    type: string;
+    function: {
+      name: string;
+      arguments: string;
+    };
+  }>;
+  tool_call_id?: string;
+}
 
 // Mock the dependencies
 vi.mock("@/components/assistant-ui/thread", () => ({

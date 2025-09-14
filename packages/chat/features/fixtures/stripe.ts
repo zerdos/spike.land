@@ -262,10 +262,10 @@ export class StripeFixtures {
     // Mock Stripe.js loading
     await page.addInitScript(() => {
       // Mock Stripe global object
-      (window as any).Stripe = function(publishableKey: string) {
+      (window as typeof window & { Stripe: (publishableKey: string) => unknown }).Stripe = function(publishableKey: string) {
         return {
           elements: () => ({
-            create: (type: string, options?: any) => ({
+            create: (type: string, options?: Record<string, unknown>) => ({
               mount: (selector: string) => {
                 const element = document.querySelector(selector);
                 if (element) {
@@ -274,24 +274,24 @@ export class StripeFixtures {
                 }
               },
               unmount: () => {},
-              on: (event: string, handler: Function) => {},
+              on: (event: string, handler: (...args: unknown[]) => void) => {},
               focus: () => {},
               blur: () => {},
             }),
             getElement: (type: string) => null,
           }),
-          createPaymentMethod: async (options: any) => ({
+          createPaymentMethod: async (options: Record<string, unknown>) => ({
             paymentMethod: StripeFixtures.paymentMethods.validVisa,
             error: null,
           }),
-          confirmCardPayment: async (clientSecret: string, options?: any) => ({
+          confirmCardPayment: async (clientSecret: string, options?: Record<string, unknown>) => ({
             paymentIntent: {
               id: "pi_test123",
               status: "succeeded",
             },
             error: null,
           }),
-          confirmPayment: async (options: any) => ({
+          confirmPayment: async (options: Record<string, unknown>) => ({
             paymentIntent: {
               id: "pi_test123",
               status: "succeeded",

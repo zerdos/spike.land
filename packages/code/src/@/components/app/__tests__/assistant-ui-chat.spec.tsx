@@ -11,8 +11,21 @@ import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 import { render } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-// Use any type for tests to avoid type conflicts
-type Message = any;
+// Message interface for tests
+interface Message {
+  id: string;
+  role: "user" | "assistant" | "system" | "data" | "tool";
+  content: string;
+  tool_calls?: Array<{
+    id: string;
+    type: string;
+    function: {
+      name: string;
+      arguments: string;
+    };
+  }>;
+  tool_call_id?: string;
+}
 
 // Mock dependencies
 vi.mock("@assistant-ui/react", () => ({
@@ -631,7 +644,7 @@ describe("AssistantUIChat", () => {
       );
 
       // Tool messages should be filtered out
-      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0] as any;
+      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0] as { initialMessages: Message[] };
       expect(calls?.initialMessages).toHaveLength(2); // Only assistant messages
       expect(calls?.initialMessages).not.toContainEqual(
         expect.objectContaining({ role: "tool" }),
@@ -701,9 +714,9 @@ describe("AssistantUIChat", () => {
         />,
       );
 
-      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0] as any;
+      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0] as { initialMessages: Message[] };
       // Should maintain order but filter out tool messages
-      expect(calls?.initialMessages?.map((m: any) => m.id)).toEqual(["1", "2", "4", "6"]);
+      expect(calls?.initialMessages?.map((m: Message) => m.id)).toEqual(["1", "2", "4", "6"]);
     });
   });
 });

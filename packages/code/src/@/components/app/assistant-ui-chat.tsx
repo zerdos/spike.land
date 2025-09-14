@@ -4,9 +4,15 @@ import { AssistantRuntimeProvider, useThreadRuntime } from "@assistant-ui/react"
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 import React, { useEffect, useRef } from "react";
 
+interface Message {
+  role: "user" | "assistant" | "system";
+  content: string;
+  id?: string;
+}
+
 interface AssistantUIChatProps {
   codeSpace: string;
-  initialMessages: any[];
+  initialMessages: Message[];
   initialPrompt?:
     | {
       prompt: string;
@@ -27,7 +33,7 @@ export const AssistantUIChat: React.FC<AssistantUIChatProps> = React.memo(
     const runtime = useChatRuntime({
       api: `/live/${codeSpace}/messages`,
       initialMessages: filteredMessages,
-    } as any);
+    } as { api: string; initialMessages: Message[] });
 
     return (
       <AssistantRuntimeProvider runtime={runtime}>

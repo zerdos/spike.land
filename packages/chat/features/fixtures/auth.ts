@@ -159,8 +159,8 @@ export class AuthFixtures {
         localStorage.setItem("user_subscription", JSON.stringify(user.subscription));
 
         // Mock Clerk global object
-        (window as any).__clerk_frontend_api = "clerk_test_frontend_api";
-        (window as any).__clerk_publishable_key = "pk_test_publishable_key";
+        (window as typeof window & { __clerk_frontend_api: string; __clerk_publishable_key: string }).__clerk_frontend_api = "clerk_test_frontend_api";
+        (window as typeof window & { __clerk_frontend_api: string; __clerk_publishable_key: string }).__clerk_publishable_key = "pk_test_publishable_key";
       },
       { user, session },
     );
