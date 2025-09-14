@@ -1,7 +1,6 @@
 import { createAnthropic } from "@ai-sdk/anthropic";
-import type { Message } from "@spike-npm-land/code";
 import { streamText, tool } from "ai";
-import type { CoreMessage } from "ai";
+import type { ModelMessage } from "ai";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
 import type { McpTool } from "../mcpServer";
@@ -272,7 +271,7 @@ export class PostHandler {
     );
   }
 
-  private convertMessages(messages: any[]): CoreMessage[] {
+  private convertMessages(messages: any[]): ModelMessage[] {
     return messages.map((msg: any) => {
       if (!this.isValidRole(msg.role)) {
         throw new Error(`Invalid role: ${msg.role}`);
@@ -339,7 +338,7 @@ export class PostHandler {
   }
 
   private async createStreamResponse(
-    messages: CoreMessage[],
+    messages: ModelMessage[],
     tools: McpTool[],
     body: PostRequestBody,
     codeSpace: string,
