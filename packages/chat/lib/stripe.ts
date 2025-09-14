@@ -1,5 +1,24 @@
+import { loadStripe } from "@stripe/stripe-js";
+
 // Stripe configuration for frontend
 export const STRIPE_PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "";
+
+let stripePromise: ReturnType<typeof loadStripe> | null = null;
+
+export const getStripe = () => {
+  if (!stripePromise && STRIPE_PUBLISHABLE_KEY) {
+    stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
+  }
+  return stripePromise;
+};
+
+export const formatPrice = (amount: number): string => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0,
+  }).format(amount);
+};
 
 export const SUBSCRIPTION_TIERS = {
   FREE: {

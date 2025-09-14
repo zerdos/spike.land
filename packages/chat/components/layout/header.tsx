@@ -11,7 +11,7 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
 
   useEffect(() => {
     // Check for authenticated user if not provided
-    if (!user) {
+    if (!user && typeof window !== "undefined") {
       const authToken = localStorage.getItem("auth_token");
       const userEmail = localStorage.getItem("user_email");
       const userId = localStorage.getItem("user_id");
@@ -26,11 +26,13 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
   }, [user]);
 
   const handleLogout = () => {
-    localStorage.removeItem("auth_token");
-    localStorage.removeItem("user_email");
-    localStorage.removeItem("user_id");
-    localStorage.removeItem("user_credits");
-    localStorage.removeItem("subscription_tier");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("auth_token");
+      localStorage.removeItem("user_email");
+      localStorage.removeItem("user_id");
+      localStorage.removeItem("user_credits");
+      localStorage.removeItem("subscription_tier");
+    }
     window.location.href = "/";
   };
 

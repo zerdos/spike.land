@@ -58,7 +58,7 @@ export class DatabaseManager {
       .bind(id)
       .first();
 
-    return result as User | null;
+    return result as unknown as User | null;
   }
 
   async getUserByClerkId(clerkId: string): Promise<User | null> {
@@ -66,7 +66,7 @@ export class DatabaseManager {
       .bind(clerkId)
       .first();
 
-    return result as User | null;
+    return result as unknown as User | null;
   }
 
   async getUserByEmail(email: string): Promise<User | null> {
@@ -74,7 +74,7 @@ export class DatabaseManager {
       .bind(email)
       .first();
 
-    return result as User | null;
+    return result as unknown as User | null;
   }
 
   async updateUser(
@@ -106,7 +106,7 @@ export class DatabaseManager {
       .bind(id)
       .run();
 
-    return result.changes > 0;
+    return (result.meta?.changes ?? 0) > 0;
   }
 
   // Conversation operations
@@ -145,7 +145,7 @@ export class DatabaseManager {
       .bind(id)
       .first();
 
-    return result as Conversation | null;
+    return result as unknown as Conversation | null;
   }
 
   async getConversationsByUserId(
@@ -180,8 +180,8 @@ export class DatabaseManager {
       .first();
 
     return {
-      conversations: conversationsResult.results as Conversation[],
-      total: (countResult as { total: number; })?.total || 0,
+      conversations: conversationsResult.results as unknown as Conversation[],
+      total: (countResult as unknown as { total: number; })?.total || 0,
     };
   }
 
@@ -223,7 +223,7 @@ export class DatabaseManager {
         .bind(id)
         .run();
 
-      return result.changes > 0;
+      return (result.meta?.changes ?? 0) > 0;
     } catch (error) {
       console.error("Error deleting conversation:", error);
       throw error;
@@ -264,7 +264,7 @@ export class DatabaseManager {
       .bind(id)
       .first();
 
-    return result as Message | null;
+    return result as unknown as Message | null;
   }
 
   async getMessagesByConversationId(
@@ -294,8 +294,8 @@ export class DatabaseManager {
       .first();
 
     return {
-      messages: messagesResult.results as Message[],
-      total: (countResult as { total: number; })?.total || 0,
+      messages: messagesResult.results as unknown as Message[],
+      total: (countResult as unknown as { total: number; })?.total || 0,
     };
   }
 
@@ -328,7 +328,7 @@ export class DatabaseManager {
       .bind(id)
       .run();
 
-    return result.changes > 0;
+    return (result.meta?.changes ?? 0) > 0;
   }
 
   async deleteMessagesByConversationId(conversationId: string): Promise<number> {
@@ -336,7 +336,7 @@ export class DatabaseManager {
       .bind(conversationId)
       .run();
 
-    return result.changes;
+    return result.meta?.changes ?? 0;
   }
 
   // Subscription operations
@@ -384,7 +384,7 @@ export class DatabaseManager {
       .bind(userId)
       .first();
 
-    return result as Subscription | null;
+    return result as unknown as Subscription | null;
   }
 
   async updateSubscription(
@@ -401,7 +401,7 @@ export class DatabaseManager {
       const result = await this.db.prepare("SELECT * FROM subscriptions WHERE id = ?")
         .bind(id)
         .first();
-      return result as Subscription | null;
+      return result as unknown as Subscription | null;
     }
 
     const setClause = fields.map(field => `${field} = ?`).join(", ");
@@ -417,7 +417,7 @@ export class DatabaseManager {
       .bind(id)
       .first();
 
-    return result as Subscription | null;
+    return result as unknown as Subscription | null;
   }
 
   // Transaction operations
@@ -455,7 +455,7 @@ export class DatabaseManager {
       "SELECT * FROM transactions WHERE user_id = ? ORDER BY created_at DESC LIMIT ?",
     ).bind(userId, limit).all();
 
-    return result.results as Transaction[];
+    return result.results as unknown as Transaction[];
   }
 
   // Attachment operations
@@ -494,7 +494,7 @@ export class DatabaseManager {
       .bind(messageId)
       .all();
 
-    return result.results as Attachment[];
+    return result.results as unknown as Attachment[];
   }
 
   // Utility functions
@@ -512,8 +512,8 @@ export class DatabaseManager {
       this.getUserById(userId),
     ]);
 
-    const totalConversations = (conversationsResult as { total: number; })?.total || 0;
-    const totalMessages = (messagesResult as { total: number; })?.total || 0;
+    const totalConversations = (conversationsResult as unknown as { total: number; })?.total || 0;
+    const totalMessages = (messagesResult as unknown as { total: number; })?.total || 0;
     const creditsRemaining = user?.credits || 0;
 
     // Calculate used credits (assuming initial was 10 for free tier)
@@ -547,8 +547,8 @@ export class DatabaseManager {
     ).bind(cutoff).run();
 
     return {
-      deletedConversations: conversationsResult.changes,
-      deletedMessages: messagesResult.changes,
+      deletedConversations: conversationsResult.meta?.changes ?? 0,
+      deletedMessages: messagesResult.meta?.changes ?? 0,
     };
   }
 
