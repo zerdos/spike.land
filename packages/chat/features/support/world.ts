@@ -13,6 +13,11 @@ export interface CustomWorld extends World {
   chatPage: ChatPage;
   landingPage: LandingPage;
   conversationPage: ConversationPage;
+  sessionData?: {
+    clerkSession: string | null;
+    authToken: string | null;
+    userId: string | null;
+  };
 }
 
 export class CustomWorldImpl extends World implements CustomWorld {
@@ -22,6 +27,11 @@ export class CustomWorldImpl extends World implements CustomWorld {
   chatPage!: ChatPage;
   landingPage!: LandingPage;
   conversationPage!: ConversationPage;
+  sessionData?: {
+    clerkSession: string | null;
+    authToken: string | null;
+    userId: string | null;
+  };
 
   constructor(options: IWorldOptions) {
     super(options);

@@ -30,3 +30,48 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Google Sign-in Button Styles */
+.google-btn {
+  @apply flex items-center justify-center gap-2 w-full px-4 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 font-medium;
+}
+
+.google-btn:hover {
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3);
+}
+
+.google-btn:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.google-icon {
+  @apply w-5 h-5;
+}
+
+.auth-divider {
+  @apply relative text-center my-6;
+}
+
+.auth-divider::before {
+  content: '';
+  @apply absolute left-0 top-1/2 w-full h-px bg-gray-300;
+  transform: translateY(-50%);
+}
+
+.auth-divider span {
+  @apply relative px-4 bg-white text-gray-500 text-sm;
+}
+
+@media (prefers-color-scheme: dark) {
+  .google-btn {
+    @apply bg-gray-800 text-gray-200 border-gray-600 hover:bg-gray-700;
+  }
+
+  .auth-divider span {
+    @apply bg-black;
+  }
+
+  .auth-divider::before {
+    @apply bg-gray-700;
+  }
+}

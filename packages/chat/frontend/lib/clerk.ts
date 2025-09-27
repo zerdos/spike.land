@@ -54,6 +54,22 @@ export const auth = {
   openSignUp: () => {
     clerk.openSignUp();
   },
+
+  // Get sign in object for OAuth
+  get signIn() {
+    return clerk.client?.signIn;
+  },
+
+  // Get sign up object for OAuth
+  get signUp() {
+    return clerk.client?.signUp;
+  },
+
+  // Check if Google OAuth is enabled
+  isGoogleOAuthEnabled: () => {
+    const signInMethods = clerk.client?.signIn?.supportedExternalProviders;
+    return signInMethods?.includes("oauth_google") || false;
+  },
 };
 
 // Helper to get auth headers for API calls
