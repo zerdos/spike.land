@@ -90,6 +90,18 @@ export const auth = {
     const signInMethods = clerk?.client?.signIn?.supportedExternalProviders;
     return signInMethods?.includes("oauth_google") || false;
   },
+
+  // Create a new sign in
+  createSignIn: async () => {
+    if (!clerk?.client) return null;
+    try {
+      const signIn = await clerk.client.signIn.create({});
+      return signIn;
+    } catch (error) {
+      console.error("Failed to create sign in:", error);
+      return null;
+    }
+  },
 };
 
 // Helper to get auth headers for API calls

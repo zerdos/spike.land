@@ -14,11 +14,18 @@ export function SignIn({ onSuccess, onSignUpClick }: SignInProps) {
 
   useEffect(() => {
     // Initialize Clerk when component mounts
-    initializeClerk().then(() => {
-      setClerkReady(true);
-    }).catch((err) => {
-      console.error("Failed to initialize Clerk:", err);
-    });
+    const initClerk = async () => {
+      try {
+        await initializeClerk();
+        setClerkReady(true);
+      } catch (err) {
+        console.error("Failed to initialize Clerk:", err);
+        // Set ready anyway to show error message
+        setClerkReady(true);
+      }
+    };
+
+    initClerk();
   }, []);
 
   const handleSignIn = async () => {
@@ -36,19 +43,27 @@ export function SignIn({ onSuccess, onSignUpClick }: SignInProps) {
   };
 
   const handleGoogleSignIn = async () => {
+    if (!clerkReady) {
+      setError("Authentication system is loading. Please try again.");
+      return;
+    }
+
     setGoogleLoading(true);
     setError(null);
 
     try {
-      // For now, show a message that Google OAuth needs to be configured
-      // In production, this would use Clerk's OAuth flow
+      // Check if Clerk is properly initialized
       if (!auth.signIn) {
-        setError("Google sign-in is not configured yet. Please use email sign-in or demo mode.");
-        setGoogleLoading(false);
-        return;
+        // Try to create a new sign in
+        const signIn = await auth.createSignIn?.();
+        if (!signIn) {
+          setError("Google sign-in is not available. Please use email sign-in or demo mode.");
+          setGoogleLoading(false);
+          return;
+        }
       }
 
-      // This would be the actual OAuth flow when Clerk is properly configured
+      // Attempt OAuth authentication
       await auth.signIn.authenticateWithRedirect({
         strategy: "oauth_google",
         redirectUrl: window.location.origin + "/dashboard",
@@ -57,10 +72,17 @@ export function SignIn({ onSuccess, onSignUpClick }: SignInProps) {
 
       onSuccess?.();
     } catch (err) {
-      if (err instanceof Error && err.message.includes("cancelled")) {
-        setError("Authentication cancelled");
+      console.error("Google sign-in error:", err);
+      if (err instanceof Error) {
+        if (err.message.includes("cancelled")) {
+          setError("Authentication cancelled");
+        } else if (err.message.includes("Network")) {
+          setError("Network error. Please check your connection and try again.");
+        } else {
+          setError(err.message || "Authentication failed. Please try again.");
+        }
       } else {
-        setError(err instanceof Error ? err.message : "Authentication failed. Please try again.");
+        setError("Authentication failed. Please try again.");
       }
     } finally {
       setGoogleLoading(false);
