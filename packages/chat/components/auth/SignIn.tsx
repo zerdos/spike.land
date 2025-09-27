@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { auth } from "../../frontend/lib/clerk";
+import { useState, useEffect } from "react";
+import { auth, initializeClerk } from "../../frontend/lib/clerk";
 
 interface SignInProps {
   onSuccess?: () => void;
@@ -10,6 +10,16 @@ export function SignIn({ onSuccess, onSignUpClick }: SignInProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [clerkReady, setClerkReady] = useState(false);
+
+  useEffect(() => {
+    // Initialize Clerk when component mounts
+    initializeClerk().then(() => {
+      setClerkReady(true);
+    }).catch((err) => {
+      console.error("Failed to initialize Clerk:", err);
+    });
+  }, []);
 
   const handleSignIn = async () => {
     setIsLoading(true);

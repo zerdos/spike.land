@@ -1,12 +1,22 @@
 import { Clerk } from "@clerk/clerk-js";
 
+// Get Clerk publishable key from environment
+const getPublishableKey = () => {
+  if (typeof window !== "undefined") {
+    // Try different environment variable sources
+    return (
+      (window as any).__NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY__ ||
+      process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
+      (typeof import.meta !== "undefined" && import.meta.env?.VITE_CLERK_PUBLISHABLE_KEY) ||
+      ""
+    );
+  }
+  return "";
+};
+
 // Initialize Clerk instance only on client side
 export const clerk = typeof window !== "undefined"
-  ? new Clerk(
-      (typeof import.meta !== "undefined" && import.meta.env?.VITE_CLERK_PUBLISHABLE_KEY) ||
-      process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
-      ""
-    )
+  ? new Clerk(getPublishableKey())
   : null as any;
 
 // Clerk initialization function
