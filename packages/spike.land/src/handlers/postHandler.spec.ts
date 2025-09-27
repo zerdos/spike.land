@@ -93,6 +93,20 @@ const createMockTools = () => ({
     parameters: {} as never,
     execute: vi.fn(),
   }),
+  textEditor_20250728: vi.fn().mockReturnValue({
+    type: "provider-defined",
+    id: "anthropic.textEditor_20250728",
+    args: {},
+    parameters: {} as never,
+    execute: vi.fn(),
+  }),
+  webFetch_20250910: vi.fn().mockReturnValue({
+    type: "provider-defined",
+    id: "anthropic.webFetch_20250910",
+    args: {},
+    parameters: {} as never,
+    execute: vi.fn(),
+  }),
 });
 
 describe("PostHandler", () => {
