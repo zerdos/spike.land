@@ -1,41 +1,19 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Header } from "../../components/layout/header";
 import { Footer } from "../../components/layout/footer";
+import { SignIn } from "../../components/auth/SignIn";
 
 export default function SignInPage() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const handleDemoLogin = () => {
-    setIsLoading(true);
-
-    // Store demo auth token
-    localStorage.setItem("auth_token", "demo-token-" + Date.now());
-    localStorage.setItem("user_id", "demo-user-" + Date.now());
-
-    // Redirect to chat after a short delay
-    setTimeout(() => {
-      router.push("/chat");
-    }, 500);
+  const handleSuccess = () => {
+    router.push("/chat");
   };
 
-  const handleSignIn = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    // For now, use demo authentication
-    localStorage.setItem("auth_token", "user-token-" + Date.now());
-    localStorage.setItem("user_id", "user-" + Date.now());
-    localStorage.setItem("user_email", email);
-
-    setTimeout(() => {
-      router.push("/chat");
-    }, 500);
+  const handleSignUpClick = () => {
+    router.push("/signup");
   };
 
   return (
@@ -43,63 +21,10 @@ export default function SignInPage() {
       <Header />
 
       <main className="signin-container">
-        <div className="signin-card">
-          <h1>Sign In to AI Chat</h1>
-          <p className="signin-subtitle">Welcome back! Please sign in to continue.</p>
-
-          <form onSubmit={handleSignIn} className="signin-form">
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                required
-                disabled={isLoading}
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
-                required
-                disabled={isLoading}
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="btn btn-primary signin-btn"
-              disabled={isLoading}
-            >
-              {isLoading ? "Signing in..." : "Sign In"}
-            </button>
-          </form>
-
-          <div className="divider">
-            <span>OR</span>
-          </div>
-
-          <button
-            onClick={handleDemoLogin}
-            className="btn btn-secondary demo-btn"
-            disabled={isLoading}
-          >
-            {isLoading ? "Loading..." : "Continue with Demo Account"}
-          </button>
-
-          <p className="signup-link">
-            Don&apos;t have an account?{" "}
-            <a href="/signup">Sign up for free</a>
-          </p>
-        </div>
+        <SignIn
+          onSuccess={handleSuccess}
+          onSignUpClick={handleSignUpClick}
+        />
       </main>
 
       <Footer />

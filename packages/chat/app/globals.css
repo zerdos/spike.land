@@ -31,6 +31,47 @@ body {
   }
 }
 
+/* Authentication Styles */
+.auth-container {
+  @apply flex items-center justify-center;
+}
+
+.auth-form {
+  @apply bg-white rounded-2xl p-12 shadow-xl w-full max-w-md;
+}
+
+.auth-form h2 {
+  @apply text-3xl font-bold text-gray-800 mb-3 text-center;
+}
+
+.auth-form p {
+  @apply text-gray-600 text-center mb-8;
+}
+
+.auth-error {
+  @apply bg-red-50 text-red-600 p-3 rounded-lg mb-4 text-sm;
+}
+
+.auth-btn {
+  @apply w-full px-4 py-3 rounded-lg font-semibold transition-all duration-200;
+}
+
+.auth-btn:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.auth-btn.loading {
+  @apply cursor-wait;
+}
+
+.auth-footer {
+  @apply text-center mt-6 text-gray-600;
+}
+
+.auth-link {
+  @apply text-blue-600 hover:text-blue-700 font-semibold underline;
+}
+
 /* Google Sign-in Button Styles */
 .google-btn {
   @apply flex items-center justify-center gap-2 w-full px-4 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 font-medium;
