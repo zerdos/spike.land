@@ -1,12 +1,20 @@
 import { Clerk } from "@clerk/clerk-js";
 
-// Initialize Clerk instance
-export const clerk = new Clerk(
-  import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || "",
-);
+// Initialize Clerk instance only on client side
+export const clerk = typeof window !== "undefined"
+  ? new Clerk(
+      (typeof import.meta !== "undefined" && import.meta.env?.VITE_CLERK_PUBLISHABLE_KEY) ||
+      process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
+      ""
+    )
+  : null as any;
 
 // Clerk initialization function
 export async function initializeClerk() {
+  if (!clerk) {
+    console.warn("Clerk not available (server-side rendering)");
+    return null;
+  }
   try {
     await clerk.load();
     return clerk;
@@ -19,10 +27,11 @@ export async function initializeClerk() {
 // Auth utilities
 export const auth = {
   // Get current user
-  getCurrentUser: () => clerk.user,
+  getCurrentUser: () => clerk?.user,
 
   // Get session token for API calls
   getSessionToken: async () => {
+    if (!clerk) return null;
     try {
       const session = clerk.session;
       if (!session) return null;
@@ -34,10 +43,11 @@ export const auth = {
   },
 
   // Check if user is signed in
-  isSignedIn: () => !!clerk.user,
+  isSignedIn: () => !!clerk?.user,
 
   // Sign out user
   signOut: async () => {
+    if (!clerk) return;
     try {
       await clerk.signOut();
     } catch (error) {
@@ -47,27 +57,27 @@ export const auth = {
 
   // Open sign in modal
   openSignIn: () => {
-    clerk.openSignIn();
+    if (clerk) clerk.openSignIn();
   },
 
   // Open sign up modal
   openSignUp: () => {
-    clerk.openSignUp();
+    if (clerk) clerk.openSignUp();
   },
 
   // Get sign in object for OAuth
   get signIn() {
-    return clerk.client?.signIn;
+    return clerk?.client?.signIn;
   },
 
   // Get sign up object for OAuth
   get signUp() {
-    return clerk.client?.signUp;
+    return clerk?.client?.signUp;
   },
 
   // Check if Google OAuth is enabled
   isGoogleOAuthEnabled: () => {
-    const signInMethods = clerk.client?.signIn?.supportedExternalProviders;
+    const signInMethods = clerk?.client?.signIn?.supportedExternalProviders;
     return signInMethods?.includes("oauth_google") || false;
   },
 };

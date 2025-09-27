@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { auth } from "../../lib/clerk";
+import { auth } from "../../frontend/lib/clerk";
 
 interface SignInProps {
   onSuccess?: () => void;
