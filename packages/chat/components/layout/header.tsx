@@ -11,7 +11,7 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
 
   useEffect(() => {
     // Check for authenticated user if not provided
-    if (!user) {
+    if (!user && typeof window !== "undefined") {
       const authToken = localStorage.getItem("auth_token");
       const userEmail = localStorage.getItem("user_email");
       const userId = localStorage.getItem("user_id");
@@ -26,11 +26,13 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
   }, [user]);
 
   const handleLogout = () => {
-    localStorage.removeItem("auth_token");
-    localStorage.removeItem("user_email");
-    localStorage.removeItem("user_id");
-    localStorage.removeItem("user_credits");
-    localStorage.removeItem("subscription_tier");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("auth_token");
+      localStorage.removeItem("user_email");
+      localStorage.removeItem("user_id");
+      localStorage.removeItem("user_credits");
+      localStorage.removeItem("subscription_tier");
+    }
     window.location.href = "/";
   };
 
@@ -130,13 +132,13 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
                 <div className="auth-buttons">
                   <button
                     className="btn btn-secondary"
-                    onClick={() => window.location.href = "/"}
+                    onClick={() => window.location.href = "/signin"}
                   >
                     Sign In
                   </button>
                   <button
                     className="btn btn-primary"
-                    onClick={() => window.location.href = "/chat"}
+                    onClick={() => window.location.href = "/signup"}
                   >
                     Get Started
                   </button>
@@ -214,7 +216,7 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
                     className="btn btn-secondary mobile-btn"
                     onClick={() => {
                       closeMenu();
-                      window.location.href = "/";
+                      window.location.href = "/signin";
                     }}
                   >
                     Sign In
@@ -223,7 +225,7 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
                     className="btn btn-primary mobile-btn"
                     onClick={() => {
                       closeMenu();
-                      window.location.href = "/chat";
+                      window.location.href = "/signup";
                     }}
                   >
                     Get Started

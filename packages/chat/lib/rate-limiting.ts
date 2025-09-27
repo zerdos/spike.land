@@ -31,11 +31,11 @@ export class RateLimiter {
   async checkRateLimit(options: RateLimitOptions): Promise<RateLimitResult> {
     const { key, rule, identifier = "" } = options;
     const rateLimitKey = `rate_limit:${key}:${identifier}`;
+    const now = Math.floor(Date.now() / 1000);
 
     try {
       // Get current count and window start time
       const current = await this.kv.get(rateLimitKey);
-      const now = Math.floor(Date.now() / 1000);
 
       if (!current) {
         // First request in this window

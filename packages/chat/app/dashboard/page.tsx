@@ -33,7 +33,7 @@ export function DashboardPage({ user, onAuthRequired }: DashboardPageProps) {
   const [selectedPeriod, setSelectedPeriod] = useState("7days");
 
   useEffect(() => {
-    const authToken = localStorage.getItem("auth_token");
+    const authToken = typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
     if (!authToken && !user) {
       onAuthRequired?.();
       return;
@@ -51,8 +51,8 @@ export function DashboardPage({ user, onAuthRequired }: DashboardPageProps) {
 
       // Calculate stats from local storage and API
       const totalConversations = conversationsData.length;
-      const storedCredits = localStorage.getItem("user_credits");
-      const storedTier = localStorage.getItem("subscription_tier");
+      const storedCredits = typeof window !== "undefined" ? localStorage.getItem("user_credits") : null;
+      const storedTier = typeof window !== "undefined" ? localStorage.getItem("subscription_tier") : null;
 
       // Mock some stats calculation
       const totalMessages = conversationsData.reduce((acc, _conv) => {
@@ -103,7 +103,7 @@ export function DashboardPage({ user, onAuthRequired }: DashboardPageProps) {
     window.location.href = "/settings";
   };
 
-  if (!user && !localStorage.getItem("auth_token")) {
+  if (!user && (typeof window === "undefined" || !localStorage.getItem("auth_token"))) {
     return (
       <div className="auth-required">
         <div className="auth-content">

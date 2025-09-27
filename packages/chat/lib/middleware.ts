@@ -27,10 +27,10 @@ export type MiddlewareHandler = (
 ) => Promise<Response>;
 
 export class MiddlewareManager {
-  private errorHandler: ErrorHandler;
+  private errorHandlerInstance: ErrorHandler;
 
   constructor(isDevelopment: boolean = false) {
-    this.errorHandler = new ErrorHandler(isDevelopment);
+    this.errorHandlerInstance = new ErrorHandler(isDevelopment);
   }
 
   /**
@@ -217,7 +217,7 @@ export class MiddlewareManager {
    */
   requestId(): MiddlewareHandler {
     return async (context, next) => {
-      context.requestId = this.errorHandler.generateRequestId();
+      context.requestId = this.errorHandlerInstance.generateRequestId();
 
       const response = await next();
       response.headers.set("X-Request-ID", context.requestId);
@@ -266,7 +266,7 @@ export class MiddlewareManager {
       try {
         return await next();
       } catch (error) {
-        return this.errorHandler.handleError(error, context.requestId);
+        return this.errorHandlerInstance.handleError(error, context.requestId);
       }
     };
   }

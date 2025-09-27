@@ -40,7 +40,6 @@
     "docker:push": "yarn workspaces foreach --all -p run docker:push"
   },
   "devDependencies": {
-    "@anthropic-ai/claude-code": "1.0.113",
     "@emotion/react": "^11.14.0",
     "@emotion/sheet": "^1.4.0",
     "@eslint/eslintrc": "3.3.1",

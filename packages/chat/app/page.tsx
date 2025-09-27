@@ -43,7 +43,7 @@ export function LandingPage({ onAuth }: LandingPageProps = {}) {
   };
 
   const handleLogin = () => {
-    handleStartChatting();
+    window.location.href = "/signin";
   };
 
   return (

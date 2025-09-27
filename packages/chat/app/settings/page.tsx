@@ -58,7 +58,7 @@ export function SettingsPage({ user, onAuthRequired }: SettingsPageProps) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
-    const authToken = localStorage.getItem("auth_token");
+    const authToken = typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
     if (!authToken && !user) {
       onAuthRequired?.();
       return;
@@ -71,7 +71,7 @@ export function SettingsPage({ user, onAuthRequired }: SettingsPageProps) {
     setIsLoading(true);
     try {
       // Load settings from localStorage for demo
-      const savedSettings = localStorage.getItem("user_settings");
+      const savedSettings = typeof window !== "undefined" ? localStorage.getItem("user_settings") : null;
       if (savedSettings) {
         setSettings(JSON.parse(savedSettings));
       }
@@ -86,7 +86,9 @@ export function SettingsPage({ user, onAuthRequired }: SettingsPageProps) {
     setIsSaving(true);
     try {
       // Save to localStorage for demo
-      localStorage.setItem("user_settings", JSON.stringify(settings));
+      if (typeof window !== "undefined") {
+        localStorage.setItem("user_settings", JSON.stringify(settings));
+      }
 
       // In a real app, you would save to the API
       // await api.updateUserSettings(settings);
@@ -115,7 +117,9 @@ export function SettingsPage({ user, onAuthRequired }: SettingsPageProps) {
     if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
       try {
         // await api.deleteAccount();
-        localStorage.clear();
+        if (typeof window !== "undefined") {
+          localStorage.clear();
+        }
         window.location.href = "/";
       } catch (error) {
         console.error("Failed to delete account:", error);
@@ -130,7 +134,7 @@ export function SettingsPage({ user, onAuthRequired }: SettingsPageProps) {
       const userData = {
         user,
         settings,
-        conversations: JSON.parse(localStorage.getItem("conversations") || "[]"),
+        conversations: JSON.parse(typeof window !== "undefined" ? localStorage.getItem("conversations") || "[]" : "[]"),
         exportDate: new Date().toISOString(),
       };
 
@@ -174,7 +178,7 @@ export function SettingsPage({ user, onAuthRequired }: SettingsPageProps) {
     { value: "ja", label: "日本語" },
   ];
 
-  if (!user && !localStorage.getItem("auth_token")) {
+  if (!user && (typeof window === "undefined" || !localStorage.getItem("auth_token"))) {
     return (
       <div className="auth-required">
         <div className="auth-content">
