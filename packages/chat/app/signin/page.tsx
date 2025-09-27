@@ -39,9 +39,8 @@ export default function SignInPage() {
           display: flex;
           align-items: center;
           justify-content: center;
-          min-height: calc(100vh - 160px);
+          min-height: calc(100vh - 240px);
           padding: 40px 20px;
-          margin-top: 80px;
         }
 
         .signin-card {

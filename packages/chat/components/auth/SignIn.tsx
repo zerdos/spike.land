@@ -30,6 +30,15 @@ export function SignIn({ onSuccess, onSignUpClick }: SignInProps) {
     setError(null);
 
     try {
+      // For now, show a message that Google OAuth needs to be configured
+      // In production, this would use Clerk's OAuth flow
+      if (!auth.signIn) {
+        setError("Google sign-in is not configured yet. Please use email sign-in or demo mode.");
+        setGoogleLoading(false);
+        return;
+      }
+
+      // This would be the actual OAuth flow when Clerk is properly configured
       await auth.signIn.authenticateWithRedirect({
         strategy: "oauth_google",
         redirectUrl: window.location.origin + "/dashboard",

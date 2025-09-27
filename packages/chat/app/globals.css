@@ -33,11 +33,11 @@ body {
 
 /* Authentication Styles */
 .auth-container {
-  @apply flex items-center justify-center;
+  @apply flex items-center justify-center w-full max-w-md mx-auto;
 }
 
 .auth-form {
-  @apply bg-white rounded-2xl p-12 shadow-xl w-full max-w-md;
+  @apply bg-white rounded-2xl p-12 shadow-xl w-full;
 }
 
 .auth-form h2 {
@@ -53,7 +53,11 @@ body {
 }
 
 .auth-btn {
-  @apply w-full px-4 py-3 rounded-lg font-semibold transition-all duration-200;
+  @apply w-full px-4 py-3 rounded-lg font-semibold transition-all duration-200 bg-blue-600 text-white hover:bg-blue-700;
+}
+
+.auth-btn:not(.google-btn) {
+  @apply bg-blue-600 text-white hover:bg-blue-700;
 }
 
 .auth-btn:disabled {
