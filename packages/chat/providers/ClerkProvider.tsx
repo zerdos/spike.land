@@ -2,7 +2,7 @@
 
 import { ClerkProvider as ClerkAuthProvider } from "@clerk/clerk-react";
 import { useRouter } from "next/navigation";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ";
 

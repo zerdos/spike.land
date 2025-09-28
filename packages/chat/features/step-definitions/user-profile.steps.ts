@@ -1,6 +1,6 @@
 import { Given, When, Then } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
-import { CustomWorld } from "../support/world";
+import type { CustomWorld } from "../support/world";
 
 Given("I am logged in with Google", async function (this: CustomWorld) {
   // Check if user is already logged in
@@ -39,7 +39,7 @@ When("I click on my user avatar", async function (this: CustomWorld) {
   await this.page!.click(".user-avatar-button");
 });
 
-Then("I should see a dropdown menu with the following options:", async function (this: CustomWorld, dataTable: any) {
+Then("I should see a dropdown menu with the following options:", async function (this: CustomWorld, dataTable: { raw: () => string[][] }) {
   await this.page!.waitForSelector(".user-dropdown-menu", { timeout: 5000 });
 
   const expectedOptions = dataTable.raw().map((row: string[]) => row[0]);
@@ -114,7 +114,7 @@ Then("I should see my email address", async function (this: CustomWorld) {
   expect(value).toMatch(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
 });
 
-Then("I should see input fields for:", async function (this: CustomWorld, dataTable: any) {
+Then("I should see input fields for:", async function (this: CustomWorld, dataTable: { raw: () => string[][] }) {
   const expectedFields = dataTable.raw().map((row: string[]) => row[0]);
 
   for (const field of expectedFields) {
@@ -264,7 +264,7 @@ When("I click the GitHub link", async function (this: CustomWorld) {
   await newPage.close();
 });
 
-Then("a new tab should open to {string}", async function (this: CustomWorld, expectedUrl: string) {
+Then("a new tab should open to {string}", async function (this: CustomWorld, _expectedUrl: string) {
   // This is handled in the previous step
   // In a real test environment, we'd verify the URL more thoroughly
 });

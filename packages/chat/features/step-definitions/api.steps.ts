@@ -1,6 +1,6 @@
 import { Given, When, Then } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
-import { CustomWorld } from "../support/world";
+import type { CustomWorld } from "../support/world";
 
 Given("I am logged in to the chat application", async function (this: CustomWorld) {
   // Navigate to the sign-in page
@@ -105,7 +105,7 @@ When("I create {int} different conversations", async function (this: CustomWorld
   }
 });
 
-When("I send messages about different topics:", async function (this: CustomWorld, dataTable: any) {
+When("I send messages about different topics:", async function (this: CustomWorld, dataTable: { hashes: () => Array<{ message: string; expected_response_contains: string }> }) {
   const rows = dataTable.hashes();
 
   for (const row of rows) {
@@ -235,7 +235,7 @@ Then("I should receive appropriate AI responses for each topic", async function 
 Then("I should see an error message", async function (this: CustomWorld) {
   if (this.apiErrorSimulated) {
     // In real implementation, check for error messages
-    const errorMessage = await this.page!.locator('text=/error|failed|try again/i').count();
+    const _errorMessage = await this.page!.locator('text=/error|failed|try again/i').count();
     // For now, we can't easily simulate API errors
   }
 });
