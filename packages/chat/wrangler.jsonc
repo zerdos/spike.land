@@ -77,12 +77,7 @@
         "NEXTJS_ENV": "development"
       },
       "durable_objects": {
-        "bindings": [
-          {
-            "name": "CHAT_ROOM",
-            "class_name": "ChatRoom"
-          }
-        ]
+        "bindings": []
       },
       "ai": {
         "binding": "AI"
@@ -133,12 +128,7 @@
         "NEXTJS_ENV": "preview"
       },
       "durable_objects": {
-        "bindings": [
-          {
-            "name": "CHAT_ROOM",
-            "class_name": "ChatRoom"
-          }
-        ]
+        "bindings": []
       },
       "ai": {
         "binding": "AI"

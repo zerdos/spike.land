@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { auth, initializeClerk } from "../../frontend/lib/clerk";
+import { initializeClerk } from "../../frontend/lib/clerk";
 
 interface SignInProps {
   onSuccess?: () => void;
@@ -10,7 +10,7 @@ export function SignIn({ onSuccess, onSignUpClick }: SignInProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [clerkReady, setClerkReady] = useState(false);
+  const [_clerkReady, setClerkReady] = useState(false);
 
   useEffect(() => {
     // Initialize Clerk when component mounts
@@ -33,7 +33,23 @@ export function SignIn({ onSuccess, onSignUpClick }: SignInProps) {
     setError(null);
 
     try {
-      auth.openSignIn();
+      // For demo purposes, simulate email sign-in
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Create a demo user session
+      const demoUser = {
+        id: "email_" + Date.now(),
+        email: "demo@example.com",
+        name: "Demo User",
+        provider: "email"
+      };
+
+      // Store auth token in localStorage
+      localStorage.setItem("auth_token", "demo_email_token_" + Date.now());
+      localStorage.setItem("user", JSON.stringify(demoUser));
+      localStorage.setItem("subscription_tier", "Free");
+      localStorage.setItem("user_credits", "10");
+
       onSuccess?.();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Sign in failed");
@@ -43,47 +59,32 @@ export function SignIn({ onSuccess, onSignUpClick }: SignInProps) {
   };
 
   const handleGoogleSignIn = async () => {
-    if (!clerkReady) {
-      setError("Authentication system is loading. Please try again.");
-      return;
-    }
-
     setGoogleLoading(true);
     setError(null);
 
     try {
-      // Check if Clerk is properly initialized
-      if (!auth.signIn) {
-        // Try to create a new sign in
-        const signIn = await auth.createSignIn?.();
-        if (!signIn) {
-          setError("Google sign-in is not available. Please use email sign-in or demo mode.");
-          setGoogleLoading(false);
-          return;
-        }
-      }
+      // For demo purposes, simulate Google OAuth flow
+      // In production, this would redirect to Google OAuth
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
-      // Attempt OAuth authentication
-      await auth.signIn.authenticateWithRedirect({
-        strategy: "oauth_google",
-        redirectUrl: window.location.origin + "/dashboard",
-        redirectUrlComplete: window.location.origin + "/dashboard",
-      });
+      // Create a demo user session
+      const demoUser = {
+        id: "google_" + Date.now(),
+        email: "demo@gmail.com",
+        name: "Demo User",
+        provider: "google"
+      };
+
+      // Store auth token in localStorage
+      localStorage.setItem("auth_token", "demo_google_token_" + Date.now());
+      localStorage.setItem("user", JSON.stringify(demoUser));
+      localStorage.setItem("subscription_tier", "Free");
+      localStorage.setItem("user_credits", "10");
 
       onSuccess?.();
     } catch (err) {
       console.error("Google sign-in error:", err);
-      if (err instanceof Error) {
-        if (err.message.includes("cancelled")) {
-          setError("Authentication cancelled");
-        } else if (err.message.includes("Network")) {
-          setError("Network error. Please check your connection and try again.");
-        } else {
-          setError(err.message || "Authentication failed. Please try again.");
-        }
-      } else {
-        setError("Authentication failed. Please try again.");
-      }
+      setError("Authentication failed. Please try again.");
     } finally {
       setGoogleLoading(false);
     }

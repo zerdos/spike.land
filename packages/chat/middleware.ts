@@ -30,7 +30,7 @@ export function middleware(request: NextRequest) {
   // CSP header for security
   response.headers.set(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' ws: wss:; frame-ancestors 'none';",
+    "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' blob: https://clerk.spike.land; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://img.clerk.com; font-src 'self' data:; connect-src 'self' ws: wss: https://clerk.spike.land https://*.clerk.accounts.dev; worker-src 'self' blob:; frame-ancestors 'none';",
   );
 
   // CORS headers for API routes

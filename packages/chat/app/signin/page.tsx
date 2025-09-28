@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Header } from "../../components/layout/header";
 import { Footer } from "../../components/layout/footer";
-import { SignIn } from "../../components/auth/SignIn";
+import { SignInWithClerk } from "../../components/auth/SignInWithClerk";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -21,7 +21,7 @@ export default function SignInPage() {
       <Header />
 
       <main className="signin-container">
-        <SignIn
+        <SignInWithClerk
           onSuccess={handleSuccess}
           onSignUpClick={handleSignUpClick}
         />

@@ -28,23 +28,38 @@ interface MessageResponse extends APIResponse {
     creditsRemaining: number;
   };
 }
+// Helper to get auth headers
+const getAuthHeaders = (): HeadersInit => {
+  const token = typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
+  return token
+    ? {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    : { "Content-Type": "application/json" };
+};
+
 export const api = {
   async createCheckoutSession(priceId: string): Promise<APIResponse> {
     const response = await fetch("/api/stripe/checkout", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify({ priceId }),
     });
     return response.json() as Promise<APIResponse>;
   },
 
   async getSubscriptionStatus(): Promise<APIResponse> {
-    const response = await fetch("/api/subscription/status");
+    const response = await fetch("/api/subscription/status", {
+      headers: getAuthHeaders(),
+    });
     return response.json() as Promise<APIResponse>;
   },
 
   async getConversations(): Promise<ConversationResponse> {
-    const response = await fetch("/api/conversations");
+    const response = await fetch("/api/conversations", {
+      headers: getAuthHeaders(),
+    });
     return response.json() as Promise<ConversationResponse>;
   },
 
@@ -53,26 +68,31 @@ export const api = {
   ): Promise<MessageResponse> {
     const response = await fetch("/api/messages", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify({ conversationId, content }),
     });
     return response.json() as Promise<MessageResponse>;
   },
 
   async getConversation(conversationId: string): Promise<SingleConversationResponse> {
-    const response = await fetch(`/api/conversations/${conversationId}`);
+    const response = await fetch(`/api/conversations/${conversationId}`, {
+      headers: getAuthHeaders(),
+    });
     return response.json() as Promise<SingleConversationResponse>;
   },
 
   async deleteConversation(conversationId: string): Promise<APIResponse> {
     const response = await fetch(`/api/conversations/${conversationId}`, {
       method: "DELETE",
+      headers: getAuthHeaders(),
     });
     return response.json() as Promise<APIResponse>;
   },
 
   async getSubscriptionInfo(): Promise<SubscriptionResponse> {
-    const response = await fetch("/api/subscription");
+    const response = await fetch("/api/subscription", {
+      headers: getAuthHeaders(),
+    });
     return response.json() as Promise<SubscriptionResponse>;
   },
 
@@ -81,7 +101,7 @@ export const api = {
   ): Promise<APIResponse<Conversation>> {
     const response = await fetch("/api/conversations", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify({ title, model }),
     });
     return response.json() as Promise<APIResponse<Conversation>>;

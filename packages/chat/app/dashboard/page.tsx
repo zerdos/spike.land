@@ -32,16 +32,6 @@ export function DashboardPage({ user, onAuthRequired }: DashboardPageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPeriod, setSelectedPeriod] = useState("7days");
 
-  useEffect(() => {
-    const authToken = typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
-    if (!authToken && !user) {
-      onAuthRequired?.();
-      return;
-    }
-
-    loadDashboardData();
-  }, [user, onAuthRequired, selectedPeriod, loadDashboardData]);
-
   const loadDashboardData = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -76,6 +66,16 @@ export function DashboardPage({ user, onAuthRequired }: DashboardPageProps) {
       setIsLoading(false);
     }
   }, [user]);
+
+  useEffect(() => {
+    const authToken = typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
+    if (!authToken && !user) {
+      onAuthRequired?.();
+      return;
+    }
+
+    loadDashboardData();
+  }, [user, onAuthRequired, selectedPeriod, loadDashboardData]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {

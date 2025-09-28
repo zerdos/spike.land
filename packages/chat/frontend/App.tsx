@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import type { Conversation, Message, User } from "../src/types";
 import { UserButton } from "./components/auth/UserButton";
 import { ChatInterface } from "./components/ChatInterface";
-import { ConnectionStatus } from "./components/ConnectionStatus";
 import { ConversationList } from "./components/ConversationList";
 import { LandingPage } from "../components/LandingPage";
 import { SubscriptionStatus } from "./components/SubscriptionStatus";
 import { useAuth } from "./hooks/useAuth";
-import { useWebSocket } from "./hooks/useWebSocket";
 import { api } from "./lib/api";
 
 export function App() {
@@ -24,13 +22,6 @@ export function App() {
     limit: 10,
   });
 
-  const { isConnected, sendMessage: _sendWebSocketMessage } = useWebSocket({
-    onMessage: (data) => {
-      if (data.type === "message" && currentConversation) {
-        setMessages((prev) => [...prev, data.message]);
-      }
-    },
-  });
 
   // Handle Clerk authentication state
   useEffect(() => {
@@ -261,7 +252,6 @@ export function App() {
             subscription={subscription}
             onUpgrade={upgradeSubscription}
           />
-          <ConnectionStatus isConnected={isConnected} />
         </div>
         <ConversationList
           conversations={conversations}
