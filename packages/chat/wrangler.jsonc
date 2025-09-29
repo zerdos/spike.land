@@ -71,7 +71,7 @@
     },
 
     "development": {
-      "name": "spike-chat-dev",
+      "name": "spike-chat-nextjs-dev",
       "vars": {
         "NODE_ENV": "development",
         "NEXTJS_ENV": "development"
@@ -107,8 +107,8 @@
         },
         {
           "binding": "KV_CACHE",
-          "id": "cache-dev-namespace-id",
-          "preview_id": "cache-preview-namespace-id"
+          "id": "bb649d2b93d646ce96df960d1987de69",
+          "preview_id": "f45e9a89346f46038a99ac853bb60e3a"
         }
       ],
       "queues": {
@@ -118,7 +118,13 @@
             "binding": "QUEUE"
           }
         ]
-      }
+      },
+      "services": [
+        {
+          "binding": "WORKER_SELF_REFERENCE",
+          "service": "spike-chat-nextjs-dev"
+        }
+      ]
     },
 
     "preview": {
