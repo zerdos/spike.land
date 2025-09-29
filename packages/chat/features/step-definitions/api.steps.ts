@@ -11,6 +11,8 @@ Given("I am logged in to the chat application", async function (this: CustomWorl
 
   // Wait for navigation to chat page
   await this.page!.waitForURL("**/chat", { timeout: 5000 });
+  // Wait for the chat interface to be ready
+  await this.page!.waitForSelector('textarea[placeholder*="Type your message"]', { timeout: 5000 });
 });
 
 Given("I am on the chat page", async function (this: CustomWorld) {
@@ -23,28 +25,31 @@ Given("I have an active conversation", async function (this: CustomWorld) {
   const newChatBtn = this.page!.locator('button:has-text("New Chat")').first();
   if (await newChatBtn.isVisible()) {
     await newChatBtn.click();
-    await this.page!.waitForTimeout(500);
+    // Wait for the chat interface to be ready
+    await this.page!.waitForSelector('textarea[placeholder*="Type your message"]', { timeout: 5000 });
   }
 });
 
 Given("I have a conversation with messages", async function (this: CustomWorld) {
   // Create a conversation and send a message
   await this.page!.click('button:has-text("New Chat")');
-  await this.page!.waitForTimeout(500);
+  await this.page!.waitForSelector('textarea[placeholder*="Type your message"]', { timeout: 5000 });
 
   await this.page!.fill('textarea[placeholder*="Type your message"]', "Test message for persistence");
   await this.page!.click('button:has-text("Send")');
-  await this.page!.waitForTimeout(1000);
+  // Wait for the message to appear
+  await this.page!.waitForSelector('text="Test message for persistence"', { timeout: 5000 });
 });
 
 Given("I have multiple conversations", async function (this: CustomWorld) {
   // Create multiple conversations
   for (let i = 0; i < 2; i++) {
     await this.page!.click('button:has-text("New Chat")');
-    await this.page!.waitForTimeout(500);
+    await this.page!.waitForSelector('textarea[placeholder*="Type your message"]', { timeout: 5000 });
     await this.page!.fill('textarea[placeholder*="Type your message"]', `Conversation ${i + 1}`);
     await this.page!.click('button:has-text("Send")');
-    await this.page!.waitForTimeout(1000);
+    // Wait for the message to appear
+    await this.page!.waitForSelector(`.message:has-text("Conversation ${i + 1}"), [class*="message"]:has-text("Conversation ${i + 1}")`, { timeout: 5000 });
   }
 });
 
@@ -56,7 +61,8 @@ Given("the API is experiencing issues", async function (this: CustomWorld) {
 
 When("I click the {string} button", async function (this: CustomWorld, buttonText: string) {
   await this.page!.click(`button:has-text("${buttonText}")`);
-  await this.page!.waitForTimeout(500);
+  // Wait for action to complete - either navigation or UI update
+  await this.page!.waitForLoadState("domcontentloaded");
 });
 
 When("I type {string} in the message input", async function (this: CustomWorld, message: string) {
@@ -65,7 +71,8 @@ When("I type {string} in the message input", async function (this: CustomWorld, 
 
 When("I click the send button", async function (this: CustomWorld) {
   await this.page!.click('button:has-text("Send")');
-  await this.page!.waitForTimeout(1000);
+  // Wait for the message to appear in the conversation
+  await this.page!.waitForSelector('.message, [class*="message"]', { timeout: 5000 });
 });
 
 When("I refresh the page", async function (this: CustomWorld) {
@@ -78,7 +85,8 @@ When("I select the same conversation", async function (this: CustomWorld) {
   const firstConversation = this.page!.locator(".conversation-item").first();
   if (await firstConversation.isVisible()) {
     await firstConversation.click();
-    await this.page!.waitForTimeout(500);
+    // Wait for conversation to load
+    await this.page!.waitForSelector('.message, [class*="message"], [class*="empty-state"]', { timeout: 5000 });
   }
 });
 
@@ -86,7 +94,8 @@ When("I click the delete button on a conversation", async function (this: Custom
   const deleteBtn = this.page!.locator('button:has-text("Delete")').first();
   if (await deleteBtn.isVisible()) {
     await deleteBtn.click();
-    await this.page!.waitForTimeout(500);
+    // Wait for the delete action to complete
+    await this.page!.waitForResponse(resp => resp.url().includes('/api/conversations') && resp.request().method() === 'DELETE', { timeout: 5000 }).catch(() => {});
   }
 });
 
@@ -98,10 +107,11 @@ When("I view my subscription information", async function (this: CustomWorld) {
 When("I create {int} different conversations", async function (this: CustomWorld, count: number) {
   for (let i = 0; i < count; i++) {
     await this.page!.click('button:has-text("New Chat")');
-    await this.page!.waitForTimeout(500);
+    await this.page!.waitForSelector('textarea[placeholder*="Type your message"]', { timeout: 5000 });
     await this.page!.fill('textarea[placeholder*="Type your message"]', `Conversation ${i + 1} message`);
     await this.page!.click('button:has-text("Send")');
-    await this.page!.waitForTimeout(1000);
+    // Wait for the message to appear
+    await this.page!.waitForSelector(`.message:has-text("Conversation ${i + 1} message"), [class*="message"]:has-text("Conversation ${i + 1} message")`, { timeout: 5000 });
   }
 });
 
@@ -111,7 +121,8 @@ When("I send messages about different topics:", async function (this: CustomWorl
   for (const row of rows) {
     await this.page!.fill('textarea[placeholder*="Type your message"]', row.message);
     await this.page!.click('button:has-text("Send")');
-    await this.page!.waitForTimeout(2000);
+    // Wait for AI response to appear
+    await this.page!.waitForSelector('.message:last-child, [class*="message"]:last-child', { timeout: 10000 });
 
     // Store expected response for verification
     if (!this.expectedResponses) {
@@ -124,7 +135,8 @@ When("I send messages about different topics:", async function (this: CustomWorl
 When("I try to send a message", async function (this: CustomWorld) {
   await this.page!.fill('textarea[placeholder*="Type your message"]', "Test message");
   await this.page!.click('button:has-text("Send")');
-  await this.page!.waitForTimeout(1000);
+  // Wait for either success or error state
+  await this.page!.waitForSelector('.message, [class*="message"], .error, [class*="error"]', { timeout: 5000 }).catch(() => {});
 });
 
 Then("a new conversation should be created", async function (this: CustomWorld) {
@@ -149,8 +161,8 @@ Then("my message should appear in the chat", async function (this: CustomWorld) 
 });
 
 Then("I should receive an AI response about React", async function (this: CustomWorld) {
-  // Wait for AI response
-  await this.page!.waitForTimeout(2000);
+  // Wait for AI response containing React-related content
+  await this.page!.waitForSelector('text=/React|JavaScript library|user interface/i', { timeout: 10000 });
   const aiResponse = await this.page!.locator('text=/React|JavaScript library|user interface/i').count();
   expect(aiResponse).toBeGreaterThan(0);
 });
@@ -173,8 +185,8 @@ Then("the conversation history should be intact", async function (this: CustomWo
 });
 
 Then("the conversation should be removed from the sidebar", async function (this: CustomWorld) {
-  // Verify conversation count decreased
-  await this.page!.waitForTimeout(500);
+  // Wait for the UI to update after deletion
+  await this.page!.waitForLoadState("networkidle");
   // This would check the actual count change
 });
 
@@ -199,7 +211,8 @@ Then("I should see the daily message limit", async function (this: CustomWorld) 
 });
 
 Then("all {int} conversations should appear in the sidebar", async function (this: CustomWorld, count: number) {
-  await this.page!.waitForTimeout(1000);
+  // Wait for conversations to appear in the sidebar
+  await this.page!.waitForSelector('.conversation-item, [class*="conversation"]', { timeout: 5000 });
   const conversations = await this.page!.locator('.conversation-item, [class*="conversation"]').count();
   expect(conversations).toBeGreaterThanOrEqual(count);
 });
@@ -211,9 +224,9 @@ Then("I should be able to switch between them", async function (this: CustomWorl
 
   if (count >= 2) {
     await conversations.nth(0).click();
-    await this.page!.waitForTimeout(500);
+    await this.page!.waitForLoadState("domcontentloaded");
     await conversations.nth(1).click();
-    await this.page!.waitForTimeout(500);
+    await this.page!.waitForLoadState("domcontentloaded");
   }
 });
 

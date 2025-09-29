@@ -28,37 +28,32 @@ interface MessageResponse extends APIResponse {
     creditsRemaining: number;
   };
 }
-// Helper to get auth headers
-const getAuthHeaders = (): HeadersInit => {
-  const token = typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
-  return token
-    ? {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }
-    : { "Content-Type": "application/json" };
-};
+// Clerk handles authentication via secure httpOnly cookies
+// No need for manual auth headers - they're sent automatically with credentials: 'same-origin'
 
 export const api = {
   async createCheckoutSession(priceId: string): Promise<APIResponse> {
     const response = await fetch("/api/stripe/checkout", {
       method: "POST",
-      headers: getAuthHeaders(),
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ priceId }),
+      credentials: "same-origin", // Ensures cookies are sent
     });
     return response.json() as Promise<APIResponse>;
   },
 
   async getSubscriptionStatus(): Promise<APIResponse> {
     const response = await fetch("/api/subscription/status", {
-      headers: getAuthHeaders(),
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
     });
     return response.json() as Promise<APIResponse>;
   },
 
   async getConversations(): Promise<ConversationResponse> {
     const response = await fetch("/api/conversations", {
-      headers: getAuthHeaders(),
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
     });
     return response.json() as Promise<ConversationResponse>;
   },
@@ -68,15 +63,17 @@ export const api = {
   ): Promise<MessageResponse> {
     const response = await fetch("/api/messages", {
       method: "POST",
-      headers: getAuthHeaders(),
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ conversationId, content }),
+      credentials: "same-origin",
     });
     return response.json() as Promise<MessageResponse>;
   },
 
   async getConversation(conversationId: string): Promise<SingleConversationResponse> {
     const response = await fetch(`/api/conversations/${conversationId}`, {
-      headers: getAuthHeaders(),
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
     });
     return response.json() as Promise<SingleConversationResponse>;
   },
@@ -84,14 +81,16 @@ export const api = {
   async deleteConversation(conversationId: string): Promise<APIResponse> {
     const response = await fetch(`/api/conversations/${conversationId}`, {
       method: "DELETE",
-      headers: getAuthHeaders(),
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
     });
     return response.json() as Promise<APIResponse>;
   },
 
   async getSubscriptionInfo(): Promise<SubscriptionResponse> {
     const response = await fetch("/api/subscription", {
-      headers: getAuthHeaders(),
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
     });
     return response.json() as Promise<SubscriptionResponse>;
   },
@@ -101,8 +100,9 @@ export const api = {
   ): Promise<APIResponse<Conversation>> {
     const response = await fetch("/api/conversations", {
       method: "POST",
-      headers: getAuthHeaders(),
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title, model }),
+      credentials: "same-origin",
     });
     return response.json() as Promise<APIResponse<Conversation>>;
   },

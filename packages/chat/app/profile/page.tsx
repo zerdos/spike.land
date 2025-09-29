@@ -54,16 +54,13 @@ export default function ProfilePage() {
     setSavedMessage("");
 
     try {
-      // Update Clerk user profile
+      // Update Clerk user profile and public metadata in a single call
       await user.update({
         firstName: formData.firstName,
         lastName: formData.lastName,
         username: formData.nickname,
-      });
-
-      // Update public metadata for custom fields
-      await user.update({
         publicMetadata: {
+          ...user.publicMetadata, // Preserve existing metadata
           nickname: formData.nickname,
           githubUsername: formData.githubUsername,
         },

@@ -37,9 +37,10 @@ export function ChatPage() {
       return;
     }
 
-    // User is authenticated via Clerk, store their info for API calls
+    // User is authenticated via Clerk
+    // No need to store auth tokens - Clerk handles this securely via httpOnly cookies
+    // We can optionally store non-sensitive user info for UI display only
     if (clerkUser) {
-      localStorage.setItem("auth_token", "clerk_" + clerkUser.id);
       localStorage.setItem("user", JSON.stringify({
         id: clerkUser.id,
         email: clerkUser.emailAddresses[0]?.emailAddress || "",

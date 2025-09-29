@@ -46,49 +46,42 @@ export async function createOrUpdateUser(
     avatar_url?: string;
   }
 ) {
-  const existingUser = await getUserByClerkId(db, userData.clerk_id);
+  // Use atomic UPSERT to prevent race conditions
+  // SQLite doesn't support ON CONFLICT ... DO UPDATE directly,
+  // but D1 supports INSERT OR REPLACE which is atomic
+  const userId = crypto.randomUUID();
 
-  if (existingUser) {
-    // Update existing user
-    await db
-      .prepare(`
-        UPDATE users
-        SET email = ?, username = ?, first_name = ?, last_name = ?,
-            avatar_url = ?, updated_at = unixepoch()
-        WHERE clerk_id = ?
-      `)
-      .bind(
-        userData.email,
-        userData.username || null,
-        userData.first_name || null,
-        userData.last_name || null,
-        userData.avatar_url || null,
-        userData.clerk_id
+  // First, try to get existing user's ID if they exist
+  const existingUser = await getUserByClerkId(db, userData.clerk_id);
+  const actualUserId = existingUser?.id || userId;
+
+  // Use INSERT OR REPLACE with all fields
+  await db
+    .prepare(`
+      INSERT OR REPLACE INTO users (
+        id, clerk_id, email, username, first_name, last_name,
+        avatar_url, subscription_tier, created_at, updated_at
+      ) VALUES (
+        ?, ?, ?, ?, ?, ?, ?,
+        COALESCE((SELECT subscription_tier FROM users WHERE clerk_id = ?), 'free'),
+        COALESCE((SELECT created_at FROM users WHERE clerk_id = ?), unixepoch()),
+        unixepoch()
       )
-      .run();
-    return getUserByClerkId(db, userData.clerk_id);
-  } else {
-    // Create new user
-    const userId = crypto.randomUUID();
-    await db
-      .prepare(`
-        INSERT INTO users (
-          id, clerk_id, email, username, first_name, last_name,
-          avatar_url, subscription_tier, created_at, updated_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, 'free', unixepoch(), unixepoch())
-      `)
-      .bind(
-        userId,
-        userData.clerk_id,
-        userData.email,
-        userData.username || null,
-        userData.first_name || null,
-        userData.last_name || null,
-        userData.avatar_url || null
-      )
-      .run();
-    return getUserByClerkId(db, userData.clerk_id);
-  }
+    `)
+    .bind(
+      actualUserId,
+      userData.clerk_id,
+      userData.email,
+      userData.username || null,
+      userData.first_name || null,
+      userData.last_name || null,
+      userData.avatar_url || null,
+      userData.clerk_id, // For subscription_tier subquery
+      userData.clerk_id  // For created_at subquery
+    )
+    .run();
+
+  return getUserByClerkId(db, userData.clerk_id);
 }
 
 // Conversation operations

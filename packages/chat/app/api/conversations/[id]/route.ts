@@ -1,34 +1,22 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import {
   getD1Database,
   getConversationWithMessages,
   getConversationById,
   deleteConversation as deleteConversationFromDb,
   getUserByClerkId,
+  createOrUpdateUser,
 } from "../../../../lib/db-helpers";
 
-// Helper to extract user ID from request
-function getUserIdFromRequest(request: NextRequest): string | null {
-  // Check various auth sources
-  const authToken = request.headers.get("authorization")?.replace("Bearer ", "") ||
-                   request.cookies.get("auth_token")?.value;
-
-  // Try to get Clerk user ID from various sources
-  const clerkUserId = request.cookies.get("__clerk_user_id")?.value ||
-                     request.headers.get("x-clerk-user-id") ||
-                     (authToken?.startsWith("clerk_") ? authToken.split("_")[1] : null);
-
-  return clerkUserId || authToken || null;
-}
-
 export async function GET(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    // Check authentication
-    const userId = getUserIdFromRequest(request);
+    // Get authenticated user ID from Clerk
+    const { userId } = await auth();
     if (!userId) {
       return NextResponse.json(
         { success: false, error: "Unauthorized" },
@@ -49,6 +37,13 @@ export async function GET(
         );
       }
 
+      if (conversation.user_id !== userId) {
+        return NextResponse.json(
+          { success: false, error: "Unauthorized" },
+          { status: 403 }
+        );
+      }
+
       return NextResponse.json({
         success: true,
         data: {
@@ -64,8 +59,30 @@ export async function GET(
       });
     }
 
-    // Try to get user from database if it's a Clerk ID
-    const dbUser = userId.startsWith("user_") ? await getUserByClerkId(db, userId) : null;
+    // Get user from database
+    let dbUser = await getUserByClerkId(db, userId);
+
+    if (!dbUser) {
+      // Get current user info from Clerk to create database user
+      const clerkUser = await currentUser();
+      if (clerkUser) {
+        dbUser = await createOrUpdateUser(db, {
+          clerk_id: userId,
+          email: clerkUser.emailAddresses[0]?.emailAddress || "",
+          username: clerkUser.username || undefined,
+          first_name: clerkUser.firstName || undefined,
+          last_name: clerkUser.lastName || undefined,
+          avatar_url: clerkUser.imageUrl || undefined,
+        });
+      }
+    }
+
+    if (!dbUser) {
+      return NextResponse.json(
+        { success: false, error: "User not found" },
+        { status: 404 }
+      );
+    }
 
     // Get conversation with messages from database
     const conversationData = await getConversationWithMessages(db, params.id);
@@ -77,8 +94,8 @@ export async function GET(
       );
     }
 
-    // Verify user owns this conversation (if we have user data)
-    if (dbUser && conversationData.user_id !== dbUser.id) {
+    // Verify user owns this conversation
+    if (conversationData.user_id !== dbUser.id) {
       return NextResponse.json(
         { success: false, error: "Unauthorized" },
         { status: 403 }
@@ -122,12 +139,12 @@ export async function GET(
 }
 
 export async function DELETE(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    // Check authentication
-    const userId = getUserIdFromRequest(request);
+    // Get authenticated user ID from Clerk
+    const { userId } = await auth();
     if (!userId) {
       return NextResponse.json(
         { success: false, error: "Unauthorized" },
@@ -140,14 +157,24 @@ export async function DELETE(
       // Fallback to in-memory storage for local development
       const storage = globalThis.conversationsStorage || new Map();
 
-      if (!storage.has(params.id)) {
+      const conversation = storage.get(params.id);
+
+      if (!conversation) {
         return NextResponse.json(
           { success: false, error: "Conversation not found" },
           { status: 404 }
         );
       }
 
+      if (conversation.user_id !== userId) {
+        return NextResponse.json(
+          { success: false, error: "Unauthorized" },
+          { status: 403 }
+        );
+      }
+
       storage.delete(params.id);
+      globalThis.conversationsStorage = storage;
 
       return NextResponse.json({
         success: true,
@@ -155,8 +182,30 @@ export async function DELETE(
       });
     }
 
-    // Try to get user from database if it's a Clerk ID
-    const dbUser = userId.startsWith("user_") ? await getUserByClerkId(db, userId) : null;
+    // Get user from database
+    let dbUser = await getUserByClerkId(db, userId);
+
+    if (!dbUser) {
+      // Get current user info from Clerk to create database user
+      const clerkUser = await currentUser();
+      if (clerkUser) {
+        dbUser = await createOrUpdateUser(db, {
+          clerk_id: userId,
+          email: clerkUser.emailAddresses[0]?.emailAddress || "",
+          username: clerkUser.username || undefined,
+          first_name: clerkUser.firstName || undefined,
+          last_name: clerkUser.lastName || undefined,
+          avatar_url: clerkUser.imageUrl || undefined,
+        });
+      }
+    }
+
+    if (!dbUser) {
+      return NextResponse.json(
+        { success: false, error: "User not found" },
+        { status: 404 }
+      );
+    }
 
     // Verify conversation exists
     const conversation = await getConversationById(db, params.id);
@@ -167,8 +216,8 @@ export async function DELETE(
       );
     }
 
-    // Verify user owns this conversation (if we have user data)
-    if (dbUser && conversation.user_id !== dbUser.id) {
+    // Verify user owns this conversation
+    if (conversation.user_id !== dbUser.id) {
       return NextResponse.json(
         { success: false, error: "Unauthorized" },
         { status: 403 }

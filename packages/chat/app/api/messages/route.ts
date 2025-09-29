@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import {
   getD1Database,
   getUserByClerkId,
@@ -8,44 +9,6 @@ import {
   createMessage,
   updateConversation,
 } from "../../../lib/db-helpers";
-
-// Helper to extract user ID from request
-function getUserIdFromRequest(request: NextRequest): string | null {
-  // Check various auth sources
-  const authToken = request.headers.get("authorization")?.replace("Bearer ", "") ||
-                   request.cookies.get("auth_token")?.value;
-
-  // Try to get Clerk user ID from various sources
-  const clerkUserId = request.cookies.get("__clerk_user_id")?.value ||
-                     request.headers.get("x-clerk-user-id") ||
-                     (authToken?.startsWith("clerk_") ? authToken.split("_")[1] : null);
-
-  return clerkUserId || authToken || null;
-}
-
-// Helper to get user info from localStorage/cookies
-function getUserInfoFromRequest(request: NextRequest): { id: string; email: string } | null {
-  // Try to get user info from localStorage (passed as header)
-  const userDataHeader = request.headers.get("x-user-data");
-  if (userDataHeader) {
-    try {
-      return JSON.parse(userDataHeader);
-    } catch (_e) {
-      // Invalid JSON
-    }
-  }
-
-  // Try to get from auth token
-  const userId = getUserIdFromRequest(request);
-  if (userId) {
-    return {
-      id: userId,
-      email: "unknown@example.com", // Default email
-    };
-  }
-
-  return null;
-}
 
 // Simple AI response generation for demo
 async function generateAIResponse(userMessage: string): Promise<string> {
@@ -68,9 +31,8 @@ async function generateAIResponse(userMessage: string): Promise<string> {
 
 export async function POST(request: NextRequest) {
   try {
-    // Check authentication
-    const userId = getUserIdFromRequest(request);
-    const userInfo = getUserInfoFromRequest(request);
+    // Get authenticated user ID from Clerk
+    const { userId } = await auth();
 
     if (!userId) {
       return NextResponse.json(
@@ -150,21 +112,25 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Get or create user in database if it's a Clerk ID
-    let dbUser = null;
-    if (userId.startsWith("user_")) {
-      dbUser = await getUserByClerkId(db, userId);
+    // Get or create user in database
+    let dbUser = await getUserByClerkId(db, userId);
 
-      if (!dbUser && userInfo) {
+    if (!dbUser) {
+      // Get current user info from Clerk to create database user
+      const clerkUser = await currentUser();
+      if (clerkUser) {
         dbUser = await createOrUpdateUser(db, {
           clerk_id: userId,
-          email: userInfo.email,
+          email: clerkUser.emailAddresses[0]?.emailAddress || "",
+          username: clerkUser.username || undefined,
+          first_name: clerkUser.firstName || undefined,
+          last_name: clerkUser.lastName || undefined,
+          avatar_url: clerkUser.imageUrl || undefined,
         });
       }
     }
 
     if (!dbUser) {
-      // Cannot send message without user in database
       return NextResponse.json(
         { success: false, error: "User not found" },
         { status: 404 }

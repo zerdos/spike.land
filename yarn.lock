@@ -2121,6 +2121,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@clerk/nextjs@npm:^6.33.0":
+  version: 6.33.0
+  resolution: "@clerk/nextjs@npm:6.33.0"
+  dependencies:
+    "@clerk/backend": "npm:^2.16.0"
+    "@clerk/clerk-react": "npm:^5.49.0"
+    "@clerk/shared": "npm:^3.27.0"
+    "@clerk/types": "npm:^4.89.0"
+    server-only: "npm:0.0.1"
+    tslib: "npm:2.8.1"
+  peerDependencies:
+    next: ^13.5.7 || ^14.2.25 || ^15.2.3
+    react: ^18.0.0 || ^19.0.0 || ^19.0.0-0
+    react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-0
+  checksum: 10c0/3d5e58ba1e85d4599991f59591a4ef8657a5759836569a458e3096455ce45a276daa14497d6e83704ee176332ad6e972da716ddd3caa561ab1a4b255ec11f6b2
+  languageName: node
+  linkType: hard
+
 "@clerk/shared@npm:^2.20.6":
   version: 2.22.0
   resolution: "@clerk/shared@npm:2.22.0"
@@ -7564,6 +7582,7 @@ __metadata:
     "@clerk/backend": "npm:^2.16.0"
     "@clerk/clerk-js": "npm:^5.96.0"
     "@clerk/clerk-react": "npm:^5.49.0"
+    "@clerk/nextjs": "npm:^6.33.0"
     "@cloudflare/ai": "npm:^1.2.2"
     "@cloudflare/workers-types": "npm:^4.20250927.0"
     "@cucumber/cucumber": "npm:^12.2.0"
@@ -19288,6 +19307,13 @@ __metadata:
     parseurl: "npm:^1.3.3"
     send: "npm:^1.2.0"
   checksum: 10c0/30e2ed1dbff1984836cfd0c65abf5d3f3f83bcd696c99d2d3c97edbd4e2a3ff4d3f87108a7d713640d290a7b6fe6c15ddcbc61165ab2eaad48ea8d3b52c7f913
+  languageName: node
+  linkType: hard
+
+"server-only@npm:0.0.1":
+  version: 0.0.1
+  resolution: "server-only@npm:0.0.1"
+  checksum: 10c0/4704f0ef85da0be981af6d4ed8e739d39bcfd265b9c246a684060acda5642d0fdc6daffc2308e71e2682c5f508090978802eae0a77623c9b90a49f9ae68048d6
   languageName: node
   linkType: hard
 

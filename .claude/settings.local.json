@@ -44,7 +44,10 @@
       "Bash(gh pr view:*)",
       "Bash(gh pr comment:*)",
       "Bash(gh pr checks:*)",
-      "Bash(yarn eslint)"
+      "Bash(yarn eslint)",
+      "mcp__cloudflare-docs__search_cloudflare_documentation",
+      "mcp__Ref__ref_search_documentation",
+      "mcp__Ref__ref_read_url"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"
