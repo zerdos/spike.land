@@ -47,6 +47,41 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      keyframes: {
+        fadeInUp: {
+          from: {
+            opacity: "0",
+            transform: "translateY(20px)",
+          },
+          to: {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
+        pulse: {
+          "0%, 100%": {
+            opacity: "1",
+          },
+          "50%": {
+            opacity: "0.5",
+          },
+        },
+        slideDown: {
+          from: {
+            opacity: "0",
+            transform: "translateY(-8px)",
+          },
+          to: {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
+      },
+      animation: {
+        fadeInUp: "fadeInUp 0.8s ease",
+        pulse: "pulse 2s infinite",
+        slideDown: "slideDown 0.2s ease",
+      },
     },
   },
   plugins: [],

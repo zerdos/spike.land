@@ -31,27 +31,25 @@ export function Header({ isScrolled = false }: HeaderProps) {
   };
 
   return (
-    <header className={`header ${isScrolled ? "scrolled" : ""}`}>
-      <div className="container">
-        <div className="header-content">
-          {/* Logo */}
-          <div className="logo">
-            <a href="/" onClick={closeMenu}>
-              <span className="logo-icon">🤖</span>
-              <span className="logo-text">AI Chat</span>
+    <header className={`fixed top-0 left-0 right-0 z-[1000] bg-white/95 backdrop-blur-[20px] border-b border-gray-200/80 transition-all duration-300 ${isScrolled ? "bg-white/98 shadow-[0_4px_20px_rgba(0,0,0,0.1)] border-gray-200" : ""}`}>
+      <div className="max-w-[1200px] mx-auto px-5 relative">
+        <div className="flex items-center justify-between h-20">
+          <div>
+            <a href="/" onClick={closeMenu} className="flex items-center gap-3 no-underline text-gray-800 font-bold text-xl transition-opacity duration-200 hover:opacity-80">
+              <span className="text-3xl">🤖</span>
+              <span className="lg:text-2xl">AI Chat</span>
             </a>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="nav-desktop">
-            <ul className="nav-list">
+          <nav className="hidden md:block">
+            <ul className="flex items-center gap-8 list-none m-0 p-0">
               {navigationItems.map((item) => {
                 if (item.authRequired && !isSignedIn) return null;
                 return (
                   <li key={item.href}>
                     <a
                       href={item.href}
-                      className="nav-link"
+                      className="no-underline text-gray-600 font-medium text-base lg:text-[17px] px-4 py-2 rounded-lg transition-all duration-200 relative hover:text-gray-800 hover:bg-gray-50 active:translate-y-px"
                       onClick={closeMenu}
                     >
                       {item.label}
@@ -62,20 +60,19 @@ export function Header({ isScrolled = false }: HeaderProps) {
             </ul>
           </nav>
 
-          {/* User Actions */}
-          <div className="user-actions">
+          <div className="flex items-center gap-4">
             {isLoaded && isSignedIn && user ? (
               <UserAvatar />
             ) : (
-              <div className="auth-buttons">
+              <div className="hidden md:flex gap-3">
                 <button
-                  className="btn btn-secondary"
+                  className="px-6 py-3 rounded-lg text-sm font-semibold border border-[#667eea] cursor-pointer transition-all duration-200 inline-flex items-center justify-center no-underline bg-white text-[#667eea] hover:bg-[#667eea] hover:text-white"
                   onClick={() => window.location.href = "/signin"}
                 >
                   Sign In
                 </button>
                 <button
-                  className="btn btn-primary"
+                  className="px-6 py-3 rounded-lg text-sm font-semibold border-none cursor-pointer transition-all duration-200 inline-flex items-center justify-center no-underline bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white shadow-[0_4px_15px_rgba(102,126,234,0.4)] hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(102,126,234,0.6)]"
                   onClick={() => window.location.href = "/signup"}
                 >
                   Get Started
@@ -84,32 +81,30 @@ export function Header({ isScrolled = false }: HeaderProps) {
             )}
           </div>
 
-          {/* Mobile Menu Toggle */}
           <button
-            className="mobile-toggle"
+            className="flex flex-col justify-center w-8 h-8 bg-transparent border-none cursor-pointer p-0 relative z-[1001] md:hidden"
             onClick={toggleMenu}
             aria-label="Toggle navigation menu"
             aria-expanded={isMenuOpen}
           >
-            <span className="hamburger">
-              <span></span>
-              <span></span>
-              <span></span>
+            <span className="flex flex-col gap-[3px]">
+              <span className="block w-5 h-0.5 bg-gray-600 transition-all duration-300 origin-center"></span>
+              <span className="block w-5 h-0.5 bg-gray-600 transition-all duration-300 origin-center"></span>
+              <span className="block w-5 h-0.5 bg-gray-600 transition-all duration-300 origin-center"></span>
             </span>
           </button>
         </div>
 
-        {/* Mobile Navigation */}
-        <div className={`nav-mobile ${isMenuOpen ? "open" : ""}`}>
-          <nav className="mobile-nav-content">
-            <ul className="mobile-nav-list">
+        <div className={`absolute top-full left-0 right-0 bg-white border-b border-gray-200 transition-all duration-300 max-h-[calc(100vh-80px)] overflow-y-auto ${isMenuOpen ? "translate-y-0 opacity-100 visible" : "-translate-y-full opacity-0 invisible"}`}>
+          <nav className="p-6 px-5">
+            <ul className="list-none m-0 p-0 mb-6">
               {navigationItems.map((item) => {
                 if (item.authRequired && !isSignedIn) return null;
                 return (
                   <li key={item.href}>
                     <a
                       href={item.href}
-                      className="mobile-nav-link"
+                      className="block px-4 py-4 text-gray-600 no-underline font-medium rounded-lg mb-2 transition-all duration-200 hover:bg-gray-50 hover:text-gray-800"
                       onClick={closeMenu}
                     >
                       {item.label}
@@ -121,34 +116,34 @@ export function Header({ isScrolled = false }: HeaderProps) {
 
             {isLoaded && isSignedIn && user
               ? (
-                <div className="mobile-user-section">
-                  <div className="mobile-user-info">
-                    <span className="user-avatar">
+                <div className="border-t border-gray-200 pt-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="w-10 h-10 bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white rounded-full flex items-center justify-center font-semibold text-sm">
                       {(user.firstName || user.emailAddresses[0]?.emailAddress || "U").charAt(0).toUpperCase()}
                     </span>
-                    <span className="user-email">{user.emailAddresses[0]?.emailAddress || ""}</span>
+                    <span className="text-sm text-gray-600 font-medium">{user.emailAddresses[0]?.emailAddress || ""}</span>
                   </div>
 
-                  <div className="mobile-user-actions">
-                    <a href="/dashboard" className="mobile-action-item">
+                  <div className="flex flex-col gap-2">
+                    <a href="/dashboard" className="block px-4 py-3 text-gray-600 no-underline rounded-lg text-sm font-medium transition-all duration-200 border-none bg-transparent cursor-pointer text-left w-full hover:bg-gray-50 hover:text-gray-800">
                       📊 Dashboard
                     </a>
-                    <a href="/profile" className="mobile-action-item">
+                    <a href="/profile" className="block px-4 py-3 text-gray-600 no-underline rounded-lg text-sm font-medium transition-all duration-200 border-none bg-transparent cursor-pointer text-left w-full hover:bg-gray-50 hover:text-gray-800">
                       👤 Profile
                     </a>
-                    <a href="/settings" className="mobile-action-item">
+                    <a href="/settings" className="block px-4 py-3 text-gray-600 no-underline rounded-lg text-sm font-medium transition-all duration-200 border-none bg-transparent cursor-pointer text-left w-full hover:bg-gray-50 hover:text-gray-800">
                       ⚙️ Settings
                     </a>
-                    <a href="/pricing" className="mobile-action-item">
+                    <a href="/pricing" className="block px-4 py-3 text-gray-600 no-underline rounded-lg text-sm font-medium transition-all duration-200 border-none bg-transparent cursor-pointer text-left w-full hover:bg-gray-50 hover:text-gray-800">
                       💎 Upgrade
                     </a>
                   </div>
                 </div>
               )
               : (
-                <div className="mobile-auth-section">
+                <div className="flex flex-col gap-3 border-t border-gray-200 pt-6">
                   <button
-                    className="btn btn-secondary mobile-btn"
+                    className="px-6 py-3 rounded-lg text-sm font-semibold border border-[#667eea] cursor-pointer transition-all duration-200 inline-flex items-center justify-center no-underline w-full bg-white text-[#667eea] hover:bg-[#667eea] hover:text-white"
                     onClick={() => {
                       closeMenu();
                       window.location.href = "/signin";
@@ -157,7 +152,7 @@ export function Header({ isScrolled = false }: HeaderProps) {
                     Sign In
                   </button>
                   <button
-                    className="btn btn-primary mobile-btn"
+                    className="px-6 py-3 rounded-lg text-sm font-semibold border-none cursor-pointer transition-all duration-200 inline-flex items-center justify-center no-underline w-full bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white shadow-[0_4px_15px_rgba(102,126,234,0.4)] hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(102,126,234,0.6)]"
                     onClick={() => {
                       closeMenu();
                       window.location.href = "/signup";
@@ -170,447 +165,14 @@ export function Header({ isScrolled = false }: HeaderProps) {
           </nav>
         </div>
 
-        {/* Mobile Overlay */}
         {isMenuOpen && (
           <div
-            className="mobile-overlay"
+            className="fixed inset-0 bg-black/50 z-[999]"
             onClick={closeMenu}
             aria-hidden="true"
           />
         )}
       </div>
-
-      <style jsx>
-        {`
-        .header {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          z-index: 1000;
-          background: rgba(255, 255, 255, 0.95);
-          backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-          transition: all 0.3s ease;
-        }
-
-        .header.scrolled {
-          background: rgba(255, 255, 255, 0.98);
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-          border-bottom-color: rgba(226, 232, 240, 1);
-        }
-
-        .container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 20px;
-          position: relative;
-        }
-
-        .header-content {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          height: 80px;
-        }
-
-        .logo a {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          text-decoration: none;
-          color: #2d3748;
-          font-weight: 700;
-          font-size: 1.25rem;
-          transition: opacity 0.2s ease;
-        }
-
-        .logo a:hover {
-          opacity: 0.8;
-        }
-
-        .logo-icon {
-          font-size: 2rem;
-        }
-
-        .nav-desktop {
-          display: none;
-        }
-
-        .nav-list {
-          display: flex;
-          align-items: center;
-          gap: 32px;
-          list-style: none;
-          margin: 0;
-          padding: 0;
-        }
-
-        .nav-link {
-          text-decoration: none;
-          color: #4a5568;
-          font-weight: 500;
-          font-size: 16px;
-          padding: 8px 16px;
-          border-radius: 8px;
-          transition: all 0.2s ease;
-          position: relative;
-        }
-
-        .nav-link:hover {
-          color: #2d3748;
-          background: #f7fafc;
-        }
-
-        .nav-link:active {
-          transform: translateY(1px);
-        }
-
-        .user-actions {
-          display: flex;
-          align-items: center;
-          gap: 16px;
-        }
-
-        .user-menu {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          position: relative;
-        }
-
-        .user-info {
-          display: none;
-          align-items: center;
-          gap: 12px;
-        }
-
-        .user-avatar {
-          width: 40px;
-          height: 40px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: 600;
-          font-size: 14px;
-        }
-
-        .user-email {
-          font-size: 14px;
-          color: #4a5568;
-          font-weight: 500;
-        }
-
-        .dropdown {
-          position: relative;
-        }
-
-        .dropdown-toggle {
-          background: none;
-          border: none;
-          cursor: pointer;
-          padding: 8px;
-          border-radius: 6px;
-          color: #4a5568;
-          transition: all 0.2s ease;
-          display: flex;
-          align-items: center;
-        }
-
-        .dropdown-toggle:hover {
-          background: #f7fafc;
-        }
-
-        .chevron {
-          font-size: 12px;
-          transition: transform 0.2s ease;
-        }
-
-        .dropdown-menu {
-          position: absolute;
-          top: 100%;
-          right: 0;
-          background: white;
-          border: 1px solid #e2e8f0;
-          border-radius: 12px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-          min-width: 200px;
-          padding: 8px;
-          margin-top: 8px;
-          animation: slideDown 0.2s ease;
-        }
-
-        @keyframes slideDown {
-          from {
-            opacity: 0;
-            transform: translateY(-8px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .dropdown-item {
-          display: block;
-          width: 100%;
-          padding: 12px 16px;
-          color: #4a5568;
-          text-decoration: none;
-          border-radius: 8px;
-          font-size: 14px;
-          font-weight: 500;
-          transition: all 0.2s ease;
-          border: none;
-          background: none;
-          cursor: pointer;
-          text-align: left;
-        }
-
-        .dropdown-item:hover {
-          background: #f7fafc;
-          color: #2d3748;
-        }
-
-        .dropdown-item.logout {
-          color: #e53e3e;
-        }
-
-        .dropdown-item.logout:hover {
-          background: #fed7d7;
-        }
-
-        .dropdown-separator {
-          height: 1px;
-          background: #e2e8f0;
-          margin: 8px 0;
-        }
-
-        .auth-buttons {
-          display: flex;
-          gap: 12px;
-        }
-
-        .btn {
-          padding: 12px 24px;
-          border-radius: 8px;
-          font-size: 14px;
-          font-weight: 600;
-          border: none;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          text-decoration: none;
-        }
-
-        .btn-primary {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
-          box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-primary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-        }
-
-        .btn-secondary {
-          background: white;
-          color: #667eea;
-          border: 1px solid #667eea;
-        }
-
-        .btn-secondary:hover {
-          background: #667eea;
-          color: white;
-        }
-
-        .mobile-toggle {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          width: 32px;
-          height: 32px;
-          background: none;
-          border: none;
-          cursor: pointer;
-          padding: 0;
-          position: relative;
-          z-index: 1001;
-        }
-
-        .hamburger span {
-          display: block;
-          width: 20px;
-          height: 2px;
-          background: #4a5568;
-          margin: 3px 0;
-          transition: 0.3s;
-          transform-origin: center;
-        }
-
-        .nav-mobile {
-          position: absolute;
-          top: 100%;
-          left: 0;
-          right: 0;
-          background: white;
-          border-bottom: 1px solid #e2e8f0;
-          transform: translateY(-100%);
-          opacity: 0;
-          visibility: hidden;
-          transition: all 0.3s ease;
-          max-height: calc(100vh - 80px);
-          overflow-y: auto;
-        }
-
-        .nav-mobile.open {
-          transform: translateY(0);
-          opacity: 1;
-          visibility: visible;
-        }
-
-        .mobile-nav-content {
-          padding: 24px 20px;
-        }
-
-        .mobile-nav-list {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-          margin-bottom: 24px;
-        }
-
-        .mobile-nav-link {
-          display: block;
-          padding: 16px;
-          color: #4a5568;
-          text-decoration: none;
-          font-weight: 500;
-          border-radius: 8px;
-          margin-bottom: 8px;
-          transition: all 0.2s ease;
-        }
-
-        .mobile-nav-link:hover {
-          background: #f7fafc;
-          color: #2d3748;
-        }
-
-        .mobile-user-section {
-          border-top: 1px solid #e2e8f0;
-          padding-top: 24px;
-        }
-
-        .mobile-user-info {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 16px;
-        }
-
-        .mobile-user-actions {
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-        }
-
-        .mobile-action-item {
-          display: block;
-          padding: 12px 16px;
-          color: #4a5568;
-          text-decoration: none;
-          border-radius: 8px;
-          font-size: 14px;
-          font-weight: 500;
-          transition: all 0.2s ease;
-          border: none;
-          background: none;
-          cursor: pointer;
-          text-align: left;
-          width: 100%;
-        }
-
-        .mobile-action-item:hover {
-          background: #f7fafc;
-          color: #2d3748;
-        }
-
-        .mobile-action-item.logout {
-          color: #e53e3e;
-        }
-
-        .mobile-action-item.logout:hover {
-          background: #fed7d7;
-        }
-
-        .mobile-auth-section {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-          border-top: 1px solid #e2e8f0;
-          padding-top: 24px;
-        }
-
-        .mobile-btn {
-          width: 100%;
-        }
-
-        .mobile-overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(0, 0, 0, 0.5);
-          z-index: 999;
-        }
-
-        @media (min-width: 768px) {
-          .nav-desktop {
-            display: block;
-          }
-
-          .user-info {
-            display: flex;
-          }
-
-          .mobile-toggle {
-            display: none;
-          }
-        }
-
-        @media (max-width: 767px) {
-          .auth-buttons {
-            display: none;
-          }
-
-          .user-info {
-            display: none;
-          }
-
-          .dropdown-menu {
-            right: -20px;
-          }
-        }
-
-        @media (min-width: 1024px) {
-          .header-content {
-            height: 90px;
-          }
-
-          .logo-text {
-            font-size: 1.5rem;
-          }
-
-          .nav-link {
-            font-size: 17px;
-          }
-        }
-      `}
-      </style>
     </header>
   );
 }
