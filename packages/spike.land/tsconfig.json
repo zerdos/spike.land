@@ -6,6 +6,7 @@
     "moduleResolution": "bundler",
     "composite": true,
     "incremental": true,
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
     "types": [
       "@cloudflare/workers-types/experimental",
       "@cloudflare/vitest-pool-workers"
@@ -34,5 +35,12 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": false
   },
-  "include": ["src/**/*", "tests/**/*", "test-mocks/**/*", "*.ts"]
+  "include": ["src/**/*", "tests/**/*", "test-mocks/**/*", "*.ts"],
+  "exclude": [
+    "node_modules",
+    "**/*.tsbuildinfo",
+    "**/dist/**",
+    "**/build/**",
+    "**/.wrangler/**"
+  ]
 }

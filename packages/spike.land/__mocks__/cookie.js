@@ -17,6 +17,6 @@ export const parse = (str) => {
   return cookies;
 };
 
-export const serialize = (name, value, _options = {}) => {
+export const serialize = (name, value) => {
   return `${name}=${value}`;
 };

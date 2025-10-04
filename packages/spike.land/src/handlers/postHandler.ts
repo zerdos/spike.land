@@ -1,13 +1,14 @@
 import { createAnthropic } from "@ai-sdk/anthropic";
-import { streamText, tool } from "ai";
-import type { ModelMessage } from "ai";
+import { jsonSchema, type Tool } from "@ai-sdk/provider-utils";
+import { streamText } from "ai";
+import type { ModelMessage, ToolSet } from "ai";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
 import type { McpTool } from "../mcpServer";
 import { StorageService } from "../services/storageService";
 import type { ErrorResponse, MessageContentPart, PostRequestBody } from "../types/aiRoutes";
 import { DEFAULT_CORS_HEADERS } from "../types/aiRoutes";
-import { JsonSchemaToZodConverter } from "../utils/jsonSchemaToZod";
+import { logger } from "../utils/logger";
 
 // Constants for validation
 const MAX_MESSAGE_LENGTH = 100000; // 100KB per message
@@ -37,14 +38,12 @@ type CoreMessage = ModelMessage;
 
 export class PostHandler {
   private storageService: StorageService;
-  private schemaConverter: JsonSchemaToZodConverter;
 
   constructor(
     private code: Code,
     private env: Env,
   ) {
     this.storageService = new StorageService(env);
-    this.schemaConverter = new JsonSchemaToZodConverter();
   }
 
   async handle(request: Request, _url: URL): Promise<Response> {
@@ -52,7 +51,7 @@ export class PostHandler {
 
     try {
       // Log incoming request details for debugging
-      console.log(`[AI Routes][${requestId}] Incoming request:`, {
+      logger.debug(`[AI Routes][${requestId}] Incoming request`, {
         method: request.method,
         url: request.url,
         contentType: request.headers.get("content-type"),
@@ -68,16 +67,17 @@ export class PostHandler {
       const body = await this.parseRequestBody(request);
 
       // Validate and clean tools in the request body
-      // NOTE: There's a known issue with AI SDK v4 when using Claude Sonnet 4
-      // The tool() helper generates input_schema.type: "string" instead of "object"
-      // See: https://github.com/vercel/ai/issues/7333
-      // Workaround: Use direct JSON schema format instead of the tool() helper
+      // We use direct JSON schema format instead of the tool() helper for Claude compatibility
+      // This avoids schema format issues with the AI SDK's tool() helper
+      // See: https://github.com/vercel/ai/issues/7333 (resolved)
       if (body.tools) {
-        console.log(
-          `[AI Routes][${requestId}] Request contains tools:`,
-          Array.isArray(body.tools)
-            ? `Array with ${body.tools.length} tools`
-            : `Object with keys: ${Object.keys(body.tools).join(", ")}`,
+        logger.debug(
+          `[AI Routes][${requestId}] Request contains tools`,
+          {
+            toolsInfo: Array.isArray(body.tools)
+              ? `Array with ${body.tools.length} tools`
+              : `Object with keys: ${Object.keys(body.tools).join(", ")}`,
+          },
         );
 
         // Check for various invalid tool formats and clean them
@@ -127,18 +127,20 @@ export class PostHandler {
           });
 
           if (invalidTools.length > 0) {
-            console.warn(
-              `[AI Routes][${requestId}] Found ${invalidTools.length} tools with invalid schemas:`,
-              invalidTools,
-              "\nThis is a known issue with AI SDK v4 and Claude Sonnet 4. Tools should use direct JSON schema format instead of the tool() helper.",
+            logger.warn(
+              `[AI Routes][${requestId}] Found ${invalidTools.length} tools with invalid schemas`,
+              {
+                invalidTools,
+                note: "This is a known issue with AI SDK v4 and Claude Sonnet 4. Tools should use direct JSON schema format instead of the tool() helper.",
+              },
             );
           }
         }
       }
 
       // We ignore tools from the request body and only use MCP-generated tools
-      console.log(
-        `[AI Routes][${requestId}] Ignoring tools from request body, will use MCP-generated tools instead.`,
+      logger.debug(
+        `[AI Routes][${requestId}] Ignoring tools from request body, will use MCP-generated tools instead`,
       );
 
       // Validate messages
@@ -175,7 +177,7 @@ export class PostHandler {
         requestId,
       );
     } catch (error) {
-      console.error(`[AI Routes][${requestId}] Error handling message:`, error);
+      logger.error(`[AI Routes][${requestId}] Error handling message`, error);
       return this.createErrorResponse(
         "Failed to process message",
         500,
@@ -188,14 +190,11 @@ export class PostHandler {
     try {
       return await request.json();
     } catch (parseError) {
-      console.error("[AI Routes] Failed to parse request body:", parseError);
-      throw new Error(
-        `Invalid JSON in request body: ${
-          parseError instanceof Error
-            ? parseError.message
-            : "Unknown parse error"
-        }`,
-      );
+      logger.error("[AI Routes] Failed to parse request body", parseError);
+      const errorMessage = parseError instanceof Error
+        ? parseError.message
+        : "Unknown parse error";
+      throw new Error(`Invalid JSON in request body: ${errorMessage}`);
     }
   }
 
@@ -378,9 +377,9 @@ export class PostHandler {
         ? m.content.length
         : m.content.length,
     }));
-    console.log(
-      `[AI Routes][${requestId}] Creating stream with ${messages.length} messages, summary:`,
-      messageSummary,
+    logger.debug(
+      `[AI Routes][${requestId}] Creating stream with ${messages.length} messages`,
+      { messageSummary },
     );
 
     // Create a copy of messages to avoid mutation
@@ -389,21 +388,21 @@ export class PostHandler {
 
     try {
       // Log tools structure for debugging
-      console.log(
+      logger.debug(
         `[AI Routes][${requestId}] Processing ${tools.length} tools for streaming`,
       );
 
       const processedTools = tools.reduce((acc, mcpTool) => {
         if (!mcpTool.inputSchema) {
-          console.warn(
+          logger.warn(
             `[AI Routes][${requestId}] Tool '${mcpTool.name}' has no inputSchema, skipping`,
           );
           return acc;
         }
 
         // Log the tool structure for debugging
-        console.log(
-          `[AI Routes][${requestId}] Processing tool '${mcpTool.name}':`,
+        logger.debug(
+          `[AI Routes][${requestId}] Processing tool '${mcpTool.name}'`,
           {
             hasInputSchema: !!mcpTool.inputSchema,
             inputSchemaType: mcpTool.inputSchema?.type,
@@ -413,22 +412,20 @@ export class PostHandler {
 
         // Validate that the inputSchema has type: 'object'
         if (mcpTool.inputSchema.type !== "object") {
-          console.error(
+          logger.error(
             `[AI Routes][${requestId}] Tool '${mcpTool.name}' has invalid inputSchema.type: '${mcpTool.inputSchema.type}', expected 'object'`,
           );
           return acc;
         }
 
-        // Convert JSON Schema to Zod schema for AI SDK
-        // The AI SDK requires Zod schemas for tool parameters
-        const zodSchema = this.schemaConverter.convert(mcpTool.inputSchema);
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const aiTool = (tool as any)({
+        // Use direct JSON schema format instead of tool() helper for Claude compatibility
+        // This avoids the AI SDK v4/v5 tool() helper issue with Claude Sonnet 4
+        // See: https://github.com/vercel/ai/issues/7333 (resolved by using direct schema)
+        const aiTool: Tool = {
           description: mcpTool.description,
-          parameters: zodSchema,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          execute: async (args: any) => {
+          inputSchema: jsonSchema(mcpTool.inputSchema as any), // Wrap MCP schema in AI SDK jsonSchema
+          execute: async (args: Record<string, unknown>) => {
             try {
               const response = await this.code.getMcpServer().executeTool(
                 mcpTool.name,
@@ -436,8 +433,8 @@ export class PostHandler {
               );
               return response;
             } catch (error) {
-              console.error(
-                `[AI Routes][${requestId}] Error executing tool ${mcpTool.name}:`,
+              logger.error(
+                `[AI Routes][${requestId}] Error executing tool ${mcpTool.name}`,
                 error,
               );
               throw new Error(
@@ -447,38 +444,31 @@ export class PostHandler {
               );
             }
           },
-        });
-        acc[mcpTool.name] = aiTool;
+        };
+        acc[mcpTool.name] = aiTool as never;
         return acc;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      }, {} as Record<string, any>);
+      }, {} as any as ToolSet);
 
-      // Check if we should disable tools due to AI SDK compatibility issues
-      const disableTools = this.env.DISABLE_AI_TOOLS === "true";
-
-      if (disableTools) {
-        console.warn(
-          `[AI Routes][${requestId}] AI tools are disabled via DISABLE_AI_TOOLS environment variable`,
-        );
-      }
-
-      // Log the tools being sent to debug the format issue
-      if (!disableTools && processedTools) {
-        console.log(
-          `[AI Routes][${requestId}] Sending tools to streamText:`,
-          JSON.stringify(Object.keys(processedTools)),
+      // Log the tools being sent
+      if (processedTools && Object.keys(processedTools).length > 0) {
+        logger.debug(
+          `[AI Routes][${requestId}] Sending ${Object.keys(processedTools).length} tools to streamText`,
+          { tools: Object.keys(processedTools) },
         );
 
         // Enable debug mode for Anthropic proxy if needed
         if (this.env.DEBUG_ANTHROPIC_PROXY === "true") {
-          console.log(
-            `[AI Routes][${requestId}] Full tools object:`,
-            JSON.stringify(processedTools, (key, value) => {
-              if (key === "execute" || key === "parameters") {
-                return "[Function/Schema]";
-              }
-              return value;
-            }, 2),
+          logger.debug(
+            `[AI Routes][${requestId}] Full tools object`,
+            {
+              processedTools: JSON.parse(JSON.stringify(processedTools, (key, value) => {
+                if (key === "execute" || key === "inputSchema") {
+                  return "[Function/Schema]";
+                }
+                return value;
+              })),
+            },
           );
         }
       }
@@ -487,10 +477,9 @@ export class PostHandler {
         model: anthropic("claude-4-sonnet-20250514"),
         system: systemPrompt,
         messages,
-        tools: disableTools ? undefined : processedTools,
-        toolChoice: disableTools ? undefined : "auto",
-        // maxSteps: disableTools ? undefined : 10,
-        onStepFinish: disableTools ? undefined : async (stepResult) => {
+        tools: processedTools,
+        toolChoice: Object.keys(processedTools).length > 0 ? "auto" : undefined,
+        onStepFinish: async (stepResult) => {
           if (stepResult.toolResults && stepResult.toolResults.length > 0) {
             try {
               // Work with the copy instead of mutating the original
@@ -507,8 +496,8 @@ export class PostHandler {
                 messages: messagesCopy,
               });
             } catch (error) {
-              console.error(
-                `[AI Routes][${requestId}] Error saving messages after tool call:`,
+              logger.error(
+                `[AI Routes][${requestId}] Error saving messages after tool call`,
                 error,
               );
               // Store the error to be handled after stream creation
@@ -522,7 +511,7 @@ export class PostHandler {
 
       // If there was an error during streaming, we should handle it appropriately
       if (streamError) {
-        console.warn(
+        logger.warn(
           `[AI Routes][${requestId}] Stream completed with errors during tool execution`,
         );
       }
@@ -541,21 +530,17 @@ export class PostHandler {
         });
       }
 
-      // If no methods are available, return a fallback response
+      // If no methods are available, we have an issue
+      logger.error(`[AI Routes][${requestId}] No streaming methods available on result`);
       return new Response(JSON.stringify({ error: "Streaming not supported" }), {
         status: 500,
         headers: this.getCorsHeaders(),
       });
-
-      // If no methods are available, we have an issue
-      console.error(`[AI Routes][${requestId}] No streaming methods available on result`);
-      throw new Error("Streaming methods not available on streamText result");
     } catch (streamError) {
-      console.error(`[AI Routes][${requestId}] Stream error details:`, {
+      logger.error(`[AI Routes][${requestId}] Stream error details`, streamError, {
         message: streamError instanceof Error
           ? streamError.message
           : "Unknown error",
-        stack: streamError instanceof Error ? streamError.stack : undefined,
       });
       throw streamError;
     }

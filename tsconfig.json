@@ -5,6 +5,7 @@
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "incremental": true,
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
     "isolatedModules": true,
     "target": "esnext",
     "module": "esnext",
@@ -38,6 +39,16 @@
     { "path": "./packages/spike.land/tsconfig.json" },
     { "path": "./packages/spike-land-renderer/tsconfig.json" }
   ],
-  "exclude": ["dts", "node_modules", "dist", "packages/chat"],
+  "exclude": [
+    "dts",
+    "node_modules",
+    "dist",
+    "packages/chat",
+    "**/*.tsbuildinfo",
+    "**/dist/**",
+    "**/build/**",
+    "**/.next/**",
+    "**/.open-next/**"
+  ],
   "include": ["eslint.config.js"]
 }

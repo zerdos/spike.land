@@ -1,8 +1,11 @@
 import { nanoid } from "nanoid";
 import { DatabaseManager } from "../../lib/database";
-import type { APIResponse, AuthContext, Env, Message, User as _User } from "../types";
+import type { APIResponse, Env, Message, User as _User } from "../types";
 import { AIService, type AIServiceResponse } from "../utils/ai";
 import { AuthService } from "../utils/auth";
+import type { ILogger } from "../utils/interfaces/ILogger";
+import type { IRateLimiter, IAIService, IAuthService, IWebSocketBroadcaster } from "../utils/interfaces/IExternalServices";
+import { logger as defaultLogger } from "../utils/logger";
 
 export interface ChatRequest {
   message: string;
@@ -18,48 +21,118 @@ export interface ChatResponse {
   tokensUsed: number;
 }
 
-export class ChatAPI {
-  private env: Env;
-  private authService: AuthService;
-  private aiService: AIService;
-  private db: DatabaseManager;
+/**
+ * Dependencies for ChatAPI with dependency injection
+ */
+export interface ChatAPIDependencies {
+  /** Logger instance for structured logging */
+  logger: ILogger;
+  /** Rate limiter for API throttling */
+  rateLimiter: IRateLimiter;
+  /** AI service for generating responses */
+  aiService: IAIService;
+  /** Authentication service */
+  authService: IAuthService;
+  /** WebSocket broadcaster */
+  webSocketBroadcaster: IWebSocketBroadcaster;
+  /** Database manager */
+  db: DatabaseManager;
+}
 
-  constructor(env: Env) {
-    this.env = env;
-    this.authService = new AuthService(env);
-    this.aiService = new AIService(env);
-    this.db = new DatabaseManager(env);
+/**
+ * ChatAPI refactored with dependency injection for better testability
+ * and flexibility. External dependencies are now injected rather than
+ * hard-coded.
+ */
+export class ChatAPI {
+  private readonly logger: ILogger;
+  private readonly rateLimiter: IRateLimiter;
+  private readonly aiService: IAIService;
+  private readonly authService: IAuthService;
+  private readonly webSocketBroadcaster: IWebSocketBroadcaster;
+  private readonly db: DatabaseManager;
+
+  constructor(
+    private readonly env: Env,
+    dependencies: Partial<ChatAPIDependencies> = {},
+  ) {
+    // Use injected dependencies or fall back to defaults
+    this.logger = dependencies.logger ?? this.createDefaultLogger();
+    this.rateLimiter = dependencies.rateLimiter ?? this.createDefaultRateLimiter();
+    this.aiService = dependencies.aiService ?? new AIService(env);
+    this.authService = dependencies.authService ?? new AuthService(env);
+    this.webSocketBroadcaster = dependencies.webSocketBroadcaster ?? this.createDefaultBroadcaster();
+    this.db = dependencies.db ?? new DatabaseManager(env);
+  }
+
+  /**
+   * Create default logger using existing logger utility
+   */
+  private createDefaultLogger(): ILogger {
+    return defaultLogger;
+  }
+
+  /**
+   * Create default rate limiter using KV store
+   */
+  private createDefaultRateLimiter(): IRateLimiter {
+    return {
+      checkLimit: async (key: string, limit: number, _window: number): Promise<boolean> => {
+        const value = await this.env.KV_STORE.get(key);
+        if (!value) return true;
+        const requests = parseInt(value);
+        return requests < limit;
+      },
+      increment: async (key: string, window: number): Promise<number> => {
+        const value = await this.env.KV_STORE.get(key);
+        const requests = value ? parseInt(value) + 1 : 1;
+        await this.env.KV_STORE.put(key, requests.toString(), { expirationTtl: window });
+        return requests;
+      },
+    };
+  }
+
+  /**
+   * Create default WebSocket broadcaster
+   */
+  private createDefaultBroadcaster(): IWebSocketBroadcaster {
+    return {
+      broadcast: async (roomId: string, message: unknown): Promise<void> => {
+        const id = this.env.CHAT_ROOM.idFromName(roomId);
+        const room = this.env.CHAT_ROOM.get(id);
+        await room.fetch(
+          new Request("https://chat/broadcast", {
+            method: "POST",
+            body: JSON.stringify(message),
+          }),
+        );
+      },
+    };
   }
 
   async chat(request: Request): Promise<Response> {
     try {
-      // Rate limiting check
+      // Rate limiting check using injected rate limiter
       const clientIP = request.headers.get("cf-connecting-ip") ||
         request.headers.get("x-forwarded-for") ||
         "unknown";
       const rateLimitKey = `chat_rate_limit:${clientIP}`;
 
-      const rateLimitCheck = await this.env.KV_STORE.get(rateLimitKey);
-      if (rateLimitCheck) {
-        const requests = parseInt(rateLimitCheck);
-        if (requests >= 60) { // 60 requests per minute
-          return this.errorResponse(
-            "Rate limit exceeded. Please try again later.",
-            429,
-          );
-        }
-        await this.env.KV_STORE.put(
-          rateLimitKey,
-          (requests + 1).toString(),
-          { expirationTtl: 60 },
+      const isAllowed = await this.rateLimiter.checkLimit(rateLimitKey, 60, 60);
+      if (!isAllowed) {
+        this.logger.warn("Rate limit exceeded", { clientIP, key: rateLimitKey });
+        return this.errorResponse(
+          "Rate limit exceeded. Please try again later.",
+          429,
         );
-      } else {
-        await this.env.KV_STORE.put(rateLimitKey, "1", { expirationTtl: 60 });
       }
 
-      // Authentication
-      const authContext: AuthContext | null = await this.authService.verifyRequest(request);
+      await this.rateLimiter.increment(rateLimitKey, 60);
+
+      // Authentication using injected auth service
+      const authContext = await this.authService.verifyRequest(request);
       if (!authContext) {
+        this.logger.warn("Unauthorized request", { clientIP });
         return this.errorResponse("Unauthorized. Please provide valid authentication.", 401);
       }
 
@@ -67,8 +140,12 @@ export class ChatAPI {
       let body: ChatRequest;
       try {
         body = await request.json();
-      } catch {
-        return this.errorResponse("Invalid JSON in request body", 400);
+      } catch (parseError) {
+        this.logger.error("Failed to parse request body", parseError);
+        return this.errorResponse(
+          `Invalid JSON in request body: ${parseError instanceof Error ? parseError.message : "Unknown error"}`,
+          400,
+        );
       }
 
       // Validate required fields
@@ -132,7 +209,8 @@ export class ChatAPI {
         { role: "user" as const, content: body.message },
       ];
 
-      // Generate AI response
+      // Generate AI response using injected AI service
+      this.logger.debug("Generating AI response", { model, messageCount: messages.length });
       const aiResponse: AIServiceResponse = await this.aiService.generateResponse({
         model,
         messages,
@@ -141,11 +219,17 @@ export class ChatAPI {
       });
 
       if (!aiResponse.success || !aiResponse.response) {
+        this.logger.error("AI response generation failed", aiResponse.error);
         return this.errorResponse(
           aiResponse.error || "Failed to generate AI response",
           500,
         );
       }
+
+      this.logger.info("AI response generated successfully", {
+        conversationId,
+        tokensUsed: aiResponse.tokensUsed,
+      });
 
       // Save AI response
       const assistantMessageId = nanoid();
@@ -163,7 +247,7 @@ export class ChatAPI {
         await this.db.updateUser(user.id, { credits: newCredits });
       }
 
-      // Broadcast to WebSocket clients
+      // Broadcast to WebSocket clients using injected broadcaster
       try {
         const wsMessage = {
           type: "message",
@@ -172,16 +256,10 @@ export class ChatAPI {
           userId: authContext.userId,
         };
 
-        const roomId = this.env.CHAT_ROOM.idFromName(conversationId);
-        const room = this.env.CHAT_ROOM.get(roomId);
-        await room.fetch(
-          new Request("https://chat/broadcast", {
-            method: "POST",
-            body: JSON.stringify(wsMessage),
-          }),
-        );
+        await this.webSocketBroadcaster.broadcast(conversationId, wsMessage);
+        this.logger.debug("WebSocket broadcast successful", { conversationId });
       } catch (wsError) {
-        console.error("WebSocket broadcast error:", wsError);
+        this.logger.error("WebSocket broadcast error", wsError);
         // Don't fail the request if WebSocket broadcast fails
       }
 
@@ -193,7 +271,7 @@ export class ChatAPI {
 
       return this.successResponse(response);
     } catch (error) {
-      console.error("Chat API error:", error);
+      this.logger.error("Chat API error", error);
       return this.errorResponse("Internal server error", 500);
     }
   }

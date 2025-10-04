@@ -19,11 +19,6 @@ export class LiveRoutes {
       return this.aiRoutes.handleMessagesRoute(request, url, path);
     }
 
-    // /live/${codeSpace}/mcp
-    if (path[2] === "mcp") {
-      return this.handleMcpRoute(request, url, path);
-    }
-
     if (path[3] === "index.tsx" && path[4]) {
       const timestamp = parseInt(path[4]);
       const savedVersion = await this.code.getState().storage.get(
@@ -44,30 +39,6 @@ export class LiveRoutes {
     }
 
     return new Response("Not found", { status: 404 });
-  }
-
-  // Handles /live/${codeSpace}/mcp - This is just a legacy route that should not be used
-  // The actual MCP server is available at /mcp
-  private async handleMcpRoute(
-    _request: Request,
-    _url: URL,
-    _path: string[],
-  ): Promise<Response> {
-    // This route should not be used anymore - return an error directing to the correct endpoint
-    return new Response(
-      JSON.stringify({
-        jsonrpc: "2.0",
-        id: crypto.randomUUID(),
-        error: {
-          code: -32601,
-          message: "This MCP route is deprecated. Please use POST /mcp instead",
-        },
-      }),
-      {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      },
-    );
   }
 
   async handleLazyRoute(

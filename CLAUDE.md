@@ -92,9 +92,11 @@ spike.land is a real-time collaborative code playground built with:
 - **Backend**: Cloudflare Workers, Durable Objects, R2 storage
 - **Real-time**: WebSocket connections for live collaboration
 - **Architecture**: Monorepo with Yarn workspaces
+- **Authentication**: Unified auth system with Clerk and JWT providers
 
 ### Key Packages
 - `packages/code`: Frontend React application with Monaco editor
+  - Contains unified auth library at `src/@/lib/auth/`
 - `packages/spike.land`: Backend Cloudflare Workers with WebSocket handling
 - `packages/spike-land-renderer`: Frontend renderer components
 - `packages/code-worker`: Web Worker for code execution
@@ -103,6 +105,39 @@ spike.land is a real-time collaborative code playground built with:
   - Deployed at: https://spike-chat-dev.spikeland.workers.dev
   - Features: Conversation management, WebSocket support, subscription tiers
   - Testing: Cucumber tests with Playwright for E2E testing
+
+## Authentication System
+
+### Unified Authentication Library
+Located at `packages/code/src/@/lib/auth/`, provides:
+- Multiple auth providers (Clerk primary, JWT fallback)
+- OWASP compliant security practices
+- Rate limiting and CSRF protection
+- Session management with automatic refresh
+- React hooks for frontend integration
+- Middleware for backend services
+- Comprehensive audit logging
+
+### Using Authentication
+
+#### Frontend
+```typescript
+import { useAuth, useRequireAuth } from "@/lib/auth";
+
+// In components
+const { user, signIn, signOut } = useAuth();
+useRequireAuth("/login"); // Protect routes
+```
+
+#### Backend
+```typescript
+import { authMiddleware } from "@/lib/auth/middleware";
+
+// Apply to routes
+app.use(authMiddleware.hono({ requireAuth: true }));
+```
+
+See `AUTH_ARCHITECTURE.md` for complete documentation.
 
 ## Build & Test Commands
 
@@ -244,10 +279,10 @@ Use Ref MCP to check these common areas:
 - **Memory leak warnings during tests**: Already mitigated with proper cleanup and --no-warnings flag
 - **"Tests closed successfully but something prevents main process from exiting"**: Expected behavior with vitest worker pools, not an actual issue
 - **WebSocket mock cleanup**: Ensure all WebSocket sessions are properly closed in afterEach hooks
-- **AI SDK v4 tool compatibility with Claude Sonnet 4**: The AI SDK v4 has a known issue where the `tool()` helper generates incorrect schema format for Claude. See https://github.com/vercel/ai/issues/7333
-  - **Workaround**: Set `DISABLE_AI_TOOLS=true` in your environment variables to disable tools temporarily
-  - **Alternative**: Use direct JSON schema format instead of the AI SDK's `tool()` helper
-  - **Debug Mode**: Set `DEBUG_ANTHROPIC_PROXY=true` to enable debug logging for Anthropic proxy requests
+- **AI SDK tool compatibility with Claude (RESOLVED)**: Previously, the AI SDK's `tool()` helper generated incorrect schema format for Claude. This has been fixed by using direct JSON schema format instead of the `tool()` helper. See https://github.com/vercel/ai/issues/7333
+  - **Solution Implemented**: The code now uses direct JSON schema objects with `inputSchema` property instead of the `tool()` helper wrapper
+  - **Tools are now enabled by default**: No need for `DISABLE_AI_TOOLS` environment variable
+  - **Debug Mode**: Set `DEBUG_ANTHROPIC_PROXY=true` to enable debug logging for Anthropic proxy requests if needed
 - **ES Module configuration for Chat Package**: The chat package uses ES modules with TypeScript
   - Cucumber tests run with `npx tsx` for proper TypeScript support
   - Configuration in `cucumber.json` uses `import` instead of `require`

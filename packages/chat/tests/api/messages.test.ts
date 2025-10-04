@@ -25,11 +25,30 @@ vi.mock("../../src/utils/ai", () => ({
   })),
 }));
 
+interface MockAuthService {
+  verifyRequest: ReturnType<typeof vi.fn>;
+  getUserFromClerkId: ReturnType<typeof vi.fn>;
+  checkUserCredits: ReturnType<typeof vi.fn>;
+  deductCredits: ReturnType<typeof vi.fn>;
+  addCredits: ReturnType<typeof vi.fn>;
+  updateSubscription: ReturnType<typeof vi.fn>;
+  createOrUpdateUser: ReturnType<typeof vi.fn>;
+}
+
+interface MockAIService {
+  generateResponse: ReturnType<typeof vi.fn>;
+  countTokens: ReturnType<typeof vi.fn>;
+  moderateContent: ReturnType<typeof vi.fn>;
+  generateTitle: ReturnType<typeof vi.fn>;
+  summarizeConversation: ReturnType<typeof vi.fn>;
+  extractKeywords: ReturnType<typeof vi.fn>;
+}
+
 describe("MessagesAPI", () => {
   let api: MessagesAPI;
   let mockEnv: Env;
-  let mockAuth: any;
-  let mockAI: any;
+  let mockAuth: MockAuthService;
+  let mockAI: MockAIService;
 
   beforeEach(() => {
     mockEnv = {
@@ -39,21 +58,21 @@ describe("MessagesAPI", () => {
         all: vi.fn(),
         first: vi.fn(),
         run: vi.fn(),
-      } as any,
+      } as unknown as Env["DATABASE"],
       R2_BUCKET: {
         put: vi.fn(),
-      } as any,
-      KV_STORE: {} as any,
-      QUEUE: {} as any,
+      } as unknown as Env["R2_BUCKET"],
+      KV_STORE: {} as Env["KV_STORE"],
+      QUEUE: {} as Env["QUEUE"],
       CHAT_ROOM: {
         idFromName: vi.fn().mockReturnValue("room-id"),
         get: vi.fn().mockReturnValue({
           fetch: vi.fn().mockResolvedValue(new Response("OK")),
         }),
-      } as any,
+      } as unknown as Env["CHAT_ROOM"],
       AI: {
         run: vi.fn(),
-      } as any,
+      } as unknown as Env["AI"],
       CLERK_SECRET_KEY: "test-key",
       CLERK_WEBHOOK_SECRET: "test-webhook-secret",
       STRIPE_SECRET_KEY: "test-stripe-key",
@@ -64,8 +83,8 @@ describe("MessagesAPI", () => {
     };
 
     api = new MessagesAPI(mockEnv);
-    mockAuth = (api as any).auth;
-    mockAI = (api as any).ai;
+    mockAuth = (api as unknown as { auth: MockAuthService; }).auth;
+    mockAI = (api as unknown as { ai: MockAIService; }).ai;
   });
 
   describe("send", () => {

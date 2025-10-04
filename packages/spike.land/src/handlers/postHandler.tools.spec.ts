@@ -11,13 +11,20 @@ import { PostHandler } from "./postHandler";
 vi.mock("@ai-sdk/anthropic");
 vi.mock("ai");
 vi.mock("../services/storageService");
+vi.mock("../utils/logger", () => ({
+  logger: {
+    debug: vi.fn(),
+    info: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
+  },
+}));
 
 describe("PostHandler - Tool Schema Validation", () => {
   let postHandler: PostHandler;
   let mockCode: Code;
   let mockEnv: Env;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let mockStreamResponse: StreamTextResult<any, any>;
+  let mockStreamResponse: StreamTextResult<Record<string, never>, unknown>;
   let mockToDataStreamResponse: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
@@ -31,8 +38,7 @@ describe("PostHandler - Tool Schema Validation", () => {
       warnings: [],
       usage: {},
       experimental_providerMetadata: undefined,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } as unknown as StreamTextResult<any, any>;
+    } as unknown as StreamTextResult<Record<string, never>, unknown>;
 
     // Default mock for streamText
     vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
@@ -118,12 +124,10 @@ describe("PostHandler - Tool Schema Validation", () => {
 
       // Mock streamText to capture the tools being passed
       vi.mocked(streamText).mockImplementation(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ((options: any) => {
-          capturedTools = options.tools;
+        ((options: Parameters<typeof streamText>[0]) => {
+          capturedTools = options.tools as Record<string, unknown> | undefined;
           return Promise.resolve(mockStreamResponse);
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        }) as any,
+        }) as typeof streamText,
       );
 
       // Mock createAnthropic to return a provider
@@ -217,19 +221,16 @@ describe("PostHandler - Tool Schema Validation", () => {
       });
     });
 
-    it("should handle DISABLE_AI_TOOLS environment variable", async () => {
-      // Set the environment variable
-      mockEnv.DISABLE_AI_TOOLS = "true";
+    it("should always enable tools when available", async () => {
+      // Tools should be enabled regardless of environment variable
+      mockEnv.DISABLE_AI_TOOLS = "true"; // This should be ignored
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let capturedOptions: any;
+      let capturedOptions: Parameters<typeof streamText>[0] | undefined;
       vi.mocked(streamText).mockImplementation(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ((options: any) => {
+        ((options: Parameters<typeof streamText>[0]) => {
           capturedOptions = options;
           return Promise.resolve(mockStreamResponse);
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        }) as any,
+        }) as typeof streamText,
       );
 
       const mockProvider = vi.fn(() => ({
@@ -247,25 +248,22 @@ describe("PostHandler - Tool Schema Validation", () => {
 
       await postHandler.handle(request, new URL("https://test.spike.land"));
 
-      // Verify tools are disabled
-      expect(capturedOptions.tools).toBeUndefined();
-      expect(capturedOptions.toolChoice).toBeUndefined();
-      expect(capturedOptions.maxSteps).toBeUndefined();
+      // Verify tools are always enabled when available
+      expect(capturedOptions.tools).toBeDefined();
+      expect(capturedOptions.toolChoice).toBe("auto");
+      expect(capturedOptions.maxSteps).toBe(10);
     });
   });
 
   describe("Tool Format Sent to API", () => {
     it("should not wrap tools in 'custom' property", async () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let capturedTools: any;
+      let capturedTools: Record<string, unknown> | undefined;
 
       vi.mocked(streamText).mockImplementation(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ((options: any) => {
-          capturedTools = options.tools;
+        ((options: Parameters<typeof streamText>[0]) => {
+          capturedTools = options.tools as Record<string, unknown> | undefined;
           return Promise.resolve(mockStreamResponse);
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        }) as any,
+        }) as typeof streamText,
       );
 
       const mockProvider = vi.fn(() => ({
@@ -294,16 +292,13 @@ describe("PostHandler - Tool Schema Validation", () => {
     });
 
     it("should create valid tool execute functions", async () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let capturedTools: any;
+      let capturedTools: Record<string, unknown> | undefined;
 
       vi.mocked(streamText).mockImplementation(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ((options: any) => {
-          capturedTools = options.tools;
+        ((options: Parameters<typeof streamText>[0]) => {
+          capturedTools = options.tools as Record<string, unknown> | undefined;
           return Promise.resolve(mockStreamResponse);
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        }) as any,
+        }) as typeof streamText,
       );
 
       const mockProvider = vi.fn(() => ({
@@ -338,7 +333,8 @@ describe("PostHandler - Tool Schema Validation", () => {
 
   describe("Schema Validation Before API Call", () => {
     it("should validate tool schemas before sending to streamText", async () => {
-      const consoleSpy = vi.spyOn(console, "log");
+      const { logger } = await import("../utils/logger");
+      const loggerDebugSpy = vi.mocked(logger.debug);
 
       vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
 
@@ -358,8 +354,8 @@ describe("PostHandler - Tool Schema Validation", () => {
       await postHandler.handle(request, new URL("https://test.spike.land"));
 
       // Check that tool processing logs show correct schema type
-      // The actual log message is "[AI Routes][requestId] Processing tool 'toolname':"
-      const toolLogs = consoleSpy.mock.calls.filter(call =>
+      // The actual log message is "[AI Routes][requestId] Processing tool 'toolname'"
+      const toolLogs = loggerDebugSpy.mock.calls.filter(call =>
         typeof call[0] === "string" && call[0].includes("Processing tool")
       );
 
@@ -374,7 +370,8 @@ describe("PostHandler - Tool Schema Validation", () => {
     });
 
     it("should skip tools without inputSchema", async () => {
-      const consoleWarnSpy = vi.spyOn(console, "warn");
+      const { logger } = await import("../utils/logger");
+      const loggerWarnSpy = vi.mocked(logger.warn);
 
       // Add a tool without inputSchema
       const tools = mockCode.getMcpServer().tools;
@@ -402,7 +399,7 @@ describe("PostHandler - Tool Schema Validation", () => {
       await postHandler.handle(request, new URL("https://test.spike.land"));
 
       // Verify warning was logged - check all warn calls
-      const warnCalls = consoleWarnSpy.mock.calls;
+      const warnCalls = loggerWarnSpy.mock.calls;
       const hasExpectedWarning = warnCalls.some(call =>
         call.some(arg =>
           typeof arg === "string" &&

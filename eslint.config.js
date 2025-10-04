@@ -1,16 +1,9 @@
 // eslint.config.js
-import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-// Create a flat compat instance for legacy configs
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+import tseslint from "@typescript-eslint/eslint-plugin";
+import tsparser from "@typescript-eslint/parser";
+import react from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
 
 export default [
   js.configs.recommended,
@@ -30,6 +23,7 @@ export default [
       "**/test-mocks/**/*",
       "**/tests/**/*",
       "**/.next/**/*",
+      "**/.open-next/**/*",
       "**/out/**/*",
       "**/.nuxt/**/*",
       "**/.svelte-kit/**/*",
@@ -53,25 +47,48 @@ export default [
     ],
   },
 
-  // TypeScript files
-  ...compat.extends(
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-  ),
-
-  // Common config for JS and TS
+  // TypeScript and React configuration
   {
-    files: ["**/*.{js,mjs,cjs,jsx,ts,tsx}"],
+    files: ["**/*.{ts,tsx}"],
+    languageOptions: {
+      parser: tsparser,
+      ecmaVersion: 2022,
+      sourceType: "module",
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: {
+        "process": "readonly",
+        "console": "readonly",
+        "__dirname": "readonly",
+        "__filename": "readonly",
+        "fetch": "readonly",
+        "WebSocket": "readonly",
+      },
+    },
+    plugins: {
+      "@typescript-eslint": tseslint,
+      "react": react,
+      "react-hooks": reactHooks,
+    },
     rules: {
-      // React rules
+      // TypeScript recommended rules
+      ...tseslint.configs.recommended.rules,
+      // React recommended rules
+      ...react.configs.recommended.rules,
+      // React hooks recommended rules
+      ...reactHooks.configs.recommended.rules,
+
+      // React rules overrides
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
       "react/display-name": "off",
       "react/jsx-uses-react": "off",
       "react/no-unknown-property": "off",
 
-      // TypeScript rules
+      // TypeScript rules overrides
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {
@@ -95,9 +112,24 @@ export default [
       "prefer-const": "error",
       "no-undef": "off",
     },
+    settings: {
+      react: {
+        version: "19.0",
+      },
+    },
+  },
+
+  // JavaScript files configuration
+  {
+    files: ["**/*.{js,jsx,mjs,cjs}"],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: "module",
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
       globals: {
         "process": "readonly",
         "console": "readonly",
@@ -106,11 +138,27 @@ export default [
         "fetch": "readonly",
         "WebSocket": "readonly",
       },
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
+    },
+    plugins: {
+      "react": react,
+      "react-hooks": reactHooks,
+    },
+    rules: {
+      // React recommended rules
+      ...react.configs.recommended.rules,
+      // React hooks recommended rules
+      ...reactHooks.configs.recommended.rules,
+
+      // React rules overrides
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
+      "react/display-name": "off",
+      "react/jsx-uses-react": "off",
+      "react/no-unknown-property": "off",
+
+      // General rules
+      "prefer-const": "error",
+      "no-undef": "off",
     },
     settings: {
       react: {
@@ -122,14 +170,7 @@ export default [
   // .mjs specific rules
   {
     files: ["**/*.mjs"],
-    languageOptions: {
-      globals: {
-        "process": "readonly",
-        "console": "readonly",
-      },
-    },
     rules: {
-      "@typescript-eslint/no-unused-expressions": "off",
       "no-unused-expressions": "off",
     },
   },
@@ -148,13 +189,6 @@ export default [
         "module": "readonly",
         "exports": "readonly",
       },
-    },
-    rules: {
-      // Allow require() in .cjs files
-      "@typescript-eslint/no-var-requires": "off",
-      "@typescript-eslint/no-require-imports": "off",
-      // Disable import/export rules for CommonJS
-      "@typescript-eslint/consistent-type-imports": "off",
     },
   },
 ];

@@ -1,13 +1,25 @@
 import { vi } from "vitest";
 
+interface OpenAIParams {
+  model?: string;
+  stream?: boolean;
+  error?: boolean;
+  [key: string]: unknown;
+}
+
 export function setupOpenAIMock() {
   global.OpenAI = class {
-    public audio: any;
-    public chat: any;
+    public audio: {
+      speech: { create: ReturnType<typeof vi.fn>; };
+      transcriptions: { create: ReturnType<typeof vi.fn>; };
+    };
+    public chat: {
+      completions: { create: ReturnType<typeof vi.fn>; };
+    };
     constructor() {
       this.audio = {
         speech: {
-          create: vi.fn().mockImplementation(async (params: any) => {
+          create: vi.fn().mockImplementation(async (params: OpenAIParams) => {
             if (params.model === "tts-1" || params.model === "tts-1-hd") {
               return {
                 status: 200,
@@ -19,7 +31,7 @@ export function setupOpenAIMock() {
           }),
         },
         transcriptions: {
-          create: vi.fn().mockImplementation(async (params: any) => {
+          create: vi.fn().mockImplementation(async (params: OpenAIParams) => {
             if (params.error) {
               throw new Error("Transcription error");
             }
@@ -30,7 +42,7 @@ export function setupOpenAIMock() {
 
       this.chat = {
         completions: {
-          create: vi.fn().mockImplementation(async (params: any) => {
+          create: vi.fn().mockImplementation(async (params: OpenAIParams) => {
             if (params.stream) {
               return {
                 [Symbol.asyncIterator]: async function*() {
@@ -56,7 +68,7 @@ export function setupOpenAIMock() {
   global.openai = {
     audio: {
       speech: {
-        create: vi.fn().mockImplementation(async (params: any) => {
+        create: vi.fn().mockImplementation(async (params: OpenAIParams) => {
           if (params.model === "tts-1" || params.model === "tts-1-hd") {
             return {
               status: 200,
@@ -68,7 +80,7 @@ export function setupOpenAIMock() {
         }),
       },
       transcriptions: {
-        create: vi.fn().mockImplementation(async (params: any) => {
+        create: vi.fn().mockImplementation(async (params: OpenAIParams) => {
           if (params.error) {
             throw new Error("Transcription error");
           }
@@ -78,7 +90,7 @@ export function setupOpenAIMock() {
     },
     chat: {
       completions: {
-        create: vi.fn().mockImplementation(async (params: any) => {
+        create: vi.fn().mockImplementation(async (params: OpenAIParams) => {
           if (params.stream) {
             return {
               [Symbol.asyncIterator]: async function*() {

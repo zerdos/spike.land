@@ -69,7 +69,7 @@ describe("ChatRoom", () => {
 
       // Mock Response to allow status 101
       const OriginalResponse = global.Response;
-      global.Response = vi.fn((body: any, init: any) => {
+      global.Response = vi.fn((body: BodyInit | null | undefined, init: ResponseInit | undefined) => {
         if (init?.status === 101) {
           // Create a mock response object that looks like a WebSocket upgrade
           return {

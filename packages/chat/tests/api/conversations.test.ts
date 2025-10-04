@@ -15,11 +15,21 @@ vi.mock("../../src/utils/auth", () => ({
   })),
 }));
 
+interface MockAuthService {
+  verifyRequest: ReturnType<typeof vi.fn>;
+  getUserFromClerkId: ReturnType<typeof vi.fn>;
+  checkUserCredits: ReturnType<typeof vi.fn>;
+  deductCredits: ReturnType<typeof vi.fn>;
+  addCredits: ReturnType<typeof vi.fn>;
+  updateSubscription: ReturnType<typeof vi.fn>;
+  createOrUpdateUser: ReturnType<typeof vi.fn>;
+}
+
 describe("ConversationsAPI", () => {
   let api: ConversationsAPI;
   let mockEnv: Env;
   let mockRequest: Request;
-  let mockAuth: any;
+  let mockAuth: MockAuthService;
 
   beforeEach(() => {
     mockEnv = {
@@ -29,12 +39,12 @@ describe("ConversationsAPI", () => {
         all: vi.fn(),
         first: vi.fn(),
         run: vi.fn(),
-      } as any,
-      R2_BUCKET: {} as any,
-      KV_STORE: {} as any,
-      QUEUE: {} as any,
-      CHAT_ROOM: {} as any,
-      AI: {} as any,
+      } as unknown as Env["DATABASE"],
+      R2_BUCKET: {} as Env["R2_BUCKET"],
+      KV_STORE: {} as Env["KV_STORE"],
+      QUEUE: {} as Env["QUEUE"],
+      CHAT_ROOM: {} as Env["CHAT_ROOM"],
+      AI: {} as Env["AI"],
       CLERK_SECRET_KEY: "test-key",
       CLERK_WEBHOOK_SECRET: "test-webhook-secret",
       STRIPE_SECRET_KEY: "test-stripe-key",
@@ -45,7 +55,7 @@ describe("ConversationsAPI", () => {
     };
 
     api = new ConversationsAPI(mockEnv);
-    mockAuth = (api as any).auth;
+    mockAuth = (api as unknown as { auth: MockAuthService; }).auth;
   });
 
   describe("list", () => {

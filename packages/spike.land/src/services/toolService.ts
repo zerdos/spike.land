@@ -85,13 +85,12 @@ export class ToolService {
       this.code.getSession().codeSpace;
 
     // POST to /mcp endpoint
-    const mcpUrl = `${origin}/live/${codeSpace}/mcp`;
+    const mcpUrl = `${origin}/mcp`;
     const response = await fetch(mcpUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-CodeSpace": parameters.codeSpace as string ||
-          this.code.getSession().codeSpace,
+        "X-CodeSpace": codeSpace,
       },
       body: JSON.stringify(mcpRequest),
     });

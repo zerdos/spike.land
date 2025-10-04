@@ -154,16 +154,3 @@ export function useWebSocket({
     sendChatMessage,
   };
 }
-
-// Export original signature for backward compatibility
-export function useWebSocketLegacy(
-  conversationId: string,
-  userId: string,
-  enabled: boolean = true,
-) {
-  return useWebSocket({
-    conversationId,
-    userId,
-    enabled,
-  });
-}

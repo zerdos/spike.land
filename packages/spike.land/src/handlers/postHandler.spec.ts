@@ -11,8 +11,7 @@ import { StorageService } from "../services/storageService";
 import type { PostRequestBody } from "../types/aiRoutes";
 import { PostHandler } from "./postHandler";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type StreamResult = StreamTextResult<any, unknown>;
+type StreamResult = StreamTextResult<Record<string, never>, unknown>;
 
 // Mock type that matches what the test needs
 type MockStepResult = StepResult<Record<string, never>>;
@@ -21,6 +20,14 @@ type MockStepResult = StepResult<Record<string, never>>;
 vi.mock("@ai-sdk/anthropic");
 vi.mock("ai");
 vi.mock("../services/storageService");
+vi.mock("../utils/logger", () => ({
+  logger: {
+    debug: vi.fn(),
+    info: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
+  },
+}));
 
 // Mock crypto.randomUUID
 const mockRandomUUID = vi.fn(() => "test-uuid-123");
@@ -114,7 +121,7 @@ describe("PostHandler", () => {
   let mockCode: Code;
   let mockEnv: Env;
   let mockStorageService: StorageService;
-  let mockMcpServer: { tools: McpTool[]; };
+  let mockMcpServer: { tools: McpTool[]; executeTool: ReturnType<typeof vi.fn>; };
   let mockRequest: Request;
   let mockUrl: URL;
 
@@ -218,8 +225,7 @@ describe("PostHandler", () => {
         experimental_usage: {},
       } as unknown as StreamResult;
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      vi.mocked(streamText).mockResolvedValue(mockStreamResponse as any);
+      vi.mocked(streamText).mockResolvedValue(mockStreamResponse as unknown as ReturnType<typeof streamText>);
 
       // Mock createAnthropic to return a proper AnthropicProvider
       const mockTools = createMockTools();
@@ -322,7 +328,8 @@ describe("PostHandler", () => {
     });
 
     it("should log and ignore tools from request body", async () => {
-      const consoleSpy = vi.spyOn(console, "log");
+      const { logger } = await import("../utils/logger");
+      const loggerDebugSpy = vi.mocked(logger.debug);
       const requestBody: PostRequestBody = {
         messages: [{ role: "user", content: "Hello" }],
         tools: [
@@ -338,17 +345,20 @@ describe("PostHandler", () => {
 
       await postHandler.handle(mockRequest, mockUrl);
 
-      expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining("Request contains tools:"),
-        expect.stringContaining("Array with 1 tools"),
+      expect(loggerDebugSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Request contains tools"),
+        expect.objectContaining({
+          toolsInfo: "Array with 1 tools",
+        }),
       );
-      expect(consoleSpy).toHaveBeenCalledWith(
+      expect(loggerDebugSpy).toHaveBeenCalledWith(
         expect.stringContaining("Ignoring tools from request body"),
       );
     });
 
     it("should warn about invalid tool schemas with direct input_schema", async () => {
-      const consoleWarnSpy = vi.spyOn(console, "warn");
+      const { logger } = await import("../utils/logger");
+      const loggerWarnSpy = vi.mocked(logger.warn);
       const requestBody: PostRequestBody = {
         messages: [{ role: "user", content: "Hello" }],
         tools: [
@@ -366,28 +376,31 @@ describe("PostHandler", () => {
 
       await postHandler.handle(mockRequest, mockUrl);
 
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        expect.stringContaining("Found 2 tools with invalid schemas:"),
-        expect.arrayContaining([
-          expect.objectContaining({
-            index: 0,
-            reason: "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)",
-            value: "string",
-            note: "See https://github.com/vercel/ai/issues/7333",
-          }),
-          expect.objectContaining({
-            index: 1,
-            reason: "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)",
-            value: "number",
-            note: "See https://github.com/vercel/ai/issues/7333",
-          }),
-        ]),
-        expect.stringContaining("This is a known issue with AI SDK v4 and Claude Sonnet 4"),
+      expect(loggerWarnSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Found 2 tools with invalid schemas"),
+        expect.objectContaining({
+          invalidTools: expect.arrayContaining([
+            expect.objectContaining({
+              index: 0,
+              reason: "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)",
+              value: "string",
+              note: "See https://github.com/vercel/ai/issues/7333",
+            }),
+            expect.objectContaining({
+              index: 1,
+              reason: "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)",
+              value: "number",
+              note: "See https://github.com/vercel/ai/issues/7333",
+            }),
+          ]),
+          note: "This is a known issue with AI SDK v4 and Claude Sonnet 4. Tools should use direct JSON schema format instead of the tool() helper.",
+        }),
       );
     });
 
     it("should warn about invalid tool schemas with custom.input_schema pattern", async () => {
-      const consoleWarnSpy = vi.spyOn(console, "warn");
+      const { logger } = await import("../utils/logger");
+      const loggerWarnSpy = vi.mocked(logger.warn);
       const requestBody: PostRequestBody = {
         messages: [{ role: "user", content: "Hello" }],
         tools: [
@@ -412,22 +425,25 @@ describe("PostHandler", () => {
 
       await postHandler.handle(mockRequest, mockUrl);
 
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        expect.stringContaining("Found 1 tools with invalid schemas:"),
-        expect.arrayContaining([
-          expect.objectContaining({
-            index: 0,
-            reason: "custom.input_schema.type is not 'object'",
-            value: "string",
-          }),
-        ]),
-        expect.stringContaining("This is a known issue with AI SDK v4 and Claude Sonnet 4"),
+      expect(loggerWarnSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Found 1 tools with invalid schemas"),
+        expect.objectContaining({
+          invalidTools: expect.arrayContaining([
+            expect.objectContaining({
+              index: 0,
+              reason: "custom.input_schema.type is not 'object'",
+              value: "string",
+            }),
+          ]),
+          note: "This is a known issue with AI SDK v4 and Claude Sonnet 4. Tools should use direct JSON schema format instead of the tool() helper.",
+        }),
       );
     });
 
     it("should handle tools with mixed valid and invalid schemas", async () => {
-      const consoleWarnSpy = vi.spyOn(console, "warn");
-      const consoleLogSpy = vi.spyOn(console, "log");
+      const { logger } = await import("../utils/logger");
+      const loggerWarnSpy = vi.mocked(logger.warn);
+      const loggerDebugSpy = vi.mocked(logger.debug);
       const requestBody: PostRequestBody = {
         messages: [{ role: "user", content: "Hello" }],
         tools: [
@@ -457,38 +473,43 @@ describe("PostHandler", () => {
 
       await postHandler.handle(mockRequest, mockUrl);
 
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        expect.stringContaining("Request contains tools:"),
-        "Array with 4 tools",
+      expect(loggerDebugSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Request contains tools"),
+        expect.objectContaining({
+          toolsInfo: "Array with 4 tools",
+        }),
       );
 
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        expect.stringContaining("Found 3 tools with invalid schemas:"),
-        expect.arrayContaining([
-          expect.objectContaining({
-            index: 1,
-            reason: "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)",
-            value: "string",
-            note: "See https://github.com/vercel/ai/issues/7333",
-          }),
-          expect.objectContaining({
-            index: 2,
-            reason: "custom.input_schema.type is not 'object'",
-            value: "boolean",
-          }),
-          expect.objectContaining({
-            index: 3,
-            reason: "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)",
-            value: "array",
-            note: "See https://github.com/vercel/ai/issues/7333",
-          }),
-        ]),
-        expect.stringContaining("This is a known issue with AI SDK v4 and Claude Sonnet 4"),
+      expect(loggerWarnSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Found 3 tools with invalid schemas"),
+        expect.objectContaining({
+          invalidTools: expect.arrayContaining([
+            expect.objectContaining({
+              index: 1,
+              reason: "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)",
+              value: "string",
+              note: "See https://github.com/vercel/ai/issues/7333",
+            }),
+            expect.objectContaining({
+              index: 2,
+              reason: "custom.input_schema.type is not 'object'",
+              value: "boolean",
+            }),
+            expect.objectContaining({
+              index: 3,
+              reason: "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)",
+              value: "array",
+              note: "See https://github.com/vercel/ai/issues/7333",
+            }),
+          ]),
+          note: "This is a known issue with AI SDK v4 and Claude Sonnet 4. Tools should use direct JSON schema format instead of the tool() helper.",
+        }),
       );
     });
 
     it("should handle tools as object instead of array", async () => {
-      const consoleLogSpy = vi.spyOn(console, "log");
+      const { logger } = await import("../utils/logger");
+      const loggerDebugSpy = vi.mocked(logger.debug);
       const requestBody: PostRequestBody = {
         messages: [{ role: "user", content: "Hello" }],
         tools: {
@@ -505,14 +526,17 @@ describe("PostHandler", () => {
 
       await postHandler.handle(mockRequest, mockUrl);
 
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        expect.stringContaining("Request contains tools:"),
-        "Object with keys: tool1, tool2",
+      expect(loggerDebugSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Request contains tools"),
+        expect.objectContaining({
+          toolsInfo: "Object with keys: tool1, tool2",
+        }),
       );
     });
 
     it("should not warn when no invalid tools are present", async () => {
-      const consoleWarnSpy = vi.spyOn(console, "warn");
+      const { logger } = await import("../utils/logger");
+      const loggerWarnSpy = vi.mocked(logger.warn);
       const requestBody: PostRequestBody = {
         messages: [{ role: "user", content: "Hello" }],
         tools: [
@@ -534,17 +558,15 @@ describe("PostHandler", () => {
 
       await postHandler.handle(mockRequest, mockUrl);
 
-      expect(consoleWarnSpy).not.toHaveBeenCalledWith(
+      expect(loggerWarnSpy).not.toHaveBeenCalledWith(
         expect.stringContaining("Found"),
         expect.anything(),
       );
     });
 
     it("should handle stream errors", async () => {
-      // Log spies
-      const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(
-        () => {},
-      );
+      const { logger } = await import("../utils/logger");
+      const loggerErrorSpy = vi.mocked(logger.error);
 
       // Override the default mock to reject when called
       vi.mocked(streamText).mockReset();
@@ -578,17 +600,18 @@ describe("PostHandler", () => {
       const response = await postHandler.handle(mockRequest, mockUrl);
 
       // Verify error was logged
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
+      expect(loggerErrorSpy).toHaveBeenCalledWith(
         expect.stringContaining(
-          "[AI Routes][test-uuid-123] Stream error details:",
+          "[AI Routes][test-uuid-123] Stream error details",
         ),
+        expect.any(Error),
         expect.objectContaining({
           message: "Stream failed",
         }),
       );
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
+      expect(loggerErrorSpy).toHaveBeenCalledWith(
         expect.stringContaining(
-          "[AI Routes][test-uuid-123] Error handling message:",
+          "[AI Routes][test-uuid-123] Error handling message",
         ),
         expect.any(Error),
       );
@@ -598,7 +621,6 @@ describe("PostHandler", () => {
       expect(body.error).toBe("Failed to process message");
       expect(body.details).toBe("Stream failed");
 
-      consoleErrorSpy.mockRestore();
     });
 
     it.skip("should handle tool execution in onStepFinish", async () => {
@@ -652,7 +674,8 @@ describe("PostHandler", () => {
     });
 
     it.skip("should handle errors during tool result saving", async () => {
-      const consoleErrorSpy = vi.spyOn(console, "error");
+      const { logger } = await import("../utils/logger");
+      const loggerErrorSpy = vi.mocked(logger.error);
       let onStepFinishCallback: Parameters<typeof streamText>[0]["onStepFinish"];
       vi.mocked(streamText).mockImplementation(
         (async (options: Parameters<typeof streamText>[0]) => {
@@ -704,7 +727,7 @@ describe("PostHandler", () => {
         } as unknown as MockStepResult,
       );
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
+      expect(loggerErrorSpy).toHaveBeenCalledWith(
         expect.stringContaining("Error saving messages after tool call:"),
         expect.any(Error),
       );
@@ -1235,8 +1258,7 @@ describe("PostHandler", () => {
         experimental_telemetry: {},
         experimental_usage: {},
       } as unknown as StreamResult;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      vi.mocked(streamText).mockResolvedValue(mockStreamResponse as any);
+      vi.mocked(streamText).mockResolvedValue(mockStreamResponse as unknown as ReturnType<typeof streamText>);
 
       const anthropicProvider = vi.fn().mockReturnValue(
         "claude-4-sonnet-20250514",
@@ -1303,7 +1325,8 @@ describe("PostHandler", () => {
     });
 
     it("should handle getErrorMessage callback", async () => {
-      const consoleErrorSpy = vi.spyOn(console, "error");
+      const { logger } = await import("../utils/logger");
+      const loggerErrorSpy = vi.mocked(logger.error);
       // Capture the callback to verify it was passed correctly
       let capturedGetErrorMessageCallback: ((error: Error) => string) | undefined;
 
@@ -1341,8 +1364,7 @@ describe("PostHandler", () => {
         experimental_telemetry: {},
         experimental_usage: {},
       } as unknown as StreamResult;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      vi.mocked(streamText).mockResolvedValue(mockStreamResponse as any);
+      vi.mocked(streamText).mockResolvedValue(mockStreamResponse as unknown as ReturnType<typeof streamText>);
 
       // Mock createAnthropic properly
       const anthropicProvider = vi.fn().mockReturnValue(
@@ -1383,7 +1405,7 @@ describe("PostHandler", () => {
         const errorMessage = errorCallback(new Error("Test error"));
         expect(errorMessage).toBe("Streaming error: Test error");
         // The error callback should trigger console.error when called
-        expect(consoleErrorSpy).toHaveBeenCalledWith(
+        expect(loggerErrorSpy).toHaveBeenCalledWith(
           "[AI Routes][req-123] Error during streaming:",
           expect.any(Error),
         );

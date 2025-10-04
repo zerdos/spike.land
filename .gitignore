@@ -1,4 +1,6 @@
-# Yarn 2+
+# ============================================================
+# Yarn 2+ Package Manager
+# ============================================================
 .yarn/global/telemetry.json
 .yarn/global/index
 .yarn/global
@@ -12,7 +14,10 @@
 !.yarn/sdks
 !.yarn/versions
 
-# Build outputs
+# ============================================================
+# Build Outputs
+# ============================================================
+# Root build directories
 dist/
 dist-vite/
 build/
@@ -21,6 +26,7 @@ routeTree.gen.ts
 *.worker.js
 *.worker.js.map
 .vercel/
+out/
 
 # Package-specific build outputs
 packages/*/dist/
@@ -35,17 +41,23 @@ packages/*/.cache/
 packages/*/.parcel-cache/
 packages/*/.rollup.cache/
 packages/*/.vite/
+packages/*/out/
 
+# ============================================================
 # Logs
+# ============================================================
 logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+pnpm-debug.log*
 .eslintcache
 
-# Test artifacts
+# ============================================================
+# Test Artifacts
+# ============================================================
 /test-results/
 /playwright-report/
 /playwright/.cache/
@@ -53,8 +65,16 @@ lerna-debug.log*
 /.nyc_output/
 *.lcov
 .nyc_output
+test.db
+test-local.db
+test-*.db
+packages/*/test-results/
+packages/*/playwright-report/
+packages/*/coverage/
 
-# Environment and local files
+# ============================================================
+# Environment and Local Files
+# ============================================================
 .env
 .env.*
 !.env.example
@@ -62,16 +82,26 @@ lerna-debug.log*
 .dev.vars
 *.local
 
+# ============================================================
 # Dependencies
+# ============================================================
 node_modules/
 jspm_packages/
-bower_components
+bower_components/
+.pnpm-store/
 
+# ============================================================
 # TypeScript
+# ============================================================
 *.tsbuildinfo
 typings/
+*.d.ts.map
+dts/
+packages/*/dts/
 
-# Cache and temporary files
+# ============================================================
+# Cache and Temporary Files
+# ============================================================
 .cache/
 .parcel-cache/
 .rollup.cache/
@@ -83,21 +113,85 @@ typings/
 .serverless/
 .grunt
 lib-cov
+*.swp
+*.swo
+*~
+.turbo/
 
-# Editor directories and files
+# ============================================================
+# Editor and IDE Files
+# ============================================================
+# JetBrains IDEs
 .idea/
+*.iml
+*.iws
+*.ipr
+
+# Visual Studio Code
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
+
+# Visual Studio
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
+
+# Vim
 *.sw?
+*.swp
+*.swo
+*~
+
+# Emacs
+\#*\#
+.\#*
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# WebStorm
+.idea/
+
+# ============================================================
+# OS-Specific Files
+# ============================================================
+# macOS
 .DS_Store
 **/.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.directory
+.Trash-*
 
 # Project specific
 haters/
