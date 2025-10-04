@@ -8,26 +8,26 @@ export const LazyWrapper = lazy(() =>
 );
 
 export const LazyEditor = lazy(() =>
-  import("@/components/Editor").then((module) => ({
+  import("../components/Editor").then((module) => ({
     default: module.default || module.Editor,
   }))
 );
 
 export const LazyQr = lazy(() =>
-  import("@/components/Qr.lazy").then((module) => ({
+  import("../components/Qr.lazy").then((module) => ({
     default: module.default,
   }))
 );
 
 export const LazyHistoryComponents = lazy(() =>
-  import("@/components/History/HistoryFComponents").then((module) => ({
+  import("../components/History/HistoryFComponents").then((module) => ({
     default: module.default,
   }))
 );
 
 export const LazyMonacoEditor = lazy(() =>
   import("monaco-editor/esm/vs/editor/editor.api").then(() =>
-    import("@/components/Editor").then((module) => ({
+    import("../components/Editor").then((module) => ({
       default: module.default || module.Editor,
     }))
   )
