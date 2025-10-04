@@ -4,6 +4,7 @@ import type { Message } from "@/lib/interfaces";
 import { ROUTES } from "@/lib/routes";
 import { tryCatch } from "@/lib/try-catch";
 // import { init } from "@/lib/tw-dev-setup";
+import type { ILogger } from "./interfaces/ILogger";
 import { WebSocketEventType, WebSocketState } from "./enums";
 import type {
   IWebSocketManager,
@@ -21,24 +22,36 @@ const DEFAULT_CONFIG: Required<WebSocketConfig> = {
 };
 
 /**
+ * Enhanced dependencies for WebSocketManager with dependency injection
+ */
+export interface EnhancedWebSocketDependencies extends WebSocketDependencies {
+  /** Logger instance for structured logging */
+  logger: ILogger;
+}
+
+/**
  * WebSocket manager for handling real-time code synchronization
  * and communication between client and server.
+ *
+ * Refactored to use dependency injection for better testability and flexibility.
  */
 export class WebSocketManager implements IWebSocketManager {
   private readonly codeSpace: string;
-  private readonly dependencies: WebSocketDependencies;
+  private readonly dependencies: EnhancedWebSocketDependencies;
   private readonly config: Required<WebSocketConfig>;
+  private readonly logger: ILogger;
   private state = WebSocketState.DISCONNECTED;
   private retryCount = 0;
   private readonly subscriptions = new Set<WebSocketSubscription>();
 
   constructor(
-    dependencies: WebSocketDependencies,
+    dependencies: EnhancedWebSocketDependencies,
     config: WebSocketConfig = {},
   ) {
     this.codeSpace = getCodeSpace(location.pathname);
     this.dependencies = dependencies;
     this.config = { ...DEFAULT_CONFIG, ...config };
+    this.logger = dependencies.logger;
 
     // Initialize service worker with delay
     setTimeout(() => {
@@ -59,8 +72,8 @@ export class WebSocketManager implements IWebSocketManager {
 
     if (error) {
       this.handleError(error);
-      console.error("WebSocket initialization error:", {
-        error: getErrorMessage(error),
+      this.logger.error("WebSocket initialization error", error, {
+        errorMessage: getErrorMessage(error),
         state: this.state,
       });
       throw new WebSocketError(
@@ -140,7 +153,7 @@ export class WebSocketManager implements IWebSocketManager {
 
       // Subscribe to code session updates
       this.dependencies.sessionSynchronizer.subscribe((data: MessageData) => {
-        console.warn("Code session update:", data); // Changed to console.warn
+        this.logger.debug("Code session update", { data });
         // Additional live page specific handling can be added here
       });
 
@@ -259,7 +272,7 @@ export class WebSocketManager implements IWebSocketManager {
    */
   private readonly handleError = (error: unknown): void => {
     const errorMessage = getErrorMessage(error);
-    console.error("WebSocket error:", errorMessage);
+    this.logger.error("WebSocket error", error, { errorMessage });
     this.state = WebSocketState.ERROR;
 
     // Implement retry logic for recoverable errors
@@ -267,10 +280,11 @@ export class WebSocketManager implements IWebSocketManager {
       this.retryCount++;
       this.state = WebSocketState.RECONNECTING;
       setTimeout(() => {
-        console.warn( // Changed to console.warn
-          `Retrying connection (${this.retryCount}/${this.config.maxRetries})...`,
-        );
-        this.init().catch(console.error);
+        this.logger.info(`Retrying connection`, {
+          retryCount: this.retryCount,
+          maxRetries: this.config.maxRetries,
+        });
+        this.init().catch((err) => this.logger.error("Retry failed", err));
       }, this.config.retryDelay);
     }
   };

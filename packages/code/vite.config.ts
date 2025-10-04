@@ -5,6 +5,9 @@ import fs from "fs";
 import path from "path";
 import type { AppType, ProxyOptions } from "vite";
 import { defineConfig } from "vite";
+import { compression } from "vite-plugin-compression2";
+import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
+import { visualizer } from "rollup-plugin-visualizer";
 import { importMap } from "./src/@/lib/importmap-utils";
 
 /* ========================================================
@@ -131,19 +134,116 @@ export default defineConfig((config) => {
   return {
     plugins: [
       TanStackRouterVite(),
-      // Uncomment the visualizer if you need bundle analysis:
-      // visualizer({
-      //   open: true,
-      //   filename: "dist/stats.html",
-      // }),
+      // Bundle analyzer - only in analyze mode
+      ...(config.mode === "analyze" ? [visualizer({
+        open: true,
+        filename: "dist/bundle-analysis.html",
+        gzipSize: true,
+        brotliSize: true,
+      })] : []),
+      // Compression plugins
+      compression({
+        algorithm: "gzip",
+        exclude: [/\.(br)$/, /\.(gz)$/],
+        deleteOriginalAssets: false,
+      }),
+      compression({
+        algorithm: "brotliCompress",
+        exclude: [/\.(br)$/, /\.(gz)$/],
+        deleteOriginalAssets: false,
+      }),
+      // Image optimization
+      ViteImageOptimizer({
+        png: {
+          quality: 80,
+        },
+        jpeg: {
+          quality: 80,
+        },
+        jpg: {
+          quality: 80,
+        },
+        webp: {
+          lossless: false,
+          quality: 80,
+        },
+      }),
       tailwindcss(),
       react({ jsxImportSource: "@emotion/react" }),
     ],
     build: {
+      // Enable minification
+      minify: "terser",
+      // Enable source maps for production debugging (optional)
+      sourcemap: false,
+      // Chunk size warning limit
+      chunkSizeWarningLimit: 1000,
       rollupOptions: {
         external: rollupExternal,
+        output: {
+          // Manual chunk splitting for optimal caching
+          manualChunks: (id) => {
+            // Split Monaco Editor into its own chunk
+            if (id.includes("monaco-editor")) {
+              return "monaco-editor";
+            }
+            // Split React and related libraries
+            if (id.includes("react") || id.includes("react-dom") || id.includes("react-router")) {
+              return "react-vendor";
+            }
+            // Split UI libraries (Radix UI, MUI, etc.)
+            if (id.includes("@radix-ui") || id.includes("@mui")) {
+              return "ui-vendor";
+            }
+            // Split Emotion CSS-in-JS
+            if (id.includes("@emotion")) {
+              return "emotion-vendor";
+            }
+            // Split AI/Assistant libraries
+            if (id.includes("@ai-sdk") || id.includes("@assistant-ui") || id.includes("ai")) {
+              return "ai-vendor";
+            }
+            // Split utility libraries
+            if (id.includes("lodash") || id.includes("date-fns") || id.includes("clsx") || id.includes("tailwind")) {
+              return "utils-vendor";
+            }
+            // Split heavy visualization/charting libraries
+            if (id.includes("recharts") || id.includes("d3") || id.includes("framer-motion")) {
+              return "visualization-vendor";
+            }
+            return undefined;
+          },
+          // Asset file naming for better caching
+          assetFileNames: (assetInfo) => {
+            const info = assetInfo.name?.split(".");
+            const extType = info?.[info.length - 1];
+            if (/\.(png|jpe?g|svg|gif|tiff|bmp|ico)$/i.test(assetInfo.name || "")) {
+              return `assets/images/[name]-[hash][extname]`;
+            }
+            if (extType === "css") {
+              return `assets/css/[name]-[hash][extname]`;
+            }
+            return `assets/[name]-[hash][extname]`;
+          },
+          chunkFileNames: "assets/js/[name]-[hash].js",
+          entryFileNames: "assets/js/[name]-[hash].js",
+        },
       },
+      // Increase the limit for inlining assets
+      assetsInlineLimit: 4096,
       outDir: "dist-vite",
+    },
+    // Optimize dependencies pre-bundling
+    optimizeDeps: {
+      include: [
+        "react",
+        "react-dom",
+        "react-router-dom",
+        "@tanstack/react-router",
+        "@emotion/react",
+        "@emotion/styled",
+      ],
+      exclude: ["@vite/client", "@vite/env"],
     },
     appType: "spa" as AppType,
     assetsInclude: [],

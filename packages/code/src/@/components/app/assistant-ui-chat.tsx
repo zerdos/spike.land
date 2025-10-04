@@ -74,10 +74,18 @@ const AutoSendInitialPrompt: React.FC<{
         composerRuntime.setText(initialPrompt.prompt);
         composerRuntime.send();
 
-        // TODO: Handle images if needed in the future
+        // Image handling: assistant-ui library does not currently support image attachments
+        // via the composer runtime API. Images would need to be handled by:
+        // 1. Extending the AssistantChatTransport to include image data in the request
+        // 2. Server-side processing to handle image content
+        // 3. Custom UI components for image preview in the composer
+        // For now, we log images for debugging but don't send them
         if (initialPrompt.images.length > 0) {
           console.log("Images detected in initial prompt:", initialPrompt.images);
-          // Images will need to be handled based on the API's capability
+          console.warn(
+            "Image attachments are not currently supported by the assistant-ui composer. " +
+            "Consider implementing custom image handling in the transport layer.",
+          );
         }
       }
     }

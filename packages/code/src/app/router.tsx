@@ -1,4 +1,4 @@
-import { Wrapper } from "@/components/app/wrapper";
+import { ErrorBoundary } from "@/components/app/error-boundary";
 import { getCodeSpace } from "@/hooks/use-code-space";
 import type { ICode } from "@/lib/interfaces";
 import { routes } from "@/lib/routes";
@@ -10,8 +10,9 @@ import {
   type RegisteredRouter,
   RouterProvider,
 } from "@tanstack/react-router";
-import { createContext, useEffect, useState } from "react";
+import { createContext, Suspense, useEffect, useState } from "react";
 import { initializeSessionSync, loadApp } from "../app-loader";
+import { LazyWrapper, LoadingSpinner, SuspenseWrapper } from "./lazy-components";
 // init()
 // Define route types
 interface RouteWithPageParams {
@@ -25,9 +26,15 @@ interface RouteParams {
 
 type SearchParams = Record<string, string>;
 
-// Root layout component
+// Root layout component with error boundary and suspense
 const RootLayout: React.FC = () => {
-  return <Outlet />;
+  return (
+    <ErrorBoundary>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Outlet />
+      </Suspense>
+    </ErrorBoundary>
+  );
 };
 
 // Define root route
@@ -38,11 +45,15 @@ export const rootRoute = createRootRoute({
 const dynamicRoutes = [];
 
 Object.keys(routes).forEach((path) => {
-  // Landing page route
+  // Landing page route with lazy loading
   const landingRoute = createRoute({
     getParentRoute: () => rootRoute,
     path,
-    component: () => <Wrapper codeSpace={routes[path as keyof typeof routes]} />,
+    component: () => (
+      <SuspenseWrapper>
+        <LazyWrapper codeSpace={routes[path as keyof typeof routes]} />
+      </SuspenseWrapper>
+    ),
   });
 
   dynamicRoutes.push(landingRoute);
@@ -124,15 +135,23 @@ const App: React.FC = () => {
     return <div>Invalid route or codeSpace not found</div>;
   }
 
-  // Render app or wrapper based on app context
-  return appContext
-    ? (
-      <appContext.AppComponent
-        codeSpace={appContext.codeSpace}
-        cSess={appContext.cSess}
-      />
-    )
-    : <Wrapper codeSpace={codeSpace} />;
+  // Render app or wrapper based on app context with error boundary
+  return (
+    <ErrorBoundary codeSpace={codeSpace}>
+      {appContext
+        ? (
+          <appContext.AppComponent
+            codeSpace={appContext.codeSpace}
+            cSess={appContext.cSess}
+          />
+        )
+        : (
+          <SuspenseWrapper>
+            <LazyWrapper codeSpace={codeSpace} />
+          </SuspenseWrapper>
+        )}
+    </ErrorBoundary>
+  );
 };
 
 // Live page route with code space and page parameters
@@ -206,6 +225,6 @@ export const RouterComponent: React.FC<RouterComponentProps> = ({ router }) => {
 };
 
 // Export wrapped App Router component
-export const AppRouter: React.FC = () => {
+export const AppRouterComponent: React.FC = () => {
   return <RouterComponent router={router} />;
 };

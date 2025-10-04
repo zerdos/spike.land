@@ -124,10 +124,18 @@ describe("WebSocketManager", () => {
       close: vi.fn(),
     };
 
+    const mockLogger = {
+      debug: vi.fn(),
+      info: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn(),
+    };
+
     mockDependencies = {
       messageHandler: mockMessageHandler,
       serviceWorker: mockServiceWorker,
       sessionSynchronizer: mockSessionSynchronizer,
+      logger: mockLogger,
     };
 
     webSocketManager = new WebSocketManager(mockDependencies);

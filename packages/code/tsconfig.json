@@ -13,12 +13,16 @@
   "exclude": [
     "node_modules",
     "dts",
-    "dist"
+    "dist",
+    "**/*.tsbuildinfo",
+    "**/dist/**",
+    "**/build/**"
   ],
   "compilerOptions": {
     "baseUrl": ".",
     "forceConsistentCasingInFileNames": true,
     "composite": true,
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "emitDeclarationOnly": true,

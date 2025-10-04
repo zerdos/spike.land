@@ -1,6 +1,7 @@
 import { getInitialDarkMode } from "@/hooks/use-dark-mode";
 import { importMap, importMapReplace } from "@/lib/importmap-utils";
 import type { ICodeSession } from "@/lib/interfaces";
+import { logger } from "@/lib/logger";
 import { md5 } from "@/lib/md5";
 import { tryCatch } from "@/lib/try-catch";
 import { formatCode, transpileCode } from "@/services/editorUtils";
@@ -46,7 +47,7 @@ export class CodeProcessor {
     }
 
     if (formatError) {
-      console.error("Error formatting code:", formatError);
+      logger.error("Error formatting code", formatError);
       return false;
     }
 
@@ -60,7 +61,7 @@ export class CodeProcessor {
     );
     if (signal.aborted || transpileError) {
       if (transpileError) {
-        console.error("Error transpiling code:", transpileError);
+        logger.error("Error transpiling code", transpileError);
       }
       return false;
     }
@@ -141,7 +142,7 @@ export class CodeProcessor {
       );
 
       if (blobError) {
-        console.error("Error creating blob URL:", blobError);
+        logger.error("Error creating blob URL", blobError);
         return false;
       }
       const isDarkMode = getInitialDarkMode();
@@ -254,13 +255,13 @@ export class CodeProcessor {
             try {
               const iteration = event.data.iteration;
               const { html, css } = event.data.data;
-              console.warn(`Rendered in ${iteration} iterations`); // Changed to warn
+              logger.info(`Rendered in ${iteration} iterations`);
               if (!html) {
                 reject(new Error("Render produced empty HTML"));
                 return;
               }
               Object.assign(processedSession, { html, css });
-              console.warn("Processed session:", processedSession); // Changed to warn
+              logger.debug("Processed session", { processedSession });
               resolve();
             } catch (error) {
               reject(
@@ -325,7 +326,7 @@ export class CodeProcessor {
       // Catch any other errors that might occur during the try block (e.g., iframe creation issues).
       // If cleanupPreviousRender were active, it would be called here.
       // this.cleanupPreviousRender();
-      console.error("Error running code in iframe (outer try-catch):", error);
+      logger.error("Error running code in iframe (outer try-catch)", error);
       return false; // Indicate failure
     }
     // } // This was an extra closing brace from the original refactor attempt, removing it.
@@ -336,13 +337,13 @@ export class CodeProcessor {
     const { data, error } = await tryCatch(formatCode(code));
 
     if (error) {
-      console.error("Error formatting code:", { code, error }); // Added error to log
+      logger.error("Error formatting code", error, { code });
       throw new Error(
         `Error formatting code: ${error?.message || String(error)}`,
       );
     }
     if (!data) { // Added check for null/undefined data
-      console.error("Formatting code returned no data", { code });
+      logger.error("Formatting code returned no data", undefined, { code });
       throw new Error("Formatting code returned no data");
     }
     return data;
@@ -352,7 +353,7 @@ export class CodeProcessor {
     const { data: transpiled, error } = await tryCatch(transpileCode(code));
 
     if (error) {
-      console.error("Error Transpiled code:", { code, error }); // Changed to console.error and added error
+      logger.error("Error Transpiled code", error, { code });
       throw new Error(
         `Error transpiling code: ${error?.message || String(error)}`,
       );
@@ -379,7 +380,7 @@ export class CodeProcessor {
     getSession: () => ICodeSession,
     replaceIframe?: (newIframe: HTMLIFrameElement) => void,
   ): Promise<ICodeSession | false> {
-    console.warn("🔄 CodeProcessor.reRenderFromTranspiled called");
+    logger.debug("CodeProcessor.reRenderFromTranspiled called");
 
     const origin = window.location.origin;
     if (signal.aborted) return false;
@@ -398,7 +399,7 @@ export class CodeProcessor {
     );
 
     if (!executionSuccessful) {
-      console.error("❌ Re-render execution failed");
+      logger.error("Re-render execution failed");
       return false;
     }
 
@@ -426,7 +427,7 @@ export class CodeProcessor {
     );
 
     if (updateError) {
-      console.error("Error updating rendered app:", { transpiled });
+      logger.error("Error updating rendered app", undefined, { transpiled });
       throw new Error(`Error updating rendered app: ${String(updateError)}`);
     }
 
@@ -435,7 +436,7 @@ export class CodeProcessor {
     );
 
     if (renderError) {
-      console.error("Error handling render:", { transpiled });
+      logger.error("Error handling render", undefined, { transpiled });
       throw new Error(`Error handling render: ${String(renderError)}`);
     }
 

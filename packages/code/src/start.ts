@@ -5,6 +5,7 @@ import { router } from "./app/router";
 import "./index.css";
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { initializeWebSocket, shouldInitWebSocket } from "./app-loader";
+import { initializePerformance } from "./app/performance-init";
 
 /**
  * Global error handler
@@ -18,6 +19,9 @@ const handleError = (error: unknown): void => {
   // Could add more sophisticated error handling here
   // Like error reporting to a service or showing user feedback
 };
+
+// Initialize performance monitoring and optimizations
+initializePerformance();
 
 // Handle .tsx extension removal
 if (location.pathname.endsWith(".tsx")) {

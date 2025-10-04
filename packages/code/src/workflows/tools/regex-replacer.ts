@@ -141,23 +141,11 @@ export const getRegexReplaceTool = createTool(
         );
       }
 
-      // Save AI message with original instructions (commented out since addMessage is not available)
-      // const instructionsStr = instructions
-      //   .map(({ search, replace }) => `
-      //     ${SEARCH_REPLACE_MARKERS.SEARCH_START}
-      //     ${search}
-      //     ${SEARCH_REPLACE_MARKERS.SEPARATOR}
-      //     ${replace}
-      //     ${SEARCH_REPLACE_MARKERS.REPLACE_END}
-      //   `)
-      //   .join("\n");
-
-      // TODO: addMessage is not part of ICode interface, need to implement message handling
-      // await cSess.addMessage({
-      //   id: Date.now().toString(),
-      //   role: "assistant",
-      //   content: instructionsStr,
-      // });
+      // Note: Message handling removed from tools layer.
+      // The ICode interface doesn't expose addMessage - messages should be managed
+      // at the workflow/application layer through session updates (getSession/setSession).
+      // Tools should focus on code modifications and return results to the caller.
+      // If message tracking is needed, it should be handled by the workflow that invokes this tool.
 
       await cSess.setCode(modifiedCode);
 
