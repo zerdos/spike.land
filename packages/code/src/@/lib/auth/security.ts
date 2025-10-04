@@ -10,7 +10,7 @@ export const securityUtils = {
   /**
    * Generate cryptographically secure random token
    */
-  generateSecureToken(length: number = 32): string {
+  async generateSecureToken(length: number = 32): Promise<string> {
     if (typeof globalThis.crypto !== "undefined") {
       const buffer = new Uint8Array(length);
       globalThis.crypto.getRandomValues(buffer);

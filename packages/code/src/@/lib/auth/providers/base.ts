@@ -35,7 +35,7 @@ export abstract class BaseAuthProvider implements AuthProvider {
   /**
    * Generate secure random token
    */
-  protected generateSecureToken(length: number = 32): string {
+  protected async generateSecureToken(length: number = 32): Promise<string> {
     if (typeof window !== "undefined" && window.crypto) {
       const buffer = new Uint8Array(length);
       window.crypto.getRandomValues(buffer);

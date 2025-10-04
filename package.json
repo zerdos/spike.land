@@ -74,6 +74,7 @@
     "playwright": "1.55.1",
     "react": "19.2.0",
     "supports-color": "10.2.2",
+    "terser": "^5.44.0",
     "typescript": "5.9.3",
     "vitest": "3.2.4"
   },

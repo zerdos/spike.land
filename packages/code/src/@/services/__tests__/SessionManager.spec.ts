@@ -50,7 +50,7 @@ describe("SessionManager", () => {
     messages: [],
   };
 
-  beforeEach(() => {
+  beforeEach(async () => {
     mockLogger = {
       debug: vi.fn(),
       info: vi.fn(),
