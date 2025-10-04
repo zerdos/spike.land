@@ -12,7 +12,23 @@ import {
 } from "@tanstack/react-router";
 import { createContext, Suspense, useEffect, useState } from "react";
 import { initializeSessionSync, loadApp } from "../app-loader";
-import { LazyWrapper, LoadingSpinner, SuspenseWrapper } from "./lazy-components";
+import { Wrapper } from "@/components/app/wrapper";
+
+// Simple loading component
+const LoadingSpinner: React.FC = () => (
+  <div className="flex items-center justify-center h-screen">
+    <div className="flex flex-col items-center space-y-4">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
+      <p className="text-sm text-muted-foreground">Loading...</p>
+    </div>
+  </div>
+);
+
+const SuspenseWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <Suspense fallback={<LoadingSpinner />}>{children}</Suspense>
+);
+
+const LazyWrapper = Wrapper;
 // init()
 // Define route types
 interface RouteWithPageParams {
