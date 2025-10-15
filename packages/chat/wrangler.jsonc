@@ -1,0 +1,173 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "main": ".open-next/worker.js",
+  "name": "spike-chat",
+  "compatibility_date": "2024-12-30",
+  "compatibility_flags": [
+    // Enable Node.js API
+    "nodejs_compat",
+    // Allow to fetch URLs in your app
+    "global_fetch_strictly_public"
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "spike-chat"
+    }
+  ],
+
+  // Environment configurations
+  "env": {
+    "production": {
+      "name": "spike-chat-nextjs",
+      "vars": {
+        "NODE_ENV": "production",
+        "NEXT_RUNTIME": "edge",
+        "NEXTJS_ENV": "production",
+        "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ"
+      },
+      "durable_objects": {
+        "bindings": []
+      },
+      "ai": {
+        "binding": "AI"
+      },
+      "d1_databases": [
+        {
+          "binding": "DATABASE",
+          "database_name": "spike-chat-db-prod",
+          "database_id": "b4d98ac5-c98b-4177-bdce-199874c47b75"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "R2_BUCKET",
+          "bucket_name": "spike-chat-attachments-prod"
+        },
+        {
+          "binding": "NEXT_INC_CACHE_R2_BUCKET",
+          "bucket_name": "spike-chat-cache-prod"
+        }
+      ],
+      "kv_namespaces": [
+        {
+          "binding": "KV_SESSIONS",
+          "id": "fd3ab87b0de445d4ab1b53c01291bb6a",
+          "preview_id": "fd3ab87b0de445d4ab1b53c01291bb6a"
+        }
+      ],
+      "queues": {
+        "producers": [
+          {
+            "queue": "chat-queue-prod",
+            "binding": "QUEUE"
+          }
+        ]
+      }
+    },
+
+    "development": {
+      "name": "spike-chat-nextjs-dev",
+      "vars": {
+        "NODE_ENV": "development",
+        "NEXTJS_ENV": "development"
+      },
+      "durable_objects": {
+        "bindings": []
+      },
+      "ai": {
+        "binding": "AI"
+      },
+      "d1_databases": [
+        {
+          "binding": "DATABASE",
+          "database_name": "spike-chat-db-dev",
+          "database_id": "b4d98ac5-c98b-4177-bdce-199874c47b75"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "R2_BUCKET",
+          "bucket_name": "spike-chat-attachments-dev"
+        },
+        {
+          "binding": "NEXT_INC_CACHE_R2_BUCKET",
+          "bucket_name": "spike-chat-cache-dev"
+        }
+      ],
+      "kv_namespaces": [
+        {
+          "binding": "KV_SESSIONS",
+          "id": "fd3ab87b0de445d4ab1b53c01291bb6a",
+          "preview_id": "fd3ab87b0de445d4ab1b53c01291bb6a"
+        },
+        {
+          "binding": "KV_CACHE",
+          "id": "bb649d2b93d646ce96df960d1987de69",
+          "preview_id": "f45e9a89346f46038a99ac853bb60e3a"
+        }
+      ],
+      "queues": {
+        "producers": [
+          {
+            "queue": "chat-queue-dev",
+            "binding": "QUEUE"
+          }
+        ]
+      },
+      "services": [
+        {
+          "binding": "WORKER_SELF_REFERENCE",
+          "service": "spike-chat-nextjs-dev"
+        }
+      ]
+    },
+
+    "preview": {
+      "name": "spike-chat-preview",
+      "vars": {
+        "NODE_ENV": "preview",
+        "NEXTJS_ENV": "preview"
+      },
+      "durable_objects": {
+        "bindings": []
+      },
+      "ai": {
+        "binding": "AI"
+      },
+      "d1_databases": [
+        {
+          "binding": "DATABASE",
+          "database_name": "spike-chat-db-preview",
+          "database_id": "b4d98ac5-c98b-4177-bdce-199874c47b75"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "R2_BUCKET",
+          "bucket_name": "spike-chat-attachments-preview"
+        },
+        {
+          "binding": "NEXT_INC_CACHE_R2_BUCKET",
+          "bucket_name": "spike-chat-cache-preview"
+        }
+      ],
+      "kv_namespaces": [
+        {
+          "binding": "KV_SESSIONS",
+          "id": "fd3ab87b0de445d4ab1b53c01291bb6a",
+          "preview_id": "fd3ab87b0de445d4ab1b53c01291bb6a"
+        }
+      ]
+    }
+  },
+
+  // Observability
+  "observability": {
+    "enabled": true
+  }
+}

@@ -34,7 +34,27 @@ In your Clerk dashboard, configure:
 - **User Management → Sign-up Options**: Enable email verification if desired
 - **Customization → Branding**: Customize the appearance to match your app
 
-### 2. Webhooks (Optional)
+### 2. Google OAuth Configuration
+
+To enable Google Sign-in:
+
+1. Go to **User & Authentication → Social Connections** in your Clerk dashboard
+2. Click on **Google** provider
+3. Enable Google OAuth by toggling it on
+4. Configure Google OAuth:
+   - Option A: Use Clerk's shared OAuth credentials (easiest for development)
+   - Option B: Use your own Google OAuth credentials:
+     1. Go to [Google Cloud Console](https://console.cloud.google.com)
+     2. Create a new project or select existing
+     3. Enable Google+ API
+     4. Create OAuth 2.0 credentials
+     5. Add authorized redirect URIs:
+        - `https://your-clerk-domain.clerk.accounts.dev/v1/oauth_callback`
+        - For development: `http://localhost:3000`
+     6. Copy Client ID and Client Secret to Clerk
+5. Save the configuration
+
+### 3. Webhooks (Optional)
 
 If you want real-time user sync:
 
@@ -43,7 +63,7 @@ If you want real-time user sync:
 3. Select events: `user.created`, `user.updated`, `user.deleted`
 4. Copy the webhook signing secret to your environment variables
 
-### 3. Domain Configuration
+### 4. Domain Configuration
 
 For production deployments:
 

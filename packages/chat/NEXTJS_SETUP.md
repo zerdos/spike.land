@@ -11,7 +11,7 @@ The packages/chat directory has been configured with:
 - **Edge Runtime** compatibility for Cloudflare Workers
 - **Tailwind CSS** for styling
 - **Middleware** for security headers and CORS
-- **Build pipeline** with @cloudflare/next-on-pages
+- **Build pipeline** with @opennextjs/cloudflare
 
 ## 📁 Directory Structure
 
@@ -95,7 +95,7 @@ Example API route at `/app/api/hello/route.ts`:
 ### Production Dependencies
 
 - `next@15` - Next.js framework
-- `@cloudflare/next-on-pages` - Cloudflare Workers adapter
+- `@opennextjs/cloudflare` - Modern Cloudflare Workers adapter for Next.js
 
 ### Development Dependencies
 

@@ -93,6 +93,20 @@ const createMockTools = () => ({
     parameters: {} as never,
     execute: vi.fn(),
   }),
+  textEditor_20250728: vi.fn().mockReturnValue({
+    type: "provider-defined",
+    id: "anthropic.textEditor_20250728",
+    args: {},
+    parameters: {} as never,
+    execute: vi.fn(),
+  }),
+  webFetch_20250910: vi.fn().mockReturnValue({
+    type: "provider-defined",
+    id: "anthropic.webFetch_20250910",
+    args: {},
+    parameters: {} as never,
+    execute: vi.fn(),
+  }),
 });
 
 describe("PostHandler", () => {
@@ -751,10 +765,59 @@ describe("PostHandler", () => {
       );
     });
 
-    it("should reject missing content", () => {
+    it("should reject missing content and parts", () => {
       const messages = [{ role: "user" }];
       expect(callValidateMessages(messages)).toBe(
-        "Message at index 0 must have content",
+        "Message at index 0 must have either 'content' or 'parts'",
+      );
+    });
+
+    it("should accept messages with parts field", () => {
+      const messages = [
+        {
+          role: "user",
+          parts: [
+            { type: "text", text: "Hello" }
+          ]
+        }
+      ];
+      expect(callValidateMessages(messages)).toBeNull();
+    });
+
+    it("should accept messages with both content and parts", () => {
+      const messages = [
+        {
+          role: "user",
+          content: "Hello",
+          parts: [{ type: "text", text: "Hello" }]
+        }
+      ];
+      expect(callValidateMessages(messages)).toBeNull();
+    });
+
+    it("should validate parts array structure", () => {
+      const messages = [
+        {
+          role: "user",
+          parts: "not an array"
+        }
+      ];
+      expect(callValidateMessages(messages)).toBe(
+        "Message at index 0 parts must be an array",
+      );
+    });
+
+    it("should validate parts have type field", () => {
+      const messages = [
+        {
+          role: "user",
+          parts: [
+            { text: "Hello" } // missing type
+          ]
+        }
+      ];
+      expect(callValidateMessages(messages)).toBe(
+        "Message at index 0, part 0 must have a type",
       );
     });
 
@@ -806,9 +869,9 @@ describe("PostHandler", () => {
   });
 
   describe("convertMessages", () => {
-    const callConvertMessages = (messages: Message[]) => {
+    const callConvertMessages = (messages: unknown[]) => {
       return (postHandler as unknown as {
-        convertMessages: (messages: Message[]) => CoreMessage[];
+        convertMessages: (messages: unknown[]) => CoreMessage[];
       }).convertMessages(messages);
     };
 
@@ -913,6 +976,97 @@ describe("PostHandler", () => {
       expect(() => callConvertMessages(messages)).toThrow(
         "Invalid role: invalid",
       );
+    });
+
+    it("should convert messages with parts field", () => {
+      const messages = [
+        {
+          role: "user",
+          parts: [
+            { type: "text", text: "Hello world" }
+          ]
+        }
+      ];
+
+      const result = callConvertMessages(messages);
+
+      expect(result).toEqual([
+        { role: "user", content: "Hello world" }
+      ]);
+    });
+
+    it("should convert messages with multiple parts", () => {
+      const messages = [
+        {
+          role: "user",
+          parts: [
+            { type: "text", text: "Check this image:" },
+            { type: "image", url: "https://example.com/img.jpg" }
+          ]
+        }
+      ];
+
+      const result = callConvertMessages(messages);
+
+      expect(result).toEqual([
+        {
+          role: "user",
+          content: [
+            { type: "text", text: "Check this image:" },
+            { type: "image", image: "https://example.com/img.jpg" }
+          ]
+        }
+      ]);
+    });
+
+    it("should handle parts with image_url format", () => {
+      const messages = [
+        {
+          role: "user",
+          parts: [
+            { type: "image_url", image_url: { url: "https://example.com/img.jpg" } }
+          ]
+        }
+      ];
+
+      const result = callConvertMessages(messages);
+
+      expect(result[0]?.content).toEqual([
+        { type: "image", image: "https://example.com/img.jpg" }
+      ]);
+    });
+
+    it("should handle unsupported part types", () => {
+      const messages = [
+        {
+          role: "user",
+          parts: [
+            { type: "video", url: "video.mp4" }
+          ]
+        }
+      ];
+
+      const result = callConvertMessages(messages);
+
+      // Single text part gets simplified to just string
+      expect(result[0]?.content).toEqual("[unsupported content]");
+    });
+
+    it("should handle parts with missing text", () => {
+      const messages = [
+        {
+          role: "user",
+          parts: [
+            { type: "text" }
+          ]
+        }
+      ];
+
+      const result = callConvertMessages(messages);
+
+      expect(result).toEqual([
+        { role: "user", content: "" }
+      ]);
     });
   });
 

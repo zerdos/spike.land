@@ -3,14 +3,8 @@
 import { useEffect, useState } from "react";
 import { Footer } from "../components/layout/footer";
 import { Header } from "../components/layout/header";
-import type { User } from "../src/types";
 
-interface LandingPageProps {
-  onAuth?: (user: User) => void;
-}
-
-export function LandingPage({ onAuth }: LandingPageProps = {}) {
-  const [isLoading, setIsLoading] = useState(false);
+export function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -22,28 +16,12 @@ export function LandingPage({ onAuth }: LandingPageProps = {}) {
   }, []);
 
   const handleStartChatting = () => {
-    setIsLoading(true);
-
-    const mockUser: User = {
-      id: "demo-user-" + Date.now(),
-      email: "demo@example.com",
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    };
-
-    setTimeout(() => {
-      if (onAuth) {
-        onAuth(mockUser);
-      } else {
-        // Navigate to chat page if no auth handler
-        window.location.href = "/chat";
-      }
-      setIsLoading(false);
-    }, 500);
+    // Redirect to signin page for proper authentication
+    window.location.href = "/signin";
   };
 
   const handleLogin = () => {
-    handleStartChatting();
+    window.location.href = "/signin";
   };
 
   return (
@@ -64,25 +42,14 @@ export function LandingPage({ onAuth }: LandingPageProps = {}) {
               <button
                 className="btn btn-primary start-chatting-btn"
                 onClick={handleStartChatting}
-                disabled={isLoading}
                 aria-label="Start a new chat session"
               >
-                {isLoading
-                  ? (
-                    <>
-                      <span className="spinner" />
-                      Loading...
-                    </>
-                  )
-                  : (
-                    "Start Chatting"
-                  )}
+                Start Chatting
               </button>
 
               <button
                 className="btn btn-secondary login-btn"
                 onClick={handleLogin}
-                disabled={isLoading}
                 aria-label="Login to your account"
               >
                 Login
@@ -154,7 +121,6 @@ export function LandingPage({ onAuth }: LandingPageProps = {}) {
               <button
                 className="btn btn-primary cta-button"
                 onClick={handleStartChatting}
-                disabled={isLoading}
               >
                 Get Started Free
               </button>

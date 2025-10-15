@@ -1,43 +1,24 @@
-import { useEffect, useState } from "react";
+"use client";
+
+import { useState } from "react";
+import { useAuth, useUser } from "@clerk/clerk-react";
+import { UserAvatar } from "../UserAvatar";
 
 interface HeaderProps {
   isScrolled?: boolean;
-  user?: { id: string; email: string; } | null;
 }
 
-export function Header({ isScrolled = false, user }: HeaderProps) {
+export function Header({ isScrolled = false }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentUser, setCurrentUser] = useState(user);
+  const { isLoaded, isSignedIn } = useAuth();
+  const { user } = useUser();
 
-  useEffect(() => {
-    // Check for authenticated user if not provided
-    if (!user) {
-      const authToken = localStorage.getItem("auth_token");
-      const userEmail = localStorage.getItem("user_email");
-      const userId = localStorage.getItem("user_id");
-
-      if (authToken && userId) {
-        setCurrentUser({
-          id: userId,
-          email: userEmail || "demo@example.com",
-        });
-      }
-    }
-  }, [user]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("auth_token");
-    localStorage.removeItem("user_email");
-    localStorage.removeItem("user_id");
-    localStorage.removeItem("user_credits");
-    localStorage.removeItem("subscription_tier");
-    window.location.href = "/";
-  };
 
   const navigationItems = [
     { href: "/", label: "Home" },
     { href: "/chat", label: "Chat" },
     { href: "/dashboard", label: "Dashboard", authRequired: true },
+    { href: "/profile", label: "Profile", authRequired: true },
     { href: "/pricing", label: "Pricing" },
   ];
 
@@ -65,7 +46,7 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
           <nav className="nav-desktop">
             <ul className="nav-list">
               {navigationItems.map((item) => {
-                if (item.authRequired && !currentUser) return null;
+                if (item.authRequired && !isSignedIn) return null;
                 return (
                   <li key={item.href}>
                     <a
@@ -83,65 +64,24 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
 
           {/* User Actions */}
           <div className="user-actions">
-            {currentUser
-              ? (
-                <div className="user-menu">
-                  <div className="user-info">
-                    <span className="user-avatar">
-                      {currentUser.email.charAt(0).toUpperCase()}
-                    </span>
-                    <span className="user-email">{currentUser.email}</span>
-                  </div>
-
-                  <div className="dropdown">
-                    <button
-                      className="dropdown-toggle"
-                      onClick={toggleMenu}
-                      aria-label="User menu"
-                      aria-expanded={isMenuOpen}
-                    >
-                      <span className="chevron">▼</span>
-                    </button>
-
-                    {isMenuOpen && (
-                      <div className="dropdown-menu">
-                        <a href="/dashboard" className="dropdown-item">
-                          📊 Dashboard
-                        </a>
-                        <a href="/settings" className="dropdown-item">
-                          ⚙️ Settings
-                        </a>
-                        <a href="/pricing" className="dropdown-item">
-                          💎 Upgrade
-                        </a>
-                        <div className="dropdown-separator" />
-                        <button
-                          onClick={handleLogout}
-                          className="dropdown-item logout"
-                        >
-                          🚪 Sign Out
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )
-              : (
-                <div className="auth-buttons">
-                  <button
-                    className="btn btn-secondary"
-                    onClick={() => window.location.href = "/"}
-                  >
-                    Sign In
-                  </button>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => window.location.href = "/chat"}
-                  >
-                    Get Started
-                  </button>
-                </div>
-              )}
+            {isLoaded && isSignedIn && user ? (
+              <UserAvatar />
+            ) : (
+              <div className="auth-buttons">
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => window.location.href = "/signin"}
+                >
+                  Sign In
+                </button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => window.location.href = "/signup"}
+                >
+                  Get Started
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -164,7 +104,7 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
           <nav className="mobile-nav-content">
             <ul className="mobile-nav-list">
               {navigationItems.map((item) => {
-                if (item.authRequired && !currentUser) return null;
+                if (item.authRequired && !isSignedIn) return null;
                 return (
                   <li key={item.href}>
                     <a
@@ -179,19 +119,22 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
               })}
             </ul>
 
-            {currentUser
+            {isLoaded && isSignedIn && user
               ? (
                 <div className="mobile-user-section">
                   <div className="mobile-user-info">
                     <span className="user-avatar">
-                      {currentUser.email.charAt(0).toUpperCase()}
+                      {(user.firstName || user.emailAddresses[0]?.emailAddress || "U").charAt(0).toUpperCase()}
                     </span>
-                    <span className="user-email">{currentUser.email}</span>
+                    <span className="user-email">{user.emailAddresses[0]?.emailAddress || ""}</span>
                   </div>
 
                   <div className="mobile-user-actions">
                     <a href="/dashboard" className="mobile-action-item">
                       📊 Dashboard
+                    </a>
+                    <a href="/profile" className="mobile-action-item">
+                      👤 Profile
                     </a>
                     <a href="/settings" className="mobile-action-item">
                       ⚙️ Settings
@@ -199,12 +142,6 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
                     <a href="/pricing" className="mobile-action-item">
                       💎 Upgrade
                     </a>
-                    <button
-                      onClick={handleLogout}
-                      className="mobile-action-item logout"
-                    >
-                      🚪 Sign Out
-                    </button>
                   </div>
                 </div>
               )
@@ -214,7 +151,7 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
                     className="btn btn-secondary mobile-btn"
                     onClick={() => {
                       closeMenu();
-                      window.location.href = "/";
+                      window.location.href = "/signin";
                     }}
                   >
                     Sign In
@@ -223,7 +160,7 @@ export function Header({ isScrolled = false, user }: HeaderProps) {
                     className="btn btn-primary mobile-btn"
                     onClick={() => {
                       closeMenu();
-                      window.location.href = "/chat";
+                      window.location.href = "/signup";
                     }}
                   >
                     Get Started

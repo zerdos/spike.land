@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Clerk Authentication</title>
+</head>
+<body>
+    <h1>Clerk Authentication Test</h1>
+    <div id="status">Loading...</div>
+    <div id="result"></div>
+
+    <script>
+        // Test Clerk initialization
+        async function testClerk() {
+            const statusEl = document.getElementById('status');
+            const resultEl = document.getElementById('result');
+
+            try {
+                // Test 1: Check if Clerk client endpoint is accessible
+                statusEl.textContent = 'Testing Clerk client endpoint...';
+                const clientResponse = await fetch('https://clerk.spike.land/v1/client?__clerk_api_version=2025-04-10', {
+                    headers: {
+                        'Origin': 'https://chat.spike.land'
+                    }
+                });
+
+                if (!clientResponse.ok) {
+                    throw new Error(`Client endpoint failed: ${clientResponse.status}`);
+                }
+
+                const clientData = await clientResponse.json();
+                resultEl.innerHTML += `<p>✅ Client endpoint OK: ${JSON.stringify(clientData.response.object)}</p>`;
+
+                // Test 2: Check if sign in endpoint is accessible
+                statusEl.textContent = 'Testing sign in creation...';
+                const signInResponse = await fetch('https://clerk.spike.land/v1/client/sign_ins?__clerk_api_version=2025-04-10', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': 'https://chat.spike.land'
+                    },
+                    body: JSON.stringify({})
+                });
+
+                if (signInResponse.ok) {
+                    resultEl.innerHTML += `<p>✅ Sign in endpoint OK</p>`;
+                } else {
+                    const errorText = await signInResponse.text();
+                    resultEl.innerHTML += `<p>⚠️ Sign in endpoint returned: ${signInResponse.status} - ${errorText}</p>`;
+                }
+
+                // Test 3: Check OAuth configuration
+                if (clientData.response && clientData.response.sign_in) {
+                    const supportedProviders = clientData.response.sign_in.supported_external_accounts || [];
+                    if (supportedProviders.includes('oauth_google')) {
+                        resultEl.innerHTML += `<p>✅ Google OAuth is configured</p>`;
+                    } else {
+                        resultEl.innerHTML += `<p>❌ Google OAuth not found in supported providers: ${supportedProviders.join(', ')}</p>`;
+                    }
+                }
+
+                statusEl.textContent = 'Tests complete!';
+
+            } catch (error) {
+                statusEl.textContent = 'Error occurred';
+                resultEl.innerHTML += `<p>❌ Error: ${error.message}</p>`;
+            }
+        }
+
+        // Run test on load
+        window.addEventListener('load', testClerk);
+    </script>
+</body>
+</html>

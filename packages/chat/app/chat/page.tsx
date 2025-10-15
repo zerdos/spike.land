@@ -1,21 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useAuth, useUser } from "@clerk/clerk-react";
+import { useRouter } from "next/navigation";
 import { ChatInterface } from "../../components/ChatInterface";
-import { ConnectionStatus } from "../../components/ConnectionStatus";
 import { ConversationList } from "../../components/ConversationList";
 import { Header } from "../../components/layout/header";
 import { SubscriptionStatus } from "../../components/SubscriptionStatus";
-import { useWebSocket } from "../../hooks/useWebSocket";
 import { api } from "../../lib/api";
-import type { Conversation, Message, User } from "../../src/types/frontend";
+import type { Conversation, Message } from "../../src/types/frontend";
 
-interface ChatPageProps {
-  user?: User | null;
-  onAuthRequired?: () => void;
-}
-
-export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
+export function ChatPage() {
+  const { isLoaded, isSignedIn } = useAuth();
+  const { user: clerkUser } = useUser();
+  const router = useRouter();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [currentConversation, setCurrentConversation] = useState<Conversation | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -28,28 +26,31 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
     limit: 10,
   });
 
-  const { isConnected, lastMessage, sendMessage: _sendWebSocketMessage } = useWebSocket(
-    currentConversation ? `/api/conversations/${currentConversation.id}/ws` : null,
-  );
-
-  // Handle incoming WebSocket messages
-  useEffect(() => {
-    if (lastMessage && lastMessage.type === "message" && currentConversation) {
-      setMessages((prev) => [...prev, lastMessage.data as Message]);
-    }
-  }, [lastMessage, currentConversation]);
 
   useEffect(() => {
-    // Check authentication
-    const authToken = localStorage.getItem("auth_token");
-    if (!authToken && !user) {
-      onAuthRequired?.();
+    // Check authentication using Clerk
+    if (!isLoaded) return;
+
+    if (!isSignedIn) {
+      // No Clerk session, redirect to signin
+      router.push("/signin");
       return;
+    }
+
+    // User is authenticated via Clerk
+    // No need to store auth tokens - Clerk handles this securely via httpOnly cookies
+    // We can optionally store non-sensitive user info for UI display only
+    if (clerkUser) {
+      localStorage.setItem("user", JSON.stringify({
+        id: clerkUser.id,
+        email: clerkUser.emailAddresses[0]?.emailAddress || "",
+        name: clerkUser.fullName || clerkUser.firstName || "User"
+      }));
     }
 
     loadConversations();
     loadSubscriptionInfo();
-  }, [user, onAuthRequired]);
+  }, [isLoaded, isSignedIn, clerkUser, router]);
 
   const loadConversations = async () => {
     try {
@@ -63,8 +64,8 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
   };
 
   const loadSubscriptionInfo = async () => {
-    const storedTier = localStorage.getItem("subscription_tier");
-    const storedCredits = localStorage.getItem("user_credits");
+    const storedTier = typeof window !== "undefined" ? localStorage.getItem("subscription_tier") : null;
+    const storedCredits = typeof window !== "undefined" ? localStorage.getItem("user_credits") : null;
 
     if (storedTier || storedCredits) {
       setSubscription((prev) => ({
@@ -92,7 +93,7 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
   const createNewConversation = async () => {
     const newConv: Conversation = {
       id: "conv-" + Date.now(),
-      user_id: user?.id || "demo-user",
+      user_id: clerkUser?.id || "unknown",
       title: "New Conversation",
       model: "llama-2-7b",
       created_at: new Date().toISOString(),
@@ -187,7 +188,9 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
           ...prev,
           credits: response.data!.creditsRemaining,
         }));
-        localStorage.setItem("user_credits", response.data!.creditsRemaining.toString());
+        if (typeof window !== "undefined") {
+          localStorage.setItem("user_credits", response.data!.creditsRemaining.toString());
+        }
       }
     } catch (error) {
       console.error("Failed to send message:", error);
@@ -217,7 +220,20 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
     setSidebarOpen(!sidebarOpen);
   };
 
-  if (!user && !localStorage.getItem("auth_token")) {
+  // Show loading while Clerk is initializing
+  if (!isLoaded) {
+    return (
+      <div className="auth-required">
+        <div className="auth-content">
+          <h1>Loading...</h1>
+          <p>Initializing authentication...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show auth required screen if not signed in
+  if (!isSignedIn) {
     return (
       <div className="auth-required">
         <div className="auth-content">
@@ -225,7 +241,7 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
           <p>Please log in to access the chat interface.</p>
           <button
             className="btn btn-primary"
-            onClick={() => window.location.href = "/"}
+            onClick={() => router.push("/signin")}
           >
             Go to Login
           </button>
@@ -254,8 +270,6 @@ export function ChatPage({ user, onAuthRequired }: ChatPageProps) {
               subscription={subscription}
               onUpgrade={upgradeSubscription}
             />
-
-            <ConnectionStatus isConnected={isConnected} />
           </div>
 
           <div className="sidebar-content">

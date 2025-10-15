@@ -10,6 +10,14 @@ Given("I am on the landing page", async function(this: CustomWorld) {
   await this.page.waitForSelector("main", { timeout: 10000 });
 });
 
+Given("the application is running", async function(this: CustomWorld) {
+  // Verify the application is accessible and running
+  const response = await this.page.evaluate(() => {
+    return fetch(window.location.origin).then(res => res.ok);
+  });
+  expect(response).toBeTruthy();
+});
+
 Given("I am on the chat page", async function(this: CustomWorld) {
   await this.chatPage.navigateToChatPage();
   // Wait for Next.js hydration and page load
