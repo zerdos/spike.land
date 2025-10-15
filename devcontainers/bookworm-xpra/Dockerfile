@@ -4,7 +4,7 @@
 FROM node:slim AS node-builder
 
 # Add yarn
-ADD https://raw.githubusercontent.com/zerdos/spike.land/main/.yarn/releases/yarn-4.9.4.cjs /usr/local/bin/yarn
+ADD https://raw.githubusercontent.com/zerdos/spike.land/main/.yarn/releases/yarn-4.10.3.cjs /usr/local/bin/yarn
 RUN chmod 755 /usr/local/bin/yarn && apt-get update && apt-get install -y --no-install-recommends git unzip && rm -rf /var/lib/apt/lists/*
 
 # Stage 2: Base image setup
@@ -126,7 +126,7 @@ RUN chmod 755 /usr/local/bin/yarn &&  yarn --version
 ### deno.Dockerfile
 
 USER ${USER}
-RUN (curl -fsSL https://deno.land/x/install/install.sh | sh -s v2.2.9 \
+RUN (curl -fsSL https://deno.land/x/install/install.sh | sh -s v2.2.1 \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${USER_HOME}/.zshrc \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${USER_HOME}/.bashrc \
   && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${USER_HOME}/.bashrc \
