@@ -8,11 +8,11 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: process.env.CI
     ? [["junit", { outputFile: "test-results/results.xml" }], ["github"]]
-    : [["html", { outputFolder: "test-results/playwright-report" }], ["line"]],
+    : [["html", { outputFolder: "playwright-report" }], ["line"]],
 
   // Global test setup and teardown
-  globalSetup: require.resolve("./features/support/global-setup.ts"),
-  globalTeardown: require.resolve("./features/support/global-teardown.ts"),
+  globalSetup: "./features/support/global-setup.ts",
+  globalTeardown: "./features/support/global-teardown.ts",
 
   use: {
     // Use Next.js development server URL
@@ -101,9 +101,8 @@ export default defineConfig({
     {
       command: process.env.CI ? "npm run build && npm run start" : "npm run dev",
       url: "http://localhost:3000",
-      port: 3000,
       reuseExistingServer: !process.env.CI,
-      timeout: 180 * 1000, // 3 minutes for Next.js to start
+      timeout: 300 * 1000, // 5 minutes for Next.js to start
       env: {
         NODE_ENV: "test",
         NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: "pk_test_publishable_key_for_testing",
@@ -118,7 +117,6 @@ export default defineConfig({
     {
       command: "node features/support/mock-server.js",
       url: "http://localhost:3001",
-      port: 3001,
       reuseExistingServer: !process.env.CI,
       timeout: 30 * 1000,
     },
@@ -136,7 +134,7 @@ export default defineConfig({
   // Expect configuration
   expect: {
     // Increase timeout for Next.js hydration
-    timeout: 10 * 1000,
+    timeout: process.env.CI ? 15 * 1000 : 10 * 1000,
     // Take screenshots on assertion failures
     toHaveScreenshot: {
       threshold: 0.2,
