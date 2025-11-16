@@ -47,7 +47,9 @@
       "Bash(yarn eslint)",
       "mcp__cloudflare-docs__search_cloudflare_documentation",
       "mcp__Ref__ref_search_documentation",
-      "mcp__Ref__ref_read_url"
+      "mcp__Ref__ref_read_url",
+      "Bash(claude:*)",
+      "Bash(claude-code --version:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"
