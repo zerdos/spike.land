@@ -24,6 +24,26 @@ if (!window.URL.createObjectURL) {
   });
 }
 
+// Mock window.location to prevent jsdom navigation warnings
+// This prevents "Not implemented: navigation to another Document" error
+delete (window as { location?: Location }).location;
+(window as { location: Partial<Location> }).location = {
+  href: "",
+  pathname: "/",
+  search: "",
+  hash: "",
+  origin: "http://localhost:3000",
+  protocol: "http:",
+  host: "localhost:3000",
+  hostname: "localhost",
+  port: "3000",
+  ancestorOrigins: [] as unknown as DOMStringList,
+  assign: vi.fn(),
+  replace: vi.fn(),
+  reload: vi.fn(),
+  toString: vi.fn(() => "http://localhost:3000/"),
+} as unknown as Location;
+
 // Fix for "Right-hand side of 'instanceof' is not an object" error in React
 // Only define these if they don't already exist to avoid breaking instanceof checks
 if (!global.HTMLElement) {

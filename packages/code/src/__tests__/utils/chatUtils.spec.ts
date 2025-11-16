@@ -76,15 +76,6 @@ describe("updateSearchReplace", () => {
     `;
 
     const result = updateSearchReplace(instructions, codeNow);
-    console.warn( // Changed to console.warn
-      "Expected:",
-      `
-    const a = 10;
-    const b = 2;
-    const c = 3;
-    `,
-    );
-    console.warn("Actual:", result); // Changed to console.warn
     expect(result).toBe(`
     const a = 10;
     const b = 2;
@@ -133,15 +124,6 @@ some text between
     `;
 
     const result = updateSearchReplace(instructions, codeNow);
-    console.warn( // Changed to console.warn
-      "Expected:",
-      `
-    const a = 10;
-    const b = 20;
-    const c = 30;
-    `,
-    );
-    console.warn("Actual:", result); // Changed to console.warn
     expect(result).toBe(`
     const a = 10;
     const b = 20;

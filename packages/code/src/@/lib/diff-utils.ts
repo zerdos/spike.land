@@ -388,7 +388,9 @@ export function replacePreservingWhitespace(
 
     const lineByLineMatch = findBestLineByLineMatch(search, text);
     if (lineByLineMatch) {
-      console.debug("replacePreservingWhitespace - Line-by-line match found");
+      if (process.env["NODE_ENV"] !== "test") {
+        console.debug("replacePreservingWhitespace - Line-by-line match found");
+      }
       return text.substring(0, lineByLineMatch.startIndex) +
         replace +
         text.substring(
@@ -432,9 +434,11 @@ export function replacePreservingWhitespace(
   }
 
   // Strategy 4: Try flexible whitespace matching
-  console.debug(
-    "replacePreservingWhitespace - Trying flexible whitespace matching",
-  );
+  if (process.env["NODE_ENV"] !== "test") {
+    console.debug(
+      "replacePreservingWhitespace - Trying flexible whitespace matching",
+    );
+  }
 
   // Remove all whitespace for comparison
   const textNoWS = text.replace(/\s+/g, "");
@@ -479,7 +483,9 @@ export function replacePreservingWhitespace(
   }
 
   // Strategy 5: Try regex with escaped search string
-  console.debug("replacePreservingWhitespace - Trying regex replacement");
+  if (process.env["NODE_ENV"] !== "test") {
+    console.debug("replacePreservingWhitespace - Trying regex replacement");
+  }
   try {
     const escapedSearch = escapeRegExp(search);
     const regex = new RegExp(escapedSearch, "g");

@@ -15,8 +15,29 @@ vi.mock("@/lib/md5");
 vi.mock("@/lib/process-image");
 vi.mock("framer-motion", () => ({
   motion: {
-    img: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown; }) => (
+    img: ({ children, layoutId: _layoutId, whileTap: _whileTap, initial: _initial, animate: _animate, exit: _exit, transition: _transition, ...props }: {
+      children?: React.ReactNode;
+      layoutId?: string;
+      whileTap?: Record<string, unknown>;
+      initial?: Record<string, unknown>;
+      animate?: Record<string, unknown>;
+      exit?: Record<string, unknown>;
+      transition?: Record<string, unknown>;
+      [key: string]: unknown;
+    }) => (
       <img {...props}>{children}</img>
+    ),
+    div: ({ children, layoutId: _layoutId, whileTap: _whileTap, initial: _initial, animate: _animate, exit: _exit, transition: _transition, ...props }: {
+      children?: React.ReactNode;
+      layoutId?: string;
+      whileTap?: Record<string, unknown>;
+      initial?: Record<string, unknown>;
+      animate?: Record<string, unknown>;
+      exit?: Record<string, unknown>;
+      transition?: Record<string, unknown>;
+      [key: string]: unknown;
+    }) => (
+      <div {...props}>{children}</div>
     ),
   },
   AnimatePresence: ({ children }: { children: React.ReactNode; }) => children,

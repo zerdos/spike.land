@@ -83,11 +83,29 @@ declare global {
   }
 }
 
+// Helper to filter out non-DOM props
+const filterDomProps = (props: ComponentProps) => {
+  const {
+    asChild: _asChild,
+    autoSend: _autoSend,
+    hideWhenRunning: _hideWhenRunning,
+    autohideFloat: _autohideFloat,
+    hideWhenSingleBranch: _hideWhenSingleBranch,
+    autohide: _autohide,
+    ...domProps
+  } = props as Record<string, unknown>;
+  return domProps;
+};
+
 // Mock assistant-ui components
 vi.mock("@assistant-ui/react", () => ({
   ThreadPrimitive: {
-    Root: ({ children, ...props }: ComponentProps) => <div {...props}>{children}</div>,
-    Viewport: ({ children, ...props }: ComponentProps) => <div {...props}>{children}</div>,
+    Root: ({ children, ...props }: ComponentProps) => (
+      <div {...filterDomProps(props)}>{children}</div>
+    ),
+    Viewport: ({ children, ...props }: ComponentProps) => (
+      <div {...filterDomProps(props)}>{children}</div>
+    ),
     Messages: ({ components }: MessagesProps) => {
       // Simulate rendering messages based on mock data
       const mockMessages = window.__mockMessages || [];
@@ -120,21 +138,40 @@ vi.mock("@assistant-ui/react", () => ({
       }
       return <div>{children}</div>;
     },
-    ScrollToBottom: ({ children, ...props }: ComponentProps) => (
-      <button {...props}>{children}</button>
-    ),
-    Suggestion: ({ children, prompt, ...props }: SuggestionProps) => (
-      <button {...props}>{children || prompt}</button>
+    ScrollToBottom: ({ children, asChild, ...props }: ComponentProps) => {
+      // When asChild is true, render children directly without wrapping in button
+      // This prevents nested button elements
+      if (asChild) {
+        return <>{children}</>;
+      }
+      return <button {...filterDomProps(props)}>{children}</button>;
+    },
+    Suggestion: ({ children, prompt, autoSend: _autoSend, ...props }: SuggestionProps) => (
+      <button {...filterDomProps(props)}>{children || prompt}</button>
     ),
   },
   ComposerPrimitive: {
-    Root: ({ children, ...props }: ComponentProps) => <div {...props}>{children}</div>,
-    Input: (props: InputProps) => <textarea {...props} />,
-    Send: ({ children, ...props }: ComponentProps) => <button {...props}>{children}</button>,
-    Cancel: ({ children, ...props }: ComponentProps) => <button {...props}>{children}</button>,
+    Root: ({ children, ...props }: ComponentProps) => (
+      <div {...filterDomProps(props)}>{children}</div>
+    ),
+    Input: (props: InputProps) => <textarea {...filterDomProps(props)} />,
+    Send: ({ children, asChild, ...props }: ComponentProps) => {
+      if (asChild) {
+        return <>{children}</>;
+      }
+      return <button {...filterDomProps(props)}>{children}</button>;
+    },
+    Cancel: ({ children, asChild, ...props }: ComponentProps) => {
+      if (asChild) {
+        return <>{children}</>;
+      }
+      return <button {...filterDomProps(props)}>{children}</button>;
+    },
   },
   MessagePrimitive: {
-    Root: ({ children, ...props }: ComponentProps) => <div {...props}>{children}</div>,
+    Root: ({ children, ...props }: ComponentProps) => (
+      <div {...filterDomProps(props)}>{children}</div>
+    ),
     Parts: ({ components }: MessagePartsProps) => {
       const currentMessage = window.__currentMessage || { content: [], hasConsecutiveTools: false };
       return (
@@ -177,15 +214,44 @@ vi.mock("@assistant-ui/react", () => ({
     If: ({ children }: ComponentProps) => <div>{children}</div>,
   },
   ActionBarPrimitive: {
-    Root: ({ children, ...props }: ComponentProps) => <div {...props}>{children}</div>,
-    Edit: ({ children, ...props }: ComponentProps) => <button {...props}>{children}</button>,
-    Copy: ({ children, ...props }: ComponentProps) => <button {...props}>{children}</button>,
-    Reload: ({ children, ...props }: ComponentProps) => <button {...props}>{children}</button>,
+    Root: ({ children, hideWhenRunning: _hideWhenRunning, autohide: _autohide, autohideFloat: _autohideFloat, ...props }: ComponentProps) => (
+      <div {...filterDomProps(props)}>{children}</div>
+    ),
+    Edit: ({ children, asChild, ...props }: ComponentProps) => {
+      if (asChild) {
+        return <>{children}</>;
+      }
+      return <button {...filterDomProps(props)}>{children}</button>;
+    },
+    Copy: ({ children, asChild, ...props }: ComponentProps) => {
+      if (asChild) {
+        return <>{children}</>;
+      }
+      return <button {...filterDomProps(props)}>{children}</button>;
+    },
+    Reload: ({ children, asChild, ...props }: ComponentProps) => {
+      if (asChild) {
+        return <>{children}</>;
+      }
+      return <button {...filterDomProps(props)}>{children}</button>;
+    },
   },
   BranchPickerPrimitive: {
-    Root: ({ children, ...props }: ComponentProps) => <div {...props}>{children}</div>,
-    Previous: ({ children, ...props }: ComponentProps) => <button {...props}>{children}</button>,
-    Next: ({ children, ...props }: ComponentProps) => <button {...props}>{children}</button>,
+    Root: ({ children, hideWhenSingleBranch: _hideWhenSingleBranch, ...props }: ComponentProps) => (
+      <div {...filterDomProps(props)}>{children}</div>
+    ),
+    Previous: ({ children, asChild, ...props }: ComponentProps) => {
+      if (asChild) {
+        return <>{children}</>;
+      }
+      return <button {...filterDomProps(props)}>{children}</button>;
+    },
+    Next: ({ children, asChild, ...props }: ComponentProps) => {
+      if (asChild) {
+        return <>{children}</>;
+      }
+      return <button {...filterDomProps(props)}>{children}</button>;
+    },
     Number: () => <span>1</span>,
     Count: () => <span>1</span>,
   },
@@ -197,8 +263,11 @@ vi.mock("../markdown-text", () => ({
 }));
 
 vi.mock("../tooltip-icon-button", () => ({
-  TooltipIconButton: ({ children, tooltip, ...props }: TooltipIconButtonProps) => (
-    <button {...props} title={tooltip}>
+  TooltipIconButton: ({ children, tooltip, variant: _variant, className, ...props }: TooltipIconButtonProps) => (
+    // Render as button with filtered props
+    // The variant and className are component-specific props that should be kept
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    <button {...(filterDomProps(props) as any)} className={className} title={tooltip}>
       {children}
     </button>
   ),

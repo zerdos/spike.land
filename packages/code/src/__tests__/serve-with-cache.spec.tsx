@@ -189,6 +189,9 @@ describe("serveWithCache", () => {
     vi.mocked(cache.match).mockResolvedValue(undefined);
     vi.mocked(assetFetcher).mockRejectedValue(new Error("Fetch error"));
 
+    // Suppress expected error logging
+    const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
     const result = await serve(
       new Request("https://example.com/abc123/main.js"),
       assetFetcher,
@@ -197,6 +200,12 @@ describe("serveWithCache", () => {
 
     expect(result.status).toBe(500);
     expect(await result.text()).toBe("Internal Server Error");
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Asset fetch error:",
+      expect.any(Error),
+    );
+
+    consoleErrorSpy.mockRestore();
   });
 
   it("should set correct headers for non-HTML assets", async () => {
@@ -278,6 +287,9 @@ describe("serveWithCache", () => {
     });
     vi.mocked(assetFetcher).mockResolvedValue(fetchedResponse);
 
+    // Suppress expected error logging
+    const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
     const result = await serve(
       new Request("https://example.com/abc123/main.js"),
       assetFetcher,
@@ -286,6 +298,16 @@ describe("serveWithCache", () => {
 
     expect(await result.text()).toBe('console.warn("test");');
     expect(result.headers.get("Content-Type")).toBe("application/javascript");
+
+    // Wait for waitUntil promise to complete and verify error was logged
+    await vi.waitFor(() => {
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Cache put error:",
+        expect.any(Error),
+      );
+    });
+
+    consoleErrorSpy.mockRestore();
   });
 
   it("should handle concurrent requests for the same asset", async () => {

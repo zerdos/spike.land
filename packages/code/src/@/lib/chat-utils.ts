@@ -274,10 +274,12 @@ function parseModification(mod: string): CodeModification | null {
     };
   }
 
-  console.warn(
-    "parseModification - Failed to parse modification, parts count:",
-    parts.length,
-  );
+  if (process.env["NODE_ENV"] !== "test") {
+    console.warn(
+      "parseModification - Failed to parse modification, parts count:",
+      parts.length,
+    );
+  }
   return null;
 }
 
@@ -376,11 +378,13 @@ function applyCodeModifications(
         //   afterLength - beforeLength,
         // );
       } else {
-        console.warn(
-          `applyCodeModifications - Failed to parse modification ${
-            index + 1
-          }. Modification string: "${mod.substring(0, 100)}..."`,
-        );
+        if (process.env["NODE_ENV"] !== "test") {
+          console.warn(
+            `applyCodeModifications - Failed to parse modification ${
+              index + 1
+            }. Modification string: "${mod.substring(0, 100)}..."`,
+          );
+        }
       }
     });
 
@@ -423,9 +427,11 @@ export const updateSearchReplace = (
   // );
 
   if (modifications.length === 0) {
-    console.warn(
-      "updateSearchReplace - No modifications extracted from instructions",
-    );
+    if (process.env["NODE_ENV"] !== "test") {
+      console.warn(
+        "updateSearchReplace - No modifications extracted from instructions",
+      );
+    }
     // console.warn("updateSearchReplace - Instructions:", instructions); // Changed to warn
     return codeNow;
   }
@@ -462,9 +468,11 @@ export const updateSearchReplace = (
       //   codeNoWS.includes(searchNoWS),
       // );
     } else {
-      console.warn(
-        `updateSearchReplace - Failed to parse modification ${index + 1}`,
-      );
+      if (process.env["NODE_ENV"] !== "test") {
+        console.warn(
+          `updateSearchReplace - Failed to parse modification ${index + 1}`,
+        );
+      }
     }
   });
 

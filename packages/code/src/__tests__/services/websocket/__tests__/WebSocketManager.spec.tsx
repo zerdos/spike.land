@@ -14,6 +14,7 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } 
 window.scrollTo = vi.fn();
 let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
 let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+let consoleWarnSpy: ReturnType<typeof vi.spyOn>;
 
 // Global constants
 const DEFAULT_CONFIG = {
@@ -26,12 +27,14 @@ const DEFAULT_CONFIG = {
 beforeAll(() => {
   consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
   consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+  consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
 });
 
 // Restore console after tests
 afterAll(() => {
   consoleErrorSpy.mockRestore();
   consoleLogSpy.mockRestore();
+  consoleWarnSpy.mockRestore();
 });
 
 // Mock dependencies

@@ -103,7 +103,10 @@ export class Code implements ICode {
       computeSessionHash(sessionWithoutSender) ===
         computeSessionHash(this.currentSession)
     ) {
-      console.warn("⚠️ No changes to session, skipping update");
+      // Suppress this warning during tests to reduce noise
+      if (typeof process !== "undefined" && process.env?.["VITEST"] !== "true") {
+        console.warn("⚠️ No changes to session, skipping update");
+      }
       return;
     }
 

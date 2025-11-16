@@ -18,11 +18,20 @@ describe("memfs file operations", () => {
     });
 
     it("should throw error for non-existent file", async () => {
+      const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
       mockDirectoryHandle.getFileHandle = vi.fn().mockRejectedValue(
         new Error("Not found"),
       );
 
       await expect(readFile("/nonexistent.txt")).rejects.toThrow();
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error reading file /nonexistent.txt:",
+        expect.any(Error),
+      );
+
+      consoleErrorSpy.mockRestore();
 
       // Restore original mock
       mockDirectoryHandle.getFileHandle = vi.fn(async (name, options) => {
@@ -88,6 +97,9 @@ describe("memfs file operations", () => {
     });
 
     it("should create file if it doesn't exist", async () => {
+      const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+      const consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+
       await appendFile("/new-append.txt", "new content");
       expect(mockDirectoryHandle.getFileHandle).toHaveBeenCalledWith(
         "new-append.txt",
@@ -95,6 +107,13 @@ describe("memfs file operations", () => {
           create: true,
         },
       );
+
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        "File /new-append.txt not found or unreadable for append, creating new file.",
+      );
+
+      consoleErrorSpy.mockRestore();
+      consoleWarnSpy.mockRestore();
     });
   });
 

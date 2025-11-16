@@ -101,6 +101,9 @@ describe("StartWithPrompt", () => {
       sessionStorage.getItem("mocked-md5-Test prompt") || "{}",
     );
     expect(sessionData.prompt).toBe("Test prompt");
+
+    // Verify that location.href was set (using the mocked location)
+    expect(window.location.href).toBe("/live/x-mocked-md5-Test prompt");
   });
 
   it("changes styles based on dark mode", () => {

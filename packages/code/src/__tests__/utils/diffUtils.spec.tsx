@@ -2,7 +2,7 @@ import { updateSearchReplace } from "@/lib/chat-utils";
 import { extractCodeModification } from "@/lib/chat-utils";
 import { extractDiffContent, isDiffContent } from "@/lib/diff-utils";
 import { getPartsStreaming } from "@/lib/get-parts";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 describe("diffUtils", () => {
   describe("extractDiffContent", () => {
@@ -349,6 +349,8 @@ These changes create a darker, more professional look for the code block compone
 
   describe("updateSearchReplace", () => {
     it("should handle broken code blocks", async () => {
+      const consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+
       const oldCode = `
 <<<<<<< SEARCH
 const example = () => {
@@ -373,6 +375,7 @@ console.warn("World");
       `;
 
       expect(result.trim()).toBe(expected.trim());
+      consoleWarnSpy.mockRestore();
     });
   });
 

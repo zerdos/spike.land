@@ -7,8 +7,13 @@ import { mockDirectoryHandle, mockFileSystem, mockNavigator, setupTest } from ".
 vi.stubGlobal("navigator", mockNavigator);
 
 describe("memfs directory operations", () => {
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+  let consoleWarnSpy: ReturnType<typeof vi.spyOn>;
+
   beforeEach(() => {
     setupTest();
+    consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
   });
 
   describe("mkdir", () => {
@@ -39,6 +44,10 @@ describe("memfs directory operations", () => {
 
     it("should throw error for invalid directory path", async () => {
       await expect(mkdir("/")).rejects.toThrow("Invalid directory path");
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Error creating directory"),
+        expect.any(Error),
+      );
     });
   });
 
@@ -84,6 +93,9 @@ describe("memfs directory operations", () => {
 
       const result = await stat("/nonexistent");
       expect(result).toBeNull();
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        expect.stringContaining("stat: Could not find /nonexistent"),
+      );
 
       // Restore original mock
       mockDirectoryHandle.getFileHandle = vi.fn(async (name, options) => {
@@ -123,6 +135,10 @@ describe("memfs directory operations", () => {
 
     it("should throw error for root directory", async () => {
       await expect(rmdir("/")).rejects.toThrow("Cannot remove root directory");
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Error removing directory"),
+        expect.any(Error),
+      );
     });
   });
 });
