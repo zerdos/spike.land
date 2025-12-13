@@ -4,6 +4,7 @@
 - Node: 22.19.0
 - Yarn: 4.10.3
 - Cypress 15.2.0
+- With google-chrome
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - With Vscode- Zsh + Oh my zsh!
 

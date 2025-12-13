@@ -80,7 +80,7 @@ const templateRegistry: Readonly<Record<string, TemplateDefinition>> = {
     order: DESKTOP_TEMPLATE_ORDER,
   },
   "chrome": {
-    id: "google-chrome",
+    id: "chrome",
     category: TemplateCategory.TOOL,
     order: TOOL_TEMPLATE_ORDER,
   },
