@@ -7930,6 +7930,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@spike-npm-land/opfs-node-adapter@workspace:packages/opfs-node-adapter":
+  version: 0.0.0-use.local
+  resolution: "@spike-npm-land/opfs-node-adapter@workspace:packages/opfs-node-adapter"
+  dependencies:
+    typescript: "npm:^5.9.2"
+    vitest: "npm:^3.2.4"
+  languageName: unknown
+  linkType: soft
+
 "@spike-npm-land/renderer@workspace:packages/spike-land-renderer":
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/renderer@workspace:packages/spike-land-renderer"
