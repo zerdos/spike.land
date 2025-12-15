@@ -11,40 +11,54 @@ import type { FileHandle, FileReadOptions, FileReadResult } from "node:fs/promis
 import type { Interface } from "node:readline";
 import type { ReadableStream } from "node:stream/web";
 import { tryCatch } from "./try-catch";
+import { createStats, createBigIntStats, type FileSystemFileEntry } from "./types";
 
+/**
+ * FileHandle implementation that wraps the OPFS FileSystemFileHandle
+ */
 class FileHandleImpl implements FileHandle {
   readonly fd: number;
+  private _path: string;
 
-  constructor(private fileHandle: FileSystemFileHandle) {
+  constructor(private fileHandle: FileSystemFileHandle, path: string) {
     this.fd = Math.floor(Math.random() * 1000000);
+    this._path = path;
   }
 
+  /**
+   * Close the file handle
+   * In OPFS, there's no explicit close needed
+   */
   async close(): Promise<void> {
-    // No-op
-
     return undefined;
   }
 
+  /**
+   * Read the entire file
+   * Node.js signature: readFile([options])
+   */
+  readFile(options?: { encoding?: null; flag?: string } | null): Promise<Buffer>;
   readFile(
-    options?: { encoding?: null; flag?: string; } | null,
-  ): Promise<Buffer>;
-  readFile(
-    options: { encoding: BufferEncoding; flag?: string; } | BufferEncoding,
+    options: { encoding: BufferEncoding; flag?: string } | BufferEncoding,
   ): Promise<string>;
+  readFile(
+    options?: BufferEncoding | (ObjectEncodingOptions & Abortable) | null,
+  ): Promise<string | Buffer>;
   async readFile(
     options?: BufferEncoding | (ObjectEncodingOptions & Abortable) | null,
   ): Promise<string | Buffer> {
     const doReadFile = async () => {
       const file = await this.fileHandle.getFile();
       const content = await file.text();
-      if (!options) {
+
+      const encoding = typeof options === "string" ? options : options?.encoding;
+
+      if (encoding === null || encoding === undefined) {
         return Buffer.from(content);
       }
-      if (typeof options === "string" || (options && "encoding" in options)) {
-        return content;
-      }
-      return Buffer.from(content);
+      return content;
     };
+
     const { data, error } = await tryCatch(doReadFile());
     if (error) {
       console.error("Error in FileHandleImpl.readFile:", error);
@@ -56,6 +70,10 @@ class FileHandleImpl implements FileHandle {
     return data;
   }
 
+  /**
+   * Write data to the file
+   * Node.js signature: writeFile(data[, options])
+   */
   async writeFile(
     data: string | Uint8Array,
     _options?: BufferEncoding | (ObjectEncodingOptions & Abortable) | null,
@@ -65,6 +83,7 @@ class FileHandleImpl implements FileHandle {
       await writable.write(data as BufferSource | Blob | string);
       await writable.close();
     };
+
     const { error } = await tryCatch(doWriteFile());
     if (error) {
       console.error("Error in FileHandleImpl.writeFile:", error);
@@ -72,14 +91,20 @@ class FileHandleImpl implements FileHandle {
     }
   }
 
+  /**
+   * Append data to the file
+   * Node.js signature: appendFile(data[, options])
+   */
   async appendFile(
     data: string | Uint8Array,
     options?: BufferEncoding | (ObjectEncodingOptions & Abortable) | null,
   ): Promise<void> {
     const doAppendFile = async () => {
-      const existingContent = await this.readFile(); // readFile is already refactored
-      await this.writeFile(existingContent + data.toString(), options); // writeFile is refactored
+      const existingContent = await this.readFile();
+      const appendContent = typeof data === "string" ? data : new TextDecoder().decode(data);
+      await this.writeFile(existingContent + appendContent, options);
     };
+
     const { error } = await tryCatch(doAppendFile());
     if (error) {
       console.error("Error in FileHandleImpl.appendFile:", error);
@@ -87,48 +112,90 @@ class FileHandleImpl implements FileHandle {
     }
   }
 
+  /**
+   * Change file mode (permissions)
+   * @throws Not implemented (OPFS doesn't support permissions)
+   */
   async chmod(_mode: Mode): Promise<void> {
-    throw new Error("Method not implemented");
+    throw new Error("OPFS adapter: FileHandle.chmod is not implemented yet");
   }
 
+  /**
+   * Read data from file into a buffer
+   * Node.js signature: read(buffer[, offset[, length[, position]]])
+   */
   read<T extends NodeJS.ArrayBufferView>(
     buffer: T,
     offset?: number | null,
     length?: number | null,
     position?: number | null,
-  ): Promise<{ bytesRead: number; buffer: T; }>;
+  ): Promise<{ bytesRead: number; buffer: T }>;
   read<T extends NodeJS.ArrayBufferView>(
     buffer: T,
     opts?: FileReadOptions,
   ): Promise<FileReadResult<T>>;
   async read<T extends NodeJS.ArrayBufferView>(
     buffer: T,
-    _offsetOrOpts?: number | null | FileReadOptions,
-    _length?: number | null,
-    _position?: number | null,
-  ): Promise<{ bytesRead: number; buffer: T; } | FileReadResult<T>> {
-    if (
-      _offsetOrOpts && typeof _offsetOrOpts === "object" &&
-      !("length" in _offsetOrOpts)
-    ) {
-      // Handle FileReadOptions
-      return {
-        bytesRead: buffer.byteLength,
-        buffer,
-      };
+    offsetOrOpts?: number | null | FileReadOptions,
+    length?: number | null,
+    position?: number | null,
+  ): Promise<{ bytesRead: number; buffer: T } | FileReadResult<T>> {
+    const file = await this.fileHandle.getFile();
+    const arrayBuffer = await file.arrayBuffer();
+    const sourceView = new Uint8Array(arrayBuffer);
+
+    let offset = 0;
+    let readLength = buffer.byteLength;
+    let readPosition = 0;
+
+    if (offsetOrOpts !== null && offsetOrOpts !== undefined) {
+      if (typeof offsetOrOpts === "object") {
+        offset = offsetOrOpts.offset ?? 0;
+        readLength = offsetOrOpts.length ?? buffer.byteLength;
+        const pos = offsetOrOpts.position ?? 0;
+        readPosition = typeof pos === "bigint" ? Number(pos) : pos;
+      } else {
+        offset = offsetOrOpts;
+        readLength = length ?? buffer.byteLength;
+        readPosition = position ?? 0;
+      }
     }
 
-    // Handle positional read
+    const targetView = new Uint8Array(
+      buffer.buffer,
+      buffer.byteOffset + offset,
+      Math.min(readLength, buffer.byteLength - offset),
+    );
+
+    const bytesToRead = Math.min(
+      readLength,
+      sourceView.length - readPosition,
+      targetView.length,
+    );
+
+    for (let i = 0; i < bytesToRead; i++) {
+      const srcIndex = readPosition + i;
+      targetView[i] = sourceView[srcIndex] ?? 0;
+    }
+
     return {
-      bytesRead: buffer.byteLength,
+      bytesRead: bytesToRead,
       buffer,
     };
   }
 
+  /**
+   * Change file ownership
+   * @throws Not implemented (OPFS doesn't support ownership)
+   */
   async chown(_uid: number, _gid: number): Promise<void> {
-    throw new Error("Method not implemented");
+    throw new Error("OPFS adapter: FileHandle.chown is not implemented yet");
   }
 
+  /**
+   * Create a readable stream
+   * @throws Not implemented
+   */
   createReadStream(
     _options?: {
       encoding?: BufferEncoding;
@@ -137,115 +204,171 @@ class FileHandleImpl implements FileHandle {
       highWaterMark?: number;
     },
   ): ReadStream {
-    throw new Error("Method not implemented");
+    throw new Error("OPFS adapter: FileHandle.createReadStream is not implemented yet");
   }
 
+  /**
+   * Create a writable stream
+   * @throws Not implemented
+   */
   createWriteStream(
-    _options?: { encoding?: BufferEncoding; start?: number; flags?: string; },
+    _options?: { encoding?: BufferEncoding; start?: number; flags?: string },
   ): WriteStream {
-    throw new Error("Method not implemented");
+    throw new Error("OPFS adapter: FileHandle.createWriteStream is not implemented yet");
   }
 
+  /**
+   * Flush data to storage device
+   * @throws Not implemented
+   */
   async datasync(): Promise<void> {
-    throw new Error("Method not implemented");
+    throw new Error("OPFS adapter: FileHandle.datasync is not implemented yet");
   }
 
-  stat(opts?: { bigint?: false; } | undefined): Promise<Stats>;
-  stat(opts: { bigint: true; }): Promise<BigIntStats>;
-  async stat(opts?: { bigint?: boolean; }): Promise<Stats | BigIntStats> {
+  /**
+   * Get file status
+   * Node.js signature: stat([options])
+   */
+  stat(opts?: { bigint?: false }): Promise<Stats>;
+  stat(opts: { bigint: true }): Promise<BigIntStats>;
+  async stat(opts?: { bigint?: boolean }): Promise<Stats | BigIntStats> {
+    const file = await this.fileHandle.getFile();
+
+    const entry: FileSystemFileEntry = {
+      name: this.fileHandle.name,
+      kind: "file",
+      size: file.size,
+      type: file.type,
+      lastModified: file.lastModified,
+      relativePath: this._path,
+      handle: this.fileHandle,
+    };
+
     if (opts?.bigint) {
-      throw new Error("BigInt stats not implemented");
+      return createBigIntStats(entry);
     }
-    throw new Error("Method not implemented");
+
+    return createStats(entry);
   }
 
+  /**
+   * Flush metadata and data to storage device
+   * @throws Not implemented
+   */
   async sync(): Promise<void> {
-    throw new Error("Method not implemented");
+    throw new Error("OPFS adapter: FileHandle.sync is not implemented yet");
   }
 
-  async truncate(_len?: number): Promise<void> {
-    throw new Error("Method not implemented");
+  /**
+   * Truncate the file
+   * Node.js signature: truncate([len])
+   */
+  async truncate(len?: number): Promise<void> {
+    const content = await this.readFile("utf8");
+    await this.writeFile(content.substring(0, len ?? 0));
   }
 
+  /**
+   * Change file timestamps
+   * @throws Not implemented (OPFS doesn't support setting timestamps)
+   */
   async utimes(
     _atime: string | number | Date,
     _mtime: string | number | Date,
   ): Promise<void> {
-    throw new Error("Method not implemented");
+    throw new Error("OPFS adapter: FileHandle.utimes is not implemented yet");
   }
 
-  readableWebStream(_options?: { autoClose?: boolean; }): ReadableStream<Uint8Array> {
-    // For now, return a basic implementation or throw
-    throw new Error("Method not implemented");
+  /**
+   * Get a readable web stream
+   * @throws Not implemented
+   */
+  readableWebStream(_options?: { autoClose?: boolean }): ReadableStream<Uint8Array> {
+    throw new Error("OPFS adapter: FileHandle.readableWebStream is not implemented yet");
   }
 
+  /**
+   * Get a readline interface for the file
+   * @throws Not implemented
+   */
   readLines(): Interface {
-    throw new Error("Method not implemented");
+    throw new Error("OPFS adapter: FileHandle.readLines is not implemented yet");
   }
 
+  /**
+   * Write multiple buffers to the file
+   * @throws Not implemented
+   */
   async writev(
     _buffers: NodeJS.ArrayBufferView[],
     _position?: number,
-  ): Promise<{ bytesWritten: number; buffers: NodeJS.ArrayBufferView[]; }> {
-    throw new Error("Method not implemented");
+  ): Promise<{ bytesWritten: number; buffers: NodeJS.ArrayBufferView[] }> {
+    throw new Error("OPFS adapter: FileHandle.writev is not implemented yet");
   }
 
+  /**
+   * Read into multiple buffers
+   * @throws Not implemented
+   */
   async readv(
     _buffers: NodeJS.ArrayBufferView[],
     _position?: number,
-  ): Promise<{ bytesRead: number; buffers: NodeJS.ArrayBufferView[]; }> {
-    throw new Error("Method not implemented");
+  ): Promise<{ bytesRead: number; buffers: NodeJS.ArrayBufferView[] }> {
+    throw new Error("OPFS adapter: FileHandle.readv is not implemented yet");
   }
 
+  /**
+   * Write data to the file
+   * Node.js signature: write(buffer[, offset[, length[, position]]])
+   *                   write(string[, position[, encoding]])
+   */
   write<TBuffer extends Uint8Array>(
     buffer: TBuffer,
     offset?: number | null,
     length?: number | null,
     position?: number | null,
-  ): Promise<{ bytesWritten: number; buffer: TBuffer; }>;
+  ): Promise<{ bytesWritten: number; buffer: TBuffer }>;
   write<TBuffer extends Uint8Array>(
     buffer: TBuffer,
-    opts?: { offset?: number; length?: number; position?: number; },
-  ): Promise<{ bytesWritten: number; buffer: TBuffer; }>;
+    opts?: { offset?: number; length?: number; position?: number },
+  ): Promise<{ bytesWritten: number; buffer: TBuffer }>;
   write(
     data: string,
     position?: number | null,
     encoding?: BufferEncoding | null,
-  ): Promise<{ bytesWritten: number; buffer: string; }>;
+  ): Promise<{ bytesWritten: number; buffer: string }>;
   async write(
     data: string | Uint8Array,
-    _offsetOrOpts?: number | null | {
-      offset?: number;
-      length?: number;
-      position?: number;
-    },
+    _offsetOrOpts?:
+      | number
+      | null
+      | { offset?: number; length?: number; position?: number },
     _lengthOrEncoding?: number | BufferEncoding | null,
     _position?: number | null,
-  ): Promise<{ bytesWritten: number; buffer: string | Uint8Array; }> {
+  ): Promise<{ bytesWritten: number; buffer: string | Uint8Array }> {
+    let writeData: Uint8Array;
     if (typeof data === "string") {
       const encoder = new TextEncoder();
-      data = encoder.encode(data);
+      writeData = encoder.encode(data);
+    } else {
+      writeData = data;
     }
-    // The core write operation
+
     const doWrite = async () => {
       const writable = await this.fileHandle.createWritable();
-      await writable.write(data as BufferSource | Blob | string); // data is already Uint8Array here
+      const arrayBuffer = writeData.buffer.slice(
+        writeData.byteOffset,
+        writeData.byteOffset + writeData.byteLength,
+      ) as ArrayBuffer;
+      await writable.write(arrayBuffer);
       await writable.close();
       return {
-        bytesWritten: (data as Uint8Array).length, // Cast to Uint8Array to access length
-        buffer: data, // data is already Uint8Array here
+        bytesWritten: writeData.length,
+        buffer: data,
       };
     };
 
-    // We need to handle the different overloads of write.
-    // The actual writing to the file system is what we wrap with tryCatch.
-    // The logic for handling different parameter types (_offsetOrOpts, etc.)
-    // would typically happen before or after this core async operation.
-    // For simplicity in this refactor, we'll assume the options are processed
-    // and the `data` is ready for the `writable.write` call.
-
     const { data: writeResult, error } = await tryCatch(doWrite());
-
     if (error) {
       console.error("Error in FileHandleImpl.write:", error);
       throw error;
@@ -253,14 +376,12 @@ class FileHandleImpl implements FileHandle {
     if (!writeResult) {
       throw new Error("FileHandleImpl.write did not return a result");
     }
-
-    // If the original data was a string, we should probably return a string buffer.
-    // However, the native `fs.promises.FileHandle.write` with a string returns bytesWritten and the string.
-    // Our current `doWrite` returns the Uint8Array. This might need adjustment based on exact compatibility needs.
-    // For now, we return what `doWrite` gives.
-    return writeResult as { bytesWritten: number; buffer: string | Uint8Array; };
+    return writeResult as { bytesWritten: number; buffer: string | Uint8Array };
   }
 
+  /**
+   * Async disposable support
+   */
   [Symbol.asyncDispose](): Promise<void> {
     return this.close();
   }
@@ -269,35 +390,43 @@ class FileHandleImpl implements FileHandle {
 /**
  * Create a FileHandle implementation
  * @param fileHandle Native FileSystemFileHandle
- * @param _path File path (unused in this implementation)
+ * @param path File path
  * @returns FileHandle implementation
  */
-export const createFileHandle = (
+export function createFileHandle(
   fileHandle: FileSystemFileHandle,
-  _path: string,
-): FileHandle => {
-  return new FileHandleImpl(fileHandle) as FileHandle;
-};
+  path: string,
+): FileHandle {
+  return new FileHandleImpl(fileHandle, path) as FileHandle;
+}
 
 /**
  * Open a file and return a FileHandle
+ * Node.js signature: open(path, flags[, mode])
  * @param path File path
- * @param flags Open flags
- * @param _mode File mode (unused in this implementation)
+ * @param flags Open flags ('r', 'w', 'w+', 'a', 'a+', 'r+')
+ * @param mode File mode (unused in OPFS)
  * @returns FileHandle
  */
-export const open = async (
+export async function open(
   path: string,
-  flags: string | number,
+  flags: string | number = "r",
   _mode?: Mode,
-): Promise<FileHandle> => {
+): Promise<FileHandle> {
   const doOpen = async () => {
-    const { getDirectoryHandleAndFileName } = await import("./utils"); // Keep import inside if it's only used here
+    const { getDirectoryHandleAndFileName } = await import("./utils");
     const { dirHandle, fileName } = await getDirectoryHandleAndFileName(path);
-    if (!fileName) throw new Error("Invalid file path for open");
+    if (!fileName) throw new Error("ENOENT: Invalid file path for open");
 
-    const create = flags === "w" || flags === "w+" || flags === "a" ||
-      flags === "a+";
+    const flagStr = typeof flags === "number" ? "r" : flags;
+    const create =
+      flagStr === "w" ||
+      flagStr === "w+" ||
+      flagStr === "a" ||
+      flagStr === "a+" ||
+      flagStr === "wx" ||
+      flagStr === "wx+";
+
     const fileHandle = await dirHandle.getFileHandle(fileName, { create });
     return createFileHandle(fileHandle, path);
   };
@@ -307,6 +436,6 @@ export const open = async (
     console.error(`Error opening file ${path}:`, error);
     throw error;
   }
-  if (!fileHandle) throw new Error(`Opening file ${path} returned no handle`);
+  if (!fileHandle) throw new Error(`ENOENT: Opening file ${path} returned no handle`);
   return fileHandle;
-};
+}

@@ -1,0 +1,19 @@
+// File operations barrel export
+export { appendFile } from "./appendFile";
+export { chmod } from "./chmod";
+export { chown } from "./chown";
+export { copyFile } from "./copyFile";
+export { lchmod } from "./lchmod";
+export { lchown } from "./lchown";
+export { link } from "./link";
+export { lutimes } from "./lutimes";
+export { readFile } from "./readFile";
+export { readFileSync } from "./readFileSync";
+export { readlink } from "./readlink";
+export { realpath } from "./realpath";
+export { rename } from "./rename";
+export { symlink } from "./symlink";
+export { truncate } from "./truncate";
+export { unlink } from "./unlink";
+export { utimes } from "./utimes";
+export { writeFile } from "./writeFile";

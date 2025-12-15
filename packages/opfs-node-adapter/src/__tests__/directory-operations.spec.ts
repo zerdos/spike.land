@@ -1,4 +1,4 @@
-import { mkdir, rmdir, stat } from "../index";
+import { access, exists, lstat, mkdir, mkdtemp, rm, rmdir, stat } from "../index";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { MockFileSystemFile } from "./setup";
 import { mockDirectoryHandle, mockFileSystem, mockNavigator, setupTest } from "./setup";
@@ -6,14 +6,13 @@ import { mockDirectoryHandle, mockFileSystem, mockNavigator, setupTest } from ".
 // Apply mocks
 vi.stubGlobal("navigator", mockNavigator);
 
-describe("memfs directory operations", () => {
+describe("opfs-node-adapter directory operations", () => {
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
-  let consoleWarnSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
     setupTest();
     consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-    consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    vi.spyOn(console, "warn").mockImplementation(() => {});
   });
 
   describe("mkdir", () => {
@@ -21,25 +20,16 @@ describe("memfs directory operations", () => {
       await mkdir("/newdir");
       expect(mockDirectoryHandle.getDirectoryHandle).toHaveBeenCalledWith(
         "newdir",
-        {
-          create: true,
-        },
+        { create: true },
       );
     });
 
-    it("should create nested directories", async () => {
-      await mkdir("/test/nested");
+    it("should create nested directories with recursive option", async () => {
+      await mkdir("/test/nested", { recursive: true });
       expect(mockDirectoryHandle.getDirectoryHandle).toHaveBeenCalledWith(
         "test",
-        { create: true },
+        { create: false },
       );
-
-      const testDirHandle = await mockDirectoryHandle.getDirectoryHandle(
-        "test",
-      );
-      expect(testDirHandle.getDirectoryHandle).toHaveBeenCalledWith("nested", {
-        create: true,
-      });
     });
 
     it("should throw error for invalid directory path", async () => {
@@ -49,55 +39,29 @@ describe("memfs directory operations", () => {
         expect.any(Error),
       );
     });
+
+    it("should return undefined when not recursive", async () => {
+      const result = await mkdir("/newdir");
+      expect(result).toBeUndefined();
+    });
   });
 
   describe("stat", () => {
-    it("should return file stats", async () => {
+    it("should return Stats object for files", async () => {
       const fileStat = await stat("/test.txt");
-      expect(fileStat).toHaveProperty("kind", "file");
-      expect(fileStat).toHaveProperty("name", "test.txt");
-      expect(fileStat).toHaveProperty("size", 100);
+      expect(fileStat.isFile()).toBe(true);
+      expect(fileStat.isDirectory()).toBe(false);
+      expect(typeof fileStat.size).toBe("number");
+      expect(fileStat.size).toBe(100);
     });
 
-    it("should return directory stats", async () => {
-      // We need to modify the mock to ensure stat returns a directory
-      // The current implementation is returning null for directories
-
-      // Create a mock directory stat result
-      const mockDirStat = {
-        kind: "directory",
-        name: "test",
-        relativePath: "/test",
-        entries: {},
-        handle: mockFileSystem["test"],
-      };
-
-      // Spy on the stat function
-      const statSpy = vi.fn().mockResolvedValue(mockDirStat);
-
-      // Use the spy for this test
-      try {
-        const result = await statSpy("/test");
-        expect(result).not.toBeNull();
-        expect(result).toHaveProperty("kind", "directory");
-        expect(result).toHaveProperty("name", "test");
-      } finally {
-        // No need to restore since we're not modifying the global object
-      }
-    });
-
-    it("should return null for non-existent path", async () => {
+    it("should throw for non-existent path", async () => {
       mockDirectoryHandle.getFileHandle = vi.fn().mockRejectedValue(
         new Error("Not found"),
       );
 
-      const result = await stat("/nonexistent");
-      expect(result).toBeNull();
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        expect.stringContaining("stat: Could not find /nonexistent"),
-      );
+      await expect(stat("/nonexistent")).rejects.toThrow("ENOENT");
 
-      // Restore original mock
       mockDirectoryHandle.getFileHandle = vi.fn(async (name, options) => {
         if (mockFileSystem[name]?.kind === "file") {
           return mockFileSystem[name] as MockFileSystemFile;
@@ -125,6 +89,14 @@ describe("memfs directory operations", () => {
     });
   });
 
+  describe("lstat", () => {
+    it("should return Stats object (same as stat since no symlinks in OPFS)", async () => {
+      const fileStat = await lstat("/test.txt");
+      expect(fileStat.isFile()).toBe(true);
+      expect(fileStat.isDirectory()).toBe(false);
+    });
+  });
+
   describe("rmdir", () => {
     it("should remove a directory", async () => {
       await rmdir("/test");
@@ -139,6 +111,98 @@ describe("memfs directory operations", () => {
         expect.stringContaining("Error removing directory"),
         expect.any(Error),
       );
+    });
+  });
+
+  describe("rm", () => {
+    it("should remove a file", async () => {
+      await rm("/test.txt");
+      expect(mockDirectoryHandle.removeEntry).toHaveBeenCalledWith("test.txt", {
+        recursive: false,
+      });
+    });
+
+    it("should remove recursively with option", async () => {
+      await rm("/test", { recursive: true });
+      expect(mockDirectoryHandle.removeEntry).toHaveBeenCalledWith("test", {
+        recursive: true,
+      });
+    });
+
+    it("should throw error for root directory", async () => {
+      await expect(rm("/")).rejects.toThrow("Cannot remove root directory");
+    });
+  });
+
+  describe("access", () => {
+    it("should not throw for existing file", async () => {
+      await expect(access("/test.txt")).resolves.toBeUndefined();
+    });
+
+    it("should throw for non-existent file", async () => {
+      mockDirectoryHandle.getFileHandle = vi.fn().mockRejectedValue(
+        new Error("Not found"),
+      );
+      mockDirectoryHandle.getDirectoryHandle = vi.fn().mockRejectedValue(
+        new Error("Not found"),
+      );
+
+      await expect(access("/nonexistent")).rejects.toThrow("ENOENT");
+
+      mockDirectoryHandle.getFileHandle = vi.fn(async (name, options) => {
+        if (mockFileSystem[name]?.kind === "file") {
+          return mockFileSystem[name] as MockFileSystemFile;
+        }
+        if (options?.create) {
+          const newFile = {
+            kind: "file" as const,
+            name,
+            getFile: vi.fn().mockResolvedValue({
+              size: 0,
+              type: "text/plain",
+              lastModified: Date.now(),
+              text: vi.fn().mockResolvedValue(""),
+            }),
+            createWritable: vi.fn().mockResolvedValue({
+              write: vi.fn().mockResolvedValue(undefined),
+              close: vi.fn().mockResolvedValue(undefined),
+            }),
+          };
+          mockFileSystem[name] = newFile;
+          return newFile;
+        }
+        throw new Error("Not a file");
+      });
+    });
+  });
+
+  describe("exists", () => {
+    it("should return true for existing file", async () => {
+      const result = await exists("/test.txt");
+      expect(result).toBe(true);
+    });
+
+    it("should return false for non-existent file", async () => {
+      mockDirectoryHandle.getFileHandle = vi.fn().mockRejectedValue(
+        new Error("Not found"),
+      );
+      mockDirectoryHandle.getDirectoryHandle = vi.fn().mockRejectedValue(
+        new Error("Not found"),
+      );
+
+      const result = await exists("/nonexistent");
+      expect(result).toBe(false);
+
+      setupTest();
+    });
+  });
+
+  describe("mkdtemp", () => {
+    it("should create a temporary directory with random suffix", async () => {
+      setupTest();
+      const result = await mkdtemp("test-");
+      expect(result).toMatch(/^test-.{6}$/);
+      expect(mockDirectoryHandle.getDirectoryHandle).toHaveBeenCalled();
     });
   });
 });

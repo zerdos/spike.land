@@ -195,7 +195,7 @@ export const setupTest = () => {
     }),
   };
 
-  // Reset mock directory handle
+  // Reset mock directory handle getFileHandle
   mockDirectoryHandle.getFileHandle = vi.fn(async (name, options) => {
     if (mockFileSystem[name]?.kind === "file") {
       return mockFileSystem[name] as MockFileSystemFile;
@@ -219,5 +219,25 @@ export const setupTest = () => {
       return newFile;
     }
     throw new Error("Not a file");
+  });
+
+  // Reset mock directory handle getDirectoryHandle
+  mockDirectoryHandle.getDirectoryHandle = vi.fn(async (name, options) => {
+    if (mockFileSystem[name]?.kind === "directory") {
+      return mockFileSystem[name] as MockFileSystemDirectory;
+    }
+    if (options?.create) {
+      const newDir = {
+        kind: "directory" as const,
+        name,
+        getDirectoryHandle: vi.fn().mockResolvedValue({}),
+        getFileHandle: vi.fn().mockResolvedValue({}),
+        removeEntry: vi.fn().mockResolvedValue(undefined),
+        entries: vi.fn().mockReturnValue([]),
+      };
+      mockFileSystem[name] = newDir;
+      return newDir;
+    }
+    throw new Error("Not a directory");
   });
 };

@@ -1,11 +1,11 @@
-import FS, { cwd, readFileSync } from "../index";
+import FS, { cwd, readFileSync, constants, promises } from "../index";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockNavigator, setupTest } from "./setup";
 
 // Apply mocks
 vi.stubGlobal("navigator", mockNavigator);
 
-describe("memfs miscellaneous operations", () => {
+describe("opfs-node-adapter miscellaneous operations", () => {
   beforeEach(() => {
     setupTest();
   });
@@ -19,20 +19,41 @@ describe("memfs miscellaneous operations", () => {
 
   describe("readFileSync", () => {
     it("should read file synchronously from global object", () => {
-      // Mock the global object with a file
       const globalFiles = globalThis as unknown as Record<string, string>;
       globalFiles["/sync-test.txt"] = "sync content";
 
       const content = readFileSync("/sync-test.txt");
       expect(content).toBe("sync content");
 
-      // Clean up
       delete globalFiles["/sync-test.txt"];
     });
 
     it("should return empty string for non-existent file", () => {
       const content = readFileSync("/nonexistent.txt");
       expect(content).toBe("");
+    });
+  });
+
+  describe("constants", () => {
+    it("should export fs constants", () => {
+      expect(constants.F_OK).toBe(0);
+      expect(constants.R_OK).toBe(4);
+      expect(constants.W_OK).toBe(2);
+      expect(constants.X_OK).toBe(1);
+      expect(constants.COPYFILE_EXCL).toBe(1);
+      expect(constants.COPYFILE_FICLONE).toBe(2);
+      expect(constants.COPYFILE_FICLONE_FORCE).toBe(4);
+    });
+  });
+
+  describe("promises export", () => {
+    it("should export promises object with all methods", () => {
+      expect(promises).toBeDefined();
+      expect(promises.readFile).toBeDefined();
+      expect(promises.writeFile).toBeDefined();
+      expect(promises.mkdir).toBeDefined();
+      expect(promises.stat).toBeDefined();
+      expect(promises.open).toBeDefined();
     });
   });
 
@@ -46,6 +67,7 @@ describe("memfs miscellaneous operations", () => {
       expect(FS).toHaveProperty("stat");
       expect(FS).toHaveProperty("cwd");
       expect(FS).toHaveProperty("readFileSync");
+      expect(FS).toHaveProperty("constants");
     });
 
     it("should assign methods to globalThis", () => {
