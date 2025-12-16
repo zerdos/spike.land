@@ -9,7 +9,7 @@ import type {
 } from "node:fs";
 import type { FileHandle, FileReadOptions, FileReadResult } from "node:fs/promises";
 import type { Interface } from "node:readline";
-import type { ReadableStream } from "node:stream/web";
+// ReadableStream is available globally in browser environments
 import { tryCatch } from "./try-catch";
 import { createStats, createBigIntStats, type FileSystemFileEntry } from "./types";
 
@@ -117,7 +117,10 @@ class FileHandleImpl implements FileHandle {
    * @throws Not implemented (OPFS doesn't support permissions)
    */
   async chmod(_mode: Mode): Promise<void> {
-    throw new Error("OPFS adapter: FileHandle.chmod is not implemented yet");
+    const error = new Error("ENOTSUP: operation not supported, chmod") as NodeJS.ErrnoException;
+    error.code = "ENOTSUP";
+    error.syscall = "fchmod";
+    throw error;
   }
 
   /**
@@ -189,12 +192,15 @@ class FileHandleImpl implements FileHandle {
    * @throws Not implemented (OPFS doesn't support ownership)
    */
   async chown(_uid: number, _gid: number): Promise<void> {
-    throw new Error("OPFS adapter: FileHandle.chown is not implemented yet");
+    const error = new Error("ENOTSUP: operation not supported, chown") as NodeJS.ErrnoException;
+    error.code = "ENOTSUP";
+    error.syscall = "fchown";
+    throw error;
   }
 
   /**
    * Create a readable stream
-   * @throws Not implemented
+   * @throws ENOTSUP - Operation not supported in OPFS
    */
   createReadStream(
     _options?: {
@@ -204,25 +210,42 @@ class FileHandleImpl implements FileHandle {
       highWaterMark?: number;
     },
   ): ReadStream {
-    throw new Error("OPFS adapter: FileHandle.createReadStream is not implemented yet");
+    const error = new Error(
+      "ENOTSUP: operation not supported, createReadStream",
+    ) as NodeJS.ErrnoException;
+    error.code = "ENOTSUP";
+    error.syscall = "createReadStream";
+    throw error;
   }
 
   /**
    * Create a writable stream
-   * @throws Not implemented
+   * @throws ENOTSUP - Operation not supported in OPFS
    */
   createWriteStream(
-    _options?: { encoding?: BufferEncoding; start?: number; flags?: string },
+    _options?: {
+      encoding?: BufferEncoding | null;
+      autoClose?: boolean;
+      emitClose?: boolean;
+      start?: number;
+      highWaterMark?: number;
+      flush?: boolean;
+    },
   ): WriteStream {
-    throw new Error("OPFS adapter: FileHandle.createWriteStream is not implemented yet");
+    const error = new Error(
+      "ENOTSUP: operation not supported, createWriteStream",
+    ) as NodeJS.ErrnoException;
+    error.code = "ENOTSUP";
+    error.syscall = "createWriteStream";
+    throw error;
   }
 
   /**
    * Flush data to storage device
-   * @throws Not implemented
+   * In OPFS, writes are immediately persisted, so this is a no-op
    */
   async datasync(): Promise<void> {
-    throw new Error("OPFS adapter: FileHandle.datasync is not implemented yet");
+    return;
   }
 
   /**
@@ -253,10 +276,10 @@ class FileHandleImpl implements FileHandle {
 
   /**
    * Flush metadata and data to storage device
-   * @throws Not implemented
+   * In OPFS, writes are immediately persisted, so this is a no-op
    */
   async sync(): Promise<void> {
-    throw new Error("OPFS adapter: FileHandle.sync is not implemented yet");
+    return;
   }
 
   /**
@@ -276,46 +299,112 @@ class FileHandleImpl implements FileHandle {
     _atime: string | number | Date,
     _mtime: string | number | Date,
   ): Promise<void> {
-    throw new Error("OPFS adapter: FileHandle.utimes is not implemented yet");
+    const error = new Error("ENOTSUP: operation not supported, utimes") as NodeJS.ErrnoException;
+    error.code = "ENOTSUP";
+    error.syscall = "futimes";
+    throw error;
   }
 
   /**
    * Get a readable web stream
-   * @throws Not implemented
+   * Returns a ReadableStream that streams the file contents
    */
-  readableWebStream(_options?: { autoClose?: boolean }): ReadableStream<Uint8Array> {
-    throw new Error("OPFS adapter: FileHandle.readableWebStream is not implemented yet");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  readableWebStream(_options?: { autoClose?: boolean }): any {
+    const fileHandle = this.fileHandle;
+
+    return new ReadableStream<Uint8Array>({
+      async start(controller) {
+        try {
+          const file = await fileHandle.getFile();
+          const stream = file.stream();
+          const reader = stream.getReader();
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            controller.enqueue(value);
+          }
+          controller.close();
+        } catch (error) {
+          controller.error(error);
+        }
+      },
+    });
   }
 
   /**
    * Get a readline interface for the file
-   * @throws Not implemented
+   * @throws ENOTSUP - readline module not available in browser environment
    */
   readLines(): Interface {
-    throw new Error("OPFS adapter: FileHandle.readLines is not implemented yet");
+    const error = new Error(
+      "ENOTSUP: operation not supported, readLines",
+    ) as NodeJS.ErrnoException;
+    error.code = "ENOTSUP";
+    error.syscall = "readLines";
+    throw error;
   }
 
   /**
    * Write multiple buffers to the file
-   * @throws Not implemented
+   * Node.js signature: writev(buffers[, position])
    */
   async writev(
-    _buffers: NodeJS.ArrayBufferView[],
-    _position?: number,
+    buffers: NodeJS.ArrayBufferView[],
+    position?: number,
   ): Promise<{ bytesWritten: number; buffers: NodeJS.ArrayBufferView[] }> {
-    throw new Error("OPFS adapter: FileHandle.writev is not implemented yet");
+    const totalLength = buffers.reduce((sum, buf) => sum + buf.byteLength, 0);
+    const combined = new Uint8Array(totalLength);
+    let offset = 0;
+    for (const buf of buffers) {
+      const view = new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength);
+      combined.set(view, offset);
+      offset += buf.byteLength;
+    }
+
+    const writable = await this.fileHandle.createWritable();
+    if (position !== undefined) {
+      await writable.seek(position);
+    }
+    await writable.write(combined);
+    await writable.close();
+
+    return { bytesWritten: totalLength, buffers };
   }
 
   /**
    * Read into multiple buffers
-   * @throws Not implemented
+   * Node.js signature: readv(buffers[, position])
    */
   async readv(
-    _buffers: NodeJS.ArrayBufferView[],
-    _position?: number,
+    buffers: NodeJS.ArrayBufferView[],
+    position?: number,
   ): Promise<{ bytesRead: number; buffers: NodeJS.ArrayBufferView[] }> {
-    throw new Error("OPFS adapter: FileHandle.readv is not implemented yet");
+    const file = await this.fileHandle.getFile();
+    const arrayBuffer = await file.arrayBuffer();
+    const source = new Uint8Array(arrayBuffer);
+
+    let currentPos = position ?? 0;
+    let totalBytesRead = 0;
+
+    for (const buf of buffers) {
+      const target = new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength);
+      const bytesToRead = Math.min(target.length, source.length - currentPos);
+
+      if (bytesToRead <= 0) break;
+
+      for (let i = 0; i < bytesToRead; i++) {
+        target[i] = source[currentPos + i] ?? 0;
+      }
+
+      currentPos += bytesToRead;
+      totalBytesRead += bytesToRead;
+    }
+
+    return { bytesRead: totalBytesRead, buffers };
   }
+
 
   /**
    * Write data to the file
@@ -397,7 +486,7 @@ export function createFileHandle(
   fileHandle: FileSystemFileHandle,
   path: string,
 ): FileHandle {
-  return new FileHandleImpl(fileHandle, path) as FileHandle;
+  return new FileHandleImpl(fileHandle, path) as unknown as FileHandle;
 }
 
 /**

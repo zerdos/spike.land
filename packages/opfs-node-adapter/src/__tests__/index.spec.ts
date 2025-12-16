@@ -58,13 +58,13 @@ describe("opfs-node-adapter", () => {
       expect(FS).toHaveProperty("cwd");
       expect(FS).toHaveProperty("mkdtemp");
       expect(FS).toHaveProperty("exists");
+      expect(FS).toHaveProperty("statfs");
     });
 
-    it("should export watch/glob operations (not implemented)", () => {
+    it("should export watch/glob operations", () => {
       expect(FS).toHaveProperty("watch");
       expect(FS).toHaveProperty("glob");
       expect(FS).toHaveProperty("opendir");
-      expect(FS).toHaveProperty("statfs");
       expect(FS).toHaveProperty("cp");
     });
 
@@ -83,61 +83,67 @@ describe("opfs-node-adapter", () => {
     });
   });
 
-  describe("not implemented methods should throw", () => {
-    it("link should throw not implemented error", async () => {
-      await expect(FS.link("/src", "/dest")).rejects.toThrow("not implemented yet");
+  describe("ENOTSUP operations should throw proper errors", () => {
+    it("link should throw ENOTSUP error", async () => {
+      await expect(FS.link("/src", "/dest")).rejects.toThrow("ENOTSUP: operation not supported");
     });
 
-    it("symlink should throw not implemented error", async () => {
-      await expect(FS.symlink("/target", "/path")).rejects.toThrow("not implemented yet");
+    it("symlink should throw ENOTSUP error", async () => {
+      await expect(FS.symlink("/target", "/path")).rejects.toThrow("ENOTSUP: operation not supported");
     });
 
-    it("readlink should throw not implemented error", async () => {
-      await expect(FS.readlink("/path")).rejects.toThrow("not implemented yet");
+    it("readlink should throw ENOTSUP error", async () => {
+      await expect(FS.readlink("/path")).rejects.toThrow("ENOTSUP: operation not supported");
     });
 
-    it("chmod should throw not implemented error", async () => {
-      await expect(FS.chmod("/path", 0o755)).rejects.toThrow("not implemented yet");
+    it("chmod should throw ENOTSUP error", async () => {
+      await expect(FS.chmod("/path", 0o755)).rejects.toThrow("ENOTSUP: operation not supported");
     });
 
-    it("chown should throw not implemented error", async () => {
-      await expect(FS.chown("/path", 1000, 1000)).rejects.toThrow("not implemented yet");
+    it("chown should throw ENOTSUP error", async () => {
+      await expect(FS.chown("/path", 1000, 1000)).rejects.toThrow("ENOTSUP: operation not supported");
     });
 
-    it("lchmod should throw not implemented error", async () => {
-      await expect(FS.lchmod("/path", 0o755)).rejects.toThrow("not implemented yet");
+    it("lchmod should throw ENOTSUP error", async () => {
+      await expect(FS.lchmod("/path", 0o755)).rejects.toThrow("ENOTSUP: operation not supported");
     });
 
-    it("lchown should throw not implemented error", async () => {
-      await expect(FS.lchown("/path", 1000, 1000)).rejects.toThrow("not implemented yet");
+    it("lchown should throw ENOTSUP error", async () => {
+      await expect(FS.lchown("/path", 1000, 1000)).rejects.toThrow("ENOTSUP: operation not supported");
     });
 
-    it("utimes should throw not implemented error", async () => {
-      await expect(FS.utimes("/path", new Date(), new Date())).rejects.toThrow("not implemented yet");
+    it("utimes should throw ENOTSUP error", async () => {
+      await expect(FS.utimes("/path", new Date(), new Date())).rejects.toThrow(
+        "ENOTSUP: operation not supported",
+      );
     });
 
-    it("lutimes should throw not implemented error", async () => {
-      await expect(FS.lutimes("/path", new Date(), new Date())).rejects.toThrow("not implemented yet");
+    it("lutimes should throw ENOTSUP error", async () => {
+      await expect(FS.lutimes("/path", new Date(), new Date())).rejects.toThrow(
+        "ENOTSUP: operation not supported",
+      );
+    });
+  });
+
+  describe("implemented operations should work", () => {
+    it("watch should be implemented and not throw", async () => {
+      const watcher = FS.watch("/path");
+      expect(watcher).toBeDefined();
+      expect(watcher.close).toBeInstanceOf(Function);
+      await watcher.close();
     });
 
-    it("watch should throw not implemented error", () => {
-      expect(() => FS.watch("/path")).toThrow("not implemented yet");
+    it("glob should return results", async () => {
+      const results = await FS.glob("*.txt");
+      expect(Array.isArray(results)).toBe(true);
     });
 
-    it("glob should throw not implemented error", async () => {
-      await expect(FS.glob("*.txt")).rejects.toThrow("not implemented yet");
+    it("opendir should throw for non-existent path", async () => {
+      await expect(FS.opendir("/nonexistent")).rejects.toThrow();
     });
 
-    it("opendir should throw not implemented error", async () => {
-      await expect(FS.opendir("/path")).rejects.toThrow("not implemented yet");
-    });
-
-    it("statfs should throw not implemented error", async () => {
-      await expect(FS.statfs("/path")).rejects.toThrow("not implemented yet");
-    });
-
-    it("cp should throw not implemented error", async () => {
-      await expect(FS.cp("/src", "/dest")).rejects.toThrow("not implemented yet");
+    it("cp should throw ENOENT for non-existent source", async () => {
+      await expect(FS.cp("/nonexistent", "/dest")).rejects.toThrow("ENOENT");
     });
   });
 });

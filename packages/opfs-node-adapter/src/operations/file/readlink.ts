@@ -1,6 +1,10 @@
 export async function readlink(
-  _path: string,
+  path: string,
   _options?: { encoding?: BufferEncoding | null } | BufferEncoding | null,
 ): Promise<string | Buffer> {
-  throw new Error("OPFS adapter: readlink is not implemented yet");
+  const error = new Error(`ENOTSUP: operation not supported, readlink '${path}'`) as NodeJS.ErrnoException;
+  error.code = "ENOTSUP";
+  error.syscall = "readlink";
+  error.path = path;
+  throw error;
 }

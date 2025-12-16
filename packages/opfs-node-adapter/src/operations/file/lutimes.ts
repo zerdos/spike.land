@@ -1,12 +1,18 @@
 /**
  * Change symbolic link timestamps
  * Node.js signature: lutimes(path, atime, mtime)
- * @throws Not implemented
+ * @throws ENOTSUP - OPFS does not support symbolic links
  */
 export async function lutimes(
-  _path: string,
+  path: string,
   _atime: string | number | Date,
   _mtime: string | number | Date,
 ): Promise<void> {
-  throw new Error("OPFS adapter: lutimes is not implemented yet");
+  const error = new Error(
+    `ENOTSUP: operation not supported, lutimes '${path}'`,
+  ) as NodeJS.ErrnoException;
+  error.code = "ENOTSUP";
+  error.syscall = "lutimes";
+  error.path = path;
+  throw error;
 }

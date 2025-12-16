@@ -12,6 +12,7 @@ export interface MockFileSystemFile {
   }>;
   createWritable: () => Promise<{
     write: (content: string) => Promise<void>;
+    seek: (position: number) => Promise<void>;
     close: () => Promise<void>;
   }>;
 }
@@ -52,6 +53,7 @@ export const mockFileSystem: Record<
     }),
     createWritable: vi.fn().mockResolvedValue({
       write: vi.fn().mockResolvedValue(undefined),
+      seek: vi.fn().mockResolvedValue(undefined),
       close: vi.fn().mockResolvedValue(undefined),
     }),
   },
@@ -191,6 +193,7 @@ export const setupTest = () => {
     }),
     createWritable: vi.fn().mockResolvedValue({
       write: vi.fn().mockResolvedValue(undefined),
+      seek: vi.fn().mockResolvedValue(undefined),
       close: vi.fn().mockResolvedValue(undefined),
     }),
   };

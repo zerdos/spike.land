@@ -186,6 +186,13 @@ export interface DirInterface extends AsyncIterable<Dirent> {
 }
 
 /**
+ * Extended ErrnoException with dest property for link/symlink operations
+ */
+export interface LinkErrnoException extends NodeJS.ErrnoException {
+  dest?: string;
+}
+
+/**
  * Create a "not implemented yet" error with consistent message
  */
 export function notImplementedError(methodName: string): Error {
