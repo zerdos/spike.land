@@ -7,11 +7,10 @@ export default defineWorkersConfig({
     reporters: ["hanging-process", "dot"],
     include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     setupFiles: ["./vitest.setup.ts"],
-    poolOptions: {
-      workers: {
-        wrangler: {
-          configPath: "./wrangler.toml",
-        },
+    pool: "workers",
+    workers: {
+      wrangler: {
+        configPath: "./wrangler.toml",
       },
     },
   },
