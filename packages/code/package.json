@@ -16,13 +16,13 @@
   "scripts": {
     "// Development": "",
     "dev": "concurrently --kill-others-on-fail=false \"yarn dev:vite\" \"yarn types:watch\" \"yarn dev:workers\"",
-    "dev:vite": "vite",
+    "dev:vite": "./node_modules/.bin/vite",
     "dev:workers": "tsx src/@/lib/esbuild-dev.ts --watch",
     "// Build": "",
     "build": "yarn clean && yarn build:all",
     "build:all": "concurrently --kill-others-on-fail \"yarn build:vite\" \"yarn build:types\" \"yarn build:workers\" && yarn post-build",
-    "build:vite": "vite build",
-    "build:vite:watch": "vite build --watch --outDir dist & yarn types:build",
+    "build:vite": "./node_modules/.bin/vite build",
+    "build:vite:watch": "./node_modules/.bin/vite build --watch --outDir dist & yarn types:build",
     "build:workers": "tsx src/@/lib/esbuild-dev.ts",
     "build:types": "tsc --build && yarn types:cp",
     "post-build-delete": "yarn remove-extraneous",
@@ -40,7 +40,7 @@
     "clean": "rm -rf .tsBuildInfo dist dts dist-vite && mkdir -p dist dts dist-vite",
     "lint": "eslint .",
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\"",
-    "preview": "vite preview"
+    "preview": "./node_modules/.bin/vite preview"
   },
   "keywords": [
     "monaco",

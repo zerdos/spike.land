@@ -3,11 +3,13 @@ import type {
   BigIntStats,
   Mode,
   ObjectEncodingOptions,
+  ReadOptions,
+  ReadPosition,
   ReadStream,
   Stats,
   WriteStream,
 } from "node:fs";
-import type { FileHandle, FileReadOptions, FileReadResult } from "node:fs/promises";
+import type { FileHandle, FileReadResult } from "node:fs/promises";
 import type { Interface } from "node:readline";
 import type { ReadableStream } from "node:stream/web";
 import { tryCatch } from "../try-catch"; // Added import
@@ -95,18 +97,18 @@ class FileHandleImpl implements FileHandle {
     buffer: T,
     offset?: number | null,
     length?: number | null,
-    position?: number | null,
-  ): Promise<{ bytesRead: number; buffer: T; }>;
+    position?: ReadPosition | null,
+  ): Promise<FileReadResult<T>>;
   read<T extends NodeJS.ArrayBufferView>(
     buffer: T,
-    opts?: FileReadOptions,
+    opts?: ReadOptions,
   ): Promise<FileReadResult<T>>;
   async read<T extends NodeJS.ArrayBufferView>(
     buffer: T,
-    _offsetOrOpts?: number | null | FileReadOptions,
+    _offsetOrOpts?: number | null | ReadOptions,
     _length?: number | null,
-    _position?: number | null,
-  ): Promise<{ bytesRead: number; buffer: T; } | FileReadResult<T>> {
+    _position?: ReadPosition | null,
+  ): Promise<FileReadResult<T>> {
     if (
       _offsetOrOpts && typeof _offsetOrOpts === "object" &&
       !("length" in _offsetOrOpts)
@@ -183,17 +185,17 @@ class FileHandleImpl implements FileHandle {
     throw new Error("Method not implemented");
   }
 
-  async writev(
-    _buffers: NodeJS.ArrayBufferView[],
+  async writev<TBuffers extends readonly NodeJS.ArrayBufferView[]>(
+    _buffers: TBuffers,
     _position?: number,
-  ): Promise<{ bytesWritten: number; buffers: NodeJS.ArrayBufferView[]; }> {
+  ): Promise<{ bytesWritten: number; buffers: TBuffers; }> {
     throw new Error("Method not implemented");
   }
 
-  async readv(
-    _buffers: NodeJS.ArrayBufferView[],
+  async readv<TBuffers extends readonly NodeJS.ArrayBufferView[]>(
+    _buffers: TBuffers,
     _position?: number,
-  ): Promise<{ bytesRead: number; buffers: NodeJS.ArrayBufferView[]; }> {
+  ): Promise<{ bytesRead: number; buffers: TBuffers; }> {
     throw new Error("Method not implemented");
   }
 

@@ -1,5 +1,5 @@
-import { languages } from "@/workers/monaco-editor.worker";
-import type { editor as Editor } from "monaco-editor";
+import type { editor as Editor, typescript } from "monaco-editor";
+import { typescript as ts } from "monaco-editor";
 import type { ResponsiveSettings } from "./types";
 
 // Validate origin and provide fallback
@@ -147,13 +147,13 @@ export function getEditorOptions(): Editor.IStandaloneEditorConstructionOptions 
 }
 
 // TypeScript compiler options
-export function getCompilerOptions() {
+export function getCompilerOptions(): typescript.CompilerOptions {
   return {
     baseUrl: originToUse + "/",
-    target: languages.typescript.ScriptTarget.Latest,
+    target: ts.ScriptTarget.Latest,
     allowNonTsExtensions: true,
-    moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
-    module: languages.typescript.ModuleKind.ESNext,
+    moduleResolution: ts.ModuleResolutionKind.NodeJs,
+    module: ts.ModuleKind.ESNext,
     importHelpers: true,
     lib,
     esModuleInterop: false,
@@ -190,7 +190,7 @@ export function getCompilerOptions() {
       "/*": [`${originToUse}/`],
     },
     jsxImportSource: "@emotion/react",
-    jsx: languages.typescript.JsxEmit.ReactJSX,
+    jsx: ts.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: false,
     include: [`${originToUse}/`],
   };

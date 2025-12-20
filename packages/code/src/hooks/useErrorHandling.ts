@@ -8,15 +8,13 @@ export const useErrorHandling = (engine: string) => {
   const throttledTypeCheck = useCallback(
     async () => {
       if (engine === "monaco") {
-        const { editor, languages } = await import(
-          "@/workers/monaco-editor.worker"
-        );
+        const { editor } = await import("@/workers/monaco-editor.worker");
+        const { typescript } = await import("monaco-editor");
         const model = editor.getModels()[0];
         if (!model) {
           return;
         }
-        const worker = await languages.typescript
-          .getTypeScriptWorker();
+        const worker = await typescript.getTypeScriptWorker();
         const client = await worker(model.uri);
         const diagnostics = await client.getSemanticDiagnostics(
           model.uri.toString(),
