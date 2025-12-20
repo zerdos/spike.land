@@ -29,23 +29,23 @@ class FileHandleImpl implements FileHandle {
 
   readFile(
     options?: { encoding?: null; flag?: string; } | null,
-  ): Promise<Buffer>;
+  ): Promise<Buffer<ArrayBuffer>>;
   readFile(
     options: { encoding: BufferEncoding; flag?: string; } | BufferEncoding,
   ): Promise<string>;
   async readFile(
     options?: BufferEncoding | (ObjectEncodingOptions & Abortable) | null,
-  ): Promise<string | Buffer> {
-    const doReadFile = async () => {
+  ): Promise<string | Buffer<ArrayBuffer>> {
+    const doReadFile = async (): Promise<string | Buffer<ArrayBuffer>> => {
       const file = await this.fileHandle.getFile();
       const content = await file.text();
       if (!options) {
-        return Buffer.from(content);
+        return Buffer.from(content) as Buffer<ArrayBuffer>;
       }
       if (typeof options === "string" || (options && "encoding" in options)) {
         return content;
       }
-      return Buffer.from(content);
+      return Buffer.from(content) as Buffer<ArrayBuffer>;
     };
     const { data, error } = await tryCatch(doReadFile());
     if (error) {

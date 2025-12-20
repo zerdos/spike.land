@@ -2,6 +2,7 @@ import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow, transpile } from "@/lib/shared";
 import { tryCatch } from "@/lib/try-catch";
+import type { editor as monacoEditor } from "monaco-editor";
 import type { RunMessageResult } from "./types";
 
 export interface EditorState {
@@ -251,6 +252,7 @@ export interface EditorInstance {
   getErrors: () => Promise<string[]>;
   isEdit: boolean;
   setValue: (_newCode: string) => void;
+  editor: monacoEditor.IStandaloneCodeEditor;
 }
 
 export async function initializeMonaco(
@@ -264,12 +266,13 @@ export async function initializeMonaco(
   if (!data) {
     throw new Error("Monaco initialization failed: No data returned");
   }
-  const { getValue, silent, getErrors, isEdit, setValue } = data;
+  const { getValue, silent, getErrors, isEdit, setValue, editor } = data;
   return {
     getValue,
     silent,
     getErrors,
     isEdit,
     setValue,
+    editor,
   };
 }

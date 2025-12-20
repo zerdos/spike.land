@@ -4,6 +4,7 @@ import { prettierToThrow } from "@/lib/shared";
 import { tryCatch } from "@/lib/try-catch";
 import { wait } from "@/lib/wait";
 import { initializeMonaco } from "@/services/editorUtils";
+import type { editor as monacoEditor } from "monaco-editor";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
@@ -31,10 +32,20 @@ export const Editor: React.FC<EditorProps> = (
   { codeSpace, cSess, replaceIframe },
 ) => {
   const { containerRef, editorState, setEditorState } = useEditorState();
-  const { errorType, throttledTypeCheck } = useErrorHandling("monaco");
+  const { errorType, diagnostics, throttledTypeCheck } = useErrorHandling("monaco");
   const [session, setSession] = useState<ICodeSession | null>(null);
   const [lastHash, setLastHash] = useState<string>("");
   const controller = useRef(new AbortController());
+  const monacoEditorRef = useRef<monacoEditor.IStandaloneCodeEditor | null>(null);
+
+  // Handle clicking on an error to navigate to that line
+  const handleErrorClick = useCallback((line: number, column: number) => {
+    if (monacoEditorRef.current) {
+      monacoEditorRef.current.setPosition({ lineNumber: line, column });
+      monacoEditorRef.current.revealLineInCenter(line);
+      monacoEditorRef.current.focus();
+    }
+  }, []);
 
   // Initialize session with optimized state tracking
   useEffect(() => {
@@ -319,6 +330,9 @@ export const Editor: React.FC<EditorProps> = (
           return;
         }
 
+        // Store the Monaco editor instance for click-to-navigate functionality
+        monacoEditorRef.current = editorInstance.editor;
+
         setEditorState((prev) => ({
           ...prev,
           started: true,
@@ -388,6 +402,8 @@ export const Editor: React.FC<EditorProps> = (
           errorType={errorType}
           containerRef={containerRef}
           codeSpace={codeSpace}
+          diagnostics={diagnostics}
+          onErrorClick={handleErrorClick}
         />
       </div>
     </div>

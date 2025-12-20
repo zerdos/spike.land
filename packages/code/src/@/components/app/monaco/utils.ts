@@ -1,5 +1,5 @@
 import { wait } from "@/lib/wait";
-import { editor, languages, Uri } from "@/workers/monaco-editor.worker";
+import { editor, Uri } from "@/workers/monaco-editor.worker";
 import { typescript } from "monaco-editor";
 import { modelCache, originToUse } from "./config";
 import type { ExtraLib } from "./types";

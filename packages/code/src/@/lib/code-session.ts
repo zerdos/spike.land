@@ -587,5 +587,65 @@ export async function getCodeSession(
   // Cache the session
   codeSessionCache[codeSpaceId] = codeSession;
 
+  // Expose spikeEditor API on globalThis for AI agents and console access
+  exposeSpikeEditorApi(codeSession);
+
   return codeSession;
+}
+
+/**
+ * Exposes the spikeEditor API on globalThis for AI agents and browser console access.
+ * This provides reliable methods for replacing code without selection issues.
+ */
+function exposeSpikeEditorApi(cSess: Code): void {
+  const spikeEditor = {
+    /**
+     * Replace all code in the editor with new code.
+     * Reliably replaces entire content without selection issues.
+     * @param code - The new code to set
+     * @returns Promise resolving to the formatted code
+     */
+    replaceAllCode: async (code: string): Promise<string> => {
+      return cSess.setCode(code, false);
+    },
+
+    /**
+     * Get the current code from the editor.
+     * @returns Promise resolving to the current code
+     */
+    getCode: async (): Promise<string> => {
+      return cSess.getCode();
+    },
+
+    /**
+     * Clear the editor and reset to default template.
+     * @returns Promise resolving to the default template code
+     */
+    clearCode: async (): Promise<string> => {
+      const { DEFAULT_TEMPLATE } = await import("@/lib/default-template");
+      return cSess.setCode(DEFAULT_TEMPLATE, false);
+    },
+
+    /**
+     * Get the current session data.
+     * @returns Promise resolving to the current session
+     */
+    getSession: async () => {
+      return cSess.getSession();
+    },
+  };
+
+  // Expose on globalThis for console access
+  Object.assign(globalThis, { spikeEditor });
+
+  // Log availability message
+  console.info(
+    "%c spikeEditor API available",
+    "background: #4CAF50; color: white; padding: 2px 6px; border-radius: 3px;",
+    "\n\nUsage:",
+    "\n  await spikeEditor.replaceAllCode(code) - Replace all code",
+    "\n  await spikeEditor.getCode() - Get current code",
+    "\n  await spikeEditor.clearCode() - Reset to default template",
+    "\n  await spikeEditor.getSession() - Get current session",
+  );
 }

@@ -84,6 +84,8 @@ describe("Editor Component", () => {
       errorType: null,
       throttledTypeCheck: vi.fn().mockResolvedValue(undefined),
       setErrorType: vi.fn(),
+      diagnostics: [],
+      clearDiagnostics: vi.fn(),
     });
 
     const mockInitializeMonaco = editorUtils.initializeMonaco as Mock;
@@ -93,6 +95,11 @@ describe("Editor Component", () => {
       getErrors: vi.fn().mockResolvedValue([]),
       isEdit: false,
       setValue: mockSetValue,
+      editor: {
+        setPosition: vi.fn(),
+        revealLineInCenter: vi.fn(),
+        focus: vi.fn(),
+      },
     });
   });
 

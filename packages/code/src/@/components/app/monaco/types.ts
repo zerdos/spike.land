@@ -19,8 +19,9 @@ export interface EditorModel {
   silent: boolean;
   getErrors: () => Promise<string[]>;
   isEdit: boolean;
-  setValue: (newCode: string) => void;
+  setValue: (newCode: string) => void | Promise<void>;
   dispose?: () => void;
+  editor: Editor.IStandaloneCodeEditor;
 }
 
 export interface EditorState {

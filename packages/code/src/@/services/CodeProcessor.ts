@@ -1,3 +1,4 @@
+import type { CompilationState } from "../../components/CompilationIndicator";
 import { getInitialDarkMode } from "@/hooks/use-dark-mode";
 import { importMap, importMapReplace } from "@/lib/importmap-utils";
 import type { ICodeSession } from "@/lib/interfaces";
@@ -33,10 +34,13 @@ export class CodeProcessor {
     signal: AbortSignal,
     getSession: () => ICodeSession,
     replaceIframe?: (newIframe: HTMLIFrameElement) => void,
+    onStateChange?: (state: CompilationState) => void,
   ): Promise<ICodeSession | false> {
     const origin = window.location.origin;
     if (signal.aborted) return false;
 
+    // Formatting stage
+    onStateChange?.("formatting");
     const { data: code, error: formatError } = await tryCatch(
       this.formatCode(rawCode),
     );
@@ -47,25 +51,30 @@ export class CodeProcessor {
 
     if (formatError) {
       console.error("Error formatting code:", formatError);
+      onStateChange?.("error");
       return false;
     }
 
     if (code === getSession()?.code) {
+      onStateChange?.("ready");
       return getSession();
     }
 
-    // Transpile code
+    // Transpiling stage
+    onStateChange?.("transpiling");
     const { data: transpiled, error: transpileError } = await tryCatch(
       this.transpileCode(code),
     );
     if (signal.aborted || transpileError) {
       if (transpileError) {
         console.error("Error transpiling code:", transpileError);
+        onStateChange?.("error");
       }
       return false;
     }
 
     if (getSession().transpiled === transpiled) {
+      onStateChange?.("ready");
       return getSession();
     }
 
@@ -75,6 +84,8 @@ export class CodeProcessor {
     };
 
     if (!skipRunning) {
+      // Rendering stage
+      onStateChange?.("rendering");
       // Call the helper method to handle iframe execution.
       // Pass processedSession so it can be updated with html and css.
       const executionSuccessful = await this._handleCodeExecutionInIframe(
@@ -86,6 +97,7 @@ export class CodeProcessor {
       if (!executionSuccessful) {
         // If iframe execution failed, an error would have been logged by the helper.
         // Return false to indicate overall processing failure.
+        onStateChange?.("error");
         return false;
       }
     }
@@ -94,6 +106,7 @@ export class CodeProcessor {
       return false;
     }
 
+    onStateChange?.("ready");
     return {
       ...getSession(),
       ...processedSession,

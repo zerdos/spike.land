@@ -43,6 +43,9 @@ export const buildOptions: BuildOptions = {
     "graceful-fs": "./src/@/lib/memfs",
     fs: "./src/@/lib/memfs",
     "node:fs": "./src/@/lib/memfs",
+    "node:fs/promises": "./src/@/lib/memfs/promises",
+    url: "url",
+    "node:url": "url",
   },
   external: [
     "/swVersion.js",

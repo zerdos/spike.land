@@ -1,6 +1,6 @@
 import { md5 } from "@/lib/md5";
 import { wait } from "@/lib/wait";
-import { editor, languages, Uri } from "@/workers/monaco-editor.worker";
+import { editor, Uri } from "@/workers/monaco-editor.worker";
 import { typescript } from "monaco-editor";
 import { getEditorOptions } from "./config";
 import { originToUse } from "./config";
@@ -144,10 +144,10 @@ async function createEditorModel(
   const ttt = { checking: 0 };
   const recentlyChanged = new Set<string>();
 
-  // Create editor model interface
-  const editorModel: EditorModel = {
+  // Create editor model interface (partial, editor and dispose added in return)
+  const editorModel = {
     getValue: () => model.getValue(),
-    silent: false,
+    silent: false as boolean,
     getErrors: async () => {
       try {
         const worker = await typescript.getTypeScriptWorker();
@@ -174,7 +174,7 @@ async function createEditorModel(
         return ["Error fetching diagnostics"];
       }
     },
-    isEdit: false,
+    isEdit: false as boolean,
     lastValueHashToBeSet: "",
     setValue: async (newCode: string) => {
       const lastHash = md5(newCode);
@@ -336,9 +336,10 @@ async function createEditorModel(
     processUpdate().catch((error) => console.error("Error processing content update:", error));
   });
 
-  // Add cleanup method to the model
+  // Add cleanup method and editor reference to the model
   return {
     ...editorModel,
+    editor: myEditor,
     dispose: () => {
       cleanupResponsive();
       myEditor.dispose();
