@@ -166,14 +166,9 @@ export async function ata({
   const extCode = `${code}
 import "react";
 import "@emotion/react";
-import * as JSXruntime "@emotion/react/jsx-runtime.d.ts";
+import * as JSXruntime from "@emotion/react/jsx-runtime";
 import "react/jsx-runtime";
 import "react/jsx-dev-runtime";
-import "react/jsx-runtime/jsx-dev-runtime";
-import "react/jsx-runtime/jsx-dev-runtime.d.ts";
-import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
-import "react/jsx-dev-runtime/jsx-dev-runtime";
-import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
 // Add other common implicit dependencies if necessary
 `;
   const importSpecifiers = extractImportSpecifiers(extCode);
