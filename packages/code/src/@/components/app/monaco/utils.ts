@@ -302,6 +302,19 @@ export async function checkTypeScriptErrors(
       console.warn("Suggestion diagnostics:", suggestionDiagnostics);
     }
   } catch (error) {
+    if (error instanceof Error && error.message.includes("TypeScript not registered")) {
+      // TypeScript is not yet initialized, we are initialising now,
+      typescript.typescriptDefaults.setDiagnosticsOptions({
+        noSuggestionDiagnostics: false,
+        noSemanticValidation: false,
+        noSyntaxValidation: false,
+        // 2691: An import path cannot end with '.tsx'
+        // 17004: Cannot use JSX unless the '--jsx' flag is provided (false positive - jsx IS configured)
+        diagnosticCodesToIgnore: [2691, 17004],
+      });
+
+      return;
+    }
     console.error("Error during TypeScript check:", error);
   }
 }

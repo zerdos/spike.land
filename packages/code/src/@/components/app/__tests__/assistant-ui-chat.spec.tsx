@@ -13,19 +13,23 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Mock dependencies
 vi.mock("@assistant-ui/react", () => ({
-  AssistantRuntimeProvider: vi.fn(({ children }) => children),
+  AssistantRuntimeProvider: vi.fn(function AssistantRuntimeProvider({ children }: { children: React.ReactNode }) {
+    return children;
+  }),
   useThreadRuntime: vi.fn(),
 }));
 
 vi.mock("@assistant-ui/react-ai-sdk", () => ({
   useChatRuntime: vi.fn(),
-  AssistantChatTransport: vi.fn().mockImplementation(() => ({
+  AssistantChatTransport: vi.fn(function AssistantChatTransport() {
     // Mock transport implementation
-  })),
+  }),
 }));
 
 vi.mock("@/components/assistant-ui/thread", () => ({
-  Thread: vi.fn(() => <div data-testid="thread">Thread Component</div>),
+  Thread: vi.fn(function Thread() {
+    return <div data-testid="thread">Thread Component</div>;
+  }),
 }));
 
 // Create mock composer runtime

@@ -39,6 +39,10 @@ export async function startMonaco(
     options: { code: string; toThrow: boolean; },
   ) => Promise<string>,
 ): Promise<EditorModel> {
+
+  // we have to register languages before creating models
+  registerLanguages();
+
   // If we already have a model for this codeSpace, check if it's still valid
   if (modelStore[codeSpace]) {
     try {
