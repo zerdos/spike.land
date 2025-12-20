@@ -19,14 +19,14 @@
     "test:watch": "vitest"
   },
   "devDependencies": {
-    "@cloudflare/kv-asset-handler": "0.4.0",
-    "rimraf": "6.0.1",
-    "typescript": "5.9.2",
-    "wrangler": "4.40.2"
+    "@cloudflare/kv-asset-handler": "0.4.1",
+    "rimraf": "6.1.2",
+    "typescript": "5.9.3",
+    "wrangler": "4.56.0"
   },
   "dependencies": {
     "@spike-npm-land/code": "0.9.56",
-    "esbuild-wasm": "0.25.10"
+    "esbuild-wasm": "0.27.2"
   },
   "publishConfig": {
     "access": "public"
