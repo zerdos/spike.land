@@ -17,7 +17,7 @@ interface EditorNodeProps {
   containerRef: React.Ref<HTMLDivElement>;
   codeSpace: string;
   diagnostics?: DetailedDiagnostic[];
-  onErrorClick?: (line: number, column: number) => void;
+  onErrorClick?: ((line: number, column: number) => void) | undefined;
 }
 
 export const EditorNode: React.FC<EditorNodeProps> = ({
