@@ -27,7 +27,29 @@ export const useErrorHandling = (engine: string) => {
           return;
         }
 
-        const worker = await typescript.getTypeScriptWorker();
+        // Helper to wait for TypeScript worker with retry logic
+        const getWorkerWithRetry = async (maxRetries = 3, delayMs = 100) => {
+          for (let i = 0; i < maxRetries; i++) {
+            try {
+              return await typescript.getTypeScriptWorker();
+            } catch (error) {
+              if (i === maxRetries - 1) throw error;
+              await new Promise(resolve => setTimeout(resolve, delayMs));
+            }
+          }
+          throw new Error("TypeScript worker not available");
+        };
+
+        let worker;
+        try {
+          worker = await getWorkerWithRetry();
+        } catch (error) {
+          if (error instanceof Error && error.message.includes("TypeScript not registered")) {
+            console.debug("TypeScript not yet initialized, skipping type check");
+            return;
+          }
+          throw error;
+        }
         const client = await worker(model.uri);
 
         // Get all diagnostic types

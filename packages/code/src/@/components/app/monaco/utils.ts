@@ -224,8 +224,31 @@ export async function checkTypeScriptErrors(
       await wait(100);
     }
 
-    // Now check for errors
-    const typeScriptWorker = await (await typescript.getTypeScriptWorker())(uri);
+    // Helper to wait for TypeScript worker with retry logic
+    const getWorkerWithRetry = async (maxRetries = 3, delayMs = 100) => {
+      for (let i = 0; i < maxRetries; i++) {
+        try {
+          return await typescript.getTypeScriptWorker();
+        } catch (error) {
+          if (i === maxRetries - 1) throw error;
+          await wait(delayMs);
+        }
+      }
+      throw new Error("TypeScript worker not available");
+    };
+
+    // Now check for errors - with retry logic for TypeScript worker
+    let worker;
+    try {
+      worker = await getWorkerWithRetry();
+    } catch (error) {
+      if (error instanceof Error && error.message.includes("TypeScript not registered")) {
+        console.debug("TypeScript not yet initialized, skipping type check");
+        return;
+      }
+      throw error;
+    }
+    const typeScriptWorker = await worker(uri);
 
     const [syntacticDiagnostics, semanticDiagnostics, suggestionDiagnostics] = await Promise.all([
       typeScriptWorker.getSyntacticDiagnostics(uri.toString()),
