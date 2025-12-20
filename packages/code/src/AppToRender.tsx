@@ -10,6 +10,7 @@ import {
 import React, { type FC, memo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ChatInterface } from "./ChatInterface";
 import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
@@ -70,33 +71,47 @@ const ActionButtons: FC<ActionButtonsProps> = memo(({
   onToggleHistory,
 }) => {
   return (
-    <div className="fixed bottom-4 right-4 flex flex-col gap-2 z-[1001]">
-      <Button
-        onClick={onToggleHistory}
-        className={cn(
-          "rounded-full w-12 h-12 p-0",
-          "hover:bg-primary transition-colors",
-        )}
-        title="Show Version History"
-        aria-label="Show Version History"
-      >
-        <History className="h-6 w-6" />
-      </Button>
+    <TooltipProvider>
+      <div className="fixed bottom-4 right-4 flex flex-col gap-2 z-[1001]">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              onClick={onToggleHistory}
+              className={cn(
+                "rounded-full w-12 h-12 p-0",
+                "hover:bg-primary transition-colors",
+              )}
+              aria-label="Show Version History"
+            >
+              <History className="h-6 w-6" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="left">
+            <p>Show Version History</p>
+          </TooltipContent>
+        </Tooltip>
 
-      {!isOpen && (
-        <Button
-          onClick={onToggleChat}
-          className={cn(
-            "rounded-full w-12 h-12 p-0",
-            "hover:bg-primary transition-colors",
-          )}
-          title="Open Chat"
-          aria-label="Open Chat"
-        >
-          <Bot className="h-6 w-6" />
-        </Button>
-      )}
-    </div>
+        {!isOpen && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                onClick={onToggleChat}
+                className={cn(
+                  "rounded-full w-12 h-12 p-0",
+                  "hover:bg-primary transition-colors",
+                )}
+                aria-label="Open Chat"
+              >
+                <Bot className="h-6 w-6" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="left">
+              <p>Open AI Assistant</p>
+            </TooltipContent>
+          </Tooltip>
+        )}
+      </div>
+    </TooltipProvider>
   );
 });
 

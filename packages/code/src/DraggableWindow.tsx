@@ -52,11 +52,17 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({
     `rgba(${r || 1}, ${g || 1}, ${b || 1}, ${a || 0.7})`;
 
   const calculateRevealScale = useCallback(() => {
-    return Math.min(
+    // Calculate raw scale based on device characteristics
+    const rawScale = Math.min(
       50,
       Math.floor(
         100 * (1 / 2 - 152 / (window.devicePixelRatio * window.innerWidth)),
       ),
+    );
+    // Snap to nearest predefined scale value to avoid odd percentages like 36%, 44%
+    const predefinedScales = [10, 25, 50, 75, 100];
+    return predefinedScales.reduce((prev, curr) =>
+      Math.abs(curr - rawScale) < Math.abs(prev - rawScale) ? curr : prev
     );
   }, []);
 

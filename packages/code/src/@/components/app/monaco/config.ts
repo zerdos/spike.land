@@ -202,7 +202,9 @@ export function getDiagnosticsOptions(enableValidation = false) {
     noSuggestionDiagnostics: !enableValidation,
     noSemanticValidation: !enableValidation,
     noSyntaxValidation: !enableValidation,
-    diagnosticCodesToIgnore: [2691],
+    // 2691: An import path cannot end with '.tsx'
+    // 17004: Cannot use JSX unless the '--jsx' flag is provided (false positive - jsx IS configured)
+    diagnosticCodesToIgnore: [2691, 17004],
   };
 }
 

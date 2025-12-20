@@ -85,7 +85,9 @@ export async function refreshAta(
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
       noSyntaxValidation: false,
-      diagnosticCodesToIgnore: [2691],
+      // 2691: An import path cannot end with '.tsx'
+      // 17004: Cannot use JSX unless the '--jsx' flag is provided (false positive - jsx IS configured)
+      diagnosticCodesToIgnore: [2691, 17004],
     });
     typescript.typescriptDefaults.setEagerModelSync(true);
   } catch (error) {
@@ -249,6 +251,9 @@ export async function checkTypeScriptErrors(
         noSuggestionDiagnostics: false,
         noSemanticValidation: false,
         noSyntaxValidation: false,
+        // 2691: An import path cannot end with '.tsx'
+        // 17004: Cannot use JSX unless the '--jsx' flag is provided (false positive - jsx IS configured)
+        diagnosticCodesToIgnore: [2691, 17004],
       });
 
       // Re-check after refreshing types

@@ -209,16 +209,14 @@ async function createEditorModel(
       editorModel.silent = true;
 
       try {
-        // Update in a single atomic operation
+        // Update in a single atomic operation without polluting undo stack
+        // Using applyEdits with pushStackElement=false keeps external updates
+        // separate from user edits in the undo history
         await wait(0); // Break potential call stack
-        model.pushEditOperations(
-          [],
-          [{
-            range: model.getFullModelRange(),
-            text: newCode,
-          }],
-          () => null,
-        );
+        model.applyEdits([{
+          range: model.getFullModelRange(),
+          text: newCode,
+        }], false);
 
         // Restore view state if available
         if (viewState) {

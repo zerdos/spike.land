@@ -23,7 +23,7 @@ export const ScaledContent = (
     }}
     initial={{
       height: innerHeight,
-      width: innerWidth,
+      width: width,
       scale: 1,
     }}
     animate={{ height: innerHeight, width, scale }}

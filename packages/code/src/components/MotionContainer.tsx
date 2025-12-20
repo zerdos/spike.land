@@ -46,9 +46,9 @@ export const MotionContainer = (
       drag
       dragMomentum={false}
       dragConstraints={{
-        left: -innerWidth,
-        right: innerWidth - 20 - innerWidth / 6,
-        bottom: innerHeight,
+        left: -window.innerWidth,
+        right: window.innerWidth - 20 - window.innerWidth / 6,
+        bottom: window.innerHeight,
       }}
       dragElastic={0.5}
     >

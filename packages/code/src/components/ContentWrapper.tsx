@@ -21,7 +21,7 @@ export const ContentWrapper = (
         0.5,
       ),
     }}
-    initial={{ height: innerHeight, width: innerWidth }}
+    initial={{ height: innerHeight, width: width }}
     animate={{
       height: innerHeight * scale,
       width: width * scale,
