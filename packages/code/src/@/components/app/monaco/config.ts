@@ -157,14 +157,16 @@ export function getCompilerOptions(): typescript.CompilerOptions {
     importHelpers: true,
     lib,
     esModuleInterop: false,
-    strictNullChecks: false,
-    strict: false,
-    strictFunctionTypes: false,
-    strictPropertyInitialization: false,
-    strictBindCallApply: false,
-    noImplicitAny: false,
-    noImplicitThis: false,
-    noImplicitReturns: false,
+    strictNullChecks: true,
+    strict: true,
+    strictFunctionTypes: true,
+    strictPropertyInitialization: true,
+    strictBindCallApply: true,
+    noImplicitAny: true,
+    noImplicitThis: true,
+    noImplicitReturns: true,
+    noUnusedLocals: true,
+    noUnusedParameters: true,
     checkJs: false,
     allowJs: false,
     experimentalDecorators: false,
@@ -197,7 +199,7 @@ export function getCompilerOptions(): typescript.CompilerOptions {
 }
 
 // Diagnostics options
-export function getDiagnosticsOptions(enableValidation = false) {
+export function getDiagnosticsOptions(enableValidation = true) {
   return {
     noSuggestionDiagnostics: !enableValidation,
     noSemanticValidation: !enableValidation,
