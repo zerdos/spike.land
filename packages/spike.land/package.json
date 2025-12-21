@@ -6,8 +6,8 @@
   "module": "dist/index.js",
   "private": true,
   "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": "18.0.0",
+    "react-dom": "18.0.0"
   },
   "scripts": {
     "dev": "npx wrangler dev",
@@ -27,7 +27,7 @@
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.4.1",
     "@cloudflare/vitest-pool-workers": "0.11.1",
-    "@cloudflare/workers-types": "4.20251220.0",
+    "@cloudflare/workers-types": "4.20251221.0",
     "@eslint/js": "9.39.2",
     "@rollup/plugin-commonjs": "29.0.0",
     "@rollup/plugin-node-resolve": "16.0.3",
@@ -42,21 +42,21 @@
     "eslint-plugin-react-hooks": "7.0.1",
     "eslint-plugin-react-refresh": "0.4.26",
     "globals": "16.5.0",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "rimraf": "6.1.2",
     "rollup": "4.54.0",
     "typescript": "5.9.3",
     "vitest": "4.0.16"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "^2.0.56",
+    "@ai-sdk/anthropic": "2.0.56",
     "@anthropic-ai/sdk": "0.71.2",
     "@clerk/backend": "2.29.0",
     "@clerk/clerk-sdk-node": "5.1.6",
     "@spike-npm-land/code": "0.9.56",
     "@types/node": "25.0.3",
-    "ai": "^5.0.116",
+    "ai": "5.0.116",
     "async-mutex": "0.5.0",
     "avl": "2.0.0",
     "esbuild-wasm": "0.27.2",
@@ -73,7 +73,7 @@
     "p-map": "7.0.4",
     "p-queue": "9.0.1",
     "replicate": "1.4.0",
-    "zod": "^4.2.1"
+    "zod": "4.2.1"
   },
   "publishConfig": {
     "access": "public"
