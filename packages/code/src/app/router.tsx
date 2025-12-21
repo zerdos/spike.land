@@ -88,8 +88,9 @@ const App: React.FC = () => {
         });
     } else {
       // If no codeSpace is found, set loading to false
-      // console.warn("No codeSpace found for pathname:", { pathname, codeSpace });
-      setIsLoading(false);
+      // Use queueMicrotask to avoid synchronous setState in effect
+      // This is needed when navigating away from a valid codeSpace
+      queueMicrotask(() => setIsLoading(false));
     }
   }, [pathname, codeSpace]); // Added codeSpace to dependency array
 

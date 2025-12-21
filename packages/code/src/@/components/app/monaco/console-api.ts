@@ -130,7 +130,7 @@ export function createConsoleAPI(
           })));
         }
         return all;
-      } catch (workerError) {
+      } catch (_workerError) {
         // Fallback: Use Monaco's marker service directly
         // This works even when getTypeScriptWorker() throws "TypeScript not registered"
         // because Monaco's built-in validation is still running (squiggly underlines work)

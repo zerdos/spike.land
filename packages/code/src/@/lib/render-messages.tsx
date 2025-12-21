@@ -8,7 +8,7 @@ import { isDiffContent } from "@/lib/diff-utils";
 import { getPartsStreaming } from "@/lib/get-parts";
 import type { ParsingState } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import { memo, useCallback, useMemo, useRef } from "react";
+import { memo, useCallback, useMemo } from "react";
 // Note: The Message type from "ai" package doesn't include tool_calls
 // so we extend it here for compatibility
 interface MessageWithToolCalls {
@@ -140,20 +140,16 @@ interface ChatMessageBlockProps {
  */
 export const ChatMessageBlock = memo<ChatMessageBlockProps>(
   ({ text, isUser, onNewPrompt }) => {
-    const parsingStateRef = useRef<ParsingState>({
-      isInCodeBlock: false,
-      accumulatedContent: "",
-      isInDiffBlock: false,
-      accumulatedDiffContent: "",
-    });
-
+    // Compute parts directly from text - the parsing state reset is acceptable
+    // since each render with new text should start fresh parsing
     const messageParts = useMemo(() => {
-      const { parts, state } = getPartsStreaming(
-        text,
-        isUser,
-        parsingStateRef.current,
-      );
-      parsingStateRef.current = state;
+      const initialState: ParsingState = {
+        isInCodeBlock: false,
+        accumulatedContent: "",
+        isInDiffBlock: false,
+        accumulatedDiffContent: "",
+      };
+      const { parts } = getPartsStreaming(text, isUser, initialState);
       return parts;
     }, [text, isUser]);
 

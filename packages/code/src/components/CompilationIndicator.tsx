@@ -30,8 +30,8 @@ export const CompilationIndicator: React.FC<CompilationIndicatorProps> = ({
 
   useEffect(() => {
     if (state === "formatting" || state === "transpiling" || state === "rendering") {
-      // Only update if not already visible to avoid unnecessary renders
-      setVisible(v => v ? v : true);
+      // Use queueMicrotask to avoid synchronous setState in effect
+      queueMicrotask(() => setVisible(v => v ? v : true));
       return undefined;
     }
     if (state === "ready" || state === "idle") {

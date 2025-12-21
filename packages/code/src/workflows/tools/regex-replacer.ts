@@ -141,24 +141,6 @@ export const getRegexReplaceTool = createTool(
         );
       }
 
-      // Save AI message with original instructions (commented out since addMessage is not available)
-      // const instructionsStr = instructions
-      //   .map(({ search, replace }) => `
-      //     ${SEARCH_REPLACE_MARKERS.SEARCH_START}
-      //     ${search}
-      //     ${SEARCH_REPLACE_MARKERS.SEPARATOR}
-      //     ${replace}
-      //     ${SEARCH_REPLACE_MARKERS.REPLACE_END}
-      //   `)
-      //   .join("\n");
-
-      // TODO: addMessage is not part of ICode interface, need to implement message handling
-      // await cSess.addMessage({
-      //   id: Date.now().toString(),
-      //   role: "assistant",
-      //   content: instructionsStr,
-      // });
-
       await cSess.setCode(modifiedCode);
 
       const veryNewCode = await cSess.getCode();

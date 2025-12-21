@@ -2,7 +2,6 @@ import { AssistantUIDrawer } from "@/components/app/assistant-ui-drawer";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useDictation } from "@/hooks/use-dictation";
 import { useLocalStorage } from "@/hooks/use-local-storage";
-import { toast } from "@/hooks/use-toast";
 import type { ICode } from "@/lib/interfaces";
 import type { ImageData } from "@/lib/interfaces";
 import React, { useEffect, useRef, useState } from "react";
@@ -46,13 +45,36 @@ const ChatInterface: React.FC<{
   );
   const [_editInput, _setEditInput] = useState("");
 
-  // State to hold initial prompt data
-  const [initialPrompt, setInitialPrompt] = useState<
+  // State to hold initial prompt data - use lazy initializer to read from sessionStorage
+  const [initialPrompt] = useState<
     {
       prompt: string;
       images: ImageData[];
     } | null
-  >(null);
+  >(() => {
+    // Read from sessionStorage during initialization
+    if (localCodeSpace.includes("-")) {
+      const maybeKey = localCodeSpace.split("-")[1];
+      if (maybeKey) {
+        const storedData = sessionStorage.getItem(maybeKey);
+        if (storedData) {
+          try {
+            const { prompt, images } = JSON.parse(storedData) as {
+              prompt: string;
+              images: ImageData[];
+            };
+            sessionStorage.removeItem(maybeKey);
+            return { prompt, images };
+          } catch (error) {
+            console.error("Failed to parse stored prompt data:", error);
+            sessionStorage.removeItem(maybeKey);
+            // Note: Cannot use toast here as it's during render
+          }
+        }
+      }
+    }
+    return null;
+  });
 
   // Removed unused reset functionality since AssistantUI manages its own state
 
@@ -75,37 +97,6 @@ const ChatInterface: React.FC<{
     handleScreenshotClick: _handleScreenshotClick,
     handleCancelScreenshot: _handleCancelScreenshot,
   } = useScreenshot(localCodeSpace); // Used localCodeSpace
-
-  useEffect(() => {
-    if (localCodeSpace.includes("-")) { // Used localCodeSpace
-      const maybeKey = localCodeSpace.split("-")[1]; // Used localCodeSpace
-      if (maybeKey) {
-        const storedData = sessionStorage.getItem(maybeKey);
-        if (storedData) {
-          try {
-            const { prompt, images } = JSON.parse(storedData) as {
-              prompt: string;
-              images: ImageData[];
-            };
-            sessionStorage.removeItem(maybeKey);
-
-            // Store the initial prompt data to pass to AssistantUIDrawer
-            setInitialPrompt({ prompt, images });
-          } catch (error) {
-            console.error("Failed to parse stored prompt data:", error);
-            sessionStorage.removeItem(maybeKey);
-
-            // Notify user about the corrupted data
-            toast({
-              title: "Failed to load saved prompt",
-              description: "The saved prompt data was corrupted and could not be loaded.",
-              variant: "destructive",
-            });
-          }
-        }
-      }
-    }
-  }, [localCodeSpace]); // Only depend on localCodeSpace
 
   // Removed unused memoized callbacks since AssistantUI manages its own state
 

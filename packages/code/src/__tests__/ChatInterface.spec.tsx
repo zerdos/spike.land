@@ -2,7 +2,6 @@ import { AssistantUIDrawer } from "@/components/app/assistant-ui-drawer";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useDictation } from "@/hooks/use-dictation";
 import { useLocalStorage } from "@/hooks/use-local-storage";
-import { toast } from "@/hooks/use-toast";
 import type { ICode, ImageData } from "@/lib/interfaces";
 import { render, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, type Mock, vi } from "vitest";
@@ -145,7 +144,7 @@ describe("ChatInterface", () => {
     expect(sessionStorage.getItem(testKey)).toBeNull();
   });
 
-  it("should handle invalid JSON in sessionStorage gracefully and show toast", async () => {
+  it("should handle invalid JSON in sessionStorage gracefully", () => {
     const testKey = "invalid123";
     const codeSpaceWithKey = `x-${testKey}`;
 
@@ -157,7 +156,7 @@ describe("ChatInterface", () => {
       getCodeSpace: vi.fn().mockReturnValue(codeSpaceWithKey),
     };
 
-    // Spy on console.error to suppress error output
+    // Spy on console.error to verify error is logged
     const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
     // Should not throw when rendering
@@ -172,14 +171,11 @@ describe("ChatInterface", () => {
       );
     }).not.toThrow();
 
-    // Should show toast notification
-    await waitFor(() => {
-      expect(toast).toHaveBeenCalledWith({
-        title: "Failed to load saved prompt",
-        description: "The saved prompt data was corrupted and could not be loaded.",
-        variant: "destructive",
-      });
-    });
+    // Should log error (toast cannot be called during render)
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Failed to parse stored prompt data:",
+      expect.any(SyntaxError),
+    );
 
     // Should still render with null initial prompt
     const callArgs = (AssistantUIDrawer as Mock).mock.calls[0]?.[0];

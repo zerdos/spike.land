@@ -8,12 +8,49 @@ import { formatCode, transpileCode } from "@/services/editorUtils";
 import { RenderService } from "@/services/RenderService";
 import type { RunMessageResult } from "@/services/types";
 
+/** Timeout for individual iframe rendering operations (milliseconds) */
 const RENDER_OPERATION_TIMEOUT_MS = 2000;
+
+/** Timeout for the entire code processing operation (milliseconds) */
 const OVERALL_PROCESS_TIMEOUT_MS = 5000;
 
+/**
+ * Processes user code through formatting, transpilation, and rendering stages.
+ *
+ * The CodeProcessor orchestrates the complete code execution pipeline:
+ * 1. Formats code for consistency
+ * 2. Transpiles TypeScript/JSX to JavaScript
+ * 3. Executes code in a sandboxed iframe
+ * 4. Extracts rendered HTML and CSS
+ *
+ * It manages state transitions through a CompilationState callback and supports
+ * cancellation via AbortSignal for responsive UX.
+ *
+ * @example
+ * ```typescript
+ * const processor = new CodeProcessor("my-code-space");
+ * const result = await processor.process(
+ *   "const App = () => <div>Hello</div>",
+ *   false,
+ *   abortSignal,
+ *   getSession,
+ *   replaceIframe,
+ *   onStateChange
+ * );
+ * if (result) {
+ *   console.log(result.html); // Rendered output
+ * }
+ * ```
+ */
 export class CodeProcessor {
+  /** Singleton RenderService instance shared across all CodeProcessor instances */
   private static renderService: RenderService;
 
+  /**
+   * Creates a new CodeProcessor instance.
+   *
+   * @param codeSpace - Identifier for the code execution space/session
+   */
   constructor(codeSpace: string) {
     if (!CodeProcessor.renderService) {
       CodeProcessor.renderService = new RenderService(codeSpace);
@@ -21,12 +58,27 @@ export class CodeProcessor {
   }
 
   /**
-   * Formats and transpiles the code (optionally runs it),
-   * then returns updated session info or false on failure.
-   */
-  /**
-   * Processes code: formats, transpiles, and (optionally) runs it.
-   * If replaceIframe is provided, replaces the draggable window's iframe DOM node to show the rendered result.
+   * Processes code through formatting, transpilation, and optional rendering.
+   *
+   * Orchestrates the complete code processing pipeline:
+   * - Stage 1: Format code for consistency
+   * - Stage 2: Transpile TypeScript/JSX to JavaScript
+   * - Stage 3: Execute in iframe and capture rendered HTML/CSS (if not skipped)
+   *
+   * Supports cancellation via AbortSignal and reports state changes through callback.
+   * Returns false if any stage fails or processing is aborted.
+   *
+   * @param rawCode - The raw source code to process
+   * @param skipRunning - If true, skips rendering/execution step; only formats and transpiles
+   * @param signal - AbortSignal for cancelling the operation
+   * @param getSession - Callback to retrieve the current code session
+   * @param replaceIframe - Optional callback to replace the preview iframe DOM element
+   * @param onStateChange - Optional callback invoked with state transitions
+   *   (idle -> formatting -> transpiling -> rendering -> ready/error)
+   *
+   * @returns Updated ICodeSession with code, transpiled, html, and css; or false on failure/abort
+   *
+   * @throws Indirectly handles errors (logs them) and returns false rather than throwing
    */
   async process(
     rawCode: string,
@@ -115,20 +167,35 @@ export class CodeProcessor {
     };
   }
 
-  // This new private helper method encapsulates the logic for creating and managing
-  // the iframe used for sandboxed code execution and rendering.
+  /**
+   * Executes transpiled code in a sandboxed iframe and captures rendered output.
+   *
+   * Creates an iframe with the transpiled code, waits for rendering to complete,
+   * and extracts the rendered HTML and CSS. Updates processedSession with results.
+   *
+   * The iframe communicates via postMessage to send back rendering results with
+   * a requestId (md5 hash of transpiled code) to match results to requests.
+   *
+   * @param transpiled - The transpiled JavaScript code to execute
+   * @param origin - The window origin for proper import path resolution
+   * @param replaceIframe - Optional callback to replace the preview iframe element
+   * @param processedSession - Session object to mutate with html and css results
+   *
+   * @returns true if iframe execution succeeded; false if it failed, timed out, or was aborted
+   *
+   * @private
+   */
   private async _handleCodeExecutionInIframe(
     transpiled: string,
     origin: string,
     replaceIframe: ((newIframe: HTMLIFrameElement) => void) | undefined,
-    // processedSession is passed by reference and will be mutated with html and css
     processedSession: {
       code: string;
       transpiled: string;
       html?: string;
       css?: string;
     },
-  ): Promise<boolean> { // Returns true on success, false on failure
+  ): Promise<boolean> {
     try {
       // The cleanupPreviousRender was commented out. If uncommented,
       // its purpose is to ensure that any previous rendering iframe and its associated
@@ -345,6 +412,17 @@ export class CodeProcessor {
     return true; // Indicates success
   }
 
+  /**
+   * Formats code for consistency using the project's formatter.
+   *
+   * @param code - The raw code to format
+   *
+   * @returns The formatted code
+   *
+   * @throws Error if formatting fails or returns no data
+   *
+   * @private
+   */
   private async formatCode(code: string): Promise<string> {
     const { data, error } = await tryCatch(formatCode(code));
 
@@ -361,6 +439,17 @@ export class CodeProcessor {
     return data;
   }
 
+  /**
+   * Transpiles TypeScript/JSX code to plain JavaScript.
+   *
+   * @param code - The formatted code to transpile
+   *
+   * @returns The transpiled JavaScript code
+   *
+   * @throws Error if transpilation fails or produces empty output
+   *
+   * @private
+   */
   private async transpileCode(code: string): Promise<string> {
     const { data: transpiled, error } = await tryCatch(transpileCode(code));
 
@@ -383,8 +472,17 @@ export class CodeProcessor {
   }
 
   /**
-   * Re-renders the app using transpiled code directly without formatting or transpiling.
-   * Used when transpiled code changes from the server and we need to update HTML/CSS.
+   * Re-renders the app using transpiled code without formatting or transpiling.
+   *
+   * Used when transpiled code is received from the server and only re-rendering
+   * is needed to update the preview. Skips formatting and transpilation steps.
+   *
+   * @param transpiled - The already-transpiled JavaScript code to execute
+   * @param signal - AbortSignal for cancelling the operation
+   * @param getSession - Callback to retrieve the current code session
+   * @param replaceIframe - Optional callback to replace the preview iframe DOM element
+   *
+   * @returns Updated ICodeSession with rendered html and css; or false on failure/abort
    */
   async reRenderFromTranspiled(
     transpiled: string,
@@ -430,6 +528,18 @@ export class CodeProcessor {
     };
   }
 
+  /**
+   * Runs transpiled code and captures the rendered output.
+   *
+   * Updates the RenderService with new transpiled code and extracts the resulting
+   * HTML and CSS from the rendered component tree.
+   *
+   * @param transpiled - The transpiled JavaScript code to execute
+   *
+   * @returns Object containing rendered html and css strings
+   *
+   * @throws Error if rendering fails or produces no output
+   */
   async runCode(transpiled: string): Promise<RunMessageResult> {
     // Update the rendered app first
     const { data: renderedApp, error: updateError } = await tryCatch(
