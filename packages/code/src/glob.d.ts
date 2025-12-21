@@ -6,6 +6,7 @@ import type ear from "@emotion/react";
 
 import {} from "monaco-editor";
 import type { createRoot as Cr, hydrateRoot as Hr } from "react-dom/client";
+import type { SpikeEditorConsoleAPI } from "./@/components/app/monaco/console-api";
 
 declare module "*.html?raw" {
   const content: string;
@@ -39,4 +40,7 @@ declare global {
 
 // types.d.ts
 declare global {
+  interface Window {
+    spikeEditor?: SpikeEditorConsoleAPI;
+  }
 }

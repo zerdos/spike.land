@@ -39,3 +39,6 @@ export {
   refreshAta,
   setupResponsiveEditor,
 } from "./utils";
+
+// Export console API
+export { createConsoleAPI, type SpikeEditorConsoleAPI } from "./console-api";

@@ -14,6 +14,7 @@ import {
   refreshAta,
   setupResponsiveEditor,
 } from "./utils";
+import { createConsoleAPI } from "./console-api";
 
 // Store for editor models
 const modelStore: Record<string, EditorModel> = {};
@@ -142,6 +143,10 @@ async function createEditorModel(
 
   // Set up responsive behavior
   const cleanupResponsive = setupResponsiveEditor(myEditor);
+
+  // Expose console API for debugging TypeScript settings
+  const consoleAPI = createConsoleAPI(myEditor, model, uri);
+  Object.assign(window, { spikeEditor: consoleAPI });
 
   // Initialize state for tracking changes
   let abortController = new AbortController();
