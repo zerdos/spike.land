@@ -1,10 +1,34 @@
-import { getAuth } from "@clerk/backend";
+import { verifyToken } from "@clerk/backend";
 import {
   createStripeServer,
   getTierById,
   SUBSCRIPTION_TIERS as _SUBSCRIPTION_TIERS,
 } from "../../lib/stripe";
 import type { APIResponse, Env, User } from "../../types";
+
+interface AuthResult {
+  userId: string | null;
+  sessionClaims?: { email?: string };
+}
+
+async function getAuthFromRequest(request: Request, env: Env): Promise<AuthResult> {
+  try {
+    const authorization = request.headers.get("Authorization");
+    if (!authorization || !authorization.startsWith("Bearer ")) {
+      return { userId: null };
+    }
+    const token = authorization.slice(7);
+    const verified = await verifyToken(token, {
+      secretKey: env.CLERK_SECRET_KEY,
+    });
+    return {
+      userId: verified?.sub || null,
+      sessionClaims: { email: (verified as Record<string, unknown>)?.email as string | undefined },
+    };
+  } catch {
+    return { userId: null };
+  }
+}
 
 interface CheckoutRequest {
   priceId: string;
@@ -19,7 +43,7 @@ export async function handleCheckoutSession(
 ): Promise<Response> {
   try {
     // Authenticate user
-    const auth = getAuth(request);
+    const auth = await getAuthFromRequest(request, env);
     if (!auth.userId) {
       return new Response(
         JSON.stringify({
@@ -101,7 +125,7 @@ export async function handleCheckoutSession(
           updated_at: now,
         };
       } else {
-        user = userQuery as User;
+        user = userQuery as unknown as User;
       }
     } catch (error) {
       console.error("Database error:", error);

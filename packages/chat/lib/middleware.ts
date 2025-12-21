@@ -16,7 +16,7 @@ export interface MiddlewareContext {
 export interface MiddlewareOptions {
   requireAuth?: boolean;
   rateLimit?: keyof typeof RATE_LIMIT_RULES;
-  subscriptionRequired?: "free" | "pro" | "business";
+  subscriptionRequired?: "free" | "pro" | "enterprise";
   roles?: string[];
   validateBody?: boolean;
 }
@@ -89,7 +89,7 @@ export class MiddlewareManager {
   /**
    * Subscription requirement middleware
    */
-  subscriptionRequired(minTier: "free" | "pro" | "business"): MiddlewareHandler {
+  subscriptionRequired(minTier: "free" | "pro" | "enterprise"): MiddlewareHandler {
     return async (context, next) => {
       const { user } = context;
 
@@ -97,7 +97,7 @@ export class MiddlewareManager {
         throw new AuthenticationError("User authentication required for subscription check");
       }
 
-      const tierHierarchy = { free: 0, pro: 1, business: 2 };
+      const tierHierarchy: Record<string, number> = { free: 0, pro: 1, enterprise: 2 };
       const userTier = user.subscription_tier || "free";
       const requiredTier = minTier;
 
@@ -417,7 +417,7 @@ export function hasPermission(
   if (!user) return false;
 
   // Admin users have all permissions
-  if (user.subscription_tier === "business") return true;
+  if (user.subscription_tier === "enterprise") return true;
 
   // Define basic permissions based on subscription tiers
   const permissions: Record<string, Record<string, string[]>> = {
@@ -432,7 +432,7 @@ export function hasPermission(
       user: ["read", "update"],
       attachments: ["read", "create", "delete"],
     },
-    business: {
+    enterprise: {
       "*": ["*"], // All permissions
     },
   };

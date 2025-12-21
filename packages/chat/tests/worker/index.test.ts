@@ -86,7 +86,7 @@ describe("Worker", () => {
       STRIPE_SECRET_KEY: "test-stripe-key",
       STRIPE_WEBHOOK_SECRET: "test-webhook-secret",
       STRIPE_PRICE_ID_PRO: "price_pro",
-      STRIPE_PRICE_ID_BUSINESS: "price_business",
+      STRIPE_PRICE_ID_ENTERPRISE: "price_business",
       JWT_SECRET: "test-jwt-secret",
     };
   });

@@ -124,7 +124,7 @@ describe("AuthService", () => {
     it("should return true if user has business subscription", async () => {
       mockEnv.DATABASE.first = vi.fn().mockResolvedValue({
         credits: 5,
-        subscription_tier: "business",
+        subscription_tier: "enterprise",
       });
 
       const result = await authService.checkUserCredits("user-1", 10);
@@ -162,7 +162,7 @@ describe("AuthService", () => {
   describe("deductCredits", () => {
     it("should not deduct credits for business tier", async () => {
       mockEnv.DATABASE.first = vi.fn().mockResolvedValue({
-        subscription_tier: "business",
+        subscription_tier: "enterprise",
       });
 
       await authService.deductCredits("user-1", 5);
@@ -212,8 +212,8 @@ describe("AuthService", () => {
       await authService.updateSubscription("user-1", "free");
       expect(mockEnv.DATABASE.bind).toHaveBeenCalledWith("free", 10, "user-1");
 
-      await authService.updateSubscription("user-2", "business");
-      expect(mockEnv.DATABASE.bind).toHaveBeenCalledWith("business", 999999, "user-2");
+      await authService.updateSubscription("user-2", "enterprise");
+      expect(mockEnv.DATABASE.bind).toHaveBeenCalledWith("enterprise", 999999, "user-2");
     });
   });
 });

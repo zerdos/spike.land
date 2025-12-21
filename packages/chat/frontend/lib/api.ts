@@ -167,8 +167,8 @@ class ChatAPI {
       return {
         tier: profile.subscription_tier || "Free",
         credits: profile.credits || 0,
-        features: this.getFeaturesByTier(profile.subscription_tier || "free"),
-        limit: this.getLimitByTier(profile.subscription_tier || "free"),
+        features: this.getFeaturesByTier((profile.subscription_tier || "free") as "free" | "pro" | "enterprise"),
+        limit: this.getLimitByTier((profile.subscription_tier || "free") as "free" | "pro" | "enterprise"),
       };
     } catch {
       // Fallback to subscription endpoint
@@ -178,8 +178,8 @@ class ChatAPI {
         return {
           tier,
           credits: 0, // Would need to get from user profile
-          features: this.getFeaturesByTier(tier.toLowerCase() as "free" | "pro" | "enterprise"),
-          limit: this.getLimitByTier(tier.toLowerCase() as "free" | "pro" | "enterprise"),
+        features: this.getFeaturesByTier(tier.toLowerCase() as "free" | "pro" | "enterprise"),
+        limit: this.getLimitByTier(tier.toLowerCase() as "free" | "pro" | "enterprise"),
         };
       } catch {
         // Default values
@@ -196,27 +196,27 @@ class ChatAPI {
   private getTierFromSubscription(sub: Subscription): string {
     if (sub.status === "active") {
       if (sub.stripe_price_id?.includes("pro")) return "Pro";
-      if (sub.stripe_price_id?.includes("business")) return "Business";
+      if (sub.stripe_price_id?.includes("enterprise")) return "Enterprise";
     }
     return "Free";
   }
 
-  private getFeaturesByTier(tier: "free" | "pro" | "business"): string {
+  private getFeaturesByTier(tier: "free" | "pro" | "enterprise"): string {
     switch (tier) {
       case "pro":
         return "Unlimited chat, priority support";
-      case "business":
+      case "enterprise":
         return "All features, API access";
       default:
         return "Basic chat, 10 messages per day";
     }
   }
 
-  private getLimitByTier(tier: "free" | "pro" | "business"): number {
+  private getLimitByTier(tier: "free" | "pro" | "enterprise"): number {
     switch (tier) {
       case "pro":
         return 1000;
-      case "business":
+      case "enterprise":
         return 99999;
       default:
         return 10;

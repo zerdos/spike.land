@@ -51,25 +51,25 @@
     "noPropertyAccessFromIndexSignature": false
   },
   "include": [
-    "app/chat/**/*.ts",
-    "app/chat/**/*.tsx",
-    "app/page.tsx",
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx",
     "hooks/**/*.ts",
     "lib/**/*.ts",
+    "providers/**/*.ts",
+    "providers/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "frontend/**/*.ts",
+    "frontend/**/*.tsx",
+    "features/**/*.ts",
     "next-env.d.ts",
-    "src/types/**/*.ts",
-    "tests/global.d.ts",
     ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     ".next/types/**/*",
-    "components/**/*",
-    "app/dashboard/**/*",
-    "app/pricing/**/*",
-    "app/settings/**/*",
-    "tests/**/*",
-    "src/webhooks/**/*",
-    "src/worker/**/*"
+    "tests/**/*"
   ]
 }

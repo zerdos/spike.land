@@ -150,7 +150,7 @@ export function createMockChatEnv(overrides?: Partial<Env>): Env {
     STRIPE_SECRET_KEY: "test-stripe-secret",
     STRIPE_WEBHOOK_SECRET: "test-stripe-webhook-secret",
     STRIPE_PRICE_ID_PRO: "price_pro_test",
-    STRIPE_PRICE_ID_BUSINESS: "price_business_test",
+    STRIPE_PRICE_ID_ENTERPRISE: "price_enterprise_test",
     JWT_SECRET: "test-jwt-secret",
     ...overrides,
   };

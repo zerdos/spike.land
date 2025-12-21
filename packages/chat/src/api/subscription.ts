@@ -1,6 +1,26 @@
-import { getAuth } from "@clerk/backend";
+import { verifyToken } from "@clerk/backend";
 import { createStripeServer } from "../lib/stripe";
 import type { APIResponse, Env, User } from "../types";
+
+interface AuthResult {
+  userId: string | null;
+}
+
+async function getAuthFromRequest(request: Request, env: Env): Promise<AuthResult> {
+  try {
+    const authorization = request.headers.get("Authorization");
+    if (!authorization || !authorization.startsWith("Bearer ")) {
+      return { userId: null };
+    }
+    const token = authorization.slice(7);
+    const verified = await verifyToken(token, {
+      secretKey: env.CLERK_SECRET_KEY,
+    });
+    return { userId: verified?.sub || null };
+  } catch {
+    return { userId: null };
+  }
+}
 
 interface SubscriptionStatusResponse {
   tier: "free" | "pro" | "enterprise";
@@ -16,7 +36,7 @@ export async function handleSubscriptionStatus(
 ): Promise<Response> {
   try {
     // Authenticate user
-    const auth = getAuth(request);
+    const auth = await getAuthFromRequest(request, env);
     if (!auth.userId) {
       return new Response(
         JSON.stringify({
@@ -71,8 +91,8 @@ export async function handleSubscriptionStatus(
           tier: user.subscription_tier as "pro" | "enterprise",
           credits: user.credits || 0,
           status: subscription.status as "active" | "canceled" | "past_due" | "trialing",
-          currentPeriodEnd: subscription.current_period_end,
-          cancelAtPeriodEnd: subscription.cancel_at_period_end,
+          currentPeriodEnd: subscription.current_period_end as string | undefined,
+          cancelAtPeriodEnd: subscription.cancel_at_period_end as boolean | undefined,
         };
       }
     }
@@ -116,7 +136,7 @@ export async function handleCreatePortalSession(
 ): Promise<Response> {
   try {
     // Authenticate user
-    const auth = getAuth(request);
+    const auth = await getAuthFromRequest(request, env);
     if (!auth.userId) {
       return new Response(
         JSON.stringify({
@@ -133,7 +153,7 @@ export async function handleCreatePortalSession(
       );
     }
 
-    const body = await request.json();
+    const body = await request.json() as { returnUrl?: string };
     const { returnUrl } = body;
 
     if (!returnUrl) {

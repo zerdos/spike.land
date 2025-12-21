@@ -68,7 +68,7 @@ describe("handleCheckoutSession", async () => {
       STRIPE_SECRET_KEY: "test-stripe-key",
       STRIPE_WEBHOOK_SECRET: "test-stripe-webhook-secret",
       STRIPE_PRICE_ID_PRO: "price_pro_123",
-      STRIPE_PRICE_ID_BUSINESS: "price_business_123",
+      STRIPE_PRICE_ID_ENTERPRISE: "price_business_123",
       JWT_SECRET: "test-jwt-secret",
     };
   });
