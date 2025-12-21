@@ -11,7 +11,7 @@ export interface Env {
   STRIPE_SECRET_KEY: string;
   STRIPE_WEBHOOK_SECRET: string;
   STRIPE_PRICE_ID_PRO: string;
-  STRIPE_PRICE_ID_BUSINESS: string;
+  STRIPE_PRICE_ID_ENTERPRISE: string;
   JWT_SECRET: string;
 }
 
@@ -20,7 +20,7 @@ export interface User {
   clerk_id?: string;
   email: string;
   name?: string;
-  subscription_tier?: "free" | "pro" | "business" | "enterprise";
+  subscription_tier?: "free" | "pro" | "enterprise";
   credits?: number;
   stripe_customer_id?: string;
   created_at: string;

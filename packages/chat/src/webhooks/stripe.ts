@@ -8,7 +8,7 @@ export async function handleStripeWebhook(
 ): Promise<Response> {
   try {
     const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
-      apiVersion: "2025-02-24.acacia",
+      apiVersion: "2025-12-15.clover",
     });
 
     const signature = request.headers.get("stripe-signature");
@@ -50,11 +50,11 @@ export async function handleStripeWebhook(
             const subscription = await stripe.subscriptions.retrieve(subscriptionId);
             const priceId = subscription.items.data[0]?.price.id;
 
-            let tier: "free" | "pro" | "business" = "free";
+            let tier: "free" | "pro" | "enterprise" = "free";
             if (priceId === env.STRIPE_PRICE_ID_PRO) {
               tier = "pro";
-            } else if (priceId === env.STRIPE_PRICE_ID_BUSINESS) {
-              tier = "business";
+            } else if (priceId === env.STRIPE_PRICE_ID_ENTERPRISE) {
+              tier = "enterprise";
             }
 
             await authService.updateSubscription(user.id as string, tier);
@@ -201,12 +201,12 @@ export async function handleStripeWebhook(
 
           if (dbSubscription) {
             const priceId = subscription.items.data[0]?.price.id;
-            let tier: "free" | "pro" | "business" = "free";
+            let tier: "free" | "pro" | "enterprise" = "free";
 
             if (priceId === env.STRIPE_PRICE_ID_PRO) {
               tier = "pro";
-            } else if (priceId === env.STRIPE_PRICE_ID_BUSINESS) {
-              tier = "business";
+            } else if (priceId === env.STRIPE_PRICE_ID_ENTERPRISE) {
+              tier = "enterprise";
             }
 
             await authService.updateSubscription(

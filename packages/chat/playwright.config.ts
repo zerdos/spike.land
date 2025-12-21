@@ -1,4 +1,9 @@
 import { defineConfig, devices } from "@playwright/test";
+import { fileURLToPath } from "url";
+import { dirname, resolve } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export default defineConfig({
   testDir: "./e2e",
@@ -11,8 +16,8 @@ export default defineConfig({
     : [["html", { outputFolder: "test-results/playwright-report" }], ["line"]],
 
   // Global test setup and teardown
-  globalSetup: require.resolve("./features/support/global-setup.ts"),
-  globalTeardown: require.resolve("./features/support/global-teardown.ts"),
+  globalSetup: resolve(__dirname, "./features/support/global-setup.ts"),
+  globalTeardown: resolve(__dirname, "./features/support/global-teardown.ts"),
 
   use: {
     // Use Next.js development server URL
@@ -34,18 +39,6 @@ export default defineConfig({
     extraHTTPHeaders: {
       "x-test-mode": "true",
     },
-  },
-
-  // Test environment variables
-  env: {
-    NODE_ENV: "test",
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: "pk_test_publishable_key_for_testing",
-    CLERK_SECRET_KEY: "sk_test_secret_key_for_testing",
-    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: "pk_test_stripe_publishable_key",
-    STRIPE_SECRET_KEY: "sk_test_stripe_secret_key",
-    DATABASE_URL: "file:./test.db",
-    DISABLE_AUTH: "false",
-    ENABLE_MOCK_SERVICES: "true",
   },
 
   projects: [
@@ -139,8 +132,7 @@ export default defineConfig({
     timeout: 10 * 1000,
     // Take screenshots on assertion failures
     toHaveScreenshot: {
-      threshold: 0.2,
-      mode: "percent",
+      maxDiffPixelRatio: 0.2,
       animations: "disabled",
     },
   },
