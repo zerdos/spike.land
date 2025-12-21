@@ -26,7 +26,7 @@ graph TD
 - Service Worker for offline capabilities
 - WebRTC for peer-to-peer communication
 
-### 2. Main Worker (`packages/spike.land`)
+### 2. Main Worker (`packages/testing.spike.land`)
 
 - Primary Cloudflare Worker
 - Handles authentication and authorization

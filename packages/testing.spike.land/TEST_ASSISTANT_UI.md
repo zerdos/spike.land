@@ -14,7 +14,7 @@ of the error
 
 1. **Start the development server**:
    ```bash
-   cd packages/spike.land
+   cd packages/testing.spike.land
    yarn dev
    ```
 

@@ -184,5 +184,5 @@ Common issues and solutions:
    - Check for syntax errors with `yarn lint`
 
 For more detailed information on each endpoint and its functionality, please
-refer to the source code in `packages/spike.land/src/chat.ts`,
-`packages/spike.land/src/chatRoom.ts`, and other relevant files in the project.
+refer to the source code in `packages/testing.spike.land/src/chat.ts`,
+`packages/testing.spike.land/src/chatRoom.ts`, and other relevant files in the project.

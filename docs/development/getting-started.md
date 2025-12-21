@@ -61,7 +61,7 @@ spike.land/
 - Monaco Editor integration
 - Service Worker capabilities
 
-### Main Worker (`packages/spike.land`)
+### Main Worker (`packages/testing.spike.land`)
 
 - Authentication and authorization
 - Real-time collaboration backend
@@ -245,7 +245,7 @@ yarn lint
 
 3. Review common patterns:
    - Component patterns in `packages/code/src/@/components`
-   - Worker patterns in `packages/spike.land/src`
+   - Worker patterns in `packages/testing.spike.land/src`
    - Test patterns in respective `__tests__` directories
 
 ## Next Steps

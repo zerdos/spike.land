@@ -95,7 +95,7 @@ spike.land is a real-time collaborative code playground built with:
 
 ### Key Packages
 - `packages/code`: Frontend React application with Monaco editor
-- `packages/spike.land`: Backend Cloudflare Workers with WebSocket handling
+- `packages/testing.spike.land`: Backend Cloudflare Workers with WebSocket handling
 - `packages/spike-land-renderer`: Frontend renderer components
 - `packages/code-worker`: Web Worker for code execution
 - `packages/transpile`: TypeScript/JSX transpilation service

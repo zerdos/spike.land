@@ -66,7 +66,7 @@
   - Real-time state sync
   - Local state handling
 
-##### Main Worker (`packages/spike.land`)
+##### Main Worker (`packages/testing.spike.land`)
 
 - Authentication & Real-time → [workers.md](architecture/workers.md)#main-worker
   - WebSocket handling
@@ -171,6 +171,6 @@ yarn test:e2e       # E2E tests
 
 - `packages/code/src/@/` - Core frontend utilities
 - `packages/code/src/components/` - React components
-- `packages/spike.land/src/` - Main worker code
+- `packages/testing.spike.land/src/` - Main worker code
 - `packages/js.spike.land/src/` - Transpiler code
 - `docs/` - Documentation files

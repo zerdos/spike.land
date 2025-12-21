@@ -64,7 +64,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: deploy --env=testing
-          workingDirectory: packages/spike.land
+          workingDirectory: packages/testing.spike.land
 
       - name: Deploy Chat App to Cloudflare Workers (Dev)
         uses: cloudflare/wrangler-action@v3

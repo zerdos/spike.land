@@ -1,4 +1,4 @@
-// packages/spike.land/src/types/cloudflare.d.ts
+// packages/testing.spike.land/src/types/cloudflare.d.ts
 import type { R2Object, R2PutOptions } from "@cloudflare/workers-types";
 
 declare module "@cloudflare/workers-types" {

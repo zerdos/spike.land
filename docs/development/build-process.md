@@ -61,7 +61,7 @@ yarn workspace @spike-npm-land/code build:vite  # Vite build
 yarn workspace @spike-npm-land/code build:types # TypeScript build
 ```
 
-#### Main Worker (`packages/spike.land`)
+#### Main Worker (`packages/testing.spike.land`)
 
 ```bash
 yarn workspace @spike-npm-land/code-worker build        # Build worker

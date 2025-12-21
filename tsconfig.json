@@ -35,7 +35,7 @@
   "references": [
     { "path": "./devcontainers/devcontainer-generator/tsconfig.json" },
     { "path": "./packages/code/tsconfig.json" },
-    { "path": "./packages/spike.land/tsconfig.json" },
+    { "path": "./packages/testing.spike.land/tsconfig.json" },
     { "path": "./packages/spike-land-renderer/tsconfig.json" }
   ],
   "exclude": ["dts", "node_modules", "dist", "packages/chat"],

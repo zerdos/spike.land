@@ -8935,9 +8935,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike-npm-land/spike-land-backend@workspace:packages/spike.land":
+"@spike-npm-land/spike-land-backend@workspace:packages/testing.spike.land":
   version: 0.0.0-use.local
-  resolution: "@spike-npm-land/spike-land-backend@workspace:packages/spike.land"
+  resolution: "@spike-npm-land/spike-land-backend@workspace:packages/testing.spike.land"
   dependencies:
     "@ai-sdk/anthropic": "npm:^2.0.20"
     "@anthropic-ai/sdk": "npm:0.64.0"

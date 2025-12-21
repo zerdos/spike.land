@@ -7,7 +7,7 @@ export default defineConfig({
     projects: [
       "./packages/spike-land-renderer/vitest.config.ts",
       "./packages/code/vitest.config.ts",
-      "./packages/spike.land/vitest.config.ts",
+      "./packages/testing.spike.land/vitest.config.ts",
     ],
   },
 });
