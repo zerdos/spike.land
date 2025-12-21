@@ -226,15 +226,17 @@ export async function checkTypeScriptErrors(
 
     // Helper to wait for TypeScript worker with retry logic
     const getWorkerWithRetry = async (maxRetries = 3, delayMs = 100) => {
+      let lastError: Error | undefined;
       for (let i = 0; i < maxRetries; i++) {
         try {
           return await typescript.getTypeScriptWorker();
         } catch (error) {
-          if (i === maxRetries - 1) throw error;
+          lastError = error instanceof Error ? error : new Error(String(error));
+          if (i === maxRetries - 1) throw lastError;
           await wait(delayMs);
         }
       }
-      throw new Error("TypeScript worker not available");
+      throw lastError ?? new Error("TypeScript worker not available");
     };
 
     // Now check for errors - with retry logic for TypeScript worker

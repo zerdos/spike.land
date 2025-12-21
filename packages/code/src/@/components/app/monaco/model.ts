@@ -128,6 +128,12 @@ async function createEditorModel(
     configureJsxSupport(uri.toString());
   }
 
+  // Warm up the TypeScript worker (fire and forget)
+  // This helps reduce "TypeScript not registered" errors during initial edits
+  typescript.getTypeScriptWorker().catch(() => {
+    // Worker not ready yet, will be retried when needed
+  });
+
   // Register formatting provider
   registerFormattingProvider(prettierToThrow);
 
