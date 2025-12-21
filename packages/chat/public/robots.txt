@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://spike-chat-dev.spikeland.workers.dev/sitemap.xml

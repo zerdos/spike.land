@@ -1,4 +1,0 @@
-[[migration]]
-tag = "v1"
-new_classes = []
-deleted_classes = ["ChatRoom"]
