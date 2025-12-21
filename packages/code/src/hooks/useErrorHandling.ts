@@ -41,16 +41,54 @@ export const useErrorHandling = (engine: string) => {
         };
 
         let worker;
+        let useMarkerFallback = false;
         try {
           worker = await getWorkerWithRetry();
         } catch (error) {
           if (error instanceof Error && error.message.includes("TypeScript not registered")) {
-            console.debug("TypeScript not yet initialized, skipping type check");
-            return;
+            console.debug("TypeScript worker not available, using marker fallback");
+            useMarkerFallback = true;
+          } else {
+            throw error;
           }
-          throw error;
         }
-        const client = await worker(model.uri);
+
+        // If worker failed, use marker service fallback
+        if (useMarkerFallback) {
+          const markers = editor.getModelMarkers({ resource: model.uri });
+          const detailedDiagnostics: DetailedDiagnostic[] = markers.map((m) => {
+            let severity: "error" | "warning" | "info" = "info";
+            if (m.severity === MarkerSeverity.Error) severity = "error";
+            else if (m.severity === MarkerSeverity.Warning) severity = "warning";
+
+            const diagnostic: DetailedDiagnostic = {
+              message: m.message,
+              line: m.startLineNumber,
+              column: m.startColumn,
+              endLine: m.endLineNumber,
+              endColumn: m.endColumn,
+              severity,
+            };
+            if (m.code) {
+              diagnostic.code = parseInt(String(m.code), 10);
+            }
+            return diagnostic;
+          });
+
+          setDiagnostics(detailedDiagnostics);
+
+          const hasErrors = detailedDiagnostics.some((d) => d.severity === "error");
+          if (hasErrors) {
+            Object.assign(globalThis, { diagnostics: detailedDiagnostics });
+            console.error("TypeScript errors (via markers):", detailedDiagnostics);
+            setErrorType("typescript");
+          } else {
+            setErrorType((prevErrorType) => prevErrorType === "typescript" ? null : prevErrorType);
+          }
+          return;
+        }
+
+        const client = await worker!(model.uri);
 
         // Get all diagnostic types
         const [syntacticDiags, semanticDiags, suggestionDiags] = await Promise.all([

@@ -1,5 +1,5 @@
 import type { editor as Editor, IDisposable, Uri } from "monaco-editor";
-import { typescript } from "monaco-editor";
+import { editor, MarkerSeverity, typescript } from "monaco-editor";
 import { registerLanguages, setTypeScriptValidation } from "./language";
 
 /**
@@ -27,7 +27,12 @@ export interface SpikeEditorConsoleAPI {
   // Status & Debug
   isTypeScriptReady(): Promise<boolean>;
   registerLanguages(): void;
-  getStatus(): Promise<{ registered: boolean; workerReady: boolean; }>;
+  getStatus(): Promise<{
+    registered: boolean;
+    workerReady: boolean;
+    markersAvailable: boolean;
+    markerCount: number;
+  }>;
 
   // Editor Access
   getEditor(): Editor.IStandaloneCodeEditor;
@@ -101,6 +106,7 @@ export function createConsoleAPI(
 
     // Type Checking
     async checkTypes(): Promise<typescript.Diagnostic[]> {
+      // Try to use the TypeScript worker first
       try {
         const worker = await typescript.getTypeScriptWorker();
         const tsWorker = await worker(uri);
@@ -124,9 +130,51 @@ export function createConsoleAPI(
           })));
         }
         return all;
-      } catch (error) {
-        console.error("Type check failed:", error);
-        throw error;
+      } catch (workerError) {
+        // Fallback: Use Monaco's marker service directly
+        // This works even when getTypeScriptWorker() throws "TypeScript not registered"
+        // because Monaco's built-in validation is still running (squiggly underlines work)
+        console.debug("TypeScript worker unavailable, falling back to marker service");
+
+        const markers = editor.getModelMarkers({ resource: uri });
+        const diagnostics: typescript.Diagnostic[] = markers.map(m => {
+          const startOffset = model.getOffsetAt({
+            lineNumber: m.startLineNumber,
+            column: m.startColumn,
+          });
+          const endOffset = model.getOffsetAt({
+            lineNumber: m.endLineNumber,
+            column: m.endColumn,
+          });
+
+          // Map MarkerSeverity to TypeScript diagnostic category
+          // Category: 0 = Warning, 1 = Error, 2 = Suggestion, 3 = Message
+          let category = 2; // Default to Suggestion
+          if (m.severity === MarkerSeverity.Error) category = 1;
+          else if (m.severity === MarkerSeverity.Warning) category = 0;
+
+          return {
+            messageText: m.message,
+            start: startOffset,
+            length: endOffset - startOffset,
+            category,
+            code: m.code ? parseInt(String(m.code), 10) : undefined,
+            file: undefined,
+          } as typescript.Diagnostic;
+        });
+
+        console.info(`Type check complete (via markers): ${diagnostics.length} diagnostics`);
+        if (diagnostics.length > 0) {
+          console.table(diagnostics.map(d => ({
+            code: d.code,
+            message: typeof d.messageText === "string"
+              ? d.messageText
+              : (d.messageText as { messageText: string }).messageText,
+            start: d.start,
+            length: d.length,
+          })));
+        }
+        return diagnostics;
       }
     },
 
@@ -137,11 +185,20 @@ export function createConsoleAPI(
 
     // Status & Debug
     async isTypeScriptReady(): Promise<boolean> {
+      // Check if TypeScript worker is ready
       try {
         await typescript.getTypeScriptWorker();
         return true;
       } catch {
-        return false;
+        // Even if worker isn't ready, check if marker service works
+        // (Monaco's built-in validation may still be running)
+        try {
+          editor.getModelMarkers({ resource: uri });
+          // Markers can be retrieved - TypeScript validation is working
+          return true;
+        } catch {
+          return false;
+        }
       }
     },
 
@@ -150,19 +207,38 @@ export function createConsoleAPI(
       console.info("Languages re-registered");
     },
 
-    async getStatus(): Promise<{ registered: boolean; workerReady: boolean; }> {
+    async getStatus(): Promise<{
+      registered: boolean;
+      workerReady: boolean;
+      markersAvailable: boolean;
+      markerCount: number;
+    }> {
       let workerReady = false;
+      let markersAvailable = false;
+      let markerCount = 0;
+
       try {
         await typescript.getTypeScriptWorker();
         workerReady = true;
       } catch {
-        // Worker not ready
+        // Worker not ready - this is the known issue
+      }
+
+      try {
+        const markers = editor.getModelMarkers({ resource: uri });
+        markersAvailable = true;
+        markerCount = markers.length;
+      } catch {
+        // Markers not available
       }
 
       const registered = Object.keys(typescript.typescriptDefaults.getCompilerOptions()).length > 0;
 
-      const status = { registered, workerReady };
+      const status = { registered, workerReady, markersAvailable, markerCount };
       console.info("TypeScript status:", status);
+      if (!workerReady && markersAvailable) {
+        console.info("Note: TypeScript worker not ready, but marker service works. checkTypes() will use fallback.");
+      }
       return status;
     },
 

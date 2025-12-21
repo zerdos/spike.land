@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Message, WebSocketMessage } from "../../src/types";
+import type { WebSocketMessage } from "../../src/types";
 
 interface UseWebSocketOptions {
   onMessage?: (data: WebSocketMessage) => void;
@@ -23,6 +23,8 @@ export function useWebSocket({
   const [typingUsers, setTypingUsers] = useState<Set<string>>(new Set());
   const reconnectTimeoutRef = useRef<NodeJS.Timeout>();
   const reconnectAttemptsRef = useRef(0);
+  // Use a ref to store the latest connect function to avoid circular dependency
+  const connectRef = useRef<() => void>();
 
   const connect = useCallback(() => {
     if (!enabled) return;
@@ -99,11 +101,16 @@ export function useWebSocket({
         reconnectAttemptsRef.current++;
 
         reconnectTimeoutRef.current = setTimeout(() => {
-          connect();
+          connectRef.current?.();
         }, delay);
       }
     };
   }, [enabled, conversationId, userId, onMessage, onConnect, onDisconnect]);
+
+  // Keep the ref up to date with the latest connect function
+  useEffect(() => {
+    connectRef.current = connect;
+  });
 
   useEffect(() => {
     connect();

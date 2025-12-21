@@ -1,6 +1,6 @@
 import { wait } from "@/lib/wait";
 import { editor, Uri } from "@/workers/monaco-editor.worker";
-import { typescript } from "monaco-editor";
+import { MarkerSeverity, typescript } from "monaco-editor";
 import { modelCache, originToUse } from "./config";
 import type { ExtraLib } from "./types";
 
@@ -303,7 +303,10 @@ export async function checkTypeScriptErrors(
     }
   } catch (error) {
     if (error instanceof Error && error.message.includes("TypeScript not registered")) {
-      // TypeScript is not yet initialized, we are initialising now,
+      // TypeScript worker is not available, but Monaco's built-in validation may still work
+      // Try to use marker service as fallback
+      console.debug("TypeScript worker not available, using marker service fallback");
+
       typescript.typescriptDefaults.setDiagnosticsOptions({
         noSuggestionDiagnostics: false,
         noSemanticValidation: false,
@@ -312,6 +315,21 @@ export async function checkTypeScriptErrors(
         // 17004: Cannot use JSX unless the '--jsx' flag is provided (false positive - jsx IS configured)
         diagnosticCodesToIgnore: [2691, 17004],
       });
+
+      // Check markers from Monaco's built-in validation
+      try {
+        const markers = editor.getModelMarkers({ resource: uri });
+        const errorMarkers = markers.filter(m => m.severity === MarkerSeverity.Error);
+        if (errorMarkers.length > 0) {
+          console.warn("TypeScript errors detected via markers:", errorMarkers.map(m => ({
+            message: m.message,
+            line: m.startLineNumber,
+            code: m.code,
+          })));
+        }
+      } catch {
+        // Marker service also unavailable, validation will happen when it's ready
+      }
 
       return;
     }

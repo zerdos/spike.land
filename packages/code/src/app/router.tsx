@@ -59,14 +59,16 @@ const App: React.FC = () => {
       AppComponent: React.FC<{ codeSpace: string; cSess: ICode; }>;
     } | null
   >(null);
-  const [isLoading, setIsLoading] = useState(true);
   const pathname = location.pathname;
   const codeSpace = getCodeSpace(pathname);
+  // Initialize loading state based on whether we need to load
+  const [isLoading, setIsLoading] = useState(() =>
+    Boolean(codeSpace && pathname === `/live/${codeSpace}`)
+  );
 
   // Load app context on mount
   useEffect(() => {
     if (codeSpace && pathname === (`/live/${codeSpace}`)) {
-      setIsLoading(true);
       console.warn("Loading app for codeSpace:", codeSpace);
 
       loadApp(pathname)

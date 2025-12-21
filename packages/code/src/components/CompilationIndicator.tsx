@@ -23,11 +23,15 @@ export const CompilationIndicator: React.FC<CompilationIndicatorProps> = ({
   state,
   className,
 }) => {
-  const [visible, setVisible] = useState(false);
+  // Initialize visible based on initial state to avoid synchronous setState in effect
+  const [visible, setVisible] = useState(() =>
+    state === "formatting" || state === "transpiling" || state === "rendering"
+  );
 
   useEffect(() => {
     if (state === "formatting" || state === "transpiling" || state === "rendering") {
-      setVisible(true);
+      // Only update if not already visible to avoid unnecessary renders
+      setVisible(v => v ? v : true);
       return undefined;
     }
     if (state === "ready" || state === "idle") {

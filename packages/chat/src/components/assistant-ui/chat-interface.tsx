@@ -27,35 +27,38 @@ export function ChatInterface({
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [activeThreadId, setActiveThreadId] = useState<string>("1");
 
-  // Example threads data
-  const [threads, setThreads] = useState<ThreadType[]>([
-    {
-      id: "1",
-      title: "Project Planning Discussion",
-      lastMessage: "Let's review the timeline for Q1 deliverables",
-      timestamp: new Date(Date.now() - 1000 * 60 * 30), // 30 minutes ago
-      isPinned: true,
-    },
-    {
-      id: "2",
-      title: "Code Review Guidelines",
-      lastMessage: "The new PR template looks good",
-      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2), // 2 hours ago
-      unreadCount: 3,
-    },
-    {
-      id: "3",
-      title: "Technical Architecture",
-      lastMessage: "Considering microservices approach",
-      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24), // 1 day ago
-    },
-    {
-      id: "4",
-      title: "Bug Investigation",
-      lastMessage: "Found the root cause in the auth module",
-      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3), // 3 days ago
-    },
-  ]);
+  // Example threads data - use function initializer to avoid impure Date.now() in render
+  const [threads, setThreads] = useState<ThreadType[]>(() => {
+    const now = Date.now();
+    return [
+      {
+        id: "1",
+        title: "Project Planning Discussion",
+        lastMessage: "Let's review the timeline for Q1 deliverables",
+        timestamp: new Date(now - 1000 * 60 * 30), // 30 minutes ago
+        isPinned: true,
+      },
+      {
+        id: "2",
+        title: "Code Review Guidelines",
+        lastMessage: "The new PR template looks good",
+        timestamp: new Date(now - 1000 * 60 * 60 * 2), // 2 hours ago
+        unreadCount: 3,
+      },
+      {
+        id: "3",
+        title: "Technical Architecture",
+        lastMessage: "Considering microservices approach",
+        timestamp: new Date(now - 1000 * 60 * 60 * 24), // 1 day ago
+      },
+      {
+        id: "4",
+        title: "Bug Investigation",
+        lastMessage: "Found the root cause in the auth module",
+        timestamp: new Date(now - 1000 * 60 * 60 * 24 * 3), // 3 days ago
+      },
+    ];
+  });
 
   const handleNewThread = () => {
     const newThread: ThreadType = {
