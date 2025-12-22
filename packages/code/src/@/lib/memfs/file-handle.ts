@@ -1,13 +1,19 @@
+import type { NonSharedBuffer } from "node:buffer";
 import type { Abortable } from "node:events";
 import type {
   BigIntStats,
   Mode,
   ObjectEncodingOptions,
+  ReadOptions,
+  ReadOptionsWithBuffer,
+  ReadPosition,
   ReadStream,
+  ReadVResult,
   Stats,
   WriteStream,
+  WriteVResult,
 } from "node:fs";
-import type { FileHandle, FileReadOptions, FileReadResult } from "node:fs/promises";
+import type { FileHandle, FileReadResult } from "node:fs/promises";
 import type { Interface } from "node:readline";
 import type { ReadableStream } from "node:stream/web";
 import { tryCatch } from "../try-catch"; // Added import
@@ -26,24 +32,24 @@ class FileHandleImpl implements FileHandle {
   }
 
   readFile(
-    options?: { encoding?: null; flag?: string; } | null,
-  ): Promise<Buffer>;
+    options?: ({ encoding?: null | undefined } & Abortable) | null,
+  ): Promise<NonSharedBuffer>;
   readFile(
-    options: { encoding: BufferEncoding; flag?: string; } | BufferEncoding,
+    options: ({ encoding: BufferEncoding } & Abortable) | BufferEncoding,
   ): Promise<string>;
   async readFile(
     options?: BufferEncoding | (ObjectEncodingOptions & Abortable) | null,
-  ): Promise<string | Buffer> {
+  ): Promise<string | NonSharedBuffer> {
     const doReadFile = async () => {
       const file = await this.fileHandle.getFile();
       const content = await file.text();
       if (!options) {
-        return Buffer.from(content);
+        return Buffer.from(content) as NonSharedBuffer;
       }
       if (typeof options === "string" || (options && "encoding" in options)) {
         return content;
       }
-      return Buffer.from(content);
+      return Buffer.from(content) as NonSharedBuffer;
     };
     const { data, error } = await tryCatch(doReadFile());
     if (error) {
@@ -95,32 +101,35 @@ class FileHandleImpl implements FileHandle {
     buffer: T,
     offset?: number | null,
     length?: number | null,
-    position?: number | null,
-  ): Promise<{ bytesRead: number; buffer: T; }>;
+    position?: ReadPosition | null,
+  ): Promise<FileReadResult<T>>;
   read<T extends NodeJS.ArrayBufferView>(
     buffer: T,
-    opts?: FileReadOptions,
+    options?: ReadOptions,
+  ): Promise<FileReadResult<T>>;
+  read<T extends NodeJS.ArrayBufferView = NonSharedBuffer>(
+    options?: ReadOptionsWithBuffer<T>,
   ): Promise<FileReadResult<T>>;
   async read<T extends NodeJS.ArrayBufferView>(
-    buffer: T,
-    _offsetOrOpts?: number | null | FileReadOptions,
+    bufferOrOptions?: T | ReadOptionsWithBuffer<T>,
+    _offsetOrOpts?: number | null | ReadOptions,
     _length?: number | null,
-    _position?: number | null,
-  ): Promise<{ bytesRead: number; buffer: T; } | FileReadResult<T>> {
-    if (
-      _offsetOrOpts && typeof _offsetOrOpts === "object" &&
-      !("length" in _offsetOrOpts)
-    ) {
-      // Handle FileReadOptions
+    _position?: ReadPosition | null,
+  ): Promise<FileReadResult<T>> {
+    // Handle case where options with buffer is passed
+    if (bufferOrOptions && typeof bufferOrOptions === "object" && "buffer" in bufferOrOptions) {
+      const opts = bufferOrOptions as ReadOptionsWithBuffer<T>;
+      const buffer = opts.buffer as T;
       return {
-        bytesRead: buffer.byteLength,
-        buffer,
+        bytesRead: buffer?.byteLength ?? 0,
+        buffer: buffer as T,
       };
     }
 
-    // Handle positional read
+    // Handle case where buffer is passed directly
+    const buffer = bufferOrOptions as unknown as T;
     return {
-      bytesRead: buffer.byteLength,
+      bytesRead: buffer?.byteLength ?? 0,
       buffer,
     };
   }
@@ -183,17 +192,17 @@ class FileHandleImpl implements FileHandle {
     throw new Error("Method not implemented");
   }
 
-  async writev(
-    _buffers: NodeJS.ArrayBufferView[],
+  async writev<TBuffers extends readonly NodeJS.ArrayBufferView[]>(
+    _buffers: TBuffers,
     _position?: number,
-  ): Promise<{ bytesWritten: number; buffers: NodeJS.ArrayBufferView[]; }> {
+  ): Promise<WriteVResult<TBuffers>> {
     throw new Error("Method not implemented");
   }
 
-  async readv(
-    _buffers: NodeJS.ArrayBufferView[],
+  async readv<TBuffers extends readonly NodeJS.ArrayBufferView[]>(
+    _buffers: TBuffers,
     _position?: number,
-  ): Promise<{ bytesRead: number; buffers: NodeJS.ArrayBufferView[]; }> {
+  ): Promise<ReadVResult<TBuffers>> {
     throw new Error("Method not implemented");
   }
 

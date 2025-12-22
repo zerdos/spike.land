@@ -107,6 +107,20 @@ const createMockTools = () => ({
     parameters: {} as never,
     execute: vi.fn(),
   }),
+  codeExecution_20250825: vi.fn().mockReturnValue({
+    type: "provider-defined",
+    id: "anthropic.codeExecution_20250825",
+    args: {},
+    parameters: {} as never,
+    execute: vi.fn(),
+  }),
+  memory_20250818: vi.fn().mockReturnValue({
+    type: "provider-defined",
+    id: "anthropic.memory_20250818",
+    args: {},
+    parameters: {} as never,
+    execute: vi.fn(),
+  }),
 });
 
 describe("PostHandler", () => {
