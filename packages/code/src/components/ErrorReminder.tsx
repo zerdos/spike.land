@@ -1,3 +1,4 @@
+import { EditorCommandPalette } from "@/components/app/editor-command-palette";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,6 +19,7 @@ export const EditorNode: React.FC<{
   codeSpace: string;
 }> = ({ errorType, containerRef, codeSpace }) => {
   const [errorHeight, setErrorHeight] = useState(0);
+  const hasError = !!errorType;
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -32,11 +34,24 @@ export const EditorNode: React.FC<{
         transition={{ duration: 0.3 }}
       >
         <div
+          id="spike-editor-container"
           data-testid="editor-container"
           ref={containerRef}
           className="absolute inset-0"
+          role="application"
+          aria-label={`Code editor for ${codeSpace}`}
+          aria-describedby="editor-status"
+          data-editor-ready="false"
+          data-has-error={hasError}
         />
+        <div id="editor-status" className="sr-only" aria-live="polite">
+          {hasError
+            ? `Editor has ${errorType} error. Press Escape to dismiss error and focus editor.`
+            : `Code editor ready. Use keyboard shortcuts: Cmd+F to find, Cmd+K to open command palette.`}
+        </div>
       </motion.div>
+      {/* Command palette - triggered with Cmd+K */}
+      <EditorCommandPalette />
     </div>
   );
 };

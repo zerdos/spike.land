@@ -1,6 +1,6 @@
 import { md5 } from "@/lib/md5";
 import { wait } from "@/lib/wait";
-import { editor, languages, Uri } from "@/workers/monaco-editor.worker";
+import { editor, languages, Range, Uri } from "@/workers/monaco-editor.worker";
 import { getEditorOptions } from "./config";
 import { originToUse } from "./config";
 import { configureJsxSupport, registerFormattingProvider, registerLanguages } from "./language";
@@ -13,6 +13,32 @@ import {
   refreshAta,
   setupResponsiveEditor,
 } from "./utils";
+
+// Type for the global editor API exposed for AI/automation tools
+export interface SpikeEditorAPI {
+  getValue: () => string;
+  setValue: (code: string) => void;
+  getSelection: () => { startLine: number; startColumn: number; endLine: number; endColumn: number; } | null;
+  setSelection: (startLine: number, startColumn: number, endLine: number, endColumn: number) => void;
+  goToLine: (line: number, column?: number) => void;
+  find: (searchText: string) => void;
+  replace: (searchText: string, replaceText: string) => void;
+  replaceAll: (searchText: string, replaceText: string) => number;
+  insertAt: (line: number, column: number, text: string) => void;
+  getLineContent: (line: number) => string;
+  getLineCount: () => number;
+  focus: () => void;
+  getCursorPosition: () => { lineNumber: number; column: number; };
+  setCursorPosition: (line: number, column: number) => void;
+  triggerAction: (actionId: string) => void;
+  getErrors: () => Promise<string[]>;
+}
+
+declare global {
+  interface Window {
+    __spikeEditor?: SpikeEditorAPI;
+  }
+}
 
 // Store for editor models
 const modelStore: Record<string, EditorModel> = {};
@@ -237,6 +263,81 @@ async function createEditorModel(
     },
   };
 
+  // Expose global API for AI/automation tools
+  const spikeEditorAPI: SpikeEditorAPI = {
+    getValue: () => model.getValue(),
+    setValue: (code: string) => editorModel.setValue(code),
+    getSelection: () => {
+      const selection = myEditor.getSelection();
+      if (!selection) return null;
+      return {
+        startLine: selection.startLineNumber,
+        startColumn: selection.startColumn,
+        endLine: selection.endLineNumber,
+        endColumn: selection.endColumn,
+      };
+    },
+    setSelection: (startLine: number, startColumn: number, endLine: number, endColumn: number) => {
+      myEditor.setSelection(new Range(startLine, startColumn, endLine, endColumn));
+    },
+    goToLine: (line: number, column = 1) => {
+      myEditor.setPosition({ lineNumber: line, column });
+      myEditor.revealLineInCenter(line);
+      myEditor.focus();
+    },
+    find: (searchText: string) => {
+      myEditor.trigger("spikeEditor", "actions.find", { searchString: searchText });
+    },
+    replace: (searchText: string, replaceText: string) => {
+      const currentValue = model.getValue();
+      const newValue = currentValue.replace(searchText, replaceText);
+      if (newValue !== currentValue) {
+        editorModel.setValue(newValue);
+      }
+    },
+    replaceAll: (searchText: string, replaceText: string) => {
+      const currentValue = model.getValue();
+      const regex = new RegExp(searchText.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g");
+      const matches = currentValue.match(regex);
+      const count = matches ? matches.length : 0;
+      if (count > 0) {
+        const newValue = currentValue.replace(regex, replaceText);
+        editorModel.setValue(newValue);
+      }
+      return count;
+    },
+    insertAt: (line: number, column: number, text: string) => {
+      myEditor.executeEdits("spikeEditor", [{
+        range: new Range(line, column, line, column),
+        text,
+        forceMoveMarkers: true,
+      }]);
+    },
+    getLineContent: (line: number) => model.getLineContent(line),
+    getLineCount: () => model.getLineCount(),
+    focus: () => myEditor.focus(),
+    getCursorPosition: () => {
+      const position = myEditor.getPosition();
+      return position ? { lineNumber: position.lineNumber, column: position.column } : { lineNumber: 1, column: 1 };
+    },
+    setCursorPosition: (line: number, column: number) => {
+      myEditor.setPosition({ lineNumber: line, column });
+    },
+    triggerAction: (actionId: string) => {
+      myEditor.trigger("spikeEditor", actionId, null);
+    },
+    getErrors: editorModel.getErrors,
+  };
+
+  // Expose to window for programmatic access
+  window.__spikeEditor = spikeEditorAPI;
+
+  // Update DOM to indicate editor is ready
+  const editorContainer = document.getElementById("spike-editor-container");
+  if (editorContainer) {
+    editorContainer.setAttribute("data-editor-ready", "true");
+  }
+
   // Set up focus/blur handlers
   myEditor.getDomNode()?.blur();
 
@@ -343,6 +444,10 @@ async function createEditorModel(
       myEditor.dispose();
       model.dispose();
       delete modelStore[codeSpace];
+      // Clean up global API
+      if (window.__spikeEditor === spikeEditorAPI) {
+        delete window.__spikeEditor;
+      }
     },
   };
 }
