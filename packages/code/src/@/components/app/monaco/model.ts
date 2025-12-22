@@ -1,6 +1,6 @@
 import { md5 } from "@/lib/md5";
 import { wait } from "@/lib/wait";
-import { editor, languages, Uri } from "@/workers/monaco-editor.worker";
+import { editor, languages, Range, Uri } from "@/workers/monaco-editor.worker";
 import { getEditorOptions } from "./config";
 import { originToUse } from "./config";
 import { configureJsxSupport, registerFormattingProvider, registerLanguages } from "./language";
@@ -13,6 +13,31 @@ import {
   refreshAta,
   setupResponsiveEditor,
 } from "./utils";
+
+// Global API interface for agent control
+interface SpikeEditorAPI {
+  getValue: () => string;
+  setValue: (value: string) => void;
+  getSelection: () => string;
+  insertText: (text: string) => void;
+  replace: (search: string, replacement: string) => void;
+  replaceAll: (search: string, replacement: string) => void;
+  focus: () => void;
+  setPosition: (line: number, column: number) => void;
+  revealLine: (line: number) => void;
+  triggerAction: (actionId: string) => void;
+  format: () => void;
+  undo: () => void;
+  redo: () => void;
+  getLineCount: () => number;
+  getPosition: () => { line: number; column: number };
+}
+
+declare global {
+  interface Window {
+    __spikeEditor?: SpikeEditorAPI;
+  }
+}
 
 // Store for editor models
 const modelStore: Record<string, EditorModel> = {};
@@ -237,6 +262,68 @@ async function createEditorModel(
     },
   };
 
+  // Expose global API for agent control
+  const spikeEditorAPI: SpikeEditorAPI = {
+    getValue: () => model.getValue(),
+    setValue: (value: string) => editorModel.setValue(value),
+    getSelection: () => myEditor.getModel()?.getValueInRange(myEditor.getSelection()!) || "",
+    insertText: (text: string) => {
+      const selection = myEditor.getSelection();
+      if (selection) {
+        myEditor.executeEdits("api", [{
+          range: selection,
+          text,
+          forceMoveMarkers: true,
+        }]);
+      }
+    },
+    replace: (search: string, replacement: string) => {
+      const content = model.getValue();
+      const idx = content.indexOf(search);
+      if (idx !== -1) {
+        const startPos = model.getPositionAt(idx);
+        const endPos = model.getPositionAt(idx + search.length);
+        myEditor.executeEdits("api", [{
+          range: new Range(startPos.lineNumber, startPos.column, endPos.lineNumber, endPos.column),
+          text: replacement,
+          forceMoveMarkers: true,
+        }]);
+      }
+    },
+    replaceAll: (search: string, replacement: string) => {
+      const content = model.getValue();
+      const edits: { range: Range; text: string; forceMoveMarkers: boolean }[] = [];
+      let idx = 0;
+      while ((idx = content.indexOf(search, idx)) !== -1) {
+        const startPos = model.getPositionAt(idx);
+        const endPos = model.getPositionAt(idx + search.length);
+        edits.push({
+          range: new Range(startPos.lineNumber, startPos.column, endPos.lineNumber, endPos.column),
+          text: replacement,
+          forceMoveMarkers: true,
+        });
+        idx += search.length;
+      }
+      if (edits.length > 0) {
+        myEditor.executeEdits("api", edits);
+      }
+    },
+    focus: () => myEditor.focus(),
+    setPosition: (line: number, column: number) => myEditor.setPosition({ lineNumber: line, column }),
+    revealLine: (line: number) => myEditor.revealLineInCenter(line),
+    triggerAction: (actionId: string) => myEditor.trigger("api", actionId, null),
+    format: () => myEditor.trigger("api", "editor.action.formatDocument", null),
+    undo: () => myEditor.trigger("api", "undo", null),
+    redo: () => myEditor.trigger("api", "redo", null),
+    getLineCount: () => model.getLineCount(),
+    getPosition: () => {
+      const pos = myEditor.getPosition();
+      return { line: pos?.lineNumber || 1, column: pos?.column || 1 };
+    },
+  };
+
+  window.__spikeEditor = spikeEditorAPI;
+
   // Set up focus/blur handlers
   myEditor.getDomNode()?.blur();
 
@@ -339,6 +426,7 @@ async function createEditorModel(
   return {
     ...editorModel,
     dispose: () => {
+      delete window.__spikeEditor;
       cleanupResponsive();
       myEditor.dispose();
       model.dispose();

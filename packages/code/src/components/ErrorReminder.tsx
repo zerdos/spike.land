@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 import { useErrorEffect } from "../hooks/useErrorEffect";
+import { EditorCommandPalette } from "@/components/app/monaco/editor-command-palette";
 import { errorMessages } from "./ErrorMessages";
 import type { ErrorType } from "./ErrorMessages";
 
@@ -32,11 +33,13 @@ export const EditorNode: React.FC<{
         transition={{ duration: 0.3 }}
       >
         <div
+          id="spike-editor-container"
           data-testid="editor-container"
           ref={containerRef}
           className="absolute inset-0"
         />
       </motion.div>
+      <EditorCommandPalette />
     </div>
   );
 };
