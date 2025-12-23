@@ -4,7 +4,7 @@
 FROM node:slim AS node-builder
 
 # Add yarn
-ADD https://raw.githubusercontent.com/zerdos/spike.land/main/.yarn/releases/yarn-4.10.3.cjs /usr/local/bin/yarn
+ADD https://raw.githubusercontent.com/zerdos/spike.land/main/.yarn/releases/yarn-4.12.0.cjs /usr/local/bin/yarn
 RUN chmod 755 /usr/local/bin/yarn && apt-get update && apt-get install -y --no-install-recommends git unzip && rm -rf /var/lib/apt/lists/*
 
 # Stage 2: Base image setup

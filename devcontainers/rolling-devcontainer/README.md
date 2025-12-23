@@ -2,7 +2,7 @@
 
 - Base image: ubuntu:ubuntu:rolling
 - Node: 22.19.0
-- Yarn: 4.10.3
+- Yarn: 4.12.0
 - Deno: 2.2.9- With noVNC - XFCE trough noVNC (http://localhost:6080)
 - docker preinstalled
 - With Vscode- Zsh + Oh my zsh!

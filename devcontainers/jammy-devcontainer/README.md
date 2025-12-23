@@ -2,7 +2,7 @@
 
 - Base image: ubuntu:ubuntu:jammy
 - Node: 22.19.0
-- Yarn: 4.10.3
+- Yarn: 4.12.0
 - Deno: 2.2.9- With google-chrome
 - Cypress 15.2.0
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
