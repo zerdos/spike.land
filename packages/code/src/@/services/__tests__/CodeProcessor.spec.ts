@@ -84,7 +84,6 @@ describe("CodeProcessor", () => {
       css: ".test { color: blue; }",
       codeSpace: "test-code-space",
       messages: [],
-      i: 0,
     };
 
     mockGetSession = vi.fn(() => baseSession);
@@ -546,7 +545,7 @@ describe("CodeProcessor", () => {
       vi.mocked(transpileCode).mockResolvedValueOnce("new transpiled");
       vi.mocked(md5).mockReturnValueOnce("test-request-id");
 
-      let messageHandler: ((event: MessageEvent) => void) | null = null;
+      let messageHandler: ((event: MessageEvent) => void) | undefined;
 
       vi.spyOn(window, "addEventListener").mockImplementation(
         (type, handler) => {
@@ -567,20 +566,19 @@ describe("CodeProcessor", () => {
       await new Promise((resolve) => setTimeout(resolve, 10));
 
       // Simulate the rendered message from iframe
-      if (messageHandler) {
-        const mockEvent = {
+      expect(messageHandler).toBeDefined();
+      const mockEvent = {
+        data: {
+          type: "rendered",
+          requestId: "test-request-id",
+          iteration: 5,
           data: {
-            type: "rendered",
-            requestId: "test-request-id",
-            iteration: 5,
-            data: {
-              html: "<div>success</div>",
-              css: ".success { color: green; }",
-            },
+            html: "<div>success</div>",
+            css: ".success { color: green; }",
           },
-        } as MessageEvent;
-        messageHandler(mockEvent);
-      }
+        },
+      } as MessageEvent;
+      messageHandler!(mockEvent);
 
       const result = await processPromise;
 
@@ -595,7 +593,7 @@ describe("CodeProcessor", () => {
       vi.mocked(transpileCode).mockResolvedValueOnce("new transpiled");
       vi.mocked(md5).mockReturnValueOnce("test-request-id");
 
-      let messageHandler: ((event: MessageEvent) => void) | null = null;
+      let messageHandler: ((event: MessageEvent) => void) | undefined;
 
       vi.spyOn(window, "addEventListener").mockImplementation(
         (type, handler) => {
@@ -614,20 +612,19 @@ describe("CodeProcessor", () => {
 
       await new Promise((resolve) => setTimeout(resolve, 10));
 
-      if (messageHandler) {
-        const mockEvent = {
+      expect(messageHandler).toBeDefined();
+      const mockEvent = {
+        data: {
+          type: "rendered",
+          requestId: "test-request-id",
+          iteration: 5,
           data: {
-            type: "rendered",
-            requestId: "test-request-id",
-            iteration: 5,
-            data: {
-              html: "",
-              css: "",
-            },
+            html: "",
+            css: "",
           },
-        } as MessageEvent;
-        messageHandler(mockEvent);
-      }
+        },
+      } as MessageEvent;
+      messageHandler!(mockEvent);
 
       const result = await processPromise;
       expect(result).toBe(false);
@@ -638,7 +635,7 @@ describe("CodeProcessor", () => {
       vi.mocked(transpileCode).mockResolvedValueOnce("new transpiled");
       vi.mocked(md5).mockReturnValueOnce("correct-id");
 
-      let messageHandler: ((event: MessageEvent) => void) | null = null;
+      let messageHandler: ((event: MessageEvent) => void) | undefined;
 
       vi.spyOn(window, "addEventListener").mockImplementation(
         (type, handler) => {

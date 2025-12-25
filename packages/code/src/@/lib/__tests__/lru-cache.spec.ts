@@ -912,7 +912,7 @@ describe("LRUCache", () => {
 
       cache.set("key1", { value: "value1" }, { status });
 
-      expect(status.set).toBe("add");
+      expect(status["set"]).toBe("add");
     });
 
     it("should track get status", () => {
@@ -922,7 +922,7 @@ describe("LRUCache", () => {
 
       cache.get("key1", { status });
 
-      expect(status.get).toBe("hit");
+      expect(status["get"]).toBe("hit");
     });
 
     it("should track has status", () => {
@@ -932,7 +932,7 @@ describe("LRUCache", () => {
 
       cache.has("key1", { status });
 
-      expect(status.has).toBe("hit");
+      expect(status["has"]).toBe("hit");
     });
 
     it("should track miss status on get", () => {
@@ -941,7 +941,7 @@ describe("LRUCache", () => {
 
       cache.get("nonexistent", { status });
 
-      expect(status.get).toBe("miss");
+      expect(status["get"]).toBe("miss");
     });
   });
 });
