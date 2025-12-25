@@ -58,7 +58,7 @@ of the error
 
 ## What's Working Now
 
-- ✅ Correct model name for Claude 3.5 Sonnet
+- ✅ Correct model name for Claude 3.5 opus
 - ✅ Proper MCP endpoint routing
 - ✅ Message format compatibility between assistant-ui and AI SDK
 - ✅ Error logging for debugging
