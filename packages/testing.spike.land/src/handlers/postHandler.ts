@@ -602,18 +602,12 @@ export class PostHandler {
       }
 
       // Use AI SDK's jsonSchema helper to create a schema from our JSON Schema
-      // Cast to JSONSchema7 format which is what the AI SDK expects
       // The McpTool inputSchema is compatible with JSON Schema 7
-      const inputSchema = mcpTool.inputSchema as {
-        type: string;
-        properties: Record<string, Record<string, unknown>>;
-        required?: string[];
-      };
-
+      // We've already validated that type === "object" above
       const schemaDefinition = aiJsonSchema<Record<string, unknown>>({
-        type: inputSchema.type,
-        properties: inputSchema.properties,
-        required: inputSchema.required,
+        type: "object" as const,
+        properties: mcpTool.inputSchema.properties,
+        required: mcpTool.inputSchema.required,
       });
 
       // Create the tool - using AI SDK's tool() with JSON Schema
@@ -621,7 +615,8 @@ export class PostHandler {
       const toolName = mcpTool.name;
 
       // Create the tool using the AI SDK's tool() function
-      const aiTool = tool({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const aiTool = (tool as any)({
         description: mcpTool.description,
         parameters: schemaDefinition,
         execute: async (args: Record<string, unknown>) => {
