@@ -5,6 +5,9 @@
  * backward compatibility with existing imports from '@/lib/lru-cache'.
  */
 
+// Import LRUCache for default export
+import { LRUCache } from "./core";
+
 // Re-export the main LRUCache class
 export { LRUCache } from "./core";
 export default LRUCache;
@@ -52,6 +55,3 @@ export type {
 
 // Re-export Stack-related types for advanced usage
 export type { StackLike } from "./stack";
-
-// Import LRUCache for default export
-import { LRUCache } from "./core";
