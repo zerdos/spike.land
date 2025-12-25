@@ -1,6 +1,6 @@
 import type { z } from "zod";
 import type { Code } from "../chatRoom";
-import type { McpServer } from "../mcpServer";
+import type { McpServer } from "../mcp";
 import { JsonSchemaToZodConverter } from "../utils/jsonSchemaToZod";
 
 export type ToolExecuteParams = Record<string, unknown>;

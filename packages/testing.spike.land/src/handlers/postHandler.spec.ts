@@ -6,7 +6,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { z } from "zod";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
-import type { McpTool } from "../mcpServer";
+import type { McpTool } from "../mcp";
 import { StorageService } from "../services/storageService";
 import type { PostRequestBody } from "../types/aiRoutes";
 import { PostHandler } from "./postHandler";

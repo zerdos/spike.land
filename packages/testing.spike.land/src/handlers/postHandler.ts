@@ -1,13 +1,18 @@
 import { createAnthropic } from "@ai-sdk/anthropic";
-import { streamText, tool } from "ai";
+import { jsonSchema as aiJsonSchema, streamText, tool } from "ai";
 import type { ModelMessage } from "ai";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
-import type { McpTool } from "../mcpServer";
+import type { McpTool } from "../mcp";
 import { StorageService } from "../services/storageService";
-import type { ErrorResponse, MessageContentPart, PostRequestBody } from "../types/aiRoutes";
-import { DEFAULT_CORS_HEADERS } from "../types/aiRoutes";
-import { JsonSchemaToZodConverter } from "../utils/jsonSchemaToZod";
+import type {
+  ErrorResponse,
+  JsonSchemaObject,
+  MessageContentPart,
+  PostRequestBody,
+  ToolDefinition,
+} from "../types/aiRoutes";
+import { DEFAULT_CORS_HEADERS, isMessageContentPart } from "../types/aiRoutes";
 
 // Constants for validation
 const MAX_MESSAGE_LENGTH = 100000; // 100KB per message
@@ -35,16 +40,83 @@ interface MessageWithParts {
 
 type CoreMessage = ModelMessage;
 
+/**
+ * Type for the processed tools record
+ * The AI SDK's ToolSet type uses `any` internally for flexibility with various tool configurations.
+ * We use a compatible type here to avoid type conflicts while maintaining type safety in our code.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ProcessedToolsRecord = Record<string, ReturnType<typeof tool<any, any>>>;
+
+/**
+ * Type guard for tool validation - checks if a tool has valid input schema format
+ */
+interface ToolWithInputSchema {
+  input_schema?: JsonSchemaObject;
+  custom?: {
+    input_schema?: JsonSchemaObject;
+  };
+}
+
+/**
+ * Validates that a tool's input_schema has type: "object" as required by Anthropic API
+ */
+function hasValidInputSchemaType(toolObj: ToolWithInputSchema): boolean {
+  // Check direct input_schema
+  if (toolObj.input_schema && typeof toolObj.input_schema === "object") {
+    if (toolObj.input_schema.type !== "object") {
+      return false;
+    }
+  }
+
+  // Check custom.input_schema (AI SDK format)
+  if (toolObj.custom?.input_schema && typeof toolObj.custom.input_schema === "object") {
+    if (toolObj.custom.input_schema.type !== "object") {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/**
+ * Type guard for checking if an object is a valid tool definition
+ */
+function isToolDefinition(value: unknown): value is ToolDefinition {
+  if (value === null || typeof value !== "object") {
+    return false;
+  }
+
+  const obj = value as Record<string, unknown>;
+
+  // A tool definition should have at least input_schema or custom with input_schema
+  const hasInputSchema = "input_schema" in obj && obj.input_schema !== null;
+  const hasCustomInputSchema = "custom" in obj &&
+    typeof obj.custom === "object" &&
+    obj.custom !== null &&
+    "input_schema" in (obj.custom as Record<string, unknown>);
+
+  return hasInputSchema || hasCustomInputSchema;
+}
+
+/**
+ * Information about an invalid tool for logging
+ */
+interface InvalidToolInfo {
+  index: number;
+  reason: string;
+  value: unknown;
+  note?: string;
+}
+
 export class PostHandler {
   private storageService: StorageService;
-  private schemaConverter: JsonSchemaToZodConverter;
 
   constructor(
     private code: Code,
     private env: Env,
   ) {
     this.storageService = new StorageService(env);
-    this.schemaConverter = new JsonSchemaToZodConverter();
   }
 
   async handle(request: Request, _url: URL): Promise<Response> {
@@ -82,49 +154,7 @@ export class PostHandler {
 
         // Check for various invalid tool formats and clean them
         if (Array.isArray(body.tools)) {
-          const invalidTools: unknown[] = [];
-
-          body.tools.forEach((tool: unknown, index: number) => {
-            // Check for tools with invalid schema formats
-            if (tool && typeof tool === "object") {
-              const toolObj = tool as Record<string, unknown>;
-
-              // Check for custom.input_schema pattern (AI SDK format)
-              if ("custom" in toolObj && toolObj.custom && typeof toolObj.custom === "object") {
-                const custom = toolObj.custom as Record<string, unknown>;
-                if (
-                  "input_schema" in custom && custom.input_schema &&
-                  typeof custom.input_schema === "object"
-                ) {
-                  const schema = custom.input_schema as Record<string, unknown>;
-                  if ("type" in schema && schema.type !== "object") {
-                    invalidTools.push({
-                      index,
-                      reason: "custom.input_schema.type is not 'object'",
-                      value: schema.type,
-                    });
-                  }
-                }
-              }
-
-              // Check for direct input_schema pattern
-              if (
-                "input_schema" in toolObj && toolObj.input_schema &&
-                typeof toolObj.input_schema === "object"
-              ) {
-                const schema = toolObj.input_schema as Record<string, unknown>;
-                if ("type" in schema && schema.type !== "object") {
-                  invalidTools.push({
-                    index,
-                    reason:
-                      "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)",
-                    value: schema.type,
-                    note: "See https://github.com/vercel/ai/issues/7333",
-                  });
-                }
-              }
-            }
-          });
+          const invalidTools = this.validateToolsArray(body.tools);
 
           if (invalidTools.length > 0) {
             console.warn(
@@ -182,6 +212,46 @@ export class PostHandler {
         error instanceof Error ? error.message : "Unknown error",
       );
     }
+  }
+
+  /**
+   * Validates an array of tools and returns information about invalid ones
+   */
+  private validateToolsArray(tools: unknown[]): InvalidToolInfo[] {
+    const invalidTools: InvalidToolInfo[] = [];
+
+    tools.forEach((toolItem: unknown, index: number) => {
+      if (!isToolDefinition(toolItem)) {
+        return;
+      }
+
+      const toolObj = toolItem as ToolWithInputSchema;
+
+      // Check for custom.input_schema pattern (AI SDK format)
+      if (toolObj.custom?.input_schema) {
+        if (!hasValidInputSchemaType({ custom: { input_schema: toolObj.custom.input_schema } })) {
+          invalidTools.push({
+            index,
+            reason: "custom.input_schema.type is not 'object'",
+            value: toolObj.custom.input_schema.type,
+          });
+        }
+      }
+
+      // Check for direct input_schema pattern
+      if (toolObj.input_schema) {
+        if (!hasValidInputSchemaType({ input_schema: toolObj.input_schema })) {
+          invalidTools.push({
+            index,
+            reason: "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)",
+            value: toolObj.input_schema.type,
+            note: "See https://github.com/vercel/ai/issues/7333",
+          });
+        }
+      }
+    });
+
+    return invalidTools;
   }
 
   private async parseRequestBody(request: Request): Promise<PostRequestBody> {
@@ -282,15 +352,6 @@ export class PostHandler {
     return typeof role === "string" && VALID_ROLES.includes(role as ValidRole);
   }
 
-  private isMessageContentPart(part: unknown): part is MessageContentPart {
-    return (
-      part !== null &&
-      typeof part === "object" &&
-      "type" in part &&
-      typeof part.type === "string"
-    );
-  }
-
   private convertMessages(messages: MessageWithParts[]): CoreMessage[] {
     return messages.map((msg: MessageWithParts): CoreMessage => {
       if (!this.isValidRole(msg.role)) {
@@ -334,7 +395,7 @@ export class PostHandler {
         return {
           role: validRole,
           content: msg.content.map((part: unknown) => {
-            if (!this.isMessageContentPart(part)) {
+            if (!isMessageContentPart(part)) {
               return { type: "text", text: "[invalid content]" };
             }
 
@@ -393,65 +454,7 @@ export class PostHandler {
         `[AI Routes][${requestId}] Processing ${tools.length} tools for streaming`,
       );
 
-      const processedTools = tools.reduce((acc, mcpTool) => {
-        if (!mcpTool.inputSchema) {
-          console.warn(
-            `[AI Routes][${requestId}] Tool '${mcpTool.name}' has no inputSchema, skipping`,
-          );
-          return acc;
-        }
-
-        // Log the tool structure for debugging
-        console.log(
-          `[AI Routes][${requestId}] Processing tool '${mcpTool.name}':`,
-          {
-            hasInputSchema: !!mcpTool.inputSchema,
-            inputSchemaType: mcpTool.inputSchema?.type,
-            inputSchemaKeys: mcpTool.inputSchema ? Object.keys(mcpTool.inputSchema) : [],
-          },
-        );
-
-        // Validate that the inputSchema has type: 'object'
-        if (mcpTool.inputSchema.type !== "object") {
-          console.error(
-            `[AI Routes][${requestId}] Tool '${mcpTool.name}' has invalid inputSchema.type: '${mcpTool.inputSchema.type}', expected 'object'`,
-          );
-          return acc;
-        }
-
-        // Convert JSON Schema to Zod schema for AI SDK
-        // The AI SDK requires Zod schemas for tool parameters
-        const zodSchema = this.schemaConverter.convert(mcpTool.inputSchema);
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const aiTool = (tool as any)({
-          description: mcpTool.description,
-          parameters: zodSchema,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          execute: async (args: any) => {
-            try {
-              const response = await this.code.getMcpServer().executeTool(
-                mcpTool.name,
-                { ...args, codeSpace },
-              );
-              return response;
-            } catch (error) {
-              console.error(
-                `[AI Routes][${requestId}] Error executing tool ${mcpTool.name}:`,
-                error,
-              );
-              throw new Error(
-                `Failed to execute tool ${mcpTool.name}: ${
-                  error instanceof Error ? error.message : "Unknown error"
-                }`,
-              );
-            }
-          },
-        });
-        acc[mcpTool.name] = aiTool;
-        return acc;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      }, {} as Record<string, any>);
+      const processedTools = this.processTools(tools, codeSpace, requestId);
 
       // Check if we should disable tools due to AI SDK compatibility issues
       const disableTools = this.env.DISABLE_AI_TOOLS === "true";
@@ -494,10 +497,13 @@ export class PostHandler {
           if (stepResult.toolResults && stepResult.toolResults.length > 0) {
             try {
               // Work with the copy instead of mutating the original
-              const toolMessages = stepResult.toolResults.map((result: unknown) => ({
-                role: "assistant" as const,
-                content: JSON.stringify(result),
-              }));
+              // The AI SDK returns toolResults with various structures depending on the tool
+              const toolMessages = stepResult.toolResults.map(
+                (result: unknown) => ({
+                  role: "assistant" as const,
+                  content: JSON.stringify(result),
+                }),
+              );
 
               messagesCopy.push(...toolMessages);
 
@@ -550,15 +556,98 @@ export class PostHandler {
       // If no methods are available, we have an issue
       console.error(`[AI Routes][${requestId}] No streaming methods available on result`);
       throw new Error("Streaming methods not available on streamText result");
-    } catch (streamError) {
+    } catch (streamErrorCaught) {
       console.error(`[AI Routes][${requestId}] Stream error details:`, {
-        message: streamError instanceof Error
-          ? streamError.message
+        message: streamErrorCaught instanceof Error
+          ? streamErrorCaught.message
           : "Unknown error",
-        stack: streamError instanceof Error ? streamError.stack : undefined,
+        stack: streamErrorCaught instanceof Error ? streamErrorCaught.stack : undefined,
       });
-      throw streamError;
+      throw streamErrorCaught;
     }
+  }
+
+  /**
+   * Process MCP tools into AI SDK compatible format
+   */
+  private processTools(
+    tools: McpTool[],
+    codeSpace: string,
+    requestId: string,
+  ): ProcessedToolsRecord {
+    return tools.reduce<ProcessedToolsRecord>((acc, mcpTool) => {
+      if (!mcpTool.inputSchema) {
+        console.warn(
+          `[AI Routes][${requestId}] Tool '${mcpTool.name}' has no inputSchema, skipping`,
+        );
+        return acc;
+      }
+
+      // Log the tool structure for debugging
+      console.log(
+        `[AI Routes][${requestId}] Processing tool '${mcpTool.name}':`,
+        {
+          hasInputSchema: !!mcpTool.inputSchema,
+          inputSchemaType: mcpTool.inputSchema?.type,
+          inputSchemaKeys: mcpTool.inputSchema ? Object.keys(mcpTool.inputSchema) : [],
+        },
+      );
+
+      // Validate that the inputSchema has type: 'object'
+      if (mcpTool.inputSchema.type !== "object") {
+        console.error(
+          `[AI Routes][${requestId}] Tool '${mcpTool.name}' has invalid inputSchema.type: '${mcpTool.inputSchema.type}', expected 'object'`,
+        );
+        return acc;
+      }
+
+      // Use AI SDK's jsonSchema helper to create a schema from our JSON Schema
+      // Cast to JSONSchema7 format which is what the AI SDK expects
+      // The McpTool inputSchema is compatible with JSON Schema 7
+      const inputSchema = mcpTool.inputSchema as {
+        type: string;
+        properties: Record<string, Record<string, unknown>>;
+        required?: string[];
+      };
+
+      const schemaDefinition = aiJsonSchema<Record<string, unknown>>({
+        type: inputSchema.type,
+        properties: inputSchema.properties,
+        required: inputSchema.required,
+      });
+
+      // Create the tool - using AI SDK's tool() with JSON Schema
+      const mcpServerRef = this.code.getMcpServer();
+      const toolName = mcpTool.name;
+
+      // Create the tool using the AI SDK's tool() function
+      const aiTool = tool({
+        description: mcpTool.description,
+        parameters: schemaDefinition,
+        execute: async (args: Record<string, unknown>) => {
+          try {
+            const response = await mcpServerRef.executeTool(
+              toolName,
+              { ...args, codeSpace },
+            );
+            return response;
+          } catch (error) {
+            console.error(
+              `[AI Routes][${requestId}] Error executing tool ${toolName}:`,
+              error,
+            );
+            throw new Error(
+              `Failed to execute tool ${toolName}: ${
+                error instanceof Error ? error.message : "Unknown error"
+              }`,
+            );
+          }
+        },
+      });
+
+      acc[mcpTool.name] = aiTool;
+      return acc;
+    }, {});
   }
 
   private getCorsHeaders(): Record<string, string> {

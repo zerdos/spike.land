@@ -2,18 +2,47 @@ import type { RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { Mutex } from "async-mutex";
 
+/**
+ * Result structure for rendered HTML and CSS content.
+ */
+export interface RenderResult {
+  css: string;
+  html: string;
+}
+
+/**
+ * Options for updating the rendered application.
+ */
+export interface UpdateRenderedAppOptions {
+  transpiled: string;
+}
+
+/**
+ * Service responsible for rendering React components and extracting their HTML/CSS output.
+ * Manages the render lifecycle including DOM element creation, app rendering, and style extraction.
+ */
 export class RenderService {
   private rendered: RenderedApp | null = null;
-  private renderedMd5 = "";
-  private readonly mutex = new Mutex();
+  private renderedMd5: string = "";
+  private readonly mutex: Mutex = new Mutex();
   private readonly codeSpace: string;
 
+  /**
+   * Creates a new RenderService instance.
+   * @param codeSpace - The namespace identifier for the code being rendered
+   */
   constructor(codeSpace: string) {
     this.codeSpace = codeSpace;
   }
 
+  /**
+   * Updates the rendered application with new transpiled code.
+   * Uses mutex to ensure only one render operation occurs at a time.
+   * @param options - Options containing the transpiled code
+   * @returns The rendered application instance or null if unchanged
+   */
   public async updateRenderedApp(
-    { transpiled }: { transpiled: string; },
+    { transpiled }: UpdateRenderedAppOptions,
   ): Promise<RenderedApp | null> {
     let hashed = md5(transpiled);
     if (hashed === this.renderedMd5 && !transpiled.includes(`cn("`)) {
@@ -56,9 +85,15 @@ export class RenderService {
     return this.rendered;
   }
 
+  /**
+   * Processes a rendered application and extracts the HTML content and CSS styles.
+   * Collects styles from Emotion cache and Tailwind CSS in the document head.
+   * @param renderedNew - The rendered application instance or null
+   * @returns The extracted HTML and CSS content, or false on failure
+   */
   public async handleRender(
     renderedNew: RenderedApp | null,
-  ): Promise<{ css: string; html: string; } | false> {
+  ): Promise<RenderResult | false> {
     if (renderedNew === null) {
       return {
         css: "",
@@ -120,6 +155,10 @@ export class RenderService {
     };
   }
 
+  /**
+   * Cleans up the current rendered application and releases resources.
+   * Calls the cleanup method on the rendered app and nullifies the reference.
+   */
   public cleanup(): void {
     this.rendered?.cleanup();
     this.rendered = null;

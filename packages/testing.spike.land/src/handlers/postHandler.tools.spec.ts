@@ -3,7 +3,7 @@ import { streamText, type StreamTextResult } from "ai";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
-import type { McpTool } from "../mcpServer";
+import type { McpTool } from "../mcp";
 import { StorageService } from "../services/storageService";
 import { PostHandler } from "./postHandler";
 
