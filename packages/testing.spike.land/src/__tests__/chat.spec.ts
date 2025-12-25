@@ -292,11 +292,12 @@ describe("Chat Handler", () => {
       });
 
       const mockAiResponse = { summary: "Short summary" };
-      (mockEnv.AI.run as Mock).mockResolvedValue(mockAiResponse);
+      const mockAI = mockEnv.AI as { run: Mock };
+      (mockAI.run as Mock).mockResolvedValue(mockAiResponse);
 
       const response = await main.fetch(request, mockEnv as unknown as Env, mockCtx);
 
-      expect(mockEnv.AI.run).toHaveBeenCalledWith(
+      expect(mockAI.run).toHaveBeenCalledWith(
         "@cf/facebook/bart-large-cnn",
         expect.objectContaining({
           input_text: "Long text to summarize",
@@ -317,11 +318,12 @@ describe("Chat Handler", () => {
       });
 
       const mockTranscription = { text: "Transcribed text" };
-      (mockEnv.AI.run as Mock).mockResolvedValue(mockTranscription);
+      const mockAI = mockEnv.AI as { run: Mock };
+      (mockAI.run as Mock).mockResolvedValue(mockTranscription);
 
       const response = await main.fetch(request, mockEnv as unknown as Env, mockCtx);
 
-      expect(mockEnv.AI.run).toHaveBeenCalledWith(
+      expect(mockAI.run).toHaveBeenCalledWith(
         "@cf/openai/whisper-tiny-en",
         expect.objectContaining({
           audio: expect.any(Array),

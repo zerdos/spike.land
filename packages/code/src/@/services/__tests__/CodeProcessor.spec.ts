@@ -655,16 +655,15 @@ describe("CodeProcessor", () => {
       await new Promise((resolve) => setTimeout(resolve, 10));
 
       // Send message with wrong ID - should be ignored
-      if (messageHandler) {
-        const mockEvent = {
-          data: {
-            type: "rendered",
-            requestId: "wrong-id",
-            data: { html: "wrong", css: "" },
-          },
-        } as MessageEvent;
-        messageHandler(mockEvent);
-      }
+      expect(messageHandler).toBeDefined();
+      const mockEvent = {
+        data: {
+          type: "rendered",
+          requestId: "wrong-id",
+          data: { html: "wrong", css: "" },
+        },
+      } as MessageEvent;
+      messageHandler!(mockEvent);
 
       // Abort to finish the test
       mockAbortController.abort();
@@ -679,7 +678,7 @@ describe("CodeProcessor", () => {
       vi.mocked(transpileCode).mockResolvedValueOnce("new transpiled");
       vi.mocked(md5).mockReturnValueOnce("test-id");
 
-      let messageHandler: ((event: MessageEvent) => void) | null = null;
+      let messageHandler: ((event: MessageEvent) => void) | undefined;
 
       vi.spyOn(window, "addEventListener").mockImplementation(
         (type, handler) => {
@@ -699,15 +698,14 @@ describe("CodeProcessor", () => {
       await new Promise((resolve) => setTimeout(resolve, 10));
 
       // Send message with wrong type
-      if (messageHandler) {
-        const mockEvent = {
-          data: {
-            type: "other-type",
-            requestId: "test-id",
-          },
-        } as MessageEvent;
-        messageHandler(mockEvent);
-      }
+      expect(messageHandler).toBeDefined();
+      const mockEvent2 = {
+        data: {
+          type: "other-type",
+          requestId: "test-id",
+        },
+      } as MessageEvent;
+      messageHandler!(mockEvent2);
 
       mockAbortController.abort();
 
