@@ -9,7 +9,7 @@ import {
 import { handleErrors } from "./handleErrors";
 // import type { AutoSaveEntry } from "./routeHandler";
 import type Env from "./env";
-import { McpServer } from "./mcpServer";
+import { McpServer } from "./mcp";
 import { RouteHandler } from "./routeHandler";
 import { WebSocketHandler } from "./websocketHandler";
 import type { WebsocketSession } from "./websocketHandler";

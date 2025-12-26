@@ -10,6 +10,52 @@ import type { RunMessageResult } from "@/services/types";
 const RENDER_OPERATION_TIMEOUT_MS = 2000;
 const OVERALL_PROCESS_TIMEOUT_MS = 5000;
 
+/**
+ * Message data structure for rendered content from the iframe.
+ * Contains the HTML and CSS extracted after rendering the component.
+ */
+interface IframeRenderedMessageData {
+  type: "rendered";
+  requestId: string;
+  iteration: number;
+  data: {
+    html: string;
+    css: string;
+  };
+}
+
+/**
+ * Processed session data structure containing code and render output.
+ */
+interface ProcessedSession {
+  code: string;
+  transpiled: string;
+  html?: string;
+  css?: string;
+}
+
+/**
+ * Type guard to check if message data is a valid rendered message from the iframe.
+ * @param data - The message data to check
+ * @param expectedRequestId - The expected request ID to match
+ * @returns True if the data is a valid rendered message with matching request ID
+ */
+function isRenderedMessage(
+  data: unknown,
+  expectedRequestId: string,
+): data is IframeRenderedMessageData {
+  return (
+    typeof data === "object" &&
+    data !== null &&
+    "type" in data &&
+    (data as IframeRenderedMessageData).type === "rendered" &&
+    "requestId" in data &&
+    (data as IframeRenderedMessageData).requestId === expectedRequestId &&
+    "data" in data &&
+    typeof (data as IframeRenderedMessageData).data === "object"
+  );
+}
+
 export class CodeProcessor {
   private static renderService: RenderService;
 
@@ -104,18 +150,23 @@ export class CodeProcessor {
 
   // This new private helper method encapsulates the logic for creating and managing
   // the iframe used for sandboxed code execution and rendering.
+  /**
+   * Handles code execution in a sandboxed iframe and extracts the rendered HTML/CSS.
+   * @param transpiled - The transpiled JavaScript code to execute
+   * @param origin - The origin URL for resolving imports
+   * @param replaceIframe - Optional callback to replace the iframe DOM element
+   * @param processedSession - Session data object that will be mutated with html and css
+   * @returns True on successful execution, false on failure
+   */
   private async _handleCodeExecutionInIframe(
     transpiled: string,
     origin: string,
     replaceIframe: ((newIframe: HTMLIFrameElement) => void) | undefined,
-    // processedSession is passed by reference and will be mutated with html and css
-    processedSession: {
-      code: string;
-      transpiled: string;
-      html?: string;
-      css?: string;
-    },
-  ): Promise<boolean> { // Returns true on success, false on failure
+    processedSession: ProcessedSession,
+  ): Promise<boolean> {
+    // Generate a unique request ID for this render operation based on transpiled code hash
+    const expectedRequestId = md5(transpiled);
+
     try {
       // The cleanupPreviousRender was commented out. If uncommented,
       // its purpose is to ensure that any previous rendering iframe and its associated
@@ -199,9 +250,7 @@ export class CodeProcessor {
           }
 
             renderedApp.toHtmlAndCss(renderedApp).then(({ html, css }) => {
-             window.parent.postMessage({ type: "rendered", iteration: iteration, requestId: "${
-        md5(transpiled)
-      }", data: { html, css } }, "*");
+             window.parent.postMessage({ type: "rendered", iteration: iteration, requestId: "${expectedRequestId}", data: { html, css } }, "*");
            });
            }
            );
@@ -245,22 +294,19 @@ export class CodeProcessor {
       // type ('rendered') and requestId (matching the md5 of the transpiled code).
       // This ensures that we only process the result of the current render operation.
       const renderPromise = new Promise<void>((resolve, reject) => {
-        const messageHandler = (event: MessageEvent) => {
+        const messageHandler = (event: MessageEvent<unknown>): void => {
           // Check if the message is from our iframe and matches the current render request
-          if (
-            event.data.type === "rendered" &&
-            event.data.requestId === md5(transpiled)
-          ) {
+          if (isRenderedMessage(event.data, expectedRequestId)) {
             try {
-              const iteration = event.data.iteration;
-              const { html, css } = event.data.data;
-              console.warn(`Rendered in ${iteration} iterations`); // Changed to warn
+              const { iteration, data } = event.data;
+              const { html, css } = data;
+              console.warn(`Rendered in ${iteration} iterations`);
               if (!html) {
                 reject(new Error("Render produced empty HTML"));
                 return;
               }
               Object.assign(processedSession, { html, css });
-              console.warn("Processed session:", processedSession); // Changed to warn
+              console.warn("Processed session:", processedSession);
               resolve();
             } catch (error) {
               reject(

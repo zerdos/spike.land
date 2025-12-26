@@ -1,7 +1,7 @@
 import type { ICodeSession } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Code } from "./chatRoom";
-import { McpServer } from "./mcpServer";
+import { McpServer } from "./mcp";
 
 // Type interface for MCP test responses
 interface TestMcpResponse {
