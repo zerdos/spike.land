@@ -89,7 +89,15 @@ export default [
           "fixStyle": "separate-type-imports",
         },
       ],
-      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-explicit-any": "error",
+
+      // NOTE: The following unsafe-* rules require typed linting (parserOptions.project)
+      // which significantly impacts linting performance. To enable these in the future,
+      // set up typed linting per: https://typescript-eslint.io/getting-started/typed-linting
+      // "@typescript-eslint/no-unsafe-assignment": "error",
+      // "@typescript-eslint/no-unsafe-member-access": "error",
+      // "@typescript-eslint/no-unsafe-call": "error",
+      // "@typescript-eslint/no-unsafe-return": "error",
 
       // General rules
       "prefer-const": "error",

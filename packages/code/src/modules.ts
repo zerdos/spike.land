@@ -10,6 +10,31 @@ export type {
 } from "@/lib/interfaces.ts";
 export { tryCatch } from "@/lib/try-catch.ts";
 
+// Error infrastructure exports
+export {
+  AppError,
+  CacheError,
+  createError,
+  DOMError,
+  ErrorCode,
+  getErrorCode,
+  getErrorMessage,
+  ImportError,
+  isAppError,
+  isNetworkError,
+  isValidationError,
+  isWebSocketError,
+  MessageHandlingError,
+  NetworkError,
+  RenderError,
+  RouterError,
+  SessionError,
+  TranspileError,
+  ValidationError,
+  WebSocketError,
+  wrapError,
+} from "./@/lib/errors";
+
 import HTML from "./index.html";
 export { HTML };
 

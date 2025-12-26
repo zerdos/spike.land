@@ -1,19 +1,68 @@
 import type { BrowserWorker } from "@cloudflare/puppeteer";
-import puppeteer, { Page as _Page } from "@cloudflare/puppeteer";
+import puppeteer from "@cloudflare/puppeteer";
 
-interface Env {
-  MY_WORKER_BROWSER: Fetcher;
+/**
+ * Environment bindings for the spike-land-renderer worker.
+ * @public
+ */
+export interface Env {
+  /** Browser binding for Puppeteer - compatible with BrowserWorker interface */
+  MY_WORKER_BROWSER: BrowserWorker;
+  /** KV namespace for caching rendered screenshots */
   BROWSER_KV_SPIKE_LAND: KVNamespace;
 }
 
+/**
+ * Type guard to check if an error has a message property.
+ * @param error - The unknown error to check
+ * @returns True if the error has a string message property
+ */
+function isErrorWithMessage(error: unknown): error is { message: string } {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "message" in error &&
+    typeof (error as { message: unknown }).message === "string"
+  );
+}
+
+/**
+ * Extracts a human-readable error message from an unknown error.
+ * @param error - The unknown error to extract a message from
+ * @returns A string representation of the error
+ */
+function getErrorMessage(error: unknown): string {
+  if (isErrorWithMessage(error)) {
+    return error.message;
+  }
+  return String(error);
+}
+
+/**
+ * Cloudflare Worker fetch handler for the spike-land-renderer service.
+ *
+ * This worker captures full-page screenshots of websites using Puppeteer
+ * running in Cloudflare's Browser Rendering API. Screenshots are cached
+ * in KV storage for 60 seconds to reduce browser launches.
+ *
+ * @param request - The incoming HTTP request
+ * @param env - Worker environment bindings (browser and KV)
+ * @param ctx - Execution context for background tasks
+ * @returns A Response containing the JPEG screenshot or an error message
+ *
+ * @example
+ * ```
+ * GET /?url=https://example.com/
+ * ```
+ *
+ * @remarks
+ * The worker accepts a `url` query parameter specifying the target URL to capture.
+ * If no URL is provided, returns instructions for usage.
+ */
 export default {
-  async fetch(request, env, ctx): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const { searchParams } = new URL(request.url);
     let url = searchParams.get("url");
-    // Optional parameters - currently unused but kept for future use
-    // const top = searchParams.get("top");
-    // const maxRetries = parseInt(searchParams.get("maxRetries") || "3");
-    // const retryInterval = parseInt(searchParams.get("retryInterval") || "1000");
 
     if (url) {
       url = new URL(url).toString(); // normalize
@@ -22,46 +71,33 @@ export default {
       });
 
       if (img === null) {
-        const browser = await puppeteer.launch(
-          env.MY_WORKER_BROWSER as unknown as BrowserWorker,
-        );
+        const browser = await puppeteer.launch(env.MY_WORKER_BROWSER);
         const page = await browser.newPage();
 
         try {
           await page.goto(url);
 
-          // Wait for a specific element that indicates your React app is fully loaded
-          // Replace '#react-app-loaded' with an appropriate selector for your app
-          // await waitForElement(page, "#root", maxRetries, retryInterval);
-
-          // wait for 1 second
-          // await new Promise(r => setTimeout(r, 1000));
-
-          // if (top) {
-          //   await page.evaluate((topValue) => {
-          //     window.scrollBy({
-          //       top: +topValue,
-          //       behavior: "smooth",
-          //     });
-          //   }, top);
-          //   await page.waitForTimeout(500); // Wait for scroll to complete
-          // }
-
-          img = await page.screenshot({
+          const screenshotBuffer = await page.screenshot({
             type: "jpeg",
             fullPage: true,
             quality: 70,
             encoding: "binary",
-          }) as unknown as ArrayBuffer;
+          });
+
+          // Convert Buffer to ArrayBuffer for KV storage
+          // Use Uint8Array.from to create a clean copy that's guaranteed to be an ArrayBuffer
+          const uint8Array = new Uint8Array(screenshotBuffer);
+          img = uint8Array.buffer as ArrayBuffer;
 
           if (img) {
             ctx.waitUntil(
               env.BROWSER_KV_SPIKE_LAND.put(url, img, { expirationTtl: 60 }),
             );
           }
-        } catch (error) {
-          console.error("Error capturing screenshot:", error);
-          return new Response("Error capturing screenshot", { status: 500 });
+        } catch (error: unknown) {
+          const errorMessage = getErrorMessage(error);
+          console.error("Error capturing screenshot:", errorMessage);
+          return new Response(`Error capturing screenshot: ${errorMessage}`, { status: 500 });
         } finally {
           ctx.waitUntil(browser.close());
         }

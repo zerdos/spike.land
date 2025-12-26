@@ -5,7 +5,7 @@ import { createRoot, type Root } from "react-dom/client";
 
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
 import ErrorBoundary from "@/components/app/error-boundary";
-import { ThemeProvider as CustomThemeProvider } from "@/components/ui/theme-provider"; // Renamed to avoid conflict
+import { ThemeProvider as CustomThemeProvider } from "@/components/ui/theme-provider";
 import { getCodeSpace } from "@/hooks/use-code-space";
 import useWindowSize from "@/hooks/use-window-size";
 import { importMapReplace } from "@/lib/importmap-utils";
@@ -13,9 +13,8 @@ import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/inter
 import { md5 } from "@/lib/md5";
 import { transpile } from "@/lib/shared";
 import { tryCatch } from "@/lib/try-catch";
-import { ThemeProvider as NextThemesProvider } from "next-themes"; // Added next-themes provider
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 
-// Moved toHtmlAndCss function definition before renderApp
 const htmlDecode = (input: string) => {
   return input
     .split("><").join(">\n<")
@@ -28,8 +27,8 @@ const htmlDecode = (input: string) => {
 };
 
 const toHtmlAndCss = async (
-  renderedNew: RenderedApp | null, // Allow null input
-): Promise<{ css: string; html: string; }> => {
+  renderedNew: RenderedApp | null,
+): Promise<{ css: string; html: string }> => {
   {
     if (renderedNew === null) {
       return {
@@ -40,16 +39,14 @@ const toHtmlAndCss = async (
 
     const { cssCache, rootElement } = renderedNew;
 
-    // Ensure rootElement exists before accessing innerHTML
     const html = rootElement
       ? htmlDecode(rootElement.innerHTML).split(cssCache.key)
         .join("x")
       : "";
 
-    // Get emotion global styles
     const { data: emotionGlobalStylesData, error: emotionGlobalStylesError } = await tryCatch(
       Promise.resolve(
-        Array.from(document.querySelectorAll<HTMLStyleElement>( // Changed to Array.from and removed .values()
+        Array.from(document.querySelectorAll<HTMLStyleElement>(
           `style[data-emotion='${cssCache.key}-global']`,
         )),
       ),
@@ -66,24 +63,20 @@ const toHtmlAndCss = async (
     const emotionGlobalStyles = emotionGlobalStylesData.map(
       (x) =>
         (Array.from(x.sheet!.cssRules).map((rule: CSSRule) => rule.cssText))
-          .join("\n"), // Added type CSSRule for inner x
+          .join("\n"),
     );
 
-    // Get emotion styles
     const emotionStyles = [
       ...emotionGlobalStyles,
       ...[...cssCache.sheet.tags].map((
         tag: HTMLStyleElement,
-      ) => (Array.from(tag.sheet!.cssRules!).map((rule: CSSRule) => rule.cssText))).flat(), // Changed to Array.from and added type CSSRule
+      ) => (Array.from(tag.sheet!.cssRules!).map((rule: CSSRule) => rule.cssText))).flat(),
     ].join("\n")
       .split(cssCache.key).join("x");
 
-    // console.warn("Emotion styles:", emotionStyles); // Reduced logging
-
-    // Get tailwind styles
     const { data: tailwindStyles, error: tailwindStylesError } = await tryCatch(
       Promise.resolve(
-        Array.from(document.querySelectorAll<HTMLStyleElement>("head > style")), // Changed to Array.from
+        Array.from(document.querySelectorAll<HTMLStyleElement>("head > style")),
       ),
     );
 
@@ -126,7 +119,7 @@ let firstRender = true;
 const origin = typeof location !== "undefined" ? location.origin : "";
 
 export function AppWithScreenSize(
-  { AppToRender }: { AppToRender: FlexibleComponentType; },
+  { AppToRender }: { AppToRender: FlexibleComponentType },
 ) {
   const { width = 0, height = 0 } = useWindowSize();
 
@@ -143,12 +136,10 @@ export const importFromString = async (code: string) => {
     typeof location !== "undefined" ? location.pathname : "",
   );
 
-  // Check if we're in a browser environment
   const isBrowser = typeof window !== "undefined" &&
     typeof URL !== "undefined" &&
     typeof Blob !== "undefined";
 
-  // In a browser environment, try the Blob URL approach first
   if (isBrowser) {
     const createJsBlob = async (code: string): Promise<string> =>
       await URL.createObjectURL(
@@ -172,20 +163,16 @@ export const importFromString = async (code: string) => {
 
       if (module) {
         return module.default as FlexibleComponentType;
-      } else {
-        console.warn(
-          "Using file-based import approach instead of Blob URL",
-          importError,
-        );
+      } else if (importError) {
+        // Blob URL import failed, will try file-based approach
       }
-    } else {
-      console.warn("Failed to create blob URL", blobError);
+    } else if (blobError) {
+      // Failed to create blob URL, will try file-based approach
     }
   }
 
   // For Node.js test environment, return a mock component directly
   if (!isBrowser) {
-    console.warn("Test environment - using mock component");
     return (() =>
       React.createElement(
         "div",
@@ -197,7 +184,6 @@ export const importFromString = async (code: string) => {
   // File-based approach (only for browser environment)
   const filePath = `/live-cms/${codeSpace || "test-space"}-${md5(code)}.mjs`;
 
-  // Write the file using fetch
   const { error: fetchError } = await tryCatch(
     fetch(filePath, {
       method: "PUT",
@@ -218,9 +204,6 @@ export const importFromString = async (code: string) => {
       )) as FlexibleComponentType;
   }
 
-  console.warn("File written to", filePath);
-
-  // Import the file
   const { data: module, error: importError } = await tryCatch(
     import(
       /* @vite-ignore */ filePath
@@ -231,7 +214,6 @@ export const importFromString = async (code: string) => {
     return module.default as FlexibleComponentType;
   } else {
     console.error("All import methods failed", importError);
-    // Return a simple component as fallback
     return (() =>
       React.createElement(
         "div",
@@ -241,18 +223,13 @@ export const importFromString = async (code: string) => {
   }
 };
 
-// --- Helper: Determine Environment ---
 function _determineEnvironment(): boolean {
   return typeof window !== "undefined" && typeof document !== "undefined";
 }
 
-// --- Helper: Handle Test Environment ---
 async function _handleTestEnvironment(
   { App, transpiled, code }: Pick<IRenderApp, "App" | "transpiled" | "code">,
 ): Promise<RenderedApp> {
-  console.warn(
-    "Test environment - mocking DOM elements and component loading.",
-  );
   const mockElement = {} as unknown as HTMLDivElement;
 
   if (App) {
@@ -264,9 +241,7 @@ async function _handleTestEnvironment(
       cssCache: { sheet: { flush: () => {} } } as ReturnType<
         typeof createCache
       >,
-      cleanup: () => {
-        console.warn("Mock cleanup called in test environment");
-      },
+      cleanup: () => {},
     };
   }
 
@@ -284,7 +259,7 @@ async function _handleTestEnvironment(
   } catch (e) {
     importError = e instanceof Error ? e : new Error(String(e));
     console.error(
-      "Caught exception during importFromString in test env:",
+      "Exception during importFromString in test env:",
       importError,
     );
   }
@@ -308,13 +283,10 @@ async function _handleTestEnvironment(
     rRoot: { unmount: () => {} } as Root,
     App: AppToRender,
     cssCache: { sheet: { flush: () => {} } } as ReturnType<typeof createCache>,
-    cleanup: () => {
-      console.warn("Mock cleanup called in test environment");
-    },
+    cleanup: () => {},
   };
 }
 
-// --- Helper: Setup Browser DOM ---
 function _setupBrowserDOM(rootElementProp?: HTMLDivElement): HTMLDivElement {
   const rootEl = rootElementProp ||
     document.getElementById("embed") as HTMLDivElement ||
@@ -325,23 +297,20 @@ function _setupBrowserDOM(rootElementProp?: HTMLDivElement): HTMLDivElement {
   return rootEl;
 }
 
-// --- Helper: Fallback Error Component ---
 function FallbackErrorComponent() {
   return <div>Error: Component could not be loaded</div>;
 }
 
-// --- Helper: Load Application Component ---
 async function _loadAppComponent(
   { codeSpace, transpiled, App, code }: IRenderApp,
   currentOrigin: string,
-): Promise<{ AppToRender: FlexibleComponentType; emptyApp: boolean; }> {
+): Promise<{ AppToRender: FlexibleComponentType; emptyApp: boolean }> {
   let AppToRender: FlexibleComponentType | undefined;
   let emptyApp = false;
 
   if (App) {
     AppToRender = App;
   } else if (codeSpace && !transpiled && !code) {
-    console.warn("Rendering static Editor UI for codeSpace:", codeSpace);
     AppToRender = (await import(
       /* @vite-ignore */
       `${currentOrigin}/live/${codeSpace}/index.js`
@@ -379,10 +348,6 @@ async function _loadAppComponent(
         : appComponent;
     }
   } else if (codeSpace) {
-    console.warn(
-      "renderApp: Ambiguous props, attempting dynamic load from codeSpace as fallback.",
-      { codeSpace },
-    );
     const indexJs = `${currentOrigin}/live/${codeSpace}/index.js`;
     const { data: response, error: fetchError } = await tryCatch(
       fetch(indexJs),
@@ -419,7 +384,6 @@ async function _loadAppComponent(
   return { AppToRender: AppToRender || FallbackErrorComponent, emptyApp };
 }
 
-// --- Helper: Perform React Render ---
 interface PerformReactRenderParams {
   rootEl: HTMLDivElement;
   reactRoot: Root;
@@ -445,7 +409,7 @@ function _performReactRender({
         attribute="class"
         defaultTheme="system"
         enableSystem
-        storageKey="darkMode" // Ensure this matches useDarkMode's localStorage key
+        storageKey="darkMode"
       >
         <CustomThemeProvider>
           <React.Fragment>
@@ -475,7 +439,7 @@ function _performReactRender({
     return newRenderedApp;
   } catch (renderError) {
     console.error("Error during React render:", renderError);
-    let FallbackApp = FallbackErrorComponent;
+    const FallbackApp = FallbackErrorComponent;
     try {
       reactRoot.render(<FallbackErrorComponent />);
     } catch (fallbackRenderError) {
@@ -483,7 +447,6 @@ function _performReactRender({
         "Error rendering FallbackErrorComponent:",
         fallbackRenderError,
       );
-      FallbackApp = () => <div>Critical Render Error</div>;
     }
     const errorRenderedApp = {
       rootElement: rootEl,
@@ -498,7 +461,6 @@ function _performReactRender({
   }
 }
 
-// --- Main renderApp Function ---
 async function renderApp(
   props: IRenderApp,
 ): Promise<RenderedApp> {
@@ -521,11 +483,7 @@ async function renderApp(
       "",
     );
   const parentNode = rootEl.parentNode;
-  if (!parentNode) {
-    console.warn(
-      "renderApp: Parent node of rootEl is null. Emotion cache might not work as expected, using document.body as container.",
-    );
-  }
+
   const cssCache = createCache({
     key: firstRender ? "x" : cacheKey,
     speedy: true,
@@ -559,7 +517,6 @@ async function renderApp(
   let currentRenderedApp = renderedApps.get(rootEl);
 
   if (!currentRenderedApp) {
-    // First time rendering
     currentRenderedApp = _performReactRender({
       rootEl,
       reactRoot: myReactRoot,
@@ -570,7 +527,6 @@ async function renderApp(
       cleanupFn,
     });
   } else {
-    // Subsequent render: Update existing
     currentRenderedApp = _performReactRender({
       rootEl,
       reactRoot: currentRenderedApp.rRoot,

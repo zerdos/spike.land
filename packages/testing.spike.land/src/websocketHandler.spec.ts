@@ -409,7 +409,7 @@ describe("WebSocketHandler", () => {
       websocketHandler.broadcast("test message");
 
       // Verify error handling (safeSend logs errors but doesn't close connection)
-      expect(consoleError).toHaveBeenCalledWith("WebSocket send error:", expect.any(Error));
+      expect(consoleError).toHaveBeenCalledWith("WebSocket send error:", { error: "Send failed" });
 
       consoleError.mockRestore();
     });

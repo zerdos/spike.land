@@ -1,6 +1,5 @@
 import type { ICode } from "@/lib/interfaces";
 import type { AgentState } from "./chat-langchain";
-import { getHashWithCache as _getHashWithCache } from "./code-processing";
 import { createCodeValidator, type ValidationResult } from "./code-validation";
 import { telemetry } from "./telemetry";
 
@@ -73,7 +72,6 @@ export class IterativeWorkflowManager {
       for (let iteration = 0; iteration < this.config.maxIterations; iteration++) {
         result.iterations = iteration + 1;
 
-        console.warn(`🔄 Starting iteration ${iteration + 1}/${this.config.maxIterations}`);
         telemetry.trackEvent("iterative.iteration.start", {
           iteration: (iteration + 1).toString(),
           promptLength: currentPrompt.length.toString(),
@@ -102,7 +100,9 @@ export class IterativeWorkflowManager {
 
             // Check if code is now runnable
             if (validationResult.isValid) {
-              console.warn(`✅ Code validation successful on iteration ${iteration + 1}`);
+              telemetry.trackEvent("iterative.validation.success", {
+                iteration: (iteration + 1).toString(),
+              });
               result.success = true;
               result.finalState = currentState;
 
@@ -110,10 +110,10 @@ export class IterativeWorkflowManager {
                 break;
               }
             } else {
-              console.warn(
-                `❌ Code validation failed on iteration ${iteration + 1}:`,
-                validationResult.errors,
-              );
+              telemetry.trackEvent("iterative.validation.failed", {
+                iteration: (iteration + 1).toString(),
+                errorCount: validationResult.errors.length.toString(),
+              });
 
               // Prepare feedback for next iteration
               const feedback = this.prepareFeedbackPrompt(validationResult, iteration + 1);
@@ -137,12 +137,11 @@ export class IterativeWorkflowManager {
             result.finalState = currentState;
             break;
           }
-        } catch (iterationError) {
+        } catch (iterationError: unknown) {
           const errorMessage = `Iteration ${iteration + 1} failed: ${
             iterationError instanceof Error ? iterationError.message : String(iterationError)
           }`;
 
-          console.warn(`⚠️ ${errorMessage}`);
           result.errors.push(errorMessage);
 
           telemetry.trackError(
@@ -179,24 +178,15 @@ export class IterativeWorkflowManager {
         validationAttempts: result.validationResults.length.toString(),
       });
 
-      // Log final result
-      if (result.success) {
-        console.warn(
-          `🎉 Iterative workflow completed successfully after ${result.iterations} iteration(s)`,
-        );
-      } else {
-        console.warn(`💥 Iterative workflow failed after ${result.iterations} iteration(s)`);
-        console.warn("Final errors:", result.errors);
-        if (result.validationResults.length > 0) {
-          const lastValidation = result.validationResults[result.validationResults.length - 1];
-          if (lastValidation) {
-            console.warn("Last validation errors:", lastValidation.errors);
-          }
-        }
-      }
+      // Track final result via telemetry
+      telemetry.trackEvent("iterative.execution.complete", {
+        success: result.success.toString(),
+        iterations: result.iterations.toString(),
+        errorCount: result.errors.length.toString(),
+      });
 
       return result;
-    } catch (error) {
+    } catch (error: unknown) {
       telemetry.trackError(
         "iterative.execution.outer",
         error instanceof Error ? error : new Error(String(error)),
@@ -236,11 +226,15 @@ export class IterativeWorkflowManager {
       });
 
       return validation;
-    } catch (error) {
-      console.warn("Code validation failed:", error);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      telemetry.trackError(
+        "iterative.validation.error",
+        error instanceof Error ? error : new Error(errorMessage),
+      );
       return {
         isValid: false,
-        errors: [`Validation failed: ${error instanceof Error ? error.message : String(error)}`],
+        errors: [`Validation failed: ${errorMessage}`],
         warnings: [],
         suggestions: [],
       };
@@ -258,7 +252,7 @@ export class IterativeWorkflowManager {
       `The code from iteration ${iteration} has validation issues that need to be fixed:\n\n`;
 
     if (errors.length > 0) {
-      feedback += "❌ **Critical Errors (must fix):**\n";
+      feedback += "**Critical Errors (must fix):**\n";
       errors.forEach((error, i) => {
         feedback += `${i + 1}. ${error}\n`;
       });
@@ -266,7 +260,7 @@ export class IterativeWorkflowManager {
     }
 
     if (warnings.length > 0) {
-      feedback += "⚠️ **Warnings (should fix):**\n";
+      feedback += "**Warnings (should fix):**\n";
       warnings.forEach((warning, i) => {
         feedback += `${i + 1}. ${warning}\n`;
       });
@@ -274,7 +268,7 @@ export class IterativeWorkflowManager {
     }
 
     if (validation.suggestions.length > 0) {
-      feedback += "💡 **Suggestions:**\n";
+      feedback += "**Suggestions:**\n";
       validation.suggestions.slice(0, 2).forEach((suggestion, i) => {
         feedback += `${i + 1}. ${suggestion}\n`;
       });
@@ -312,7 +306,7 @@ export class IterativeWorkflowManager {
   generateIterationSummary(result: IterationResult): string {
     let summary = `## Workflow Execution Summary\n\n`;
 
-    summary += `**Result:** ${result.success ? "✅ Success" : "❌ Failed"}\n`;
+    summary += `**Result:** ${result.success ? "Success" : "Failed"}\n`;
     summary += `**Iterations:** ${result.iterations}/${this.config.maxIterations}\n`;
     summary += `**Validations:** ${result.validationResults.length}\n\n`;
 

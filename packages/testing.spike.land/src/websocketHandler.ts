@@ -1,6 +1,16 @@
-// Remove unused import
 import { applySessionDelta, computeSessionHash, tryCatch } from "@spike-npm-land/code";
 import type { Code } from "./chatRoom";
+
+/**
+ * WebSocket ready state constants
+ * Using explicit constants instead of magic numbers for better maintainability
+ */
+const WebSocketState = {
+  CONNECTING: 0,
+  OPEN: 1,
+  CLOSING: 2,
+  CLOSED: 3,
+} as const;
 
 export interface WebsocketSession {
   webSocket: WebSocket;
@@ -10,6 +20,32 @@ export interface WebsocketSession {
   lastPingTime?: number;
   lastPongTime?: number;
   blockedMessages: (string | object)[];
+}
+
+/**
+ * Interface for parsed WebSocket message data
+ */
+interface WsMessageData {
+  type?: string;
+  topics?: string[];
+  topic?: string;
+  data?: unknown;
+  oldHash?: string;
+  target?: string;
+  name?: string;
+}
+
+/**
+ * Extract error message from unknown error type
+ */
+function getErrorMessage(error: unknown): string {
+  if (error instanceof Error) {
+    return error.message;
+  }
+  if (typeof error === "object" && error !== null && "message" in error) {
+    return String((error as { message: unknown }).message);
+  }
+  return String(error);
 }
 
 export class WebSocketHandler {
@@ -38,15 +74,20 @@ export class WebSocketHandler {
 
   /**
    * Utility to safely send a message over a WebSocket.
+   * @returns true if message was sent successfully, false otherwise
    */
-  private safeSend(ws: WebSocket, message: string | object) {
-    if (ws.readyState === 1) {
+  private safeSend(ws: WebSocket, message: string | object): boolean {
+    if (ws.readyState === WebSocketState.OPEN) {
       try {
         ws.send(typeof message === "string" ? message : JSON.stringify(message));
-      } catch (err) {
-        console.error("WebSocket send error:", err);
+        return true;
+      } catch (error: unknown) {
+        const errorMessage = getErrorMessage(error);
+        console.error("WebSocket send error:", { error: errorMessage });
+        return false;
       }
     }
+    return false;
   }
 
   handleWebsocketSession(webSocket: WebSocket) {
@@ -68,16 +109,29 @@ export class WebSocketHandler {
       hash: computeSessionHash(this.code.getSession()),
     });
 
-    // Setup ping interval
+    // Setup ping interval with proper timing to avoid race conditions
+    // Ping interval: 30 seconds - how often we send pings
+    // Pong timeout: 45 seconds - how long we wait for a pong response
+    // This ensures the pong check happens AFTER the expected pong should arrive
+    const PING_INTERVAL_MS = 30000;
+    const PONG_TIMEOUT_MS = 45000;
+
     const pingInterval = setInterval(() => {
       const now = Date.now();
-      const pingTimeout = 30000; // 30 seconds timeout
 
       // Only check for timeout if we've sent at least one ping
       if (session.lastPingTime) {
-        // Check if the last pong is older than our ping timeout
-        if (!session.lastPongTime || (now - session.lastPongTime) > pingTimeout) {
+        // Check if we haven't received a pong within the timeout period
+        // The timeout is longer than the ping interval to account for network latency
+        const lastPongTime = session.lastPongTime || 0;
+        const timeSinceLastPong = now - lastPongTime;
+
+        if (timeSinceLastPong > PONG_TIMEOUT_MS) {
           // No pong received within timeout period, close the connection
+          console.warn("WebSocket ping timeout - closing connection", {
+            timeSinceLastPong,
+            timeoutMs: PONG_TIMEOUT_MS,
+          });
           webSocket.close();
           clearInterval(pingInterval);
           return;
@@ -87,8 +141,13 @@ export class WebSocketHandler {
       // Send a new ping and record the time
       session.lastPingTime = now;
       const hashCode = computeSessionHash(this.code.getSession());
-      this.safeSend(webSocket, { type: "ping", hashCode });
-    }, 30000);
+      const sent = this.safeSend(webSocket, { type: "ping", hashCode });
+      if (!sent) {
+        // Failed to send ping, connection may be closed
+        console.warn("Failed to send ping - WebSocket may be closed");
+        clearInterval(pingInterval);
+      }
+    }, PING_INTERVAL_MS);
 
     // Handle messages
     webSocket.onmessage = (msg: MessageEvent) => this.processWsMessage(msg, session);
@@ -105,7 +164,22 @@ export class WebSocketHandler {
   }
 
   processWsMessage = async (msg: MessageEvent, session: WebsocketSession) => {
-    const data = JSON.parse(msg.data as string);
+    let data: WsMessageData;
+    try {
+      data = JSON.parse(msg.data as string) as WsMessageData;
+    } catch (error: unknown) {
+      const errorMessage = getErrorMessage(error);
+      console.error("Failed to parse WebSocket message:", {
+        error: errorMessage,
+        rawData: typeof msg.data === "string" ? msg.data.substring(0, 100) : typeof msg.data,
+      });
+      this.safeSend(session.webSocket, {
+        type: "error",
+        message: "Invalid JSON message",
+        details: errorMessage,
+      });
+      return;
+    }
 
     if (data.type === "ping") {
       this.safeSend(session.webSocket, { type: "pong" });
@@ -118,7 +192,8 @@ export class WebSocketHandler {
     }
 
     if (data.type === "subscribe") {
-      for (const topic of data.topics) {
+      const topics = data.topics ?? [];
+      for (const topic of topics) {
         session.subscribedTopics.add(topic);
         if (!this.topics.has(topic)) {
           this.topics.set(topic, new Set());
@@ -129,13 +204,14 @@ export class WebSocketHandler {
       this.safeSend(session.webSocket, {
         type: "ack",
         action: "subscribe",
-        topics: data.topics,
+        topics: topics,
       });
       return;
     }
 
     if (data.type === "unsubscribe") {
-      for (const topic of data.topics) {
+      const topics = data.topics ?? [];
+      for (const topic of topics) {
         session.subscribedTopics.delete(topic);
         this.topics.get(topic)?.delete(session.webSocket);
       }
@@ -143,17 +219,18 @@ export class WebSocketHandler {
       this.safeSend(session.webSocket, {
         type: "ack",
         action: "unsubscribe",
-        topics: data.topics,
+        topics: topics,
       });
       return;
     }
 
     if (data.type === "publish") {
-      const subscribers = this.topics.get(data.topic);
+      const pubTopic = data.topic ?? "";
+      const subscribers = this.topics.get(pubTopic);
       if (subscribers) {
         const message = JSON.stringify({
           type: "message",
-          topic: data.topic,
+          topic: pubTopic,
           data: data.data,
         });
         for (const subscriber of subscribers) {
@@ -164,7 +241,7 @@ export class WebSocketHandler {
       this.safeSend(session.webSocket, {
         type: "ack",
         action: "publish",
-        topic: data.topic,
+        topic: pubTopic,
       });
       return;
     }
@@ -203,8 +280,8 @@ export class WebSocketHandler {
 
     if (data.target) {
       const targetSession = this.wsSessions.find((s) => s.name === data.target);
-      if (targetSession && targetSession.webSocket.readyState === 1) {
-        this.safeSend(targetSession.webSocket, msg.data);
+      if (targetSession && targetSession.webSocket.readyState === WebSocketState.OPEN) {
+        this.safeSend(targetSession.webSocket, msg.data as string);
       }
       return;
     }

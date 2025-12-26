@@ -1,22 +1,35 @@
-import {
-  messagesPush as _messagesPush,
-  SEARCH_REPLACE_MARKERS as _SEARCH_REPLACE_MARKERS,
-  updateSearchReplace as _updateSearchReplace,
-} from "@/lib/chat-utils";
 import type { ICode } from "@/lib/interfaces";
-import { Message as _Message } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-// import { tool } from "@langchain/core/tools"; // @langchain/core not available
 import type { CodeModification } from "../chat-langchain";
 
 import { z } from "zod";
 
-// Simple tool interface since @langchain/core is not available
+/**
+ * Simple tool interface since @langchain/core is not available
+ */
 interface Tool<TInput, TOutput> {
   name: string;
   description: string;
   schema: z.ZodSchema<TInput>;
   execute: (args: TInput) => Promise<TOutput>;
+}
+
+/**
+ * Interface for global code session access
+ */
+interface GlobalWithCodeSession {
+  cSess: ICode;
+}
+
+/**
+ * Gets the code session from global scope with type safety
+ */
+function getGlobalCodeSession(): ICode {
+  const global = globalThis as unknown as GlobalWithCodeSession;
+  if (!global.cSess) {
+    throw new Error("Global code session (cSess) is not available");
+  }
+  return global.cSess;
 }
 
 function createTool<TInput, TOutput>(
@@ -39,7 +52,7 @@ function createErrorResponse(
   currentCode: string,
   errorMessage: string,
   additionalProps: Record<string, unknown> = {},
-) {
+): CodeModification {
   return {
     code: currentCode,
     error: errorMessage,
@@ -49,14 +62,19 @@ function createErrorResponse(
   };
 }
 
+/**
+ * Input type for regex replace tool
+ */
+interface RegexReplaceInput {
+  instructions: Array<{ search: string; replace: string; }>;
+  hash: string;
+  returnModifiedCode: boolean;
+}
+
 export const getRegexReplaceTool = createTool(
-  async (args: {
-    instructions: Array<{ search: string; replace: string; }>;
-    hash: string;
-    returnModifiedCode: boolean;
-  }): Promise<CodeModification> => {
+  async (args: RegexReplaceInput): Promise<CodeModification> => {
     const { instructions, hash, returnModifiedCode } = args;
-    const cSess = (globalThis as unknown as { cSess: ICode; }).cSess;
+    const cSess = getGlobalCodeSession();
     const currentCode = await cSess.getCode();
     const currentHash = md5(currentCode);
 
@@ -119,9 +137,10 @@ export const getRegexReplaceTool = createTool(
             );
           }
           modifiedCode = newCode;
-        } catch (error) {
+        } catch (error: unknown) {
+          const errorMessage = error instanceof Error ? error.message : String(error);
           validationErrors.push(
-            `Invalid regex '${search}': ${error instanceof Error ? error.message : error}`,
+            `Invalid regex '${search}': ${errorMessage}`,
           );
         }
       }
@@ -140,24 +159,6 @@ export const getRegexReplaceTool = createTool(
           "No changes detected. Regex patterns did not match any content.",
         );
       }
-
-      // Save AI message with original instructions (commented out since addMessage is not available)
-      // const instructionsStr = instructions
-      //   .map(({ search, replace }) => `
-      //     ${SEARCH_REPLACE_MARKERS.SEARCH_START}
-      //     ${search}
-      //     ${SEARCH_REPLACE_MARKERS.SEPARATOR}
-      //     ${replace}
-      //     ${SEARCH_REPLACE_MARKERS.REPLACE_END}
-      //   `)
-      //   .join("\n");
-
-      // TODO: addMessage is not part of ICode interface, need to implement message handling
-      // await cSess.addMessage({
-      //   id: Date.now().toString(),
-      //   role: "assistant",
-      //   content: instructionsStr,
-      // });
 
       await cSess.setCode(modifiedCode);
 
@@ -179,11 +180,13 @@ export const getRegexReplaceTool = createTool(
       }
 
       return result;
-    } catch (error) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Code modification failed";
+      const stack = error instanceof Error ? error.stack : undefined;
       return createErrorResponse(
         currentCode,
-        error instanceof Error ? error.message : "Code modification failed",
-        { stack: error instanceof Error ? error.stack : undefined },
+        errorMessage,
+        { stack },
       );
     }
   },
