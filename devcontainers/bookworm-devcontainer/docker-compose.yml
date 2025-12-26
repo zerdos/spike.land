@@ -18,8 +18,8 @@ services:
       - XDG_CONFIG_DIRS=/etc/xdg
     volumes:
       - .:${HOME}/workspace:rw
+      - ${HOME}/.claude:${HOME}/.claude
       - ${HOME}/.config:${HOME}/.config
-      - ${HOME}/.cache:${HOME}/.cache
       - ${HOME}/.oh-my-zsh:${HOME}/.oh-my-zsh
       - /var/run/docker.sock:/HOME/run/docker.sock
     ports:
