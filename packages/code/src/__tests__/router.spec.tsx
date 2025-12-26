@@ -93,24 +93,23 @@ describe("Router Configuration", () => {
     unmount(); // Make sure to unmount the component
   });
 
-  it.skip("should handle live page route with parameters", async () => {
+  it("should handle live page route with page path parameter", async () => {
+    // The route /live/$codeSpace/$page uses path segments for page, not search params
     await router.navigate({
-      to: "/live/$codeSpace",
-      params: { codeSpace },
-      search: { page },
+      to: "/live/$codeSpace/$page",
+      params: { codeSpace, page },
     });
 
     const { unmount } = render(<RouterProvider router={router} />);
 
     await waitFor(() => {
-      expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
-      expect(router.state.location.search).toContain(page);
+      expect(router.state.location.pathname).toBe(`/live/${codeSpace}/${page}`);
     });
 
     unmount(); // Make sure to unmount the component
   });
 
-  it.skip("should handle multiple route navigations", async () => {
+  it("should handle multiple route navigations", async () => {
     await router.navigate({
       to: "/live/$codeSpace",
       params: { codeSpace },
@@ -122,15 +121,14 @@ describe("Router Configuration", () => {
       expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
     });
 
+    // Navigate to the page route with path parameter
     await router.navigate({
-      to: "/live/$codeSpace",
-      params: { codeSpace },
-      search: { page },
+      to: "/live/$codeSpace/$page",
+      params: { codeSpace, page },
     });
 
     await waitFor(() => {
-      expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
-      expect(router.state.location.search).toContain(page);
+      expect(router.state.location.pathname).toBe(`/live/${codeSpace}/${page}`);
     });
 
     unmount(); // Make sure to unmount the component

@@ -1,10 +1,15 @@
 import { type AnthropicProvider, createAnthropic } from "@ai-sdk/anthropic";
-import { streamText, type StreamTextResult } from "ai";
+import { streamText } from "ai";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
 import type { McpTool } from "../mcp";
 import { StorageService } from "../services/storageService";
+import type {
+  CapturedStreamTextOptions,
+  CapturedTools,
+  MockStreamTextResult,
+} from "../types/test-mocks";
 import { PostHandler } from "./postHandler";
 
 // Mock dependencies
@@ -16,8 +21,7 @@ describe("PostHandler - Tool Schema Validation", () => {
   let postHandler: PostHandler;
   let mockCode: Code;
   let mockEnv: Env;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let mockStreamResponse: StreamTextResult<any, any>;
+  let mockStreamResponse: MockStreamTextResult;
   let mockToDataStreamResponse: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
@@ -28,14 +32,17 @@ describe("PostHandler - Tool Schema Validation", () => {
     mockToDataStreamResponse = vi.fn().mockReturnValue(new Response("stream"));
     mockStreamResponse = {
       toDataStreamResponse: mockToDataStreamResponse,
+      toUIMessageStreamResponse: mockToDataStreamResponse,
+      toTextStreamResponse: mockToDataStreamResponse,
       warnings: [],
       usage: {},
       experimental_providerMetadata: undefined,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } as unknown as StreamTextResult<any, any>;
+    };
 
     // Default mock for streamText
-    vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
+    vi.mocked(streamText).mockResolvedValue(
+      mockStreamResponse as unknown as Awaited<ReturnType<typeof streamText>>
+    );
 
     // Setup mock environment
     mockEnv = {
@@ -113,50 +120,14 @@ describe("PostHandler - Tool Schema Validation", () => {
       });
     });
 
-    it.skip("should convert tools to correct format for AI SDK", async () => {
-      let capturedTools: Record<string, unknown> | undefined;
-
-      // Mock streamText to capture the tools being passed
-      vi.mocked(streamText).mockImplementation(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ((options: any) => {
-          capturedTools = options.tools;
-          return Promise.resolve(mockStreamResponse);
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        }) as any,
-      );
-
-      // Mock createAnthropic to return a provider
-      const mockProvider = vi.fn(() => ({
-        id: "claude-4-sonnet-20250514",
-      })) as unknown as AnthropicProvider;
-      vi.mocked(createAnthropic).mockReturnValue(mockProvider);
-
-      const request = new Request("https://test.spike.land/api/post", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          messages: [{ role: "user", content: "test" }],
-        }),
-      });
-
-      await postHandler.handle(request, new URL("https://test.spike.land"));
-
-      // Verify streamText was called
-      expect(streamText).toHaveBeenCalled();
-
-      // Verify tools were passed in the correct format
-      expect(capturedTools).toBeDefined();
-      expect(typeof capturedTools).toBe("object");
-
-      // Each tool should have description, parameters (Zod schema), and execute function
-      Object.entries(capturedTools!).forEach(([_toolName, tool]: [string, unknown]) => {
-        expect(tool).toHaveProperty("description");
-        expect(tool).toHaveProperty("parameters");
-        expect(tool).toHaveProperty("execute");
-        expect(typeof (tool as { execute: unknown; }).execute).toBe("function");
-      });
-    });
+    // NOTE: "should convert tools to correct format for AI SDK" test was removed
+    // This test was skipped because:
+    // 1. The full mock of the 'ai' module causes the tool() function to return undefined
+    // 2. Testing internal tool conversion requires the real AI SDK behavior
+    // 3. The tool schema validation is already covered by other tests in this file:
+    //    - "should ensure all MCP tools have type: 'object' in inputSchema"
+    //    - "should validate that Zod schemas are created from inputSchema"
+    //    - "should reject tools with invalid inputSchema.type"
 
     it("should validate that Zod schemas are created from inputSchema", async () => {
       const JsonSchemaToZodConverter = await import("../utils/jsonSchemaToZod").then(m =>
@@ -221,15 +192,12 @@ describe("PostHandler - Tool Schema Validation", () => {
       // Set the environment variable
       mockEnv.DISABLE_AI_TOOLS = "true";
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let capturedOptions: any;
+      let capturedOptions: CapturedStreamTextOptions | undefined;
       vi.mocked(streamText).mockImplementation(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ((options: any) => {
+        ((options: CapturedStreamTextOptions) => {
           capturedOptions = options;
           return Promise.resolve(mockStreamResponse);
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        }) as any,
+        }) as unknown as typeof streamText,
       );
 
       const mockProvider = vi.fn(() => ({
@@ -248,24 +216,21 @@ describe("PostHandler - Tool Schema Validation", () => {
       await postHandler.handle(request, new URL("https://test.spike.land"));
 
       // Verify tools are disabled
-      expect(capturedOptions.tools).toBeUndefined();
-      expect(capturedOptions.toolChoice).toBeUndefined();
-      expect(capturedOptions.maxSteps).toBeUndefined();
+      expect(capturedOptions!.tools).toBeUndefined();
+      expect(capturedOptions!.toolChoice).toBeUndefined();
+      expect(capturedOptions!.maxSteps).toBeUndefined();
     });
   });
 
   describe("Tool Format Sent to API", () => {
     it("should not wrap tools in 'custom' property", async () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let capturedTools: any;
+      let capturedTools: CapturedTools;
 
       vi.mocked(streamText).mockImplementation(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ((options: any) => {
+        ((options: CapturedStreamTextOptions) => {
           capturedTools = options.tools;
           return Promise.resolve(mockStreamResponse);
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        }) as any,
+        }) as unknown as typeof streamText,
       );
 
       const mockProvider = vi.fn(() => ({
@@ -294,16 +259,13 @@ describe("PostHandler - Tool Schema Validation", () => {
     });
 
     it("should create valid tool execute functions", async () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let capturedTools: any;
+      let capturedTools: CapturedTools;
 
       vi.mocked(streamText).mockImplementation(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ((options: any) => {
+        ((options: CapturedStreamTextOptions) => {
           capturedTools = options.tools;
           return Promise.resolve(mockStreamResponse);
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        }) as any,
+        }) as unknown as typeof streamText,
       );
 
       const mockProvider = vi.fn(() => ({
@@ -340,7 +302,9 @@ describe("PostHandler - Tool Schema Validation", () => {
     it("should validate tool schemas before sending to streamText", async () => {
       const consoleSpy = vi.spyOn(console, "log");
 
-      vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
+      vi.mocked(streamText).mockResolvedValue(
+        mockStreamResponse as unknown as Awaited<ReturnType<typeof streamText>>
+      );
 
       const mockProvider = vi.fn(() => ({
         id: "claude-4-sonnet-20250514",
@@ -384,7 +348,9 @@ describe("PostHandler - Tool Schema Validation", () => {
         inputSchema: undefined as unknown as McpTool["inputSchema"],
       });
 
-      vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
+      vi.mocked(streamText).mockResolvedValue(
+        mockStreamResponse as unknown as Awaited<ReturnType<typeof streamText>>
+      );
 
       const mockProvider = vi.fn(() => ({
         id: "claude-4-sonnet-20250514",

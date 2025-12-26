@@ -1,6 +1,7 @@
 // test/index.spec.ts
 import { createExecutionContext, env, SELF, waitOnExecutionContext } from "cloudflare:test";
 import { describe, expect, it } from "vitest";
+import type { Env } from "../src/index";
 import worker from "../src/index";
 
 // For now, you'll need to do something like this to get a correctly-typed
@@ -12,7 +13,7 @@ describe("Hello World worker", () => {
     const request = new IncomingRequest("http://example.com");
     // Create an empty context to pass to `worker.fetch()`.
     const ctx = createExecutionContext();
-    const response = await worker.fetch(request, env as Env);
+    const response = await worker.fetch(request, env as Env, ctx);
     // Wait for all `Promise`s passed to `ctx.waitUntil()` to settle before running test assertions
     await waitOnExecutionContext(ctx);
     expect(await response.text()).toMatchInlineSnapshot(

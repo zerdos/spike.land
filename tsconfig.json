@@ -11,7 +11,8 @@
     "lib": ["esnext", "dom", "dom.iterable"],
     "skipLibCheck": true,
     "composite": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "sourceMap": true,
     "paths": {
       "@/*": ["./packages/code/src/@/*"]
     },

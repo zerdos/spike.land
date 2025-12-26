@@ -21,7 +21,7 @@ vi.mock("@/hooks/getCodeSpace", () => ({
   getCodeSpace: () => "test-code-space",
 }));
 
-describe.skip("CodeHistoryCarousel", () => {
+describe("CodeHistoryCarousel", () => {
   (globalThis as unknown as { monaco: typeof Monaco; }).monaco = {
     editor: {
       createDeltaEditor: vi.fn().mockReturnValue({

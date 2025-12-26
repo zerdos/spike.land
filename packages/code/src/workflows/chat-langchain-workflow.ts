@@ -9,28 +9,61 @@ import { RunnableSequence } from "@langchain/core/runnables";
 import { getSystemPrompt } from "../config/system-prompts";
 import type { AgentState, CodeModification } from "./chat-langchain";
 import { getEnhancedReplaceInFileTool } from "./tools/enhanced-replace-in-file";
+import {
+  DEFAULT_WORKFLOW_CONFIG,
+  hasToolResponses,
+  isEnhancedReplaceToolResponse,
+  type ModelWithTools,
+  type TypedAIMessage,
+  type WorkflowConfig,
+} from "./types/langchain-types";
+
+/**
+ * Interface for global code session access
+ * This provides type-safe access to the global cSess variable
+ */
+interface GlobalWithCodeSession {
+  cSess?: ICode;
+}
+
+/**
+ * Gets the code session from global scope with type safety
+ * @returns The code session or undefined if not available
+ */
+function getGlobalCodeSession(): ICode | undefined {
+  return (globalThis as GlobalWithCodeSession).cSess;
+}
 
 /**
  * Creates a workflow with string replace capability
  * @param initialState The initial agent state
+ * @param config Optional workflow configuration
  * @returns A workflow object with an invoke method
  */
-export const createWorkflowWithStringReplace = (initialState: AgentState) => {
+export const createWorkflowWithStringReplace = (
+  initialState: AgentState,
+  config: Partial<WorkflowConfig> = {},
+) => {
+  const workflowConfig = { ...DEFAULT_WORKFLOW_CONFIG, ...config };
+
   // Get the global code session
-  const cSess = (globalThis as Record<string, unknown>)["cSess"] as ICode;
+  const cSess = getGlobalCodeSession();
+  if (!cSess) {
+    throw new Error("Global code session (cSess) is not available");
+  }
 
   // Create the Anthropic model
   const anthropic = new ChatAnthropic({
-    modelName: "claude-3-opus-20240229",
-    temperature: 0,
-    streaming: false,
+    modelName: workflowConfig.modelName,
+    temperature: workflowConfig.temperature,
+    streaming: workflowConfig.streaming,
   });
 
   // Create the replace-in-file tool
-  const replaceInFileTool = getEnhancedReplaceInFileTool(cSess); // Changed to enhanced
+  const replaceInFileTool = getEnhancedReplaceInFileTool(cSess);
 
   // Bind tools to the model
-  const modelWithTools = anthropic.bindTools([replaceInFileTool]);
+  const modelWithTools = anthropic.bindTools([replaceInFileTool]) as ModelWithTools;
 
   // Create the system prompt
   const systemPrompt = getSystemPrompt();
@@ -55,39 +88,20 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   const processToolResponse = async (
     message: AIMessage,
   ): Promise<AgentState> => {
-    const messageData = message as unknown as Record<string, unknown>;
-    if (
-      !messageData["additional_kwargs"] ||
-      typeof messageData["additional_kwargs"] !== "object" ||
-      messageData["additional_kwargs"] === null ||
-      !("tool_responses" in (messageData["additional_kwargs"] as Record<string, unknown>)) ||
-      !Array.isArray(
-        (messageData["additional_kwargs"] as Record<string, unknown>)["tool_responses"],
-      ) ||
-      ((messageData["additional_kwargs"] as Record<string, unknown>)["tool_responses"] as Array<
-          unknown
-        >).length === 0
-    ) {
+    const typedMessage = message as TypedAIMessage;
+    const additionalKwargs = typedMessage.additional_kwargs;
+
+    if (!hasToolResponses(additionalKwargs)) {
       return state;
     }
 
-    const toolResponses =
-      (messageData["additional_kwargs"] as Record<string, unknown>)["tool_responses"] as Array<
-        unknown
-      >;
-    const toolResponse = toolResponses[0];
-    // Expect 'enhanced_replace_in_file' which is the name of the tool from getEnhancedReplaceInFileTool
-    if (
-      !toolResponse || typeof toolResponse !== "object" || toolResponse === null ||
-      !("name" in toolResponse) ||
-      (toolResponse as Record<string, unknown>)["name"] !== "enhanced_replace_in_file"
-    ) {
+    const toolResponse = additionalKwargs.tool_responses[0];
+    if (!toolResponse || !isEnhancedReplaceToolResponse(toolResponse)) {
       return state;
     }
 
     try {
-      const toolResponseData = toolResponse as Record<string, unknown>;
-      const modification = JSON.parse(toolResponseData["content"] as string) as CodeModification;
+      const modification = JSON.parse(toolResponse.content) as CodeModification;
 
       if (typeof modification === "string") {
         return {
@@ -104,7 +118,6 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
       // If code is not provided, use the current code from the session
       if (!modification.code) {
-        console.warn("No code provided in tool response, using session code");
         const sessionCode = await cSess.getCode();
         return {
           ...state,
@@ -118,8 +131,9 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         code: modification.code,
         hash: modification.hash ?? md5(modification.code),
       };
-    } catch (error) {
-      console.error("Error processing tool response:", error);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error("Error processing tool response:", errorMessage);
       throw error;
     }
   };
@@ -133,13 +147,6 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
       }
 
       try {
-        // Optimize token usage for large code
-        if (state.code.length > 3000) {
-          console.warn(
-            "Performance optimization: Large code detected, optimizing token usage",
-          );
-        }
-
         // Create messages array with system message and user input
         const messages = [
           systemMessage,
@@ -148,9 +155,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         ] as BaseMessage[];
 
         // Invoke the model with tools
-        const response =
-          await (modelWithTools as { invoke: (messages: BaseMessage[]) => Promise<AIMessage>; })
-            .invoke(messages);
+        const response = await modelWithTools.invoke(messages);
 
         // Process the response
         const newState = await processToolResponse(response);
@@ -166,8 +171,9 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         };
 
         return state;
-      } catch (error) {
-        console.error("Workflow error:", error);
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        console.error("Workflow error:", errorMessage);
         throw error;
       }
     },
@@ -175,15 +181,27 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 };
 
 /**
+ * Result of a chat workflow message processing
+ */
+export interface ChatWorkflowResult {
+  success: boolean;
+  response?: string;
+  error?: string;
+  code: string;
+  hash: string;
+}
+
+/**
  * Creates a chat workflow using LangChain and Anthropic
  * @param cSess The code session to use
  * @param apiKey The Anthropic API key
+ * @param model The model name to use (defaults to claude-sonnet-4-20250514)
  * @returns A runnable sequence for the chat workflow
  */
 export const createChatLangchainWorkflow = (
   cSess: ICode,
   apiKey: string,
-  model = "claude-3-opus-20240229",
+  model = DEFAULT_WORKFLOW_CONFIG.modelName,
 ) => {
   // Create the Anthropic model
   const anthropic = new ChatAnthropic({
@@ -193,10 +211,7 @@ export const createChatLangchainWorkflow = (
   });
 
   // Create the replace-in-file tool
-  const replaceInFileTool = getEnhancedReplaceInFileTool(cSess); // Changed to enhanced
-
-  // System prompt setup (commented out since it's not used in this workflow)
-  // const _systemPrompt = getSystemPrompt();
+  const replaceInFileTool = getEnhancedReplaceInFileTool(cSess);
 
   // Create the prompt template for user messages
   const promptTemplate = new PromptTemplate({
@@ -228,40 +243,27 @@ Please respond to the user's request. If you need to modify the code, use the re
   return {
     chain,
     tools: [replaceInFileTool],
-    async processMessage(userMessage: string) {
+    async processMessage(userMessage: string): Promise<ChatWorkflowResult> {
       try {
         // Get the current code
         const currentCode = await cSess.getCode();
         const currentHash = md5(currentCode);
 
-        // TODO: addMessage is not part of ICode interface, need to implement message handling
-        // cSess.addMessage({
-        //   id: Date.now().toString(),
-        //   role: "user",
-        //   content: userMessage,
-        // });
-
         // Run the chain
         const response = await chain.invoke(userMessage);
 
-        // TODO: addMessage is not part of ICode interface, need to implement message handling
-        // cSess.addMessage({
-        //   id: Date.now().toString(),
-        //   role: "assistant",
-        //   content: response,
-        // });
-
         return {
           success: true,
-          response,
+          response: String(response),
           code: await cSess.getCode(),
           hash: currentHash,
         };
-      } catch (error) {
-        console.error("Error in chat workflow:", error);
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : "Unknown error";
+        console.error("Error in chat workflow:", errorMessage);
         return {
           success: false,
-          error: error instanceof Error ? error.message : "Unknown error",
+          error: errorMessage,
           code: await cSess.getCode(),
           hash: md5(await cSess.getCode()),
         };

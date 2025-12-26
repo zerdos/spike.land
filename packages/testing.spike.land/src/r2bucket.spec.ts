@@ -254,7 +254,9 @@ describe("R2BucketHandler", () => {
 
       expect(mockEnv.R2.get).toHaveBeenCalledWith("test-key");
       expect(response.status).toBe(404);
-      expect(await response.text()).toBe("Object Not Found");
+      const responseJson = JSON.parse(await response.text());
+      expect(responseJson.error).toBe("Object Not Found");
+      expect(responseJson.key).toBe("test-key");
     });
   });
 
@@ -306,10 +308,13 @@ describe("R2BucketHandler", () => {
 
       expect(mockConsoleError).toHaveBeenCalledWith(
         "R2 get error:",
-        error,
+        { key: "test-key", error: "Unexpected error" },
       );
       expect(response.status).toBe(500);
-      expect(await response.text()).toBe("Failed to retrieve object");
+      const responseJson = JSON.parse(await response.text());
+      expect(responseJson.error).toBe("Failed to retrieve object");
+      expect(responseJson.key).toBe("test-key");
+      expect(responseJson.details).toBe("Unexpected error");
     });
   });
 });
