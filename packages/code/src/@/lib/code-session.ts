@@ -55,18 +55,12 @@ export class Code implements ICode {
         sessionWithSender.requiresReRender &&
         sessionWithSender.sender === "WORKER_TRANSPILED_CHANGE"
       ) {
-        console.warn(
-          "🔄 Handling remote transpiled code change, triggering re-render",
-        );
         await this.handleRemoteTranspiledChange(sessionWithSender);
         return; // Exit early to avoid double processing
       }
 
       // Check if transpilation is explicitly required (e.g., from MCP server updates)
       if (sessionWithSender.requiresTranspilation) {
-        console.warn(
-          "🔄 Session update requires transpilation (MCP update), triggering auto-transpilation",
-        );
         await this.handleExternalCodeChange(sessionWithSender);
         return; // Exit early to avoid double processing
       }
@@ -78,9 +72,6 @@ export class Code implements ICode {
           sessionWithSender,
         )
       ) {
-        console.warn(
-          "🔄 Detected external code change with stale transpiled code, triggering auto-transpilation",
-        );
         await this.handleExternalCodeChange(sessionWithSender);
       }
     });
@@ -97,25 +88,17 @@ export class Code implements ICode {
 
   setSession(session: ICodeSession & { sender?: string; }): void {
     // Extract the sender property if it exists
-    const { sender, ...sessionWithoutSender } = session;
+    const { sender: _sender, ...sessionWithoutSender } = session;
 
     if (
       computeSessionHash(sessionWithoutSender) ===
         computeSessionHash(this.currentSession)
     ) {
-      // Suppress this warning during tests to reduce noise
-      if (typeof process !== "undefined" && process.env?.["VITEST"] !== "true") {
-        console.warn("⚠️ No changes to session, skipping update");
-      }
       return;
     }
 
     this.currentSession = sanitizeSession(sessionWithoutSender);
     this.session = this.currentSession;
-    console.warn(
-      `🔄 CodeSession.setSession called with session${sender ? ` from sender: ${sender}` : ""}:`,
-      this.currentSession,
-    );
     this.sessionManager.updateSession(sessionWithoutSender);
   }
 
@@ -180,11 +163,6 @@ export class Code implements ICode {
     skipRunning = false,
     replaceIframe?: (newIframe: HTMLIFrameElement) => void,
   ): Promise<string> {
-    console.warn(
-      "🔄 CodeSession.setCode called with code length:",
-      rawCode.length,
-    );
-
     // Store current code before any updates
     const currentCode = this.currentSession?.code || "";
 
@@ -194,7 +172,6 @@ export class Code implements ICode {
         await wait(100);
       }
       if (this.pendingRun !== rawCode) {
-        console.warn("Skipping outdated run request");
         return currentCode;
       }
     }
@@ -209,7 +186,7 @@ export class Code implements ICode {
     this.isRunning = false;
 
     if (error) {
-      console.error("❌ CodeSession.setCode failed with error:", error);
+      console.error("CodeSession.setCode failed with error:", error);
       return currentCode;
     }
 
@@ -221,11 +198,6 @@ export class Code implements ICode {
     skipRunning: boolean,
     replaceIframe?: (newIframe: HTMLIFrameElement) => void,
   ): Promise<string> {
-    console.warn(
-      "🔄 CodeSession.updateCodeInternal called with code length:",
-      rawCode.length,
-    );
-
     // Store current code for fallback
     const currentCode = this.currentSession?.code || "";
 
@@ -234,15 +206,11 @@ export class Code implements ICode {
     // It's false for regular saves where the editor expects the app to run/be validated by the processor.
 
     if (this.setCodeController) {
-      console.warn(
-        "🔄 Aborting previous setCode operation (updateCodeInternal)",
-      );
       this.setCodeController.abort();
     }
     this.setCodeController = new AbortController();
     const signal = this.setCodeController.signal;
 
-    console.warn("🔄 Processing code with CodeProcessor (updateCodeInternal)");
     // Always call the processor. The 'skipRunning' flag informs the processor's behavior.
     const { data: processorResult, error: processError } = await tryCatch(
       this.codeProcessor.process(
@@ -255,8 +223,8 @@ export class Code implements ICode {
     );
 
     if (processError || !processorResult) {
-      console.warn(
-        "⚠️ CodeProcessor failed or returned no result. Session will not be updated. Error:",
+      console.error(
+        "CodeProcessor failed or returned no result. Session will not be updated. Error:",
         processError,
       );
       // Return the original code that was in the session before this attempt.
@@ -283,16 +251,9 @@ export class Code implements ICode {
       const processedSessionHash = computeSessionHash(processedSessionData);
 
       if (
-        processedSessionData.code === this.currentSession.code &&
-        processedSessionHash === currentSessionHash
+        processedSessionData.code !== this.currentSession.code ||
+        processedSessionHash !== currentSessionHash
       ) {
-        console.warn(
-          "✅ CodeProcessor succeeded (skipRunning=true), but processed code and session hash are identical to current. No direct update needed.",
-        );
-      } else {
-        console.warn(
-          "✅ CodeProcessor succeeded (skipRunning=true). Directly updating currentSession and sessionManager.",
-        );
         this.currentSession = processedSessionData; // Update internal state
         this.sessionManager.updateSession(processedSessionData); // Inform the manager
       }
@@ -300,18 +261,12 @@ export class Code implements ICode {
       // This is a regular save path (skipRunning=false). Processor succeeded.
       // Use the standard this.setSession, which includes its own hash checks
       // to prevent redundant updates if the code is structurally the same.
-      console.warn(
-        "✅ CodeProcessor succeeded (skipRunning=false). Updating session via this.setSession().",
-      );
       this.setSession(processedSessionData);
     }
 
     // Wait a small amount of time to ensure the session update is processed by subscribers
     await new Promise((resolve) => setTimeout(resolve, 50));
 
-    console.warn(
-      "✅ Code update process in updateCodeInternal completed successfully.",
-    );
     // Return the code that was effectively set in the session.
     return processedSessionData.code;
   }
@@ -387,8 +342,6 @@ export class Code implements ICode {
   private async handleRemoteTranspiledChange(
     session: ICodeSession & { requiresReRender?: boolean; },
   ): Promise<void> {
-    console.warn("🔄 CodeSession.handleRemoteTranspiledChange called");
-
     try {
       // Use the CodeProcessor to re-render with the new transpiled code
       const processorResult = await this.codeProcessor.reRenderFromTranspiled(
@@ -399,10 +352,6 @@ export class Code implements ICode {
       );
 
       if (processorResult !== false) {
-        console.warn(
-          "🔄 Re-render successful, updating session with new HTML/CSS",
-        );
-
         // Update session with new HTML/CSS from rendering
         // Remove the requiresReRender flag to prevent loops
         const { requiresReRender: _requiresReRender, ...sessionWithoutFlag } = processorResult as
@@ -413,15 +362,11 @@ export class Code implements ICode {
           ...sessionWithoutFlag,
           sender: "CODE_SESSION_RERENDER",
         });
-
-        console.warn(
-          "✅ Remote transpiled change handling completed successfully",
-        );
       } else {
-        console.error("❌ Re-render failed for remote transpiled change");
+        console.error("Re-render failed for remote transpiled change");
       }
     } catch (error) {
-      console.error("❌ Error handling remote transpiled change:", error);
+      console.error("Error handling remote transpiled change:", error);
     }
   }
 
@@ -463,15 +408,6 @@ export class Code implements ICode {
   private async handleExternalCodeChange(
     session: ICodeSession & { sender?: string; },
   ): Promise<void> {
-    console.warn(
-      "🔄 CodeSession.handleExternalCodeChange called for code length:",
-      session.code.length,
-    );
-    console.warn(
-      "🔄 Session has empty transpiled:",
-      !session.transpiled || session.transpiled === "",
-    );
-
     try {
       // Temporarily update our current session to match the new session
       // This prevents the setCode process from thinking nothing changed
@@ -483,13 +419,6 @@ export class Code implements ICode {
 
       // After transpilation, get the updated session with new transpiled code
       const updatedSession = this.currentSession;
-      console.warn(
-        "✅ External code change auto-transpilation completed successfully",
-      );
-      console.warn(
-        "✅ Transpiled length:",
-        updatedSession.transpiled?.length || 0,
-      );
 
       // If this was triggered by MCP server (requiresTranspilation flag),
       // we need to send the transpiled code back to the server
@@ -497,7 +426,6 @@ export class Code implements ICode {
         (session as ICodeSession & { requiresTranspilation?: boolean; })
           .requiresTranspilation
       ) {
-        console.warn("🔄 Sending transpiled code back to server via broadcast");
         // Mark the session as coming from CODE_SESSION_RERENDER to trigger server update
         this.sessionManager.updateSession(
           {
@@ -507,7 +435,7 @@ export class Code implements ICode {
         );
       }
     } catch (error) {
-      console.error("❌ Error handling external code change:", error);
+      console.error("Error handling external code change:", error);
     }
   }
 

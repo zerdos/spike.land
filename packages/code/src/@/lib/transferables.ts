@@ -305,13 +305,6 @@ export async function isSupported(): Promise<{
     getStreams(),
   );
 
-  if (channelError) {
-    console.warn("Channel support check failed:", channelError);
-  }
-  if (streamsError) {
-    console.warn("Streams support check failed:", streamsError);
-  }
-
   return {
     channel: !!channelSupported && !channelError,
     streams: !!streamsSupported && !streamsError,

@@ -298,15 +298,13 @@ export class CodeProcessor {
           // Check if the message is from our iframe and matches the current render request
           if (isRenderedMessage(event.data, expectedRequestId)) {
             try {
-              const { iteration, data } = event.data;
+              const { data } = event.data;
               const { html, css } = data;
-              console.warn(`Rendered in ${iteration} iterations`);
               if (!html) {
                 reject(new Error("Render produced empty HTML"));
                 return;
               }
               Object.assign(processedSession, { html, css });
-              console.warn("Processed session:", processedSession);
               resolve();
             } catch (error) {
               reject(
@@ -425,8 +423,6 @@ export class CodeProcessor {
     getSession: () => ICodeSession,
     replaceIframe?: (newIframe: HTMLIFrameElement) => void,
   ): Promise<ICodeSession | false> {
-    console.warn("🔄 CodeProcessor.reRenderFromTranspiled called");
-
     const origin = window.location.origin;
     if (signal.aborted) return false;
 
@@ -444,17 +440,12 @@ export class CodeProcessor {
     );
 
     if (!executionSuccessful) {
-      console.error("❌ Re-render execution failed");
       return false;
     }
 
     if (signal.aborted) {
       return false;
     }
-
-    console.warn(
-      "✅ CodeProcessor.reRenderFromTranspiled completed successfully",
-    );
 
     return {
       ...getSession(),

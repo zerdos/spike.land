@@ -155,11 +155,6 @@ export async function ata({
   code: string;
   originToUse: string;
 }): Promise<ExtraLib[]> {
-  console.warn("[ATA] Starting enhanced ATA process", {
-    codeLength: code?.length,
-    originToUse,
-  });
-
   const queuedFetch = new QueuedFetch(4, 10000, 100); // Keep adjusted settings
 
   // 1. Extract imports from the original code first
@@ -177,7 +172,6 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
 // Add other common implicit dependencies if necessary
 `;
   const importSpecifiers = extractImportSpecifiers(extCode);
-  console.warn("[ATA] Extracted import specifiers:", importSpecifiers);
 
   // 2. Run ATA
   const { data: vfs, error: vfsError } = await tryCatch(
@@ -188,18 +182,12 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
         logger: console, // Keep console for ATA's internal logger, or create a more complex adapter
         fetcher: queuedFetch.fetch.bind(queuedFetch) as typeof fetch,
         delegate: {
-          started: () => console.warn("[ATA] Type acquisition started."),
-          progress: (downloaded, total) => console.warn(`[ATA] Progress: ${downloaded}/${total}`),
-          receivedFile: (fileContent, filePath) =>
-            console.warn(
-              `[ATA] Received: ${filePath} (${fileContent.length} chars)`,
-            ),
+          started: () => {},
+          progress: () => {},
+          receivedFile: () => {},
           errorMessage: (userFacingMessage, error) =>
             console.error(`[ATA] Error: ${userFacingMessage}`, error),
           finished: (vfsMap) => {
-            console.warn(
-              `[ATA] Type acquisition finished. ${vfsMap.size} files in VFS.`,
-            );
             resolve(vfsMap);
           },
         },
@@ -219,15 +207,8 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
     const cleanedContent = cleanFileContent(content, originToUse);
     if (!processedLibs[cleanedPath]) {
       processedLibs[cleanedPath] = cleanedContent;
-    } else {
-      console.warn(
-        `[ATA] Duplicate cleaned path from VFS: ${cleanedPath}. Keeping first version.`,
-      );
     }
   }
-  console.warn(
-    `[ATA] Processed ${Object.keys(processedLibs).length} libs from initial VFS.`,
-  );
 
   // 4. Identify & Fetch Missing Aliased Imports
   const aliasPrefix = "@/";
@@ -245,9 +226,6 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
       if (!processedLibs[expectedCleanedPath]) {
         // Construct URL with single quotes around the path as requested
         const fetchUrl = `${originToUse}/${mappedPath}.d.ts`;
-        console.warn(
-          `[ATA] Alias '${specifier}' mapped to '${expectedCleanedPath}' not found in VFS. Attempting fetch: ${fetchUrl}`,
-        );
 
         aliasFetchPromises.push(
           queuedFetch.fetch(fetchUrl)
@@ -259,22 +237,11 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
 
                 if (!processedLibs[finalFilePath]) {
                   processedLibs[finalFilePath] = cleanedContent;
-                  console.warn(
-                    `[ATA] Successfully fetched and added aliased lib: ${finalFilePath}`,
-                  );
-                } else {
-                  console.warn(
-                    `[ATA] Fetched aliased lib already exists (possibly due to redirect): ${finalFilePath}`,
-                  );
                 }
 
                 // Recursively fetch imports from this newly added file?
                 // For simplicity, let's assume the initial ATA run + direct alias fetches are sufficient.
                 // Adding recursion here would significantly increase complexity.
-              } else {
-                console.warn(
-                  `[ATA] Failed to fetch aliased import ${specifier} from ${fetchUrl}: ${response.status} ${response.statusText}`,
-                );
               }
             })
             .catch((error) => {
@@ -284,10 +251,6 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
               );
             }),
         );
-      } else {
-        console.warn(
-          `[ATA] Alias '${specifier}' mapped to '${expectedCleanedPath}' already processed by ATA.`,
-        );
       }
     }
   }
@@ -296,18 +259,12 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
   const { error: aliasError } = await tryCatch(Promise.all(aliasFetchPromises));
   if (aliasError) {
     console.error("[ATA] Error during alias fetches:", aliasError);
-    // Continue, but log the error
   }
-  console.warn("[ATA] Finished processing aliased imports.");
 
   // 5. Finalize
   const extraLibs: ExtraLib[] = Object.entries(processedLibs)
     .map(([filePath, content]) => ({ filePath, content }))
     .sort((a, b) => a.filePath.localeCompare(b.filePath));
-
-  console.warn("[ATA] Enhanced ATA process finished.", {
-    finalResultCount: extraLibs.length,
-  });
 
   // Optimized package.json filtering
   const filePaths = new Set(extraLibs.map((lib) => lib.filePath));

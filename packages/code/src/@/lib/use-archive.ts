@@ -18,10 +18,6 @@ export const getSpeedy2 = async () => {
     format: "esm",
   }) as unknown as Array<{ text: string; path: string; contents: ArrayBuffer; }>;
 
-  // console.warn({ res }); // Already changed
-  // console.warn({ codeSpace }); // Already changed
-  // console.warn({ location }); // Already changed
-
   const css = await fetch(`/live/${codeSpace}/index.css`).then((res) => res.text());
   const appCss = await fetch(`/assets/app.css`).then((res) => res.text());
 
@@ -96,8 +92,6 @@ export const getSpeedy2 = async () => {
     },
     body: html,
   });
-
-  console.warn({ res });
 };
 Object.assign(globalThis, { getSpeedy2 });
 
@@ -193,22 +187,11 @@ export const useSpeedy = async (codeSpace: string) => {
     return data;
   };
 
-  // function base64convert (files) {
-  //   console.clear() // This is fine as it's for debugging in browser
-  //   const reader = new FileReader()
-  //   reader.onload = (e) => {
-  //     console.warn(e.target.result) // Changed to console.warn
-  //   }
-  //   reader.readAsDataURL(files[0])
-  // }
-
   const indexMjs = (await buildWithRetry()) as unknown as Array<{
     contents: Uint8Array;
     path: string;
     text: string;
   }>;
-
-  console.warn({ indexMjs });
 
   //   if (indexCss.length > 0 ) {
   //   const assets = indexCss.filter((f) => f.path.includes("/assets/"));
@@ -306,6 +289,4 @@ export const useSpeedy = async (codeSpace: string) => {
     },
     body: html,
   });
-
-  console.warn(`${location.origin}/my-cms/${md}/${codeSpace}.html`);
 };

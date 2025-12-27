@@ -64,22 +64,12 @@ export const Editor: React.FC<EditorProps> = (
   const handleContentChange = useCallback(async (newCode: string) => {
     if (!session) return;
 
-    const now = Date.now();
-    console.warn(
-      "[Editor] Monaco editor change detected (button press or edit)",
-      {
-        codeLength: newCode.length,
-        timestamp: new Date().toISOString(),
-      },
-    );
-
     const processChange = async (code: string) => {
       // Abort previous operation if any
       controller.current.abort();
       controller.current = new AbortController();
       const { signal } = controller.current;
 
-      console.warn("[Editor] Formatting code with Prettier...");
       const { data: formatted, error } = await tryCatch(prettierToThrow({
         code,
         toThrow: true,
@@ -89,7 +79,6 @@ export const Editor: React.FC<EditorProps> = (
         console.error("[Editor] Prettier error:", error);
         return;
       }
-      console.warn("[Editor] Code formatted.");
 
       if (signal.aborted) return;
 
@@ -105,7 +94,6 @@ export const Editor: React.FC<EditorProps> = (
         if (signal.aborted) return;
 
         setEditorState((prev) => ({ ...prev, code: formatted }));
-        console.warn("[Editor] Saving code to session...");
         // Pass replaceIframe to cSess.setCode so the preview iframe DOM node can be replaced after rendering.
         const { data: newCode, error: saveError } = await tryCatch(
           cSess.setCode(formatted, false, replaceIframe),
@@ -115,9 +103,6 @@ export const Editor: React.FC<EditorProps> = (
           return;
         }
         if (newCode !== formatted) {
-          console.info(
-            "[Editor]:  The code might has just formatting or comments difference, rendered app not updated",
-          );
           const { data: finalCode, error: saveError } = await tryCatch(
             cSess.setCode(formatted, true),
           );
@@ -126,10 +111,6 @@ export const Editor: React.FC<EditorProps> = (
             return;
           }
           if (finalCode !== formatted) {
-            console.warn(
-              "[Editor] Code was normalized by session storage on forced save. Updating to reflect session state.",
-              { received: finalCode, sent: formatted },
-            );
             // Update editorState and lastHash based on finalCode,
             // to align with what the session considers the true state.
             setEditorState((prev) => ({ ...prev, code: finalCode }));
@@ -140,8 +121,6 @@ export const Editor: React.FC<EditorProps> = (
           // If finalCode === formatted, the forced save worked as expected.
           // lastHash is already md5(formatted) from the earlier setLastHash(newHash) call.
         }
-
-        console.warn("[Editor] Code saved and propagated to session.");
 
         const { error: typeErrorError } = await tryCatch(throttledTypeCheck());
         if (typeErrorError) {
@@ -156,20 +135,9 @@ export const Editor: React.FC<EditorProps> = (
         lifetimeMetrics.current.longestSyncTime,
         syncTime,
       );
-      console.warn("[Editor] Code propagation complete.", {
-        syncTime,
-        codeLength: formatted.length,
-        timestamp: new Date().toISOString(),
-      });
     };
 
     await processChange(newCode);
-    const time = Date.now() - now;
-    console.debug("[Editor] Local change processed:", {
-      time,
-      codeLength: newCode.length,
-      timestamp: new Date().toISOString(),
-    });
   }, [session, cSess, lastHash, setLastHash, setEditorState, replaceIframe, throttledTypeCheck]);
 
   // Track external change metrics
@@ -201,17 +169,10 @@ export const Editor: React.FC<EditorProps> = (
       }
 
       // Metrics tracking
-      const timeSinceLastUpdate = now - externalMetrics.current.lastUpdateTime;
       externalMetrics.current.lastUpdateTime = now;
       externalMetrics.current.updateCount++;
 
       if (now - externalMetrics.current.lastLogTime > 5000) {
-        console.debug("[Editor] External update metrics:", {
-          updateCount: externalMetrics.current.updateCount,
-          skippedCount: externalMetrics.current.skippedCount,
-          averageTimeBetweenUpdates: timeSinceLastUpdate,
-          timestamp: new Date().toISOString(),
-        });
         externalMetrics.current.lastLogTime = now;
         externalMetrics.current.updateCount = 0;
         externalMetrics.current.skippedCount = 0;
@@ -244,12 +205,6 @@ export const Editor: React.FC<EditorProps> = (
               lifetimeMetrics.current.longestSyncTime,
               syncTime,
             );
-
-            console.debug("[Editor] External sync completed:", {
-              syncTime,
-              codeLength: code.length,
-              timestamp: new Date().toISOString(),
-            });
           }
         } catch (error) {
           console.error("[Editor] Error updating editor value:", error);
@@ -284,12 +239,6 @@ export const Editor: React.FC<EditorProps> = (
       if (!session || !containerRef.current || editorState.started) return;
 
       try {
-        console.debug("[Editor] Initializing editor", {
-          codeSpace,
-          containerRef: !!containerRef.current,
-          sessionCodeLength: session.code.length, // Added for debugging
-        });
-
         // Ensure container is valid
         if (!containerRef.current) {
           console.error("[Editor] Container ref is not available.");
@@ -331,8 +280,6 @@ export const Editor: React.FC<EditorProps> = (
         if (errorType) {
           await throttledTypeCheck();
         }
-
-        console.debug("[Editor] Editor initialized successfully");
       } catch (error) {
         console.error("[Editor] Uncaught Initialization error:", error);
       }
@@ -359,24 +306,6 @@ export const Editor: React.FC<EditorProps> = (
     totalSkippedChanges: 0,
     longestSyncTime: 0,
   });
-
-  // Monitor component cleanup and log final statistics
-  useEffect(() => {
-    const metrics = lifetimeMetrics.current;
-    return () => {
-      const duration = (Date.now() - metrics.startTime) / 1000;
-      console.info("[Editor] Component lifetime metrics:", {
-        durationSeconds: duration.toFixed(2),
-        avgLocalChangesPerMinute: (metrics.totalLocalChanges / (duration / 60))
-          .toFixed(2),
-        avgExternalChangesPerMinute: (metrics.totalExternalChanges / (duration / 60))
-          .toFixed(2),
-        totalSkippedChanges: metrics.totalSkippedChanges,
-        longestSyncTimeMs: metrics.longestSyncTime.toFixed(2),
-        codeSpace,
-      });
-    };
-  }, [codeSpace]);
 
   if (!session) return null;
 

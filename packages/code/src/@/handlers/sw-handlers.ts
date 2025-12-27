@@ -26,13 +26,8 @@ export class ServiceWorkerHandlers {
   }
 
   async handleInstall(): Promise<void> {
-    console.warn("Service Worker installing."); // Changed to warn
     const installPromise = async () => {
-      const config = await this.configManager.getConfig();
-
-      console.warn( // Changed to warn
-        `Current SW version: ${this.sw.swVersion}, Config version: ${config.swVersion}`,
-      );
+      await this.configManager.getConfig();
 
       // Initialize file cache regardless of version
       await this.fileCacheManager.initializeFilesCache();
@@ -53,7 +48,6 @@ export class ServiceWorkerHandlers {
 
       // Find what's missing
       const missing = CacheUtils.setDifference(allKeys, myKeys);
-      console.warn(`Found ${missing.size} files to cache`); // Changed to warn
 
       // Try to copy from old caches first to avoid unnecessary network requests
       const stillMissing = await CacheUtils.getMissingFiles(
@@ -61,8 +55,6 @@ export class ServiceWorkerHandlers {
         cacheNames,
         myCache,
       );
-
-      console.warn(`Still need to fetch ${stillMissing.size} files`); // Changed to warn
 
       // Create a simple fetch wrapper for caching
       const queuedFetch = {
@@ -86,8 +78,6 @@ export class ServiceWorkerHandlers {
 
       // Clean up old caches
       await CacheUtils.cleanOldCaches(this.sw.fileCacheName);
-
-      console.warn("Service Worker installed successfully."); // Changed to warn
     };
 
     const { error } = await tryCatch(installPromise());
@@ -100,8 +90,6 @@ export class ServiceWorkerHandlers {
 
   async handleActivate(): Promise<void> {
     const activatePromise = async () => {
-      console.warn("Service Worker activating."); // Changed to warn
-
       // Do a final validation of cache integrity
       await this.fileCacheManager.validateCacheIntegrity();
 
@@ -119,8 +107,6 @@ export class ServiceWorkerHandlers {
           message: "New service worker activated with updated cache",
         });
       }
-
-      console.warn("Service Worker activated and controlling."); // Changed to warn
     };
 
     const { error } = await tryCatch(activatePromise());
@@ -167,7 +153,6 @@ export class ServiceWorkerHandlers {
     );
 
     if (isEditorPath) {
-      console.warn("Serving editor:", request.url); // Changed to warn
       const editorRequest = new Request(
         new URL("/index.html", url.origin).toString(),
       );
@@ -217,7 +202,6 @@ export class ServiceWorkerHandlers {
         return cachedResponse;
       }
 
-      console.warn(`Cache miss for ${filePath}, fetching from network`); // Changed to warn
       const response = await fetch(cacheKey);
 
       if (response.ok) {
