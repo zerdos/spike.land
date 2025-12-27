@@ -4695,8 +4695,8 @@ __metadata:
     vitest: "npm:3.2.4"
     zod: "npm:^4.1.11"
   peerDependencies:
-    react: ^18.0.0
-    react-dom: ^18.0.0
+    react: ^19.0.0
+    react-dom: ^19.0.0
   languageName: unknown
   linkType: soft
 
