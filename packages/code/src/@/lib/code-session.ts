@@ -1,5 +1,5 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
-import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
+import type { ICode, ICodeSession, ImageData, Message } from "@/lib/interfaces";
 import { computeSessionHash, sanitizeSession } from "@/lib/make-sess";
 import { tryCatch } from "@/lib/try-catch";
 import { wait } from "@/lib/wait";
@@ -363,6 +363,21 @@ export class Code implements ICode {
 
   screenshot(): Promise<ImageData> {
     return screenshot();
+  }
+
+  /**
+   * Adds a message to the current session's message history
+   * @param message - The message to add
+   */
+  async addMessage(message: Message): Promise<void> {
+    const currentMessages = this.currentSession.messages || [];
+    const updatedMessages = [...currentMessages, message];
+
+    this.setSession({
+      ...this.currentSession,
+      messages: updatedMessages,
+      sender: "ADD_MESSAGE",
+    });
   }
 
   /**

@@ -52,6 +52,7 @@ export interface ICode {
   getCode(): Promise<string>;
   getCodeSpace(): string;
   sub: (fn: (sess: ICodeSession) => void) => () => void;
+  addMessage: (message: Message) => Promise<void>;
 }
 
 export interface IRenderApp {

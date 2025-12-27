@@ -6,8 +6,8 @@
   "module": "dist/index.js",
   "private": true,
   "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "scripts": {
     "dev": "npx wrangler dev",

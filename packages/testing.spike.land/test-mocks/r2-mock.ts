@@ -18,14 +18,22 @@ const mockR2Object = {
   blob: () => Promise.resolve(new Blob(["test"])),
 };
 
+interface R2PutValue {
+  size?: number;
+}
+
+interface R2Error extends Error {
+  status?: number;
+}
+
 export function setupR2Mock() {
   vi.mock("@cloudflare/workers-types", () => {
     return {
       R2Bucket: class {
-        async put(key: string, value: any) {
+        async put(key: string, value: R2PutValue) {
           if (!value || !value.size) {
-            const error = new Error("Missing or empty request body");
-            (error as any).status = 400;
+            const error: R2Error = new Error("Missing or empty request body");
+            error.status = 400;
             throw error;
           }
           return { key, size: value.size };

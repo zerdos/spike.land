@@ -1,3 +1,56 @@
+// CORS headers for API proxies
+export const API_CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+} as const;
+
+/**
+ * Creates a CORS preflight response for API proxies (OPTIONS requests)
+ */
+export function createCorsPreflightResponse(): Response {
+  return new Response(null, {
+    headers: API_CORS_HEADERS,
+  });
+}
+
+/**
+ * Adds CORS headers to an existing Response
+ */
+export function addCorsHeadersToResponse(response: Response): Response {
+  const responseHeaders = new Headers(response.headers);
+  responseHeaders.set("Access-Control-Allow-Origin", "*");
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: responseHeaders,
+  });
+}
+
+/**
+ * Creates a JSON error response with CORS headers
+ */
+export function createCorsErrorResponse(
+  error: string,
+  details: string,
+  status = 500,
+): Response {
+  return new Response(
+    JSON.stringify({
+      error,
+      details,
+    }),
+    {
+      status,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    },
+  );
+}
+
 export function isChunk(link: string) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
   return link.indexOf("chunk-") !== -1 || chunkRegExp.test(link);

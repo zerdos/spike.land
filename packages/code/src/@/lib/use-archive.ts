@@ -97,7 +97,7 @@ export const getSpeedy2 = async () => {
     body: html,
   });
 
-  console.warn({ res }); // Changed to warn
+  console.warn({ res });
 };
 Object.assign(globalThis, { getSpeedy2 });
 
@@ -208,7 +208,7 @@ export const useSpeedy = async (codeSpace: string) => {
     text: string;
   }>;
 
-  console.warn({ indexMjs }); // Changed to warn
+  console.warn({ indexMjs });
 
   //   if (indexCss.length > 0 ) {
   //   const assets = indexCss.filter((f) => f.path.includes("/assets/"));
@@ -307,5 +307,5 @@ export const useSpeedy = async (codeSpace: string) => {
     body: html,
   });
 
-  console.warn(`${location.origin}/my-cms/${md}/${codeSpace}.html`); // Changed to warn
+  console.warn(`${location.origin}/my-cms/${md}/${codeSpace}.html`);
 };
