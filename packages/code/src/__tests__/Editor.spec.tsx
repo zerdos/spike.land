@@ -49,6 +49,7 @@ describe("Editor Component", () => {
       getCodeSpace: vi.fn(),
       currentCodeWithExtraModels: vi.fn().mockResolvedValue(mockSessionData.code),
       setModelsByCurrentCode: vi.fn().mockResolvedValue(mockSessionData.code),
+      addMessage: vi.fn().mockResolvedValue(undefined),
     };
 
     mockUseEditorState.mockReturnValue({

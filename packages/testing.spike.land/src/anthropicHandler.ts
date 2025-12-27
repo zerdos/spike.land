@@ -1,4 +1,9 @@
 import type Env from "./env";
+import {
+  addCorsHeadersToResponse,
+  createCorsErrorResponse,
+  createCorsPreflightResponse,
+} from "./utils";
 
 export async function handleAnthropicRequest(
   originalRequest: Request,
@@ -6,13 +11,7 @@ export async function handleAnthropicRequest(
 ) {
   // Handle CORS preflight
   if (originalRequest.method === "OPTIONS") {
-    return new Response(null, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-      },
-    });
+    return createCorsPreflightResponse();
   }
 
   try {
@@ -79,28 +78,12 @@ export async function handleAnthropicRequest(
     }
 
     // Clone the response to add CORS headers
-    const responseHeaders = new Headers(response.headers);
-    responseHeaders.set("Access-Control-Allow-Origin", "*");
-
-    return new Response(response.body, {
-      status: response.status,
-      statusText: response.statusText,
-      headers: responseHeaders,
-    });
+    return addCorsHeadersToResponse(response);
   } catch (error) {
     console.error("Error in handleAnthropicRequest:", error);
-    return new Response(
-      JSON.stringify({
-        error: "Failed to process request",
-        details: error instanceof Error ? error.message : "Unknown error",
-      }),
-      {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      },
+    return createCorsErrorResponse(
+      "Failed to process request",
+      error instanceof Error ? error.message : "Unknown error",
     );
   }
 }

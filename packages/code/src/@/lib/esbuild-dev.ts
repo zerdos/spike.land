@@ -13,7 +13,6 @@ const getWasmFile = async () => {
   const { promises } = await import("node:fs");
   const { readdir } = promises;
 
-  console.warn("Reading ./dist directory for WASM file...");
   const { data: dir, error: readdirError } = await tryCatch(readdir("./dist"));
 
   if (readdirError || !dir) {
@@ -26,7 +25,6 @@ const getWasmFile = async () => {
 
   for await (const file of dir) {
     if (file.includes("esbuild") && file.includes(".wasm")) {
-      console.warn("WASM file found:", file);
       return file;
     }
   }
@@ -36,35 +34,14 @@ const getWasmFile = async () => {
 };
 
 async function main() {
-  console.warn("Building... " + process.env["NODE_ENV"]);
   try {
-    console.warn("Starting buildWorkers...");
     await buildWorkers();
-    console.warn("buildWorkers completed.");
-
-    console.warn("Starting buildMainScripts...");
     await buildMainScripts();
-    console.warn("buildMainScripts completed.");
-
-    console.warn("Starting buildWasm...");
     await buildWasm();
-    console.warn("buildWasm completed.");
-
-    // console.warn("Starting buildServiceWorker...");
     await buildServiceWorker();
-    console.warn("buildServiceWorker completed.");
-
-    console.warn("Fetching WASM file...");
     const wasmFile = await getWasmFile();
-    console.warn("WASM file retrieved:", wasmFile);
-
-    console.warn("Starting buildMainBundle with WASM file...");
     await buildMainBundle(wasmFile);
-    console.warn("buildMainBundle completed.");
-
-    console.warn("Stopping esbuild operations...");
     stop();
-    console.warn("Build process completed successfully.");
   } catch (error) {
     console.error("Build failed:", error);
   }

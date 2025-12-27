@@ -10,18 +10,25 @@ export interface MockWebSocket {
   onclose: ((event: CloseEvent) => void) | null;
 }
 
+// Extend globalThis type for WebSocketPair
+declare global {
+  interface GlobalThis {
+    WebSocketPair?: new() => [MockWebSocket, MockWebSocket];
+  }
+}
+
 export function setupWebSocketPairMock() {
   if (!("WebSocketPair" in globalThis)) {
-    (globalThis as any).WebSocketPair = function() {
+    (globalThis as { WebSocketPair?: () => [MockWebSocket, MockWebSocket] }).WebSocketPair = function() {
       const wsStub: MockWebSocket = {
         send: vi.fn(),
         close: vi.fn(),
         accept: vi.fn(),
         addEventListener: vi.fn((type: string, listener: EventListener) => {
           if (type === "message") {
-            wsStub.onmessage = listener as any;
+            wsStub.onmessage = listener as (event: MessageEvent) => void;
           } else if (type === "close") {
-            wsStub.onclose = listener as any;
+            wsStub.onclose = listener as (event: CloseEvent) => void;
           }
         }),
         readyState: 1,

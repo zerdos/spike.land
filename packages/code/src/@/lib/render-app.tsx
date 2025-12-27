@@ -78,8 +78,6 @@ const toHtmlAndCss = async (
     ].join("\n")
       .split(cssCache.key).join("x");
 
-    // console.warn("Emotion styles:", emotionStyles); // Reduced logging
-
     // Get tailwind styles
     const { data: tailwindStyles, error: tailwindStylesError } = await tryCatch(
       Promise.resolve(
@@ -161,31 +159,23 @@ export const importFromString = async (code: string) => {
         ], { type: "application/javascript" }),
       );
 
-    const { data: blobUrl, error: blobError } = await tryCatch(
+    const { data: blobUrl } = await tryCatch(
       createJsBlob(code),
     );
 
     if (blobUrl) {
-      const { data: module, error: importError } = await tryCatch(
+      const { data: module } = await tryCatch(
         import(/* @vite-ignore */ blobUrl),
       );
 
       if (module) {
         return module.default as FlexibleComponentType;
-      } else {
-        console.warn(
-          "Using file-based import approach instead of Blob URL",
-          importError,
-        );
       }
-    } else {
-      console.warn("Failed to create blob URL", blobError);
     }
   }
 
   // For Node.js test environment, return a mock component directly
   if (!isBrowser) {
-    console.warn("Test environment - using mock component");
     return (() =>
       React.createElement(
         "div",
@@ -218,8 +208,6 @@ export const importFromString = async (code: string) => {
       )) as FlexibleComponentType;
   }
 
-  console.warn("File written to", filePath);
-
   // Import the file
   const { data: module, error: importError } = await tryCatch(
     import(
@@ -250,9 +238,6 @@ function _determineEnvironment(): boolean {
 async function _handleTestEnvironment(
   { App, transpiled, code }: Pick<IRenderApp, "App" | "transpiled" | "code">,
 ): Promise<RenderedApp> {
-  console.warn(
-    "Test environment - mocking DOM elements and component loading.",
-  );
   const mockElement = {} as unknown as HTMLDivElement;
 
   if (App) {
@@ -264,9 +249,7 @@ async function _handleTestEnvironment(
       cssCache: { sheet: { flush: () => {} } } as ReturnType<
         typeof createCache
       >,
-      cleanup: () => {
-        console.warn("Mock cleanup called in test environment");
-      },
+      cleanup: () => {},
     };
   }
 
@@ -308,9 +291,7 @@ async function _handleTestEnvironment(
     rRoot: { unmount: () => {} } as Root,
     App: AppToRender,
     cssCache: { sheet: { flush: () => {} } } as ReturnType<typeof createCache>,
-    cleanup: () => {
-      console.warn("Mock cleanup called in test environment");
-    },
+    cleanup: () => {},
   };
 }
 
@@ -341,7 +322,6 @@ async function _loadAppComponent(
   if (App) {
     AppToRender = App;
   } else if (codeSpace && !transpiled && !code) {
-    console.warn("Rendering static Editor UI for codeSpace:", codeSpace);
     AppToRender = (await import(
       /* @vite-ignore */
       `${currentOrigin}/live/${codeSpace}/index.js`

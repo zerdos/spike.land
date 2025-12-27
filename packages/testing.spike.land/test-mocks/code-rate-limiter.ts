@@ -23,7 +23,11 @@ export function setupCodeRateLimiter() {
       return new Response(cooldown.toString());
     }
 
-    static reset() {
+    static async check(_key: string): Promise<boolean> {
+      return true;
+    }
+
+    static reset(_key?: string) {
       CodeRateLimiter.requestCount = 0;
       CodeRateLimiter.windowStart = Date.now();
     }

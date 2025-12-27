@@ -140,7 +140,7 @@ export class WebSocketManager implements IWebSocketManager {
 
       // Subscribe to code session updates
       this.dependencies.sessionSynchronizer.subscribe((data: MessageData) => {
-        console.warn("Code session update:", data); // Changed to console.warn
+        console.warn("Code session update:", data);
         // Additional live page specific handling can be added here
       });
 
@@ -267,7 +267,7 @@ export class WebSocketManager implements IWebSocketManager {
       this.retryCount++;
       this.state = WebSocketState.RECONNECTING;
       setTimeout(() => {
-        console.warn( // Changed to console.warn
+        console.warn(
           `Retrying connection (${this.retryCount}/${this.config.maxRetries})...`,
         );
         this.init().catch(console.error);

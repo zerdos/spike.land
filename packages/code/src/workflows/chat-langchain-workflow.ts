@@ -234,22 +234,20 @@ Please respond to the user's request. If you need to modify the code, use the re
         const currentCode = await cSess.getCode();
         const currentHash = md5(currentCode);
 
-        // TODO: addMessage is not part of ICode interface, need to implement message handling
-        // cSess.addMessage({
-        //   id: Date.now().toString(),
-        //   role: "user",
-        //   content: userMessage,
-        // });
+        await cSess.addMessage({
+          id: Date.now().toString(),
+          role: "user",
+          content: userMessage,
+        });
 
         // Run the chain
         const response = await chain.invoke(userMessage);
 
-        // TODO: addMessage is not part of ICode interface, need to implement message handling
-        // cSess.addMessage({
-        //   id: Date.now().toString(),
-        //   role: "assistant",
-        //   content: response,
-        // });
+        await cSess.addMessage({
+          id: Date.now().toString(),
+          role: "assistant",
+          content: typeof response === "string" ? response : String(response),
+        });
 
         return {
           success: true,

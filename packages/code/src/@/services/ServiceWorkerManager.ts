@@ -15,11 +15,11 @@ declare global {
 export const setupServiceWorker = async (): Promise<
   ServiceWorkerRegistration | null
 > => {
-  console.warn("Setting up service worker..."); // Changed to console.warn
+  console.warn("Setting up service worker...");
 
   // Skip if service workers aren't supported
   if (!("serviceWorker" in navigator)) {
-    console.warn("Service worker not supported in this browser"); // Changed to console.warn
+    console.warn("Service worker not supported in this browser");
     return null;
   }
 
@@ -27,7 +27,7 @@ export const setupServiceWorker = async (): Promise<
   if (
     location.hostname === "localhost" && !localStorage.getItem("enable_sw_dev")
   ) {
-    console.warn( // Changed to console.warn
+    console.warn(
       "Service worker disabled on localhost (enable with localStorage.enable_sw_dev = true)",
     );
     return null;
@@ -52,7 +52,7 @@ export const setupServiceWorker = async (): Promise<
       } else if (
         oldSwVersion === swVersion && serverVersionResult.data === swVersion
       ) {
-        console.warn("Service worker is already registered and up-to-date"); // Changed to console.warn
+        console.warn("Service worker is already registered and up-to-date");
         return oldRegistration;
       }
       await oldRegistration.unregister();
@@ -73,7 +73,7 @@ export const setupServiceWorker = async (): Promise<
     localStorage.setItem("swVersion", swVersion);
 
     if (registrationResult.data) {
-      console.warn("Service worker registered successfully"); // Changed to console.warn
+      console.warn("Service worker registered successfully");
       window.__WB_INSTANCE = wb;
       return registrationResult.data;
     }
@@ -96,28 +96,28 @@ function configureServiceWorkerEvents(wb: Workbox): void {
   // Handle installation events
   wb.addEventListener("installed", (event) => {
     if (event.isUpdate) {
-      console.warn("Service worker has been updated"); // Changed to console.warn
+      console.warn("Service worker has been updated");
 
       // Prompt user to update
       if (confirm("New version available! Reload to update?")) {
         window.location.reload();
       }
     } else {
-      console.warn("Service worker installed for the first time"); // Changed to console.warn
+      console.warn("Service worker installed for the first time");
     }
   });
 
   // Handle controlling events
   wb.addEventListener("controlling", () => {
-    console.warn("Service worker is now controlling the page"); // Changed to console.warn
+    console.warn("Service worker is now controlling the page");
   });
 
   // Handle messages from service worker
   wb.addEventListener("message", (event) => {
-    console.warn("Message from service worker:", event.data); // Changed to console.warn
+    console.warn("Message from service worker:", event.data);
 
     if (event.data?.type === "CACHE_UPDATED") {
-      console.warn("Cache has been updated:", event.data.message); // Changed to console.warn
+      console.warn("Cache has been updated:", event.data.message);
     }
 
     if (event.data === "reload") {
@@ -129,7 +129,7 @@ function configureServiceWorkerEvents(wb: Workbox): void {
 // Setup global service worker message listeners
 if (navigator.serviceWorker) {
   navigator.serviceWorker.addEventListener("message", (event) => {
-    console.warn("Service worker message received:", event.data); // Changed to console.warn
+    console.warn("Service worker message received:", event.data);
 
     if (event.data === "reload") {
       window.location.reload();
@@ -139,7 +139,7 @@ if (navigator.serviceWorker) {
     if (event.data?.type) {
       switch (event.data.type) {
         case "CACHE_UPDATED":
-          console.warn("Cache has been updated:", event.data.message); // Changed to console.warn
+          console.warn("Cache has been updated:", event.data.message);
           break;
 
         case "ERROR":
@@ -147,7 +147,7 @@ if (navigator.serviceWorker) {
           break;
 
         default:
-          console.warn("Unknown message type from service worker:", event.data); // Changed to console.warn
+          console.warn("Unknown message type from service worker:", event.data);
       }
     }
   });

@@ -46,7 +46,7 @@ export class RenderService {
   ): Promise<RenderedApp | null> {
     let hashed = md5(transpiled);
     if (hashed === this.renderedMd5 && !transpiled.includes(`cn("`)) {
-      console.warn("Skipping update as md5 is the same"); // Changed to console.warn
+      console.warn("Skipping update as md5 is the same");
       return this.rendered;
     } else if (transpiled.includes(`cn("`)) {
       const cnArr = transpiled.split(`cn("`);
