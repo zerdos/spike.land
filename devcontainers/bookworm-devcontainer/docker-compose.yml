@@ -16,10 +16,10 @@ services:
       - USER=${USER}
       - HOME=${HOME}
       - XDG_CONFIG_DIRS=/etc/xdg
+      - CLAUDE_CODE_OAUTH_TOKEN=${CLAUDE_CODE_OAUTH_TOKEN}
     volumes:
       - .:${HOME}/workspace:rw
-      - ${HOME}/.claude:${HOME}/.claude
-      - ${HOME}/.config:${HOME}/.config
+      - ./.claude:${HOME}/.claude
       - ${HOME}/.oh-my-zsh:${HOME}/.oh-my-zsh
       - /var/run/docker.sock:/HOME/run/docker.sock
     ports:

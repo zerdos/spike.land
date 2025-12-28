@@ -256,6 +256,8 @@ RUN rm -rf ${USER_HOME}/.oh-my-zsh \
        -p yarn \
        -a 'CASE_SENSITIVE="true"' \
     && touch ~/.bashrc \
+    && curl -fsSL https://claude.ai/install.sh | bash \
+    &&   echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc \
     && echo ":)" > ~/.mood
 
 # Set the default shell to zsh
