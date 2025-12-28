@@ -1,4 +1,4 @@
-import { languages } from "@/workers/monaco-editor.worker";
+import { languages, typescript } from "@/workers/monaco-editor.worker";
 import { getCompilerOptions, getDiagnosticsOptions } from "./config";
 
 /**
@@ -8,15 +8,15 @@ import { getCompilerOptions, getDiagnosticsOptions } from "./config";
  */
 export function registerLanguages(): void {
   // Configure TypeScript language defaults
-  languages.typescript.typescriptDefaults.setCompilerOptions(
+  typescript.typescriptDefaults.setCompilerOptions(
     getCompilerOptions(),
   );
-  languages.typescript.typescriptDefaults.setDiagnosticsOptions(
+  typescript.typescriptDefaults.setDiagnosticsOptions(
     getDiagnosticsOptions(),
   );
 
   // Set mode configuration for TypeScript
-  languages.typescript.typescriptDefaults.setModeConfiguration({
+  typescript.typescriptDefaults.setModeConfiguration({
     completionItems: true,
     hovers: true,
     documentSymbols: true,
@@ -79,9 +79,9 @@ export function configureJsxSupport(uri: string): void {
   // If this is a TSX file, ensure JSX syntax highlighting is enabled
   if (uri.endsWith(".tsx")) {
     // Register JSX tokens provider if needed
-    languages.typescript.typescriptDefaults.setCompilerOptions({
-      ...languages.typescript.typescriptDefaults.getCompilerOptions(),
-      jsx: languages.typescript.JsxEmit.ReactJSX,
+    typescript.typescriptDefaults.setCompilerOptions({
+      ...typescript.typescriptDefaults.getCompilerOptions(),
+      jsx: typescript.JsxEmit.ReactJSX,
       jsxFactory: "React.createElement",
       jsxFragmentFactory: "React.Fragment",
       jsxImportSource: "@emotion/react",
@@ -124,7 +124,7 @@ export function registerFormattingProvider(
  * @param enable Whether to enable validation
  */
 export function setTypeScriptValidation(enable: boolean): void {
-  languages.typescript.typescriptDefaults.setDiagnosticsOptions(
+  typescript.typescriptDefaults.setDiagnosticsOptions(
     getDiagnosticsOptions(enable),
   );
 }

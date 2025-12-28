@@ -1,6 +1,6 @@
 import { md5 } from "@/lib/md5";
 import { wait } from "@/lib/wait";
-import { editor, languages, Range, Uri } from "@/workers/monaco-editor.worker";
+import { editor, Range, Uri, typescript } from "@/workers/monaco-editor.worker";
 import { getEditorOptions } from "./config";
 import { originToUse } from "./config";
 import { configureJsxSupport, registerFormattingProvider, registerLanguages } from "./language";
@@ -174,7 +174,7 @@ async function createEditorModel(
     silent: false,
     getErrors: async () => {
       try {
-        const worker = await languages.typescript.getTypeScriptWorker();
+        const worker = await typescript.getTypeScriptWorker();
         const typeScriptWorker = await worker(uri);
         const diagnostics = await typeScriptWorker.getSuggestionDiagnostics(
           uri.toString(),

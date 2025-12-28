@@ -1,4 +1,4 @@
-import { languages } from "@/workers/monaco-editor.worker";
+import { typescript } from "@/workers/monaco-editor.worker";
 import type { editor as Editor } from "monaco-editor";
 import type { ResponsiveSettings } from "./types";
 
@@ -150,10 +150,10 @@ export function getEditorOptions(): Editor.IStandaloneEditorConstructionOptions 
 export function getCompilerOptions() {
   return {
     baseUrl: originToUse + "/",
-    target: languages.typescript.ScriptTarget.Latest,
+    target: typescript.ScriptTarget.Latest,
     allowNonTsExtensions: true,
-    moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
-    module: languages.typescript.ModuleKind.ESNext,
+    moduleResolution: typescript.ModuleResolutionKind.NodeJs,
+    module: typescript.ModuleKind.ESNext,
     importHelpers: true,
     lib,
     esModuleInterop: false,
@@ -190,10 +190,10 @@ export function getCompilerOptions() {
       "/*": [`${originToUse}/`],
     },
     jsxImportSource: "@emotion/react",
-    jsx: languages.typescript.JsxEmit.ReactJSX,
+    jsx: typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: false,
     include: [`${originToUse}/`],
-  };
+  } as typescript.CompilerOptions;
 }
 
 // Diagnostics options

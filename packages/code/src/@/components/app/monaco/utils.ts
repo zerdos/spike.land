@@ -1,5 +1,5 @@
 import { wait } from "@/lib/wait";
-import { editor, languages, Uri } from "@/workers/monaco-editor.worker";
+import { editor, typescript, Uri } from "@/workers/monaco-editor.worker";
 import { modelCache, originToUse } from "./config";
 import type { ExtraLib } from "./types";
 
@@ -66,7 +66,7 @@ export async function refreshAta(
     );
 
     console.warn("Setting extra libraries:", { extraLibs });
-    languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
+    typescript.typescriptDefaults.setExtraLibs(extraLibs);
 
     const mjsFiles = extraLibs.filter((lib) => lib.filePath.endsWith(".mjs"));
     for (const lib of mjsFiles) {
@@ -80,13 +80,13 @@ export async function refreshAta(
       }
     }
 
-    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+    typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
       noSyntaxValidation: false,
       diagnosticCodesToIgnore: [2691],
     });
-    languages.typescript.typescriptDefaults.setEagerModelSync(true);
+    typescript.typescriptDefaults.setEagerModelSync(true);
   } catch (error) {
     console.error("Error refreshing ATA:", error);
     throw new Error(
@@ -222,7 +222,7 @@ export async function checkTypeScriptErrors(
     }
 
     // Now check for errors
-    const typeScriptWorker = await (await languages.typescript.getTypeScriptWorker())(uri);
+    const typeScriptWorker = await (await typescript.getTypeScriptWorker())(uri);
 
     const [syntacticDiagnostics, semanticDiagnostics, suggestionDiagnostics] = await Promise.all([
       typeScriptWorker.getSyntacticDiagnostics(uri.toString()),
@@ -244,7 +244,7 @@ export async function checkTypeScriptErrors(
       console.warn("Missing module errors detected:", missingModuleErrors);
 
       // Try another refresh with more aggressive settings
-      languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+      typescript.typescriptDefaults.setDiagnosticsOptions({
         noSuggestionDiagnostics: false,
         noSemanticValidation: false,
         noSyntaxValidation: false,
