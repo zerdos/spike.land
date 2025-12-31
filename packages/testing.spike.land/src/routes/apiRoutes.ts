@@ -15,7 +15,8 @@ export class ApiRoutes {
     url: URL,
     path: string[],
   ): Promise<Response> {
-    const action = path[0];
+    // path comes in as ["api", "code"] or ["api", "run"] etc.
+    const action = path[1];
 
     switch (action) {
       case "code":
