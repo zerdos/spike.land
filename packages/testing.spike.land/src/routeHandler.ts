@@ -1,6 +1,7 @@
 import type { Code } from "./chatRoom";
 import {
   AiRoutes,
+  ApiRoutes,
   AuthRoutes,
   CodeRoutes,
   DefaultRoutes,
@@ -24,6 +25,7 @@ export class RouteHandler {
   private storageRoutes: StorageRoutes;
   private defaultRoutes: DefaultRoutes;
   private aiRoutes: AiRoutes;
+  private apiRoutes: ApiRoutes;
 
   constructor(private code: Code) {
     // Initialize all route handlers
@@ -35,6 +37,7 @@ export class RouteHandler {
     this.storageRoutes = new StorageRoutes(this.code);
     this.defaultRoutes = new DefaultRoutes(this.code);
     this.aiRoutes = new AiRoutes(this.code);
+    this.apiRoutes = new ApiRoutes(this.code);
   }
 
   async handleRoute(
@@ -88,6 +91,9 @@ export class RouteHandler {
 
       // AI routes
       messages: this.aiRoutes.handleMessagesRoute.bind(this.aiRoutes),
+
+      // REST API routes
+      api: this.apiRoutes.handleApiRoute.bind(this.apiRoutes),
 
       // Utility routes
       request: this.utilityRoutes.handleRequestRoute.bind(this.utilityRoutes),

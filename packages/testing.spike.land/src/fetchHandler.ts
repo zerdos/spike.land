@@ -26,6 +26,10 @@ export async function handleFetchApi(
     "node_modules": async () => handleUnpkg(path),
 
     "importMap.json": async () => handleImportMapJson(),
+
+    // REST API: /api/{codeSpace}/{action}
+    // This provides cleaner URLs than /api/room/{codeSpace}/{action}
+    "api-v1": async () => handleRestApiRequest(path.slice(1), request, env),
     "robots.txt": async () => {
       const cont = `
 User-agent: *
@@ -253,4 +257,59 @@ async function handleLiveIndexRequest(request: Request, env: Env) {
     default:
       return new Response("Method not allowed", { status: 405 });
   }
+}
+
+async function handleRestApiRequest(
+  path: string[],
+  request: Request,
+  env: Env,
+): Promise<Response> {
+  // /api-v1/{codeSpace}/{action} -> routes to Durable Object with path /api/{action}
+  const [codeSpace, ...remainingPath] = path;
+
+  if (!codeSpace) {
+    return new Response(
+      JSON.stringify({ success: false, error: "CodeSpace required in URL" }),
+      {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      },
+    );
+  }
+
+  // Handle CORS preflight
+  if (request.method === "OPTIONS") {
+    return new Response(null, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Max-Age": "86400",
+      },
+    });
+  }
+
+  // Get Durable Object for this codeSpace
+  let id;
+  if (codeSpace.match(/^[0-9a-f]+$/) && codeSpace.length === 16) {
+    id = env.CODE.idFromString(codeSpace);
+  } else if (codeSpace.length <= 32) {
+    id = env.CODE.idFromName(codeSpace);
+  } else {
+    return new Response(
+      JSON.stringify({ success: false, error: "CodeSpace name too long" }),
+      {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      },
+    );
+  }
+
+  const roomObject = env.CODE.get(id);
+  const newUrl = new URL(request.url);
+  // Route to /api/{action} inside the Durable Object
+  newUrl.pathname = "/api/" + remainingPath.join("/");
+  newUrl.searchParams.set("room", codeSpace);
+
+  return roomObject.fetch(new Request(newUrl.toString(), request));
 }

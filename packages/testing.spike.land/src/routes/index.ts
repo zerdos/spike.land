@@ -1,4 +1,5 @@
 export { AiRoutes } from "./aiRoutes";
+export { ApiRoutes } from "./apiRoutes";
 export { AuthRoutes } from "./authRoutes";
 export { CodeRoutes } from "./codeRoutes";
 export { DefaultRoutes } from "./defaultRoutes";
